@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.person.timetable.Timetable;
 
 /**
  * Represents a Person in the address book.
@@ -19,6 +20,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private Timetable timeTable;
 
     // Data fields
     private final Address address;
@@ -34,6 +36,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        createTimeTable();
     }
 
     public Name getName() {
@@ -50,6 +53,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Timetable getTimeTable() {
+        return timeTable;
     }
 
     /**
@@ -115,6 +122,11 @@ public class Person {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    public void createTimeTable() {
+        Timetable timeTable = new Timetable();
+        this.timeTable = timeTable;
     }
 
 }
