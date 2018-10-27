@@ -22,15 +22,12 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
         requireNonNull(args);
         String trimmedArgs = args.trim();
         String[] actions = trimmedArgs.split("\\s+");
-        if (actions.length < 4) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ChangeTimeSlotCommand.MESSAGE_USAGE));
-        }
+
         if (actions.length % 3 != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ChangeTimeSlotCommand.MESSAGE_USAGE));
         }
-        Index index = Index.fromOneBased(Integer.parseInt(actions[0]));
+        String index = actions[0];
         for (int i = 1; i < actions.length; i++) {
             if (i % 3 == 1) {
                 if (isInvalidDay(actions[i])) {

@@ -12,11 +12,11 @@ import seedu.address.model.tag.Tag;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class TimetableCard extends UiPart<Region> {
+public class SelfCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES = {"white", "grey2", "grey4", "grey6",
-             "black"};
+    private static final String[] TAG_COLOR_STYLES = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
+            "pink", "black", "grey", "maroon", "navy"};
 
 
     /**
@@ -42,6 +42,8 @@ public class TimetableCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private FlowPane enrolledClasses;
+    @FXML
     private FlowPane header;
     @FXML
     private FlowPane monday;
@@ -54,14 +56,20 @@ public class TimetableCard extends UiPart<Region> {
     @FXML
     private FlowPane friday;
 
-    public TimetableCard(Person person, int displayedIndex) {
+    public SelfCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText("");
-        address.setText(person.getAddress().toString());
-        email.setText("");
+        id.setText("");
+        name.setText("Self");
+        phone.setText(" ");
+        address.setText(" ");
+        email.setText(" ");
+
+       /* for(String tempEnrolledClassName : person.getEnrolledClasses().keySet()){
+            Label enrolledClass = new Label(tempEnrolledClassName);
+            enrolledClass.setPrefSize(61, 10);
+            header.getChildren().add(enrolledClass);
+        }*/
 
         for (String it : Tag.getHeader()) {
             Label day = new Label(it);
@@ -104,11 +112,10 @@ public class TimetableCard extends UiPart<Region> {
         for (String it : mods) {
             Label slot = new Label(it);
             slot.setPrefSize(51, 25);
-            if(it.equalsIgnoreCase("busy")) {
+            if (it.equalsIgnoreCase("busy")) {
                 slot.getStyleClass().add("black");
                 slot.setText(" ");
-            }
-            else if (it.equalsIgnoreCase("0")||it.equalsIgnoreCase("free")) {
+            } else if (it.equalsIgnoreCase("free")) {
                 slot.getStyleClass().add("white");
                 slot.setText(" ");
             } else {
@@ -119,16 +126,9 @@ public class TimetableCard extends UiPart<Region> {
             day.getChildren().add(slot);
         }
     }
-
     //Returns a colour based on the module code
     public static String getColor(String tagName) {
-        int tagIndex = Integer.parseInt(tagName);
-        if (tagIndex<=4) {
-            return TAG_COLOR_STYLES[tagIndex];
-        }
-        else{
-            return TAG_COLOR_STYLES[4];
-        }
+        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
     }
 
     /**
@@ -162,12 +162,12 @@ public class TimetableCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TimetableCard)) {
+        if (!(other instanceof PersonCard)) {
             return false;
         }
 
         // state check
-        TimetableCard card = (TimetableCard) other;
+        SelfCard card = (SelfCard) other;
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
