@@ -1,12 +1,17 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.*;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -91,6 +96,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    public void setSelf(){
+        Person self = (new Person(new Name("Self"), new Phone("9999999"), new Email("self@self"), new Address("self"),
+                getTagSet("self"), new TreeMap<>(), TimeSlots.initTimeSlots()));
+        persons.add(self);
     }
 
     //// util methods

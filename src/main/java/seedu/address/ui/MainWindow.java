@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private MergedTimetablePanel mergedTimetablePanel;
+    private SelfCardPanel selfCardPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -63,6 +64,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane mergedTimetablePlaceholder;
+
+    @FXML
+    private StackPane selfPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -143,6 +147,9 @@ public class MainWindow extends UiPart<Stage> {
 
         mergedTimetablePanel = new MergedTimetablePanel(logic.getFilteredPersonList());
         mergedTimetablePlaceholder.getChildren().add(mergedTimetablePanel.getRoot());
+
+        selfCardPanel = new SelfCardPanel(logic.getFilteredPersonList());
+        selfPlaceholder.getChildren().add(selfCardPanel.getRoot());
     }
 
     void hide() {
