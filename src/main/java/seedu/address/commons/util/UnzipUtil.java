@@ -73,7 +73,8 @@ public class UnzipUtil {
             }
 
             // Acquiring the content of the zip file through an input stream
-            ZipInputStream zipinputstream = new ZipInputStream(new FileInputStream(zipFile));
+            FileInputStream fileInputStream = new FileInputStream(zipFile);
+            ZipInputStream zipinputstream = new ZipInputStream(fileInputStream);
 
             // Acquiring the list entries of the zip file
             ZipEntry zipEntry = zipinputstream.getNextEntry();
