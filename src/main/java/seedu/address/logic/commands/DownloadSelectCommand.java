@@ -1,40 +1,33 @@
 package seedu.address.logic.commands;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.support.ui.*;
+import seedu.address.commons.util.UnzipUtil;
 import seedu.address.logic.*;
+import seedu.address.logic.commands.exceptions.*;
 import seedu.address.model.*;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.*;
 
-public class DownloadSelectCommand extends Command {
+public class DownloadSelectCommand extends DownloadAbstract{
 
     public static final String COMMAND_WORD = "downloadSelect";
-    public static final String MESSAGE_USAGE = "downloadSelect pass/(password) user/(username) mod/(moduleCode) file/(0,1,2....n))";
-    public static final String CHROMEDRIVER_PATH_WINDOWS = "/chromeDrivers/windows/chromedriver.exe";
-    public static final String CHROMEDRIVER_PATH_MAC = "/chromeDrivers/mac/chromedriver";
-    public static final String DOWNLOAD_RELATIVE_PATH = "/notesDownload";
-    public static final String IVLE_TITLE = "IVLE";
-    public static final String WINDOWS_OS_NAME="Windows";
-    public static final String MAC_OS_NAME="Mac";
-    public static final String IVLE_ADDRESS = "https://ivle.nus.edu.sg";
-    public static final String IVLE_USERNAME_FIELD_ID = "ctl00_ctl00_ContentPlaceHolder1_userid";
-    public static final String IVLE_PASSWORD_FIELD_ID = "ctl00_ctl00_ContentPlaceHolder1_password";
-    public static final String IVLE_LOGIN_BUTTON_ID = "ctl00_ctl00_ContentPlaceHolder1_btnSignIn";
-    public static final String WRONG_PASS_USER_MESSAGE = "WRONG PASSWORD OR USERNAME ENTERED";
-    public static final String IVLE_DOWNLOAD_PAGE_ADDRESS = "https://ivle.nus.edu.sg/v1/File/download_all.aspx";
-    public static final String IVLE_MODULE_LIST_FIELD_ID = "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
-    public static final String MODULE_NOT_FOUND_MESSAGE = "MODULE CODE NOT FOUND";
-    public static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
-    public static final String TREEVIEW_CLASS_ID = "TreeView";
-    public static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID="href";
 
-    private String username;
-    private String password;
+    public static final String MESSAGE_USAGE = "downloadSelect user/(username) pass/(password) mod/(moduleCode) file/(0,1,2...n))";
+
+    public static final String NO_FILES_SELECTED_MESSAGE = "Please select a file after the \"file/\" tag. Ie: file/(0,1,2...n))";
+
+    private static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
+
+    private static final String TREEVIEW_CLASS_ID = "TreeView";
+
+    private static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID = "href";
+
+
+
     private ArrayList<Integer> fileSelect;
-    private String moduleCode;
-    private String downloadFilePath;
+    /**
+     * secondary constructor to handle execution if user enters values with the PREFIX_SELECT_FILE prefix.
+     */
 
     public DownloadSelectCommand(String username, String password,String moduleCode,String fileSelectInput){
         this.password=password;
@@ -44,42 +37,53 @@ public class DownloadSelectCommand extends Command {
         for(String id: fileSelectInput.split(",")){
             fileSelect.add(Integer.parseInt(id));
         }
-
     }
+
     public DownloadSelectCommand(String username, String password,String moduleCode){
         this.password=password;
         this.username=username;
         this.moduleCode=moduleCode;
     }
+
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        String returnMessage;
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException
+    {
+        initializePaths();
         WebDriver driver=initializeWebDriver();
         loginIvle(driver);
-        if(checkLoggedIn(driver)==false){
+        if(!isLoggedIn(driver)){
             driver.close();
-            returnMessage = WRONG_PASS_USER_MESSAGE;
+            throw new CommandException(WRONG_PASS_USER_MESSAGE);
         }
         else{
-            if(checkModuleExists(driver)){
+            if(isModuleExisting(driver)){
                 if(fileSelect==null) {
-                    returnMessage=getFileNames(driver);
                     driver.close();
+                    return new CommandResult(getFileNames(driver));
                 }
                 else{
                     initializeDownloadFolder();
                     downloadFiles(driver);
                     dynamicWaiting();
                     driver.close();
-                    returnMessage = moduleCode+" FILES DOWNLOADED AT :"+downloadFilePath;
+
+                    try{
+                        UnzipUtil.unzipFile(downloadTemporaryPath, UNZIP_FILE_KEYWORD,
+                                currentDirectory, DOWNLOAD_FILE_PATH, moduleCode);
+
+                    } catch (IOException ioe) {
+                        throw new CommandException(MESSAGE_FILE_CORRUPTED);
+                    }
+
+                    return new CommandResult(moduleCode + MESSAGE_SUCCESS
+                            + currentDirectory + DOWNLOAD_FILE_PATH);
                 }
             }
             else{
                 driver.close();
-                returnMessage = MODULE_NOT_FOUND_MESSAGE;
+                throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
             }
         }
-        return new CommandResult(returnMessage);
     }
 
     private String getFileNames(WebDriver driver){
@@ -94,99 +98,11 @@ public class DownloadSelectCommand extends Command {
         }
         return result;
     }
-    private void downloadFiles(WebDriver driver){
+    protected void downloadFiles(WebDriver driver){
         WebElement treeview = driver.findElement(By.className(TREEVIEW_CLASS_ID));
         List<WebElement> fileResult = treeview.findElements(By.cssSelector(WORKBIN_CSS_SELECTOR_ID));
         for(int fileID:fileSelect) {
             driver.get(fileResult.get(fileID).getAttribute(FILE_DOWNLOAD_LINK_ATTRIBUTE_ID));
-        }
-    }
-
-    private WebDriver initializeWebDriver(){
-        downloadFilePath = new File("").getAbsolutePath();
-
-        if(System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver",downloadFilePath+ CHROMEDRIVER_PATH_WINDOWS);
-        }
-        else if(System.getProperty("os.name").contains(MAC_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver",downloadFilePath+ CHROMEDRIVER_PATH_MAC);
-        }
-        downloadFilePath += DOWNLOAD_RELATIVE_PATH ;
-
-        HashMap<String,Object> chromePrefs =  new HashMap<String,Object>();
-        chromePrefs.put("profile.default_content_settings.popups",0);
-        chromePrefs.put("download.default_directory",downloadFilePath);
-        chromePrefs.put("browser.setDownloadBehavior", "allow");
-
-        ChromeOptions options=new ChromeOptions();
-        options.setExperimentalOption("prefs",chromePrefs);
-        WebDriver driver=new ChromeDriver(options);
-        driver.manage().window().setPosition(new Point(-2000,0));
-        return driver;
-    }
-    private void loginIvle(WebDriver driver){
-
-        driver.get(IVLE_ADDRESS);
-        driver.findElement(By.id(IVLE_USERNAME_FIELD_ID)).sendKeys(username);
-        driver.findElement(By.id(IVLE_PASSWORD_FIELD_ID)).sendKeys(password);
-        driver.findElement(By.id(IVLE_LOGIN_BUTTON_ID)).click();
-    }
-
-    private boolean checkLoggedIn(WebDriver driver){
-        if(driver.getTitle().contains(IVLE_TITLE)){
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkModuleExists(WebDriver driver){
-        driver.get(IVLE_DOWNLOAD_PAGE_ADDRESS);
-        Select dropDown= new Select(driver.findElement(By.id(IVLE_MODULE_LIST_FIELD_ID)));
-        List<WebElement> itemsModules=dropDown.getOptions();
-        int itemCount=itemsModules.size();
-        //i starts at 1 because 0 is reserved for "select module"
-        for(int i=1;i<itemCount;i++) {
-            if(checkModuleMatches(itemsModules.get(i).getText().toLowerCase())) {
-                moduleCode=itemsModules.get(i).getText();
-                dropDown.selectByIndex(i);
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean checkModuleMatches(String input){
-        try {
-            for(int i=0;i<moduleCode.length();i++){
-                if(input.charAt(i)!=moduleCode.charAt(i)) {
-                    return false;
-                }
-            }
-        }
-        catch (StringIndexOutOfBoundsException e) {
-            return false;
-        }
-        return true;
-    }
-
-    private void initializeDownloadFolder(){
-        File folder = new File(downloadFilePath);
-        File[] filesList = folder.listFiles();
-
-        for (int i = 0; i < filesList.length; i++) {
-            File currentFile = filesList[i];
-            if (currentFile.getName().endsWith(".crdownload")) {
-                filesList[i].delete();
-            }
-        }
-    }
-    private void dynamicWaiting(){
-        String[] keyExtentions={"crdownload"};
-        try {
-            do {
-                Thread.sleep(100);
-            } while(!org.apache.commons.io.FileUtils.listFiles(new File(downloadFilePath), keyExtentions,false).isEmpty());
-        }
-        catch(InterruptedException e){
         }
     }
 }

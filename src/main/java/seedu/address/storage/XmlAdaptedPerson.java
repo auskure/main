@@ -1,6 +1,13 @@
 package seedu.address.storage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,8 +20,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.person.TimeSlots;
+import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Person.
@@ -36,7 +43,7 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     @XmlElement
-    private List<XmlAdaptedEnrolledClass> enrolled = new ArrayList<>();
+    private List<XmlAdaptedEnrolledModule> enrolled = new ArrayList<>();
 
     @XmlElementWrapper
     private Map<String, ListWrapper> timeslots = new HashMap<>();
@@ -52,7 +59,7 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            List<XmlAdaptedTag> tagged, List<XmlAdaptedEnrolledClass> enrolled, Map<String,
+                            List<XmlAdaptedTag> tagged, List<XmlAdaptedEnrolledModule> enrolled, Map<String,
             ListWrapper> timeslots) {
         this.name = name;
         this.phone = phone;
@@ -82,9 +89,9 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
-        XmlAdaptedEnrolledClass tempXmlClass;
+        XmlAdaptedEnrolledModule tempXmlClass;
         for(String nameTemp : source.getEnrolledModules().keySet()){
-            tempXmlClass = new XmlAdaptedEnrolledClass(nameTemp);
+            tempXmlClass = new XmlAdaptedEnrolledModule(nameTemp);
             enrolled.add(tempXmlClass);
         }
         timeslots = toXmlAdaptedTimeSlots(source.getTimeSlots());
@@ -116,7 +123,7 @@ public class XmlAdaptedPerson {
         }
 
         final List<EnrolledModule> personEnrolledModules = new ArrayList<>();
-        for (XmlAdaptedEnrolledClass enrolledClass : enrolled) {
+        for (XmlAdaptedEnrolledModule enrolledClass : enrolled) {
             personEnrolledModules.add(enrolledClass.toModelType());
         }
 
@@ -189,6 +196,8 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+                && tagged.equals(otherPerson.tagged)
+                && enrolled.equals(otherPerson.enrolled)
+                && timeslots.equals(otherPerson.timeslots);
     }
 }
