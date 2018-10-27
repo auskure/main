@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENROLLED_CLASS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENROLLED_MODULE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.enrolledClass.EnrolledClass;
+import seedu.address.model.enrolledModule.EnrolledModule;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,6 +38,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_TAG, PREFIX_ENROLLED_CLASS);
+
 
         Index index;
 
@@ -63,9 +64,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         argMultimap.getAllValues(PREFIX_TAG);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
-        parseEnrolledClassesForEdit(argMultimap.getAllValues(PREFIX_ENROLLED_CLASS))
-                .ifPresent(editPersonDescriptor::setEnrolledClasses);
 
+        parseEnrolledClassesForEdit(argMultimap.getAllValues(PREFIX_ENROLLED_MODULE))
+                                            .ifPresent(editPersonDescriptor::setEnrolledClasses);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -88,19 +89,19 @@ public class EditCommandParser implements Parser<EditCommand> {
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         for(String it:tagSet){
             if (it.equalsIgnoreCase("self")||it.equalsIgnoreCase("merged")){
-                throw new ParseException("Not allowed to set self or merged tag");
+                throw new ParseException("Not allowed to set Self or Merged tag");
             }
         }
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
     /**
-     * Parses {@code Collection<String> enrolledClasses} into a {@code Map<String, EnrolledClass>} if {@code tags}
+     * Parses {@code Collection<String> enrolledClasses} into a {@code Map<String, EnrolledModule>} if {@code tags}
      * is non-empty.
      * If {@code enrolledClasses} contain only one element which is an empty string, it will be parsed into a
-     * {@code Map<String, EnrolledClass>} containing zero enrolledClasses.
+     * {@code Map<String, EnrolledModule>} containing zero enrolledClasses.
      */
-    private Optional<Map<String, EnrolledClass>> parseEnrolledClassesForEdit(Collection<String> enrolledClasses)
+    private Optional<Map<String, EnrolledModule>> parseEnrolledClassesForEdit(Collection<String> enrolledClasses)
             throws ParseException {
 
         assert enrolledClasses != null;
@@ -116,7 +117,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             enrolledClassesMap = enrolledClasses;
         }
 
-        return Optional.of(ParserUtil.parseEnrolledClasses(enrolledClassesMap));
+        return Optional.of(ParserUtil.parseEnrolledModules(enrolledClassesMap));
     }
 
 }
