@@ -1,8 +1,9 @@
-= NUSync - User Guide
+= NSync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -14,11 +15,12 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team W12-2`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-NUSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -52,14 +54,29 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== General Commands
+
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+==== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+
+=== Address Book Commands
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...[em/ENROLLED MODULE]...`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -67,17 +84,20 @@ A person can have any number of tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal em/CS2113T`
 
-=== Listing all persons : `list`
+[NOTE]
+Contacts in this addressbook are automatically sorted in alphabetical order
+
+==== Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+==== Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -94,7 +114,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -114,7 +134,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+==== Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
 Format: `delete INDEX`
@@ -134,7 +154,7 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Selecting a person : `select`
+==== Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
@@ -154,7 +174,7 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Listing entered commands : `history`
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -165,7 +185,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -191,7 +211,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -214,33 +234,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Accessing the password manager : `pVault`
+=== Timetable Commands
 
-Enters the password manager program. This program stores and manages the user's passwords in a secure and convenient manner. +
-Format: `pVault` +
-
-Sub-Functions in `pVault`:
-****
-* `pVault new <name> <password> <password>` +
-<name> is the given name for the password, +
-<password> is the new password that is to be stored. +
-Upon completing this, the user will be prompted to enter his pVault password, for the new password to be stored.
-* `pVault list` +
-Lists out all the passwords as well as the last updated time
-* `pVault delete <name>` +
-Deletes password from the password vault
-* `pVault clear` +
-Deletes all passwords from the password vault. The user will be prompted to re-enter the pVault password, before the command is executed
-* `pVault changePass <name> <new password>` +
-Changes the password used. User would have to re-enter the pVault password before the command is executed
-****
-
-=== Accessing the timetable merger: `merge`
+==== Merging timetables: `merge`
 
 Merges the timetable of multiple contacts and displays their collated free time slots.
 
@@ -261,56 +262,39 @@ merges into
 
 image::MergeCommanduser2.PNG[width="800"]
 
-=== Accessing the consultation manager: `conslt`
+=== Notes Commands
 
-Enters the consultation manager program. This program books consultation slots with their TAs on behalf of the user. This program makes use of the data entered in tSlot, in order to find the teaching assistant’s free timeslots. As such, the user should update timeslot manager first, before using the consultation manager. +
-Format: `conslt`
+==== Downloading notes from IVLE : `downloadAllNotes`
 
-Sub-Functions in `conslt`:
-****
-* `conslt <TA> <date>` +
-<TA> refers to the name of the teaching assistant +
-<date> refers to the specified date, in a DDMMYY format +
-This lists out all available hours in that day, for that TA +
-* `conslt request <name> <TA> <date> <time> <duration>` +
-<TA> refers to the name of teaching assistant +
-<date> refers to the specified date, in a DDMMYY format +
-<time> refers to the specified time, in a 24H format, e.g. 1400 for 2pm +
-<duration> refers to the duration of the consultation in hours, e.g. 0.5 for a half an hour consultation +
-Will help to send a template email to the TA to request for the timeslot.
-****
-
-=== Accessing the notes manager: `notes`
-
-Enters the notes manager program. This program downloads the user's notes from IVLE in a one-click process, and can be used to print the notes. +
-Format: `notes`
-
-Sub-Functions in `notes`:
-****
-* `notePrint addSubject <name>` +
-After entering the name, the user would be prompted to add a path to the desired location to store the notes. ALL is blacklisted word for name +
-* `notePrint list` +
-Lists out all the subjects and the desired paths +
-* `notePrint fetch <name>` +
-Will fetch notes from IVLE, entering ALL will fetch all the notes +
-* `notePrint print <name>` +
-Prints using the default printer as selected. entering ALL print everything (extra confirmation will be prompted) +
-* `notePrint delete <name>` +
-Deletes the subject +
-* `notePrint clear` +
-Prompts user to enter Y/N. If Y, then all notes and paths are deleted
+Downloads the your notes from IVLE, and stores them in the folder "notes" +
+Format: `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 ****
+* Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
+of the specified module.
 
-=== Exiting the program : `exit`
+* This process can take up to 1 minute, depending on the internet speed of the local area network.
 
-Exits the program. +
-Format: `exit`
+* You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
 
-=== Saving the data
+* If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
+****
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Examples:
+
+* `downloadAllNotes user/e1234567 pass/password1 mod/CS2101` +
+Downloads all notes and resources for CS2101
+* `downloadAllNotes user/e1234567 pass/password1 mod/CS2113` +
+Downloads all notes and resources for CS2113
+
+==== Downloading notes from IVLE : `downloadSelectNotes`
+
+==== Clearing all downloaded notes : `clearNotes`
+
+Clears all downloaded notes.
+Format: clearNotes
+
+== Upcoming Features
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -328,10 +312,12 @@ _{explain how the user can enable/disable data encryption}_
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
-
+* *Clear Notes* : `clearNotes`
+* *Download All Notes* : `downloadAllNotes user/e1234567 pass/password1 mod/CS2113`
+* *Download Selected Notes* :
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
@@ -340,8 +326,6 @@ e.g. `find James Jake`
 * *List* : `list`
 * *Merge Timetables* : `merge [index 1] [index 2] <add more indices if required>`
 e.g. `merge 1 2 5`
-* *Notes manager* : `notes`
-
 * *Redo* : `redo`
 * *Select* : `select INDEX` +
 e.g.`select 2`
