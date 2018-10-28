@@ -19,10 +19,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-<<<<<<< HEAD
-import seedu.address.model.enrolledClass.EnrolledClass;
+
+//import seedu.address.model.enrolledClass.EnrolledClass;
 import seedu.address.model.person.*;
-=======
+
 import seedu.address.model.enrolledModule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -31,7 +31,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
->>>>>>> 2ccbb78c7690a218335eb7a80ae662c4d61e3f7d
+
 import seedu.address.model.tag.Tag;
 
 

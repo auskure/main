@@ -84,15 +84,17 @@ public class AddressBookParser {
             case ChangeTimeSlotCommand.COMMAND_WORD:
                 return new ChangeTimeSlotCommandParser().parse(arguments);
 
-            case DownloadAllCommand.COMMAND_WORD:
+            case DownloadAllNotesCommand.COMMAND_WORD:
                 return new DownloadAllCommandParser().parse(arguments);
 
-            case DownloadSelectCommand.COMMAND_WORD:
+            case DownloadSelectNotesCommand.COMMAND_WORD:
                 return new DownloadSelectCommandParser().parse(arguments);
 
             case FreeCommand.COMMAND_WORD:
                 return new FreeCommandParser().parse(arguments);
 
+            case showNotesCommand.COMMAND_WORD:
+                return new showNotesCommand();
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
