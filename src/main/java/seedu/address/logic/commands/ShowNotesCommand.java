@@ -6,35 +6,34 @@ import java.io.*;
 
 import static seedu.address.logic.commands.DownloadAbstract.PARAM_CURRENT_DIRECTORY;
 
-public class showNotesCommand extends Command{
+public class ShowNotesCommand extends Command{
 
-    public String currentDirPath = System.getProperty(PARAM_CURRENT_DIRECTORY);
+    private String currentDirPath = System.getProperty(PARAM_CURRENT_DIRECTORY);
 
-    public String notesPathExtension = "/notes";
+    private String notesPathExtension = "/notes";
 
-    public String notesPath = currentDirPath + notesPathExtension;
+    private String notesPath = currentDirPath + notesPathExtension;
 
     public static final String COMMAND_WORD = "showNotes";
 
-    public static final String DIRECTORY_IDENTIFIER = "Directory: ";
+    private static final String DIRECTORY_IDENTIFIER = "Directory: ";
 
-    public static final String FILE_IDENTIFIER = "File: ";
+    private static final String FILE_IDENTIFIER = "File: ";
 
-    public static final String NEWLINE_SEPERATOR = "\r\n";
+    private static final String NEWLINE_SEPARATOR = "\r\n";
 
-    public static final String LINE_SEPERATOR = "====================================================================";
+    private static final String LINE_SEPARATOR = "====================================================================";
 
-    public String MESSAGE_STORED_NOTES = "";
+    private String MESSAGE_STORED_NOTES = "";
 
     public String MESSAGE_SUCCESS = "Here are your Notes stored in: \r\n" + notesPath + "\r\n";
 
+    private int DEFAULT_TAB_COUNT = 1;
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-
-        getDirectoryFileValues(new File(notesPath),1);
+        getDirectoryFileValues(new File(notesPath),DEFAULT_TAB_COUNT);
         return new CommandResult(MESSAGE_SUCCESS+ MESSAGE_STORED_NOTES);
-
     }
 
     /**
@@ -45,10 +44,11 @@ public class showNotesCommand extends Command{
     public void getDirectoryFileValues(File dir, int count) {
         File[] files = dir.listFiles();
         if(count==1){
-            MESSAGE_STORED_NOTES += LINE_SEPERATOR + NEWLINE_SEPERATOR;
+            MESSAGE_STORED_NOTES += LINE_SEPARATOR + NEWLINE_SEPARATOR;
         }
         /**
          *  tabPlaceholder is used to insert tabs to make it look more visually appealing
+         *  Count is recursively increased, ie: the deeper the directory, the more tabs the files would have.
          */
         String tabPlaceholder=new String();
         for(int i=0;i<count;i++) {
@@ -56,10 +56,10 @@ public class showNotesCommand extends Command{
         }
         for (File file : files) {
             if (file.isDirectory()) {
-                MESSAGE_STORED_NOTES += tabPlaceholder + DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPERATOR;
+                MESSAGE_STORED_NOTES += tabPlaceholder + DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
                 getDirectoryFileValues(file,count+1);
             } else {
-                MESSAGE_STORED_NOTES += tabPlaceholder + FILE_IDENTIFIER + file.getName() + NEWLINE_SEPERATOR;
+                MESSAGE_STORED_NOTES += tabPlaceholder + FILE_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
             }
         }
     }
