@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.io.Serializable;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -7,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's email in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email {
+public class Email implements Serializable {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_EMAIL_CONSTRAINTS = "Emails should be of the format local-part@domain "
