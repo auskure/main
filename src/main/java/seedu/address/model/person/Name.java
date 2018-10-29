@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.io.Serializable;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -7,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class Name implements Serializable {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";

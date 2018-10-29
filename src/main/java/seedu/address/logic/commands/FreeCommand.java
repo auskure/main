@@ -8,7 +8,6 @@ import seedu.address.model.Model;
 import seedu.address.model.enrolledModule.EnrolledModule;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -16,12 +15,11 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
 
 
 /**
- * Merges the timetables of multiple people
+ * Checks for common free time slot for 1 or multiple people
  */
 
 public class FreeCommand extends Command {
@@ -35,15 +33,12 @@ public class FreeCommand extends Command {
             + "for all contacts you want to compare.\n"
             + "Example: " + COMMAND_WORD + " " +  PREFIX_FREE + "1 " + PREFIX_FREE + "2 ";
 
-    public static final String MESSAGE_FREE_TIMETABLE_SUCCESS = "Found free Slot";
-    public static final String MESSAGE_NOT_FREED = "Unable to find free slot";
-
+    private static final String MESSAGE_NOT_FREED = "There is no common free timeslot";
     private final List<String> indices;
     private final String[] days = {"mon", "tue", "wed", "thu", "fri"};
 
     public FreeCommand(List<String> indices) {
         requireNonNull(indices);
-
         this.indices = indices;
     }
 
@@ -51,7 +46,7 @@ public class FreeCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
-        String outputToUser = "The next available timeslot for";
+
         List<Person> lastShownList = model.getFilteredPersonList();
         lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
@@ -61,14 +56,13 @@ public class FreeCommand extends Command {
             }
         }
 
-        Person personFirst = lastShownList.get(Integer.parseInt(indices.get(0)) - 1);
-
-        outputToUser += " " + personFirst.getName() + ",";
-
-
-
         //remove the first person from the list as we have reference to him in personFirst
+        Person personFirst = lastShownList.get(Integer.parseInt(indices.get(0)) - 1);
         indices.remove(0);
+
+        //start generation of output string to user
+        String outputToUser = "The next available timeslot for";
+        outputToUser += " " + personFirst.getName() + ",";
 
         //if trying to find free slots for more than 1 person, use the merge algorithm to create a merged timetable to
         //find a common free slot(s)
@@ -86,11 +80,12 @@ public class FreeCommand extends Command {
         outputToUser = outputToUser.substring(0,outputToUser.length()-1);
         outputToUser = outputToUser + " is : ";
 
-        int dayToCheck;
-        boolean isToday = true;
+
 
 
         //if today is saturday or sunday, loop back to monday
+        int dayToCheck;
+        boolean isToday = true;
         if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
             dayToCheck = 0;
             isToday = false;
@@ -180,7 +175,6 @@ public class FreeCommand extends Command {
                 return new CommandResult(outputToUser);
             }
 
-
             dayToCheck++;
             dayToCheck %= 5;
             hourNow = 8;
@@ -188,10 +182,17 @@ public class FreeCommand extends Command {
         }
 
 
-
+        //if after 6 loops and we are not able to find a common timeslot, returns message
+        //to inform user that there is no common free timeslot
         return new CommandResult(MESSAGE_NOT_FREED);
 
     }
+
+    /*
+    * Formats the time into readable String
+    *
+    * @param Hour
+     */
 
     private String getTimeFormatted(int hours) {
         String amPm = "AM";
@@ -205,7 +206,10 @@ public class FreeCommand extends Command {
     }
 
 
-    private Person mergeTimetables(Person person1, Person person2) {
+
+
+
+     private Person mergeTimetables(Person person1, Person person2) {
         Name mergedName = new Name("temp");
         Phone phone = new Phone("99999999");
         Email email = new Email("notimportant@no");
