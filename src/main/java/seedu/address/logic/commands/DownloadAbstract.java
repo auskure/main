@@ -46,7 +46,7 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String MESSAGE_FILE_CORRUPTED = "Downloaded file was corrupted";
 
-    protected static final String MESSAGE_SUCCESS = "\r\n Downloaded file at ";
+    protected static final String MESSAGE_SUCCESS = "\r\nDownloaded file at ";
 
     protected static final String UNZIP_FILE_KEYWORD = "part";
 
