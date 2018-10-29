@@ -36,9 +36,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
      */
 
     public DownloadSelectNotesCommand(String username, String password, String moduleCode, String fileSelectInput){
-        this.password=password;
-        this.username=username;
-        this.moduleCode=moduleCode;
+        super(username,password,moduleCode);
         fileSelect = new ArrayList<>();
         for(String id: fileSelectInput.split(",")){
             fileSelect.add(Integer.parseInt(id));
@@ -46,9 +44,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
     }
 
     public DownloadSelectNotesCommand(String username, String password, String moduleCode){
-        this.password=password;
-        this.username=username;
-        this.moduleCode=moduleCode;
+        super(username,password,moduleCode);
     }
 
     @Override
