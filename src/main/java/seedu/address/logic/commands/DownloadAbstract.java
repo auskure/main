@@ -23,6 +23,8 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String DOWNLOAD_RELATIVE_PATH = "/tempDownloadStorage";
 
+    protected String downloadPath = currentDirPath + DOWNLOAD_RELATIVE_PATH;
+
     protected static final String DOWNLOAD_FILE_PATH = "/notes";
 
     protected static final String IVLE_TITLE = "IVLE";
@@ -67,7 +69,7 @@ public abstract class DownloadAbstract extends Command{
      * initializeChromedriverPath dynamically sets the download path of the files and location of chromeDriver
      * so that its relative to where this project is stored and what OS the user is using.
      *
-     * currentDirPath will change from the root directory location of the application to the location of the tempDownloadStorage
+     * downloadPath will change from the root directory location of the application to the location of the tempDownloadStorage
      */
     protected void initializeChromedriverPath(){
         if(System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
@@ -76,8 +78,6 @@ public abstract class DownloadAbstract extends Command{
         else if(System.getProperty("os.name").contains(MAC_OS_NAME)) {
             System.setProperty("webdriver.chrome.driver", currentDirPath + CHROMEDRIVER_PATH_MAC);
         }
-
-        currentDirPath += DOWNLOAD_RELATIVE_PATH;
     }
 
     /**
@@ -89,7 +89,7 @@ public abstract class DownloadAbstract extends Command{
     protected WebDriver initializeWebDriver(){
         HashMap<String,Object> chromePrefs = new HashMap<>();
         chromePrefs.put("profile.default_content_settings.popups",0);
-        chromePrefs.put("download.default_directory", currentDirPath);
+        chromePrefs.put("download.default_directory", downloadPath);
         chromePrefs.put("browser.setDownloadBehavior", "allow");
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs",chromePrefs);
@@ -178,7 +178,7 @@ public abstract class DownloadAbstract extends Command{
             do {
                 Thread.sleep(100);
             } while(!org.apache.commons.io.FileUtils.listFiles
-                    (new File(currentDirPath), keyExtentions,false).isEmpty());
+                    (new File(downloadPath), keyExtentions,false).isEmpty());
         }
         catch(InterruptedException e){
         }
@@ -190,12 +190,12 @@ public abstract class DownloadAbstract extends Command{
      */
 
     protected void initializeDownloadFolder(){
-        File folder = new File(currentDirPath);
+        File folder = new File(downloadPath);
         File[] filesList = folder.listFiles();
 
         for (int i = 0; i < filesList.length; i++) {
             File currentFile = filesList[i];
-            if (currentFile.getName().endsWith(".crdownload")) {
+            if (currentFile.getName().endsWith("crdownload")) {
                 filesList[i].delete();
             }
         }
