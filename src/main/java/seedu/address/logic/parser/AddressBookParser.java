@@ -93,8 +93,8 @@ public class AddressBookParser {
             case FreeCommand.COMMAND_WORD:
                 return new FreeCommandParser().parse(arguments);
 
-            case showNotesCommand.COMMAND_WORD:
-                return new showNotesCommand();
+            case ShowNotesCommand.COMMAND_WORD:
+                return new ShowNotesCommand();
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
