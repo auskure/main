@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.FreeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.util.List;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -13,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
  * Parses input arguments and creates a new FreeCommand object
  */
 public class FreeCommandParser implements Parser<FreeCommand> {
-    private ArgumentMultimap argMultimap;
 
     /**
      * Parses the given {@code String} of arguments in the context of the FreeCommand
@@ -30,8 +28,6 @@ public class FreeCommandParser implements Parser<FreeCommand> {
         if (indices.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-
-
 
         return new FreeCommand(indices);
     }

@@ -1,9 +1,11 @@
 package seedu.address.model.enrolledModule;
 
+import java.io.Serializable;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-public class EnrolledModule {
+public class EnrolledModule implements Serializable {
     public static final String MESSAGE_ENROLLED_MODULE_CONSTRAINTS = "Enrolled Module names should be alphanumeric";
     public static final String ENROLLED_MODULE_VALIDATION_REGEX = "\\p{Alnum}+";
 
