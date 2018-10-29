@@ -28,7 +28,7 @@ public class ShowNotesCommand extends Command{
 
     public String MESSAGE_SUCCESS = "Here are your Notes stored in: \r\n" + notesPath + "\r\n";
 
-    private int DEFAULT_TAB_COUNT = 1;
+    private int DEFAULT_TAB_COUNT = 0;
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
@@ -43,7 +43,7 @@ public class ShowNotesCommand extends Command{
      */
     public void getDirectoryFileValues(File dir, int count) {
         File[] files = dir.listFiles();
-        if(count==1){
+        if(count == 1){
             MESSAGE_STORED_NOTES += LINE_SEPARATOR + NEWLINE_SEPARATOR;
         }
         /**
@@ -52,13 +52,17 @@ public class ShowNotesCommand extends Command{
          */
         String tabPlaceholder=new String();
         for(int i=0;i<count;i++) {
-            tabPlaceholder+="\t";
+            tabPlaceholder += "\t";
         }
         for (File file : files) {
             if (file.isDirectory()) {
-                MESSAGE_STORED_NOTES += tabPlaceholder + DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
+                if(count==0){
+                    MESSAGE_STORED_NOTES += LINE_SEPARATOR + NEWLINE_SEPARATOR;
+                }
+                MESSAGE_STORED_NOTES += tabPlaceholder +count+ DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
                 getDirectoryFileValues(file,count+1);
-            } else {
+            }
+            else {
                 MESSAGE_STORED_NOTES += tabPlaceholder + FILE_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
             }
         }

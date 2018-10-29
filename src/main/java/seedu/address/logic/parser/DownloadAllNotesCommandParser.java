@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
-public class DownloadAllCommandParser implements Parser {
+public class DownloadAllNotesCommandParser implements Parser {
 
     @Override
     public DownloadAllNotesCommand parse(String args) throws ParseException{
