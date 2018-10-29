@@ -79,7 +79,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             dynamicWaiting();
             driver.close();
             try{
-                UnzipUtil.unzipFile(currentDirPath, UNZIP_FILE_KEYWORD,
+                UnzipUtil.unzipFile(downloadPath, UNZIP_FILE_KEYWORD,
                         currentDirPath, DOWNLOAD_FILE_PATH, moduleCode);
 
             } catch (IOException ioe) {
