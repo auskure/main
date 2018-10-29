@@ -12,18 +12,11 @@ import java.util.List;
 
 public abstract class DownloadAbstract extends Command{
 
-    protected String username;
-    protected String password;
-    protected String moduleCode;
-    protected String currentDirPath = System.getProperty(PARAM_CURRENT_DIRECTORY);
-
     protected static final String CHROMEDRIVER_PATH_WINDOWS = "/chromeDrivers/windows/chromedriver.exe";
 
     protected static final String CHROMEDRIVER_PATH_MAC = "/chromeDrivers/mac/chromedriver";
 
     protected static final String DOWNLOAD_RELATIVE_PATH = "/tempDownloadStorage";
-
-    protected String downloadPath = currentDirPath + DOWNLOAD_RELATIVE_PATH;
 
     protected static final String DOWNLOAD_FILE_PATH = "/notes";
 
@@ -58,6 +51,13 @@ public abstract class DownloadAbstract extends Command{
     protected static final String UNZIP_FILE_KEYWORD = "part";
 
     protected static final String PARAM_CURRENT_DIRECTORY = "user.dir";
+
+    protected String username;
+    protected String password;
+    protected String moduleCode;
+    protected String currentDirPath = System.getProperty(PARAM_CURRENT_DIRECTORY);
+    protected String downloadPath = currentDirPath + DOWNLOAD_RELATIVE_PATH;
+
 
     public DownloadAbstract(String username, String password, String moduleCode){
         this.username = username;
@@ -201,5 +201,8 @@ public abstract class DownloadAbstract extends Command{
         }
     }
 
+    public String getCurrentDirPath(){
+        return currentDirPath;
+    }
 
 }

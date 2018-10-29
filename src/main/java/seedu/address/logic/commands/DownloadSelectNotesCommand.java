@@ -88,8 +88,8 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             return new CommandResult(moduleCode + MESSAGE_SUCCESS
                     + currentDirPath + DOWNLOAD_FILE_PATH);
         }
-            driver.close();
-            throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        driver.close();
+        throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
     }
 
     /**

@@ -24,11 +24,11 @@ public class ShowNotesCommand extends Command{
 
     private static final String LINE_SEPARATOR = "====================================================================";
 
-    private String MESSAGE_STORED_NOTES = "";
+    private String MESSAGE_STORED_NOTES = LINE_SEPARATOR + NEWLINE_SEPARATOR;
 
     public String MESSAGE_SUCCESS = "Here are your Notes stored in: \r\n" + notesPath + "\r\n";
 
-    private int DEFAULT_TAB_COUNT = 1;
+    private int DEFAULT_TAB_COUNT = 0;
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
@@ -43,7 +43,7 @@ public class ShowNotesCommand extends Command{
      */
     public void getDirectoryFileValues(File dir, int count) {
         File[] files = dir.listFiles();
-        if(count==1){
+        if(count == 1){
             MESSAGE_STORED_NOTES += LINE_SEPARATOR + NEWLINE_SEPARATOR;
         }
         /**
@@ -52,7 +52,7 @@ public class ShowNotesCommand extends Command{
          */
         String tabPlaceholder=new String();
         for(int i=0;i<count;i++) {
-            tabPlaceholder+="\t";
+            tabPlaceholder += "\t";
         }
         for (File file : files) {
             if (file.isDirectory()) {
