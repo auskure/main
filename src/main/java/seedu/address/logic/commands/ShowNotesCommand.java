@@ -24,7 +24,7 @@ public class ShowNotesCommand extends Command{
 
     private static final String LINE_SEPARATOR = "====================================================================";
 
-    private String MESSAGE_STORED_NOTES = LINE_SEPARATOR + NEWLINE_SEPARATOR;
+    private String MESSAGE_STORED_NOTES = "";
 
     public String MESSAGE_SUCCESS = "Here are your Notes stored in: \r\n" + notesPath + "\r\n";
 
@@ -56,9 +56,13 @@ public class ShowNotesCommand extends Command{
         }
         for (File file : files) {
             if (file.isDirectory()) {
-                MESSAGE_STORED_NOTES += tabPlaceholder + DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
+                if(count==0){
+                    MESSAGE_STORED_NOTES += LINE_SEPARATOR + NEWLINE_SEPARATOR;
+                }
+                MESSAGE_STORED_NOTES += tabPlaceholder +count+ DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
                 getDirectoryFileValues(file,count+1);
-            } else {
+            }
+            else {
                 MESSAGE_STORED_NOTES += tabPlaceholder + FILE_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
             }
         }
