@@ -23,9 +23,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
 
 
     public DownloadAllNotesCommand(String username, String password, String moduleCode){
-        this.password = password;
-        this.username = username;
-        this.moduleCode = moduleCode.toLowerCase();
+        super(username,password,moduleCode);
     }
 
     @Override

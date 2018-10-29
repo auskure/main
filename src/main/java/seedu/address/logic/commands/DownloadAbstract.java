@@ -57,9 +57,17 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String PARAM_CURRENT_DIRECTORY = "user.dir";
 
+    public DownloadAbstract(String username, String password, String moduleCode){
+        this.username = username;
+        this.password = password;
+        this.moduleCode = moduleCode;
+    }
+
     /**
      * initializeChromedriverPath dynamically sets the download path of the files and location of chromeDriver
      * so that its relative to where this project is stored and what OS the user is using.
+     *
+     * currentDirPath will change from the root directory location of the application to the location of the tempDownloadStorage
      */
     protected void initializeChromedriverPath(){
         if(System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
@@ -68,6 +76,7 @@ public abstract class DownloadAbstract extends Command{
         else if(System.getProperty("os.name").contains(MAC_OS_NAME)) {
             System.setProperty("webdriver.chrome.driver", currentDirPath + CHROMEDRIVER_PATH_MAC);
         }
+
         currentDirPath += DOWNLOAD_RELATIVE_PATH;
     }
 
