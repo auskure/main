@@ -6,6 +6,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
 
@@ -71,7 +72,7 @@ public class SelfCard extends UiPart<Region> {
             header.getChildren().add(enrolledClass);
         }*/
 
-        for (String it : Tag.getHeader()) {
+        for (String it : TimeSlots.getHeader()) {
             Label day = new Label(it);
             day.setPrefSize(58, 10);
             header.getChildren().add(day);

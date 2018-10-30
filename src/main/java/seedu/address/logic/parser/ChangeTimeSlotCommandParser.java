@@ -63,7 +63,7 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
         if (!time.equalsIgnoreCase("8am") && !time.equalsIgnoreCase("9am")
                 && !time.equalsIgnoreCase("10am")
                 && !time.equalsIgnoreCase("11am")
-                && !time.equalsIgnoreCase("12am")
+                && !time.equalsIgnoreCase("12pm")
                 && !time.equalsIgnoreCase("1pm")
                 && !time.equalsIgnoreCase("2pm")
                 && !time.equalsIgnoreCase("3pm")
