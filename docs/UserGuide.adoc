@@ -241,9 +241,39 @@ Format: `clear`
 
 === Timetable Commands
 
+==== Changing Time Slots: `change`
+
+Changes the time slot of your own, or a contact's timetable to reflect an activity, a free, or a busy slot.
+
+Format: `change INDEX/SELF DAY TIME ACTIVITY/FREE/BUSY`
+
+****
+* Changes the timetable of the person specified by index or your own timetable if self is inputted.
+* The DAY refers to which day of the timetable is going to be edited.
+* The TIME refers to which time within the day will be edited.
+* The ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
+* DAY must be mon, tue, wed, thu or fri (Non-case sensitive)
+* TIME must be 8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm
+****
+
+`change 1 mon 8am GER1000`
+Changes the mon 8am time slot of the first contact in the main contact list to GER1000
+
+Before:
+
+image::ChangeCommand1.PNG[width="800"]
+
+After:
+
+image::ChangeCommand2.PNG[width="800"]
+
+==== Sharing timetables `share`
+
+You can select a person whose timetable you would like to share.
+
 ==== Merging timetables: `merge`
 
-Merges the timetable of multiple contacts and displays a timetable with the number of people busy
+You can  the timetable of multiple contacts and displays a timetable with the number of people busy
 for each time slot. It also displays the names of the people in the group.
 
 Format: `merge m/INDEX m/INDEX...`
