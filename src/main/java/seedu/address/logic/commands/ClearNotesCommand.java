@@ -1,9 +1,14 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 
 /**
  * Deletes all downloaded notes from the application.
@@ -23,7 +28,15 @@ public class ClearNotesCommand extends Command {
     private static final String GITHUB_PLACEHOLDER_FILE_NAME = "placeholder.txt";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException{
+        Path downloadTempFolder = Paths.get("tempDownloadStorage");
+        Path notesFolder = Paths.get("notes");
+        try{
+            createDirectoryIfMissing(downloadTempFolder);
+            createDirectoryIfMissing(notesFolder);
+        } catch (Exception e) {
+            throw new CommandException("Failed to create new folders");
+        }
         deleteAllNotes();
         return new CommandResult(MESSAGE_DELETE_ALL_NOTES_SUCCESS);
     }
