@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -34,7 +34,7 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String IVLE_LOGIN_BUTTON_ID = "ctl00_ctl00_ContentPlaceHolder1_btnSignIn";
 
-    protected static final String WRONG_PASS_USER_MESSAGE = "WRONG PASSWORD OR USERNAME ENTERED";
+    protected static final String MESSAGE_USERNAME_PASSWORD_ERROR = "WRONG PASSWORD OR USERNAME ENTERED";
 
     protected static final String IVLE_DOWNLOAD_PAGE_ADDRESS = "https://ivle.nus.edu.sg/v1/File/download_all.aspx";
 
@@ -42,7 +42,7 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String MESSAGE_MODULE_NOT_FOUND = "MODULE CODE NOT FOUND";
 
-    protected static final String MESSAGE_IVLE_LOGIN_FAIL = "UNABLE TO LOGIN TO IVLE AT THIS TIME";
+    protected static final String MESSAGE_UNABLE_REACH_IVLE = "UNABLE TO LOGIN TO IVLE AT THIS TIME";
 
     protected static final String MESSAGE_FILE_CORRUPTED = "Downloaded file was corrupted";
 
@@ -51,6 +51,10 @@ public abstract class DownloadAbstract extends Command{
     protected static final String UNZIP_FILE_KEYWORD = "part";
 
     protected static final String PARAM_CURRENT_DIRECTORY = "user.dir";
+
+    protected static final String MESSAGE_CHROME_DRIVER_NOT_FOUND = "chromeDrivers are not found, please check if you have installed the application correctly";
+
+    protected static final String MESSAGE_NOTES_FOLDER_NOT_FOUND = "note folder is not found, please check if you have installed the application correctly";
 
     protected String username;
     protected String password;
@@ -62,7 +66,7 @@ public abstract class DownloadAbstract extends Command{
     public DownloadAbstract(String username, String password, String moduleCode){
         this.username = username;
         this.password = password;
-        this.moduleCode = moduleCode;
+        this.moduleCode = moduleCode.toLowerCase();
     }
 
     /**
