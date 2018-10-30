@@ -6,6 +6,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
 
@@ -15,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class TimetableCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES = {"white", "grey2", "grey4", "grey6",
+    private static final String[] TAG_COLOR_STYLES = {"white", "yellow", "darkorange", "maroon",
              "black"};
 
 
@@ -63,7 +64,7 @@ public class TimetableCard extends UiPart<Region> {
         address.setText(person.getAddress().toString());
         email.setText("");
 
-        for (String it : Tag.getHeader()) {
+        for (String it : TimeSlots.getHeader()) {
             Label day = new Label(it);
             day.setPrefSize(58, 10);
             header.getChildren().add(day);
@@ -113,6 +114,7 @@ public class TimetableCard extends UiPart<Region> {
                 slot.setText(" ");
             } else {
                 slot.getStyleClass().add(getColor(it));
+                slot.setText(it);
             }
 
 

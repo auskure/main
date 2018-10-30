@@ -14,7 +14,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TimeSlots;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -87,8 +87,8 @@ public class PersonBuilder {
      * Parses the {@code timeslots} into a {@code Map<timeslots>}
      * and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTimeslots(String ... timeslots) {
-        this.timeslots = SampleDataUtil.getTimeSlotMap(timeslots);
+    public PersonBuilder withTimeslots() {
+        this.timeslots = TimeSlots.initTimeSlots();
         return this;
     }
 

@@ -6,6 +6,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
 
@@ -65,13 +66,14 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
 
-       /* for(String tempEnrolledClassName : person.getEnrolledModules().keySet()){
+        for(String tempEnrolledClassName : person.getEnrolledModules().keySet()){
             Label enrolledModule = new Label(tempEnrolledClassName);
-            enrolledModule.setPrefSize(61, 10);
-            header.getChildren().add(enrolledModule);
-        }*/
+            enrolledModule.setPrefSize(51, 10);
+            enrolledModule.getStyleClass().add(getColor(tempEnrolledClassName));
+            enrolledClasses.getChildren().add(enrolledModule);
+        }
 
-        for (String it : Tag.getHeader()) {
+        for (String it : TimeSlots.getHeader()) {
             Label day = new Label(it);
             day.setPrefSize(58, 10);
             header.getChildren().add(day);

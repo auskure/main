@@ -243,7 +243,8 @@ Format: `clear`
 
 ==== Merging timetables: `merge`
 
-Merges the timetable of multiple contacts and displays their collated free time slots.
+Merges the timetable of multiple contacts and displays a timetable with the number of people busy
+for each time slot. It also displays the names of the people in the group.
 
 Format: `merge m/INDEX m/INDEX...`
 ****
@@ -251,16 +252,56 @@ Format: `merge m/INDEX m/INDEX...`
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * More than 2 people can be merged at once
+* Your own timetable wil always be included in the merge
 ****
-* `list` +
-`merge m/1 m/2` +
-Merges the timetables of the 1st and 2nd people in the address book.
+
+`merge m/2 m/3 m/4 n/CS2101 Project` +
+Merges your own timetable with the 2nd, 3rd and 4th people in the address book.
+
+image::MergeCommandSelf.PNG[width="800"]
+
++
 
 image::MergeCommandUser1.PNG[width="800"]
++
+
+image::MergeCommandUser2.PNG[width="800"]
+
++
+
+image::MergeCommandUser3.PNG[width="800"]
 
 merges into
 
-image::MergeCommanduser2.PNG[width="800"]
+image::MergeCommandGroup.PNG[width="800"]
+
+The merged timetable will be added to the list of groups
+
+image::MergeCommandList.PNG[width="800"]
+
+==== Filters contacts based on free time slots and modules taken: `filter`
+
+The list of contacts displayed is filtered based on the user input. Contacts
+can either be filtered by their free time slots or modules taken.
+
+Format: `filter MODULE CODE/DAY TIME...`
+****
+* Entering a module code removes contacts without the module from the list.
+* Entering a day and time removes contacts without that time slot free.
+* Day must be mon, tue, wed, thu or fri.
+* Time must be 8am, 9am, 10am, 11am, 12am, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm or 7pm.
+* Contacts can be filtered by more than one module/day and time.
+****
+
+`filter GER1000`
+Shows only contacts who have GER1000 in the timetable.
+
+`filter mon 10am`
+Shows only contacts who are free at mon 10am.
+
+`filter GER1000 mon 10 am`
+Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
+
 
 === Notes Commands
 

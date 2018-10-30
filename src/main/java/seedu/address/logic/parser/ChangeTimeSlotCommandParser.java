@@ -23,6 +23,11 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
         String trimmedArgs = args.trim();
         String[] actions = trimmedArgs.split("\\s+");
 
+        if (actions.length < 4){
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ChangeTimeSlotCommand.MESSAGE_USAGE));
+        }
+
         if (actions.length % 3 != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ChangeTimeSlotCommand.MESSAGE_USAGE));
@@ -58,7 +63,7 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
         if (!time.equalsIgnoreCase("8am") && !time.equalsIgnoreCase("9am")
                 && !time.equalsIgnoreCase("10am")
                 && !time.equalsIgnoreCase("11am")
-                && !time.equalsIgnoreCase("12am")
+                && !time.equalsIgnoreCase("12pm")
                 && !time.equalsIgnoreCase("1pm")
                 && !time.equalsIgnoreCase("2pm")
                 && !time.equalsIgnoreCase("3pm")
