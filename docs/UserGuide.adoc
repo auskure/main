@@ -372,6 +372,11 @@ Examples:
 
 File Fetch Successful 
 
+[NOTE]
+the number on the left of the file represents the file ID, it is static. 
+    Example: 0:LP41_More_UML_Inheritence.pptx
+
+
 image::downloadSelectFileSuccess1.PNG[width="900"]
 image::downloadSelectFileSuccess2.PNG[width="900"]
 
