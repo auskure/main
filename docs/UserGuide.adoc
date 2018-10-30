@@ -404,7 +404,7 @@ Examples:
 
 Download Successful
 
-image:::downloadSelectSuccess.PNG[width="900"]
+image::downloadSelectSuccess.PNG[width="900"]
 
 File not found
 
