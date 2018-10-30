@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 import org.openqa.selenium.*;
 import seedu.address.commons.util.UnzipUtil;
-import seedu.address.logic.*;
-import seedu.address.logic.commands.exceptions.*;
-import seedu.address.model.*;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 public class DownloadAllCommand extends DownloadAbstract {
 

@@ -404,7 +404,7 @@
       -fx-background-color: #E5E5E5;
  }
   #tags .grey2 {
-        -fx-text-fill: black;
+        -fx-text-fill: white;
         -fx-background-color: #CCCCCC;
  }
   #tags .grey3 {
@@ -423,7 +423,18 @@
             -fx-text-fill: white;
             -fx-background-color: #666666;
  }
-
+  #tags .grey7 {
+            -fx-text-fill: white;
+            -fx-background-color: #4C4C4C;
+ }
+#tags .darkorange {
+            -fx-text-fill: white;
+            -fx-background-color: #FF8C00;
+ }
+ #tags .maroon {
+             -fx-text-fill: white;
+             -fx-background-color: #800000;
+  }
 
 
 
