@@ -23,6 +23,11 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
         String trimmedArgs = args.trim();
         String[] actions = trimmedArgs.split("\\s+");
 
+        if (actions.length < 4){
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ChangeTimeSlotCommand.MESSAGE_USAGE));
+        }
+
         if (actions.length % 3 != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ChangeTimeSlotCommand.MESSAGE_USAGE));
