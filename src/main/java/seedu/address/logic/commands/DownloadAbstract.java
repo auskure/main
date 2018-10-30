@@ -205,8 +205,5 @@ public abstract class DownloadAbstract extends Command{
         }
     }
 
-    public String getCurrentDirPath(){
-        return currentDirPath;
-    }
 
 }
