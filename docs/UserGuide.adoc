@@ -321,7 +321,7 @@ You would be unable to see your inputted command after inputting it, this is a s
 
 
 ****
-image::downloadExample.PNG
+image::downloadExample.PNG[width="900"]
 
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
@@ -332,7 +332,7 @@ of the specified module.
 
 * You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
 
-image::chromeOpen.PNG
+image::chromeOpen.PNG[width="900"]
 
 * N*Sync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
