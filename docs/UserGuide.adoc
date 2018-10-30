@@ -302,6 +302,28 @@ Shows only contacts who are free at mon 10am.
 `filter GER1000 mon 10 am`
 Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
 
+==== Filters for next free time slots for one or more contact: `free`
+
+Format: `free f/INDEX`
+****
+* Displays next available time slot (from current time).
+* Running this command outside of the time window of 8am to 7pm will yield the next available time slot in the next day.
+* Running this command outside of the day window of Monday to Friday will yield the next available time slot in the next weekday.
+
+`free f/3`
+Shows the next available time slot (from current time) for contact whose index is 3.
+
+`free f/1 f/7 f/9`
+Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
+
+==== Export user string: `export`
+
+To be filled in.
+
+==== Import user string: `import`
+
+To be filled in.
+****
 
 === Notes Commands
 
