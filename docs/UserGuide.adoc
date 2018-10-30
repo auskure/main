@@ -408,6 +408,10 @@ Download Successful
 
 image:::downloadSelectSuccess.png[width="900"]
 
+File not found
+
+image::downloadSelectFileNotFound[width="900"]
+
 ==== Show all downloaded notes: `showNotes`
 Displays all the downloaded notes in the UI
 
