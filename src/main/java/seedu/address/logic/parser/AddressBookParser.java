@@ -98,6 +98,9 @@ public class AddressBookParser {
 
             case ShowNotesCommand.COMMAND_WORD:
                 return new ShowNotesCommand();
+
+            case ShareCommand.COMMAND_WORD:
+                return new ShareCommandParser().parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
