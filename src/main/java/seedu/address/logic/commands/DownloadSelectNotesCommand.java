@@ -100,18 +100,8 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             }
             dynamicWaiting();
             driver.close();
-            try{
-                UnzipUtil.unzipFile(downloadPath, UNZIP_FILE_KEYWORD,
-                        currentDirPath, DOWNLOAD_FILE_PATH, moduleCode);
-            }
-            catch (IOException ioe) {
-                throw new CommandException(MESSAGE_FILE_CORRUPTED);
-            }
-            catch (NullPointerException npe) {
-                throw new CommandException(MESSAGE_NOTES_FOLDER_NOT_FOUND);
-            }
             return new CommandResult(moduleCode + MESSAGE_SUCCESS
-                    + currentDirPath + DOWNLOAD_FILE_PATH);
+                    + currentDirPath + DOWNLOAD_RELATIVE_PATH);
         }
         driver.close();
         throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
