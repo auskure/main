@@ -1,4 +1,4 @@
-= NUSync
+= N*Sync
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2113-AY1819S1-W12-2/main[image:https://travis-ci.org/CS2113-AY1819S1-W12-2/main.svg?branch=master[Build Status]]
