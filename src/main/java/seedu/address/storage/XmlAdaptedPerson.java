@@ -1,13 +1,6 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.HashMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -109,6 +102,16 @@ public class XmlAdaptedPerson {
             timeslots.put(day, wrapper);
         }
         return timeslots;
+    }
+
+    public static List<XmlAdaptedEnrolledModule> toXmlAdaptedEnrolledModules(Map<String, EnrolledModule> source){
+        Iterator<Map.Entry<String, EnrolledModule>> it = source.entrySet().iterator();
+        List<XmlAdaptedEnrolledModule> enrolledModules = new ArrayList<>();
+        while (it.hasNext()) {
+            Map.Entry<String, EnrolledModule> pair = it.next();
+             enrolledModules.add(new XmlAdaptedEnrolledModule(pair.getValue()));
+        }
+        return enrolledModules;
     }
 
     /**

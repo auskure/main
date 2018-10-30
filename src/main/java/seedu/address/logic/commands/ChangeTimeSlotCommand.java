@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -31,7 +30,7 @@ public class ChangeTimeSlotCommand extends Command {
             "DAY(mon, tue, wed, thu, fri) "
             + "TIME(8am, 9am, 10am, 11am, 12am, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
             + "Activity "
-            + "Example: " + COMMAND_WORD + "1 " + "mon "
+            + "Example: " + COMMAND_WORD + " 1 " + "mon "
             + "8am "
             + "CS2107";
 

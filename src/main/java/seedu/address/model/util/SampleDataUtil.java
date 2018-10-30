@@ -40,11 +40,12 @@ public class SampleDataUtil {
                         new Address("Blk 47 Tampines Street 20, #17-35"),
                         getTagSet("classmates"), getEnrolledModuleMap("CS1010", "CS1231"),
                         TimeSlots.sampleTimeSlots()),
-            //    new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                      //  new Address("Blk 45 Aljunied Street 85, #11-31"),
-                       // getTagSet("colleagues"), getEnrolledClassMap("CS2101", "CS2113T"),
-                      //  TimeSlots.sampleTimeSlots()),
-            //    new Person(new Name("Self"), new Phone("9999999"), new Email("self@self"), new Address("self"))
+                new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+                        new Address("Blk 45 Aljunied Street 85, #11-31"),
+                        getTagSet("colleagues"), getEnrolledModuleMap("CS2101", "CS2113T"),
+                        TimeSlots.sampleTimeSlots()),
+                new Person(new Name("Self"), new Phone("9999999"), new Email("self@self"), new Address("self"),
+                        getTagSet("self"), new TreeMap<>(), TimeSlots.initTimeSlots())
 
 
         };
