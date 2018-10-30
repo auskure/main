@@ -1,4 +1,4 @@
-= NSync - User Guide
+= N*Sync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -15,11 +15,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team W12-2`      Since: `Aug 2018`      Licence: `MIT`
+By: `CS2113-AY1819S1-W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+N*Sync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`delete`**`3` : deletes contact whose index number is 3
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -340,7 +340,7 @@ Format: clearNotes
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+Coming to you soon!
 // end::dataencryption[]
 
 == FAQ
