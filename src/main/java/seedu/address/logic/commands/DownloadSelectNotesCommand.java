@@ -19,19 +19,22 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
 
     public static final String COMMAND_WORD = "downloadSelectNotes";
 
-    public static final String MESSAGE_USAGE = "downloadSelectNotes user/(username) pass/(password) mod/(moduleCode) file/(0,1,2...n))";
+    public static final String MESSAGE_USAGE = "To display all available notes:\r\ndownloadSelectNotes user/(username) " +
+            "pass/(password) mod/(moduleCode)\r\nTo select the notes(by index):\r\ndownloadSelectNotes user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
 
     public static final String NEWLINE_SEPERATOR = "\r\n";
 
     public static final String NO_FILES_SELECTED_MESSAGE = "Please select a file after the \"file/\" tag. Ie: file/(0,1,2...n))";
 
-    public static final String MESSAGE_FILE_DOES_NOT_EXIST_ERROR = "A FILE YOU CHOSE DOES NOT EXIST\r\n DOWNLOAD NOT COMPLETE";
+    public static final String MESSAGE_FILE_DOES_NOT_EXIST_ERROR = "A FILE YOU CHOSE DOES NOT EXIST\r\nDOWNLOAD NOT COMPLETE";
 
     private static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
 
     private static final String TREEVIEW_CLASS_ID = "TreeView";
 
     private static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID = "href";
+
+    private static final String MESSAGE_SUCCESS_PREFIX = "Here are your the files available for: ";
 
     private ArrayList<Integer> fileSelect;
     private String availableDownloadFiles;
@@ -84,7 +87,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             if(fileSelect==null) {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
-                return new CommandResult(availableDownloadFiles);
+                return new CommandResult(MESSAGE_SUCCESS_PREFIX + moduleCode + "\r\n" + availableDownloadFiles);
             }
 
             initializeDownloadFolder();
