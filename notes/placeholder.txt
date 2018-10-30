@@ -1,3 +1,0 @@
-placeholder file.
-
-Please do not delete this file.  It helps keep the folder "notes" saved on github.

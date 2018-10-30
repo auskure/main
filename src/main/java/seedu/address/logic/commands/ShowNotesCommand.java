@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.*;
 import seedu.address.model.Model;
 
 import java.io.*;
@@ -24,6 +25,8 @@ public class ShowNotesCommand extends Command{
 
     private static final String LINE_SEPARATOR = "====================================================================";
 
+    private static final String MESSAGE_FILE_LOCATION_ERROR = "The folder \"notes\" is not found!\r\nplease download some notes to continue using showNotes";
+
     private String MESSAGE_STORED_NOTES = "";
 
     public String MESSAGE_SUCCESS = "Here are your Notes stored in: \r\n" + notesPath + "\r\n";
@@ -31,8 +34,13 @@ public class ShowNotesCommand extends Command{
     private int DEFAULT_TAB_COUNT = 0;
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        try{
         getDirectoryFileValues(new File(notesPath),DEFAULT_TAB_COUNT);
+        }
+        catch (NullPointerException npe){
+            throw new CommandException(MESSAGE_FILE_LOCATION_ERROR);
+        }
         return new CommandResult(MESSAGE_SUCCESS+ MESSAGE_STORED_NOTES);
     }
 
@@ -59,7 +67,7 @@ public class ShowNotesCommand extends Command{
                 if(count==0){
                     MESSAGE_STORED_NOTES += LINE_SEPARATOR + NEWLINE_SEPARATOR;
                 }
-                MESSAGE_STORED_NOTES += tabPlaceholder +count+ DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
+                MESSAGE_STORED_NOTES += tabPlaceholder + DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
                 getDirectoryFileValues(file,count+1);
             }
             else {
