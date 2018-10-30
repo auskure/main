@@ -8,8 +8,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.NoSuchElementException;
+
+import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 
 public class DownloadSelectNotesCommand extends DownloadAbstract{
 
@@ -51,6 +55,14 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         initializeChromedriverPath();
         WebDriver driver=initializeWebDriver();
+        Path downloadTempFolder = Paths.get("tempDownloadStorage");
+        Path notesFolder = Paths.get("notes");
+        try{
+            createDirectoryIfMissing(downloadTempFolder);
+            createDirectoryIfMissing(notesFolder);
+        } catch (Exception e) {
+            throw new CommandException("Failed to create new folders");
+        }
         try{
         loginIvle(driver);
         }
