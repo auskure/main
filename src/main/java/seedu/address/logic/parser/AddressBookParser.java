@@ -51,9 +51,6 @@ public class AddressBookParser {
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
-            case ClearNotesCommand.COMMAND_WORD:
-                return new ClearNotesCommand();
-
             case FindCommand.COMMAND_WORD:
                 return new FindCommandParser().parse(arguments);
 
@@ -84,15 +81,23 @@ public class AddressBookParser {
             case ChangeTimeSlotCommand.COMMAND_WORD:
                 return new ChangeTimeSlotCommandParser().parse(arguments);
 
-            case DownloadAllCommand.COMMAND_WORD:
-                return new DownloadAllCommandParser().parse(arguments);
+            case DownloadAllNotesCommand.COMMAND_WORD:
+                return new DownloadAllNotesCommandParser().parse(arguments);
 
-            case DownloadSelectCommand.COMMAND_WORD:
-                return new DownloadSelectCommandParser().parse(arguments);
+            case DownloadSelectNotesCommand.COMMAND_WORD:
+                return new DownloadSelectNotesCommandParser().parse(arguments);
 
             case FreeCommand.COMMAND_WORD:
                 return new FreeCommandParser().parse(arguments);
 
+            case ExportCommand.COMMAND_WORD:
+                return new ExportCommandParser().parse(arguments);
+
+            case ImportCommand.COMMAND_WORD:
+                return new ImportCommandParser().parse(arguments);
+
+            case ShowNotesCommand.COMMAND_WORD:
+                return new ShowNotesCommand();
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

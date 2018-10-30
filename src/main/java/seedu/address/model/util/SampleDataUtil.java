@@ -47,6 +47,7 @@ public class SampleDataUtil {
                 new Person(new Name("Self"), new Phone("9999999"), new Email("self@self"), new Address("self"),
                         getTagSet("self"), new TreeMap<>(), TimeSlots.initTimeSlots())
 
+
         };
     }
 

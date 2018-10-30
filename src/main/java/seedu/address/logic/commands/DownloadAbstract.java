@@ -1,18 +1,16 @@
 package seedu.address.logic.commands;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.support.ui.*;
-
-import java.io.*;
-import java.util.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class DownloadAbstract extends Command{
-
-    protected String username;
-    protected String password;
-    protected String moduleCode;
-    protected String currentDirectory;
-    protected String downloadTemporaryPath;
 
     protected static final String CHROMEDRIVER_PATH_WINDOWS = "/chromeDrivers/windows/chromedriver.exe";
 
@@ -44,6 +42,8 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String MESSAGE_MODULE_NOT_FOUND = "MODULE CODE NOT FOUND";
 
+    protected static final String MESSAGE_IVLE_LOGIN_FAIL = "UNABLE TO LOGIN TO IVLE AT THIS TIME";
+
     protected static final String MESSAGE_FILE_CORRUPTED = "Downloaded file was corrupted";
 
     protected static final String MESSAGE_SUCCESS = "\r\n Downloaded file at ";
@@ -52,19 +52,32 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String PARAM_CURRENT_DIRECTORY = "user.dir";
 
+    protected String username;
+    protected String password;
+    protected String moduleCode;
+    protected String currentDirPath = System.getProperty(PARAM_CURRENT_DIRECTORY);
+    protected String downloadPath = currentDirPath + DOWNLOAD_RELATIVE_PATH;
+
+
+    public DownloadAbstract(String username, String password, String moduleCode){
+        this.username = username;
+        this.password = password;
+        this.moduleCode = moduleCode;
+    }
+
     /**
-     * initializePaths dynamically sets the download path of the files and location of chromeDriver
+     * initializeChromedriverPath dynamically sets the download path of the files and location of chromeDriver
      * so that its relative to where this project is stored and what OS the user is using.
+     *
+     * downloadPath will change from the root directory location of the application to the location of the tempDownloadStorage
      */
-    protected void initializePaths(){
-        downloadTemporaryPath = currentDirectory;
+    protected void initializeChromedriverPath(){
         if(System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", downloadTemporaryPath + CHROMEDRIVER_PATH_WINDOWS);
+            System.setProperty("webdriver.chrome.driver", currentDirPath + CHROMEDRIVER_PATH_WINDOWS);
         }
         else if(System.getProperty("os.name").contains(MAC_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", downloadTemporaryPath + CHROMEDRIVER_PATH_MAC);
+            System.setProperty("webdriver.chrome.driver", currentDirPath + CHROMEDRIVER_PATH_MAC);
         }
-        downloadTemporaryPath += DOWNLOAD_RELATIVE_PATH;
     }
 
     /**
@@ -76,7 +89,7 @@ public abstract class DownloadAbstract extends Command{
     protected WebDriver initializeWebDriver(){
         HashMap<String,Object> chromePrefs = new HashMap<>();
         chromePrefs.put("profile.default_content_settings.popups",0);
-        chromePrefs.put("download.default_directory", downloadTemporaryPath);
+        chromePrefs.put("download.default_directory", downloadPath);
         chromePrefs.put("browser.setDownloadBehavior", "allow");
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs",chromePrefs);
@@ -87,6 +100,8 @@ public abstract class DownloadAbstract extends Command{
 
     /**
      * isModuleExisting checks if the module explicitly provided by the user is Available to the user.
+     * @param driver is the current existing WebDriver session
+     * @return true if found, false if not.
      */
 
     protected boolean isModuleExisting(WebDriver driver){
@@ -111,6 +126,8 @@ public abstract class DownloadAbstract extends Command{
     /**
      * isModuleMatching is a helper function of isModuleExisting, it iterates through the moduleCode as provided by
      * the user, and checks it character by character against all the mods that IVLE displays.
+     * @param input is the string checked against the mod field that the user provided
+     * @return true if it exists on IVLE, else not.
      */
 
     protected boolean isModuleMatching(String input){
@@ -137,6 +154,7 @@ public abstract class DownloadAbstract extends Command{
 
     /**
      * loginIvle attempts to login to IVLE with the provided credentials.
+     * @param driver is the current WebDriver session
      */
 
     protected void loginIvle(WebDriver driver){
@@ -160,7 +178,7 @@ public abstract class DownloadAbstract extends Command{
             do {
                 Thread.sleep(100);
             } while(!org.apache.commons.io.FileUtils.listFiles
-                    (new File(downloadTemporaryPath), keyExtentions,false).isEmpty());
+                    (new File(downloadPath), keyExtentions,false).isEmpty());
         }
         catch(InterruptedException e){
         }
@@ -172,16 +190,19 @@ public abstract class DownloadAbstract extends Command{
      */
 
     protected void initializeDownloadFolder(){
-        File folder = new File(downloadTemporaryPath);
+        File folder = new File(downloadPath);
         File[] filesList = folder.listFiles();
 
         for (int i = 0; i < filesList.length; i++) {
             File currentFile = filesList[i];
-            if (currentFile.getName().endsWith(".crdownload")) {
+            if (currentFile.getName().endsWith("crdownload")) {
                 filesList[i].delete();
             }
         }
     }
 
+    public String getCurrentDirPath(){
+        return currentDirPath;
+    }
 
 }
