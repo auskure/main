@@ -310,6 +310,11 @@ Shows only contacts who have GER1000 in their timetable and are free at mon 10am
 Downloads the your notes from IVLE, and stores them in the folder "notes" +
 Format: `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
+[NOTE]
+====
+You would need to have Google Chrome installed in a default location in order to execute this command
+====
+
 ****
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
