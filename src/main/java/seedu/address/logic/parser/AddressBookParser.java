@@ -35,7 +35,7 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
+            // ================ AddressBook Commands ==============================
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);
 
@@ -72,6 +72,7 @@ public class AddressBookParser {
             case RedoCommand.COMMAND_WORD:
                 return new RedoCommand();
 
+            // ================ TimeTable Commands ==============================
             case MergeCommand.COMMAND_WORD:
                 return new MergeCommandParser().parse(arguments);
 
@@ -80,12 +81,6 @@ public class AddressBookParser {
 
             case ChangeTimeSlotCommand.COMMAND_WORD:
                 return new ChangeTimeSlotCommandParser().parse(arguments);
-
-            case DownloadAllNotesCommand.COMMAND_WORD:
-                return new DownloadAllNotesCommandParser().parse(arguments);
-
-            case DownloadSelectNotesCommand.COMMAND_WORD:
-                return new DownloadSelectNotesCommandParser().parse(arguments);
 
             case FreeCommand.COMMAND_WORD:
                 return new FreeCommandParser().parse(arguments);
@@ -96,8 +91,19 @@ public class AddressBookParser {
             case ImportCommand.COMMAND_WORD:
                 return new ImportCommandParser().parse(arguments);
 
+            // ================ Notes Download Commands ==============================
+            case DownloadAllNotesCommand.COMMAND_WORD:
+                return new DownloadAllNotesCommandParser().parse(arguments);
+
+            case DownloadSelectNotesCommand.COMMAND_WORD:
+                return new DownloadSelectNotesCommandParser().parse(arguments);
+
+            case ClearNotesCommand.COMMAND_WORD:
+                return new ClearNotesCommand();
+
             case ShowNotesCommand.COMMAND_WORD:
                 return new ShowNotesCommand();
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
