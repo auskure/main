@@ -30,7 +30,7 @@ public class ChangeTimeSlotCommand extends Command {
             "DAY(mon, tue, wed, thu, fri) "
             + "TIME(8am, 9am, 10am, 11am, 12am, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
             + "Activity "
-            + "Example: " + COMMAND_WORD + "1 " + "mon "
+            + "Example: " + COMMAND_WORD + " 1 " + "mon "
             + "8am "
             + "CS2107";
 
