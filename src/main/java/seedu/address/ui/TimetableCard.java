@@ -15,7 +15,7 @@ import seedu.address.model.tag.Tag;
 public class TimetableCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES = {"white", "grey2", "grey4", "grey6",
+    private static final String[] TAG_COLOR_STYLES = {"white", "yellow", "darkorange", "maroon",
              "black"};
 
 
@@ -113,6 +113,7 @@ public class TimetableCard extends UiPart<Region> {
                 slot.setText(" ");
             } else {
                 slot.getStyleClass().add(getColor(it));
+                slot.setText(it);
             }
 
 

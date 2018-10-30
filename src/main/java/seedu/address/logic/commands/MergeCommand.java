@@ -17,12 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-
-//import seedu.address.model.enrolledClass.EnrolledClass;
-import seedu.address.model.person.*;
-
 import seedu.address.model.enrolledModule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -31,7 +26,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
-
 import seedu.address.model.tag.Tag;
 
 
@@ -52,6 +46,7 @@ public class MergeCommand extends Command {
 
     public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
     public static final String MESSAGE_NOT_MERGED = "At least two people to merge must be provided";
+    public static final String MESSAGE_DUPLICATE_GROUP = "Group name already used, please choose another one";
 
     private final List<String> indices;
     private final Name name;
@@ -95,6 +90,9 @@ public class MergeCommand extends Command {
         i++;
         for (int j = 0; j < i - 1; j++) {
             personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
+        }
+        if (model.hasPerson(personsToMerge[i-1])) {
+            throw new CommandException(MESSAGE_DUPLICATE_GROUP);
         }
         model.addPerson(personsToMerge[i - 1]);
         model.commitAddressBook();
