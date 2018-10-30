@@ -17,6 +17,10 @@ public class FileUtil {
         return Files.exists(file) && Files.isRegularFile(file);
     }
 
+    public static boolean isDirectoryExists(Path directory) {
+        return Files.exists(directory) && Files.isDirectory(directory);
+    }
+
     /**
      * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},
      * otherwise returns false.
@@ -42,6 +46,16 @@ public class FileUtil {
     }
 
     /**
+     * Creates a directory if it does not exist.
+     * @throws IOException if the directory cannot be created.
+     */
+    public static void createDirectoryIfMissing(Path directory) throws IOException {
+        if (!isDirectoryExists(directory)) {
+            createDirectory(directory);
+        }
+    }
+
+    /**
      * Creates a file if it does not exist along with its missing parent directories.
      */
     public static void createFile(Path file) throws IOException {
@@ -52,6 +66,17 @@ public class FileUtil {
         createParentDirsOfFile(file);
 
         Files.createFile(file);
+    }
+
+    /**
+     * Creates a directory if it does not exist.
+     */
+    public static void createDirectory(Path directory) throws IOException {
+        if (Files.exists(directory)) {
+            return;
+        }
+
+        Files.createDirectory(directory);
     }
 
     /**
