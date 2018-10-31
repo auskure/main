@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -13,7 +13,14 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class DownloadAbstract extends Command{
+/**
+ * DownloadAbstract is an abstract class that does the basic setting up of Selenium chrome drivers. Implementation of
+ * DownloadAllNotesCommand and DownloadSelectNotesCommand extends on this class
+ *
+ * DownloadAbstract extends on the command class
+ */
+
+public abstract class DownloadAbstract extends Command {
 
     protected static final String MAC_CHROME_DRIVER_DIRECTORY = "macChromeDriver";
 
@@ -43,7 +50,8 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String IVLE_DOWNLOAD_PAGE_ADDRESS = "https://ivle.nus.edu.sg/v1/File/download_all.aspx";
 
-    protected static final String IVLE_MODULE_LIST_FIELD_ID = "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
+    protected static final String IVLE_MODULE_LIST_FIELD_ID =
+            "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
 
     protected static final String MESSAGE_MODULE_NOT_FOUND = "MODULE CODE NOT FOUND";
 
@@ -55,11 +63,18 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String UNZIP_FILE_KEYWORD = "part";
 
-    protected static final String MESSAGE_CHROME_DRIVER_NOT_FOUND = "chromeDrivers are not found, please check if you have installed the application correctly";
+    protected static final String MESSAGE_CHROME_DRIVER_NOT_FOUND =
+            "chromeDrivers are not found, please check if you have installed the application correctly";
 
-    protected static final String MESSAGE_NOTES_FOLDER_NOT_FOUND = "note folder is not found, please check if you have installed the application correctly";
+    protected static final String MESSAGE_NOTES_FOLDER_NOT_FOUND =
+            "note folder is not found, please check if you have installed the application correctly";
 
-    protected static final String MESSAGE_EXTRACTION_JAR_FAIL = "Extracting chromeDrivers or setting up Notes fold has failed";
+    protected static final String MESSAGE_EXTRACTION_JAR_FAIL =
+            "Extracting chromeDrivers or setting up Notes fold has failed";
+
+    protected static final String DOWNLOAD_FILE_ONGOING_EXTENSION = "crdownload";
+
+    protected static final String MESSAGE_DYNAMIC_WAITING_INTERRUPTED = "Waiting for the files have been interrupted";
 
     protected String username;
     protected String password;
@@ -68,7 +83,7 @@ public abstract class DownloadAbstract extends Command{
     protected String downloadPath = currentDirPath + DOWNLOAD_FILE_PATH;
 
 
-    public DownloadAbstract(String username, String password, String moduleCode){
+    public DownloadAbstract(String username, String password, String moduleCode) {
         this.username = username;
         this.password = password;
         this.moduleCode = moduleCode.toLowerCase();
@@ -83,29 +98,32 @@ public abstract class DownloadAbstract extends Command{
      */
 
 
-    protected void extractFilesFromJar() throws IOException{
+    protected void extractFilesFromJar() throws IOException {
         File notesFolder = new File(currentDirPath + DOWNLOAD_FILE_PATH);
-        if (! notesFolder.exists()){
+        if (! notesFolder.exists()) {
             notesFolder.mkdir();
         }
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource(WINDOWS_CHROME_DRIVER_DIRECTORY + "/" + WINDOWS_CHROME_DRIVER_NAME);
+        URL resource = classLoader.getResource(WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
+                + WINDOWS_CHROME_DRIVER_NAME);
         File chromeDriverDir = new File(WINDOWS_CHROME_DRIVER_DIRECTORY);
         if (!chromeDriverDir.exists()) {
             chromeDriverDir.mkdirs();
         }
-        File windowsChromeDriver = new File(WINDOWS_CHROME_DRIVER_DIRECTORY + File.separator + WINDOWS_CHROME_DRIVER_NAME);
+        File windowsChromeDriver = new File(WINDOWS_CHROME_DRIVER_DIRECTORY
+                + File.separator + WINDOWS_CHROME_DRIVER_NAME);
         if (!windowsChromeDriver.exists()) {
             windowsChromeDriver.createNewFile();
             org.apache.commons.io.FileUtils.copyURLToFile(resource, windowsChromeDriver);
         }
         resource = classLoader.getResource(MAC_CHROME_DRIVER_DIRECTORY + "/" + MAC_CHROME_DRIVER_NAME);
         chromeDriverDir = new File(MAC_CHROME_DRIVER_DIRECTORY);
-        if(!chromeDriverDir.exists()){
+        if(!chromeDriverDir.exists()) {
             chromeDriverDir.mkdirs();
         }
-        File macChromeDriver = new File(MAC_CHROME_DRIVER_DIRECTORY+ File.separator + MAC_CHROME_DRIVER_NAME);
-        if(!macChromeDriver.exists()){
+        File macChromeDriver = new File(MAC_CHROME_DRIVER_DIRECTORY+ File.separator +
+                MAC_CHROME_DRIVER_NAME);
+        if(!macChromeDriver.exists()) {
             macChromeDriver.createNewFile();
             org.apache.commons.io.FileUtils.copyURLToFile(resource,macChromeDriver);
         }
@@ -117,14 +135,13 @@ public abstract class DownloadAbstract extends Command{
      *
      * downloadPath will change from the root directory location of the application to the location of the tempDownloadStorage
      */
-    protected void initializeChromeDriverPaths(){
+    protected void initializeChromeDriverPaths() {
         if(System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
             System.setProperty("webdriver.chrome.driver", currentDirPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
                     + WINDOWS_CHROME_DRIVER_NAME);
-        }
-        else if(System.getProperty("os.name").contains(MAC_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/" +
-                    MAC_CHROME_DRIVER_NAME);
+        } else if(System.getProperty("os.name").contains(MAC_OS_NAME)) {
+            System.setProperty("webdriver.chrome.driver", currentDirPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/"
+                    + MAC_CHROME_DRIVER_NAME);
         }
     }
 
@@ -134,15 +151,15 @@ public abstract class DownloadAbstract extends Command{
      * to having the chrome windows blocking the UI is to shift it to a unviewable location at the bottom of the screen.
      */
 
-    protected WebDriver initializeWebDriver(){
-        HashMap<String,Object> chromePrefs = new HashMap<>();
-        chromePrefs.put("profile.default_content_settings.popups",0);
+    protected WebDriver initializeWebDriver() {
+        HashMap<String, Object> chromePrefs = new HashMap<>();
+        chromePrefs.put("profile.default_content_settings.popups", 0);
         chromePrefs.put("download.default_directory", downloadPath);
         chromePrefs.put("browser.setDownloadBehavior", "allow");
         ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("prefs",chromePrefs);
+        options.setExperimentalOption("prefs", chromePrefs);
         WebDriver driver = new ChromeDriver(options);
-        driver.manage().window().setPosition(new Point(-2000,0));
+        driver.manage().window().setPosition(new Point(-2000, 0));
         return driver;
     }
 
@@ -152,16 +169,17 @@ public abstract class DownloadAbstract extends Command{
      * @return true if found, false if not.
      */
 
-    protected boolean isModuleExisting(WebDriver driver){
+    protected boolean isModuleExisting(WebDriver driver) {
         driver.get(IVLE_DOWNLOAD_PAGE_ADDRESS);
         Select dropDown = new Select(driver.findElement(By.id(IVLE_MODULE_LIST_FIELD_ID)));
-        List<WebElement> itemsModules=dropDown.getOptions();
+        List<WebElement> itemsModules = dropDown.getOptions();
         int itemCount=itemsModules.size();
         /**
-        i starts at 1 because 0 is reserved for "select module"
-        an iterator is used because the dropDown element is selected by index, thus search is more logical to be sequential.
+         *i starts at 1 because 0 is reserved for "select module"
+         *an iterator is used because the dropDown element is selected by index,
+         *thus search is more logical to be sequential.
          */
-        for(int i=1;i<itemCount;i++) {
+        for(int i = 1; i < itemCount; i++) {
             if(isModuleMatching(itemsModules.get(i).getText().toLowerCase())) {
                 moduleCode=itemsModules.get(i).getText();
                 dropDown.selectByIndex(i);
@@ -178,16 +196,15 @@ public abstract class DownloadAbstract extends Command{
      * @return true if it exists on IVLE, else not.
      */
 
-    protected boolean isModuleMatching(String input){
+    protected boolean isModuleMatching(String input) {
         try {
-            for(int i=0;i<moduleCode.length();i++){
-                if(input.charAt(i)!=moduleCode.charAt(i)) {
+            for(int i = 0; i < moduleCode.length(); i++){
+                if (input.charAt(i) != moduleCode.charAt(i)) {
                     return false;
                 }
             }
             return true;
-        }
-        catch (StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException sioobe) {
             return false;
         }
     }
@@ -196,7 +213,7 @@ public abstract class DownloadAbstract extends Command{
      * isLoggedIn checks if user has successfully logged in with the provided credentials.
      */
 
-    protected boolean isLoggedIn(WebDriver driver){
+    protected boolean isLoggedIn(WebDriver driver) {
         return !(driver.getTitle().contains(IVLE_TITLE));
     }
 
@@ -205,7 +222,7 @@ public abstract class DownloadAbstract extends Command{
      * @param driver is the current WebDriver session
      */
 
-    protected void loginIvle(WebDriver driver){
+    protected void loginIvle(WebDriver driver) {
 
         driver.get(IVLE_ADDRESS);
         driver.findElement(By.id(IVLE_USERNAME_FIELD_ID)).sendKeys(username);
@@ -220,16 +237,12 @@ public abstract class DownloadAbstract extends Command{
      * the file download size requires more time than the default timeout of chromeDriver
      */
 
-    protected void dynamicWaiting(){
-        String[] keyExtentions={"crdownload"};
-        try {
-            do {
-                Thread.sleep(100);
-            } while(!org.apache.commons.io.FileUtils.listFiles
-                    (new File(downloadPath), keyExtentions,false).isEmpty());
-        }
-        catch(InterruptedException e){
-        }
+    protected void dynamicWaiting() throws InterruptedException {
+        String[] keyExtentions = {DOWNLOAD_FILE_ONGOING_EXTENSION};
+        do {
+            Thread.sleep(100);
+        } while(!org.apache.commons.io.FileUtils.listFiles
+                (new File(downloadPath), keyExtentions, false).isEmpty());
     }
 
     /**
@@ -237,17 +250,15 @@ public abstract class DownloadAbstract extends Command{
      * indefinitely
      */
 
-    protected void initializeDownloadFolder(){
+    protected void initializeDownloadFolder() {
         File folder = new File(downloadPath);
         File[] filesList = folder.listFiles();
 
         for (int i = 0; i < filesList.length; i++) {
             File currentFile = filesList[i];
-            if (currentFile.getName().endsWith("crdownload")) {
+            if (currentFile.getName().endsWith(DOWNLOAD_FILE_ONGOING_EXTENSION)) {
                 filesList[i].delete();
             }
         }
     }
-
-
 }

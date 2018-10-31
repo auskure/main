@@ -103,10 +103,14 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
                 driver.close();
                 throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST_ERROR);
             }
-            dynamicWaiting();
+            try{
+                dynamicWaiting();
+            } catch(InterruptedException ie) {
+                throw new CommandException(MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
+            }
             driver.close();
             return new CommandResult(moduleCode + MESSAGE_SUCCESS
-                    + currentDirPath + DOWNLOAD_RELATIVE_PATH);
+                    + currentDirPath + DOWNLOAD_FILE_PATH);
         }
         driver.close();
         throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
