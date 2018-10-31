@@ -106,7 +106,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             dynamicWaiting();
             driver.close();
             return new CommandResult(moduleCode + MESSAGE_SUCCESS
-                    + currentDirPath + DOWNLOAD_RELATIVE_PATH);
+                    + currentDirPath + DOWNLOAD_FILE_PATH);
         }
         driver.close();
         throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
