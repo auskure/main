@@ -6,14 +6,10 @@ import seedu.address.commons.util.UnzipUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 
 public class DownloadAllNotesCommand extends DownloadAbstract {
 
@@ -33,17 +29,15 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        Path downloadTempFolder = Paths.get("tempDownloadStorage");
-        Path notesFolder = Paths.get("notes");
         try{
-            createDirectoryIfMissing(downloadTempFolder);
-            createDirectoryIfMissing(notesFolder);
-        } catch (Exception e) {
-            throw new CommandException("Failed to create new folders");
+            extractFilesFromJar();
+        }
+        catch(IOException io){
+            throw new CommandException(MESSAGE_EXTRACTION_JAR_FAIL);
         }
 
         try{
-            initializeChromedriverPath();
+            initializeChromeDriverPaths();
         }
         catch(NullPointerException npe){
             throw new CommandException(MESSAGE_CHROME_DRIVER_NOT_FOUND);
@@ -64,7 +58,11 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
         if(isModuleExisting(driver)){
             initializeDownloadFolder();
             downloadFiles(driver);
-            dynamicWaiting();
+            try{
+                dynamicWaiting();
+            } catch(InterruptedException ie) {
+                throw new CommandException(MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
+            }
             driver.close();
             try{
                 UnzipUtil.unzipFile(downloadPath, UNZIP_FILE_KEYWORD,

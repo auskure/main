@@ -55,6 +55,9 @@ test {
 }
 
 dependencies {
+
+    compile files('chromeDriversGradle/')
+
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
@@ -66,19 +69,16 @@ dependencies {
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
     implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
-
+    implementation group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.5.1'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
     implementation group: 'commons-io', name: 'commons-io', version: '2.6'
     implementation group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.5.1'
-
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
         exclude group: 'org.testfx', module: 'testfx-internal-java8'
     }
     testImplementation group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
-
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
-
     testRuntimeOnly group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
     testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
@@ -86,7 +86,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'NSync.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

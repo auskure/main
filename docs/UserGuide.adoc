@@ -332,7 +332,7 @@ of the specified module.
 
 * You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
 
-image::chromeOpen.png[width="900"]
+image::chromeOpen.PNG[width="250"]
 
 * N*Sync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
@@ -362,7 +362,7 @@ Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENRO
 [NOTE]
 Currently the files are not sorted in any order. In a future version we will make its sorted by file type
 
-image::downloadSelectFileExample.png[width="900"]
+image::downloadSelectFileExample.PNG[width="900"]
 
 * All available notes from the selected module would be sourced and displayed
 
@@ -370,10 +370,15 @@ image::downloadSelectFileExample.png[width="900"]
 
 Examples:
 
+[NOTE]
+the number on the left of the file represents the file ID, it is static. 
+
+    Example: 0:LP41_More_UML_Inheritence.pptx
+
 File Fetch Successful 
 
-image::downloadSelectFileSuccess1.png[width="900"]
-image::downloadSelectFileSuccess2.png[width="900"]
+image::downloadSelectFileSuccess1.PNG[width="900"]
+image::downloadSelectFileSuccess2.PNG[width="900"]
 
 Module not found
 
@@ -391,9 +396,7 @@ Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENRO
 [TIP]
 Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
 
-image::fileExample.png[width="900"]
-
-image::downloadSelectExample.png[width="900"]
+image::downloadSelectExample.PNG[width="900"]
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
@@ -406,11 +409,11 @@ Examples:
 
 Download Successful
 
-image:::downloadSelectSuccess.png[width="900"]
+image::downloadSelectSuccess.PNG[width="900"]
 
 File not found
 
-image::downloadSelectFileNotFound[width="900"]
+image::downloadSelectFileNotFound.PNG[width="900"]
 
 ==== Show all downloaded notes: `showNotes`
 Displays all the downloaded notes in the UI
@@ -424,9 +427,9 @@ the files are displayed in the order that it is in your directory
 
 Example: 
 
-image::showNotes1[width="900"]
-image::showNotes2[width="900"]
-image::showNotes3[width="900"]
+image::showNotes1.PNG[width="900"]
+image::showNotes2.PNG[width="900"]
+image::showNotes3.PNG[width="900"]
 
 ==== Clearing all downloaded notes : `clearNotes`
 

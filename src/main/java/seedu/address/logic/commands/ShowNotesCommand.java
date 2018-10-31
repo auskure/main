@@ -4,12 +4,12 @@ import seedu.address.logic.commands.exceptions.*;
 import seedu.address.model.Model;
 
 import java.io.*;
+import java.nio.file.*;
 
-import static seedu.address.logic.commands.DownloadAbstract.PARAM_CURRENT_DIRECTORY;
 
 public class ShowNotesCommand extends Command{
 
-    private String currentDirPath = System.getProperty(PARAM_CURRENT_DIRECTORY);
+    private String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
 
     private String notesPathExtension = "/notes";
 
