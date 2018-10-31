@@ -6,17 +6,22 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import java.io.IOException;
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class DownloadAbstract extends Command{
 
-    protected static final String CHROMEDRIVER_PATH_WINDOWS = "/chromeDrivers/windows/chromedriver.exe";
+    protected static final String MAC_CHROME_DRIVER_DIRECTORY = "macChromeDriver";
 
-    protected static final String CHROMEDRIVER_PATH_MAC = "/chromeDrivers/mac/chromedriver";
+    protected static final String MAC_CHROME_DRIVER_NAME = "chromedriver";
 
-    protected static final String DOWNLOAD_RELATIVE_PATH = "/tempDownloadStorage";
+    protected static final String WINDOWS_CHROME_DRIVER_DIRECTORY = "windowsChromeDriver";
+
+    protected static final String WINDOWS_CHROME_DRIVER_NAME = "chromedriver.exe";
 
     protected static final String DOWNLOAD_FILE_PATH = "/notes";
 
@@ -50,17 +55,17 @@ public abstract class DownloadAbstract extends Command{
 
     protected static final String UNZIP_FILE_KEYWORD = "part";
 
-    protected static final String PARAM_CURRENT_DIRECTORY = "user.dir";
-
     protected static final String MESSAGE_CHROME_DRIVER_NOT_FOUND = "chromeDrivers are not found, please check if you have installed the application correctly";
 
     protected static final String MESSAGE_NOTES_FOLDER_NOT_FOUND = "note folder is not found, please check if you have installed the application correctly";
 
+    protected static final String MESSAGE_EXTRACTION_JAR_FAIL = "Extracting chromeDrivers or setting up Notes fold has failed";
+
     protected String username;
     protected String password;
     protected String moduleCode;
-    protected String currentDirPath = System.getProperty(PARAM_CURRENT_DIRECTORY);
-    protected String downloadPath = currentDirPath + DOWNLOAD_RELATIVE_PATH;
+    protected String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
+    protected String downloadPath = currentDirPath + DOWNLOAD_FILE_PATH;
 
 
     public DownloadAbstract(String username, String password, String moduleCode){
@@ -70,17 +75,56 @@ public abstract class DownloadAbstract extends Command{
     }
 
     /**
-     * initializeChromedriverPath dynamically sets the download path of the files and location of chromeDriver
+     * extractFilesFromJar makes the notes folder to store the notes for the user if it doesnt exists.
+     * as well as extract the relevant chromedriver files from inside the jar to outside the jar to be able to be used.
+     *
+     * this method should only run when running from a fresh jar file.
+     * @throws IOException
+     */
+
+
+    protected void extractFilesFromJar() throws IOException{
+        File notesFolder = new File(currentDirPath + DOWNLOAD_FILE_PATH);
+        if (! notesFolder.exists()){
+            notesFolder.mkdir();
+        }
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(WINDOWS_CHROME_DRIVER_DIRECTORY + "/" + WINDOWS_CHROME_DRIVER_NAME);
+        File chromeDriverDir = new File(WINDOWS_CHROME_DRIVER_DIRECTORY);
+        if (!chromeDriverDir.exists()) {
+            chromeDriverDir.mkdirs();
+        }
+        File windowsChromeDriver = new File(WINDOWS_CHROME_DRIVER_DIRECTORY + File.separator + WINDOWS_CHROME_DRIVER_NAME);
+        if (!windowsChromeDriver.exists()) {
+            windowsChromeDriver.createNewFile();
+            org.apache.commons.io.FileUtils.copyURLToFile(resource, windowsChromeDriver);
+        }
+        resource = classLoader.getResource(MAC_CHROME_DRIVER_DIRECTORY + "/" + MAC_CHROME_DRIVER_NAME);
+        chromeDriverDir = new File(MAC_CHROME_DRIVER_DIRECTORY);
+        if(!chromeDriverDir.exists()){
+            chromeDriverDir.mkdirs();
+        }
+        File macChromeDriver = new File(MAC_CHROME_DRIVER_DIRECTORY+ File.separator + MAC_CHROME_DRIVER_NAME);
+        if(!macChromeDriver.exists()){
+            macChromeDriver.createNewFile();
+            org.apache.commons.io.FileUtils.copyURLToFile(resource,macChromeDriver);
+        }
+    }
+
+    /**
+     * initializeChromeDriverPaths dynamically sets the download path of the files and location of chromeDriver
      * so that its relative to where this project is stored and what OS the user is using.
      *
      * downloadPath will change from the root directory location of the application to the location of the tempDownloadStorage
      */
-    protected void initializeChromedriverPath(){
+    protected void initializeChromeDriverPaths(){
         if(System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirPath + CHROMEDRIVER_PATH_WINDOWS);
+            System.setProperty("webdriver.chrome.driver", currentDirPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
+                    + WINDOWS_CHROME_DRIVER_NAME);
         }
         else if(System.getProperty("os.name").contains(MAC_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirPath + CHROMEDRIVER_PATH_MAC);
+            System.setProperty("webdriver.chrome.driver", currentDirPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/" +
+                    MAC_CHROME_DRIVER_NAME);
         }
     }
 
@@ -205,8 +249,5 @@ public abstract class DownloadAbstract extends Command{
         }
     }
 
-    public String getCurrentDirPath(){
-        return currentDirPath;
-    }
 
 }
