@@ -58,7 +58,11 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
         if(isModuleExisting(driver)){
             initializeDownloadFolder();
             downloadFiles(driver);
-            dynamicWaiting();
+            try{
+                dynamicWaiting();
+            } catch(InterruptedException ie) {
+                throw new CommandException(MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
+            }
             driver.close();
             try{
                 UnzipUtil.unzipFile(downloadPath, UNZIP_FILE_KEYWORD,
