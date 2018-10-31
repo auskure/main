@@ -2,15 +2,14 @@ package seedu.address.logic.commands;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import seedu.address.commons.util.UnzipUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
@@ -57,7 +56,13 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try{
-            initializeChromedriverPath();
+            extractFilesFromJar();
+        }
+        catch(IOException io){
+            throw new CommandException(MESSAGE_EXTRACTION_JAR_FAIL);
+        }
+        try{
+            initializeChromeDriverPaths();
         }
         catch(NullPointerException npe){
             throw new CommandException(MESSAGE_CHROME_DRIVER_NOT_FOUND);
