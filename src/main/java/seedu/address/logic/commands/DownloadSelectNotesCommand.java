@@ -103,7 +103,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             }
             driver.close();
             return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
-                    + currentDirPath + DOWNLOAD_FILE_PATH);
+                    + downloadPath);
         }
         driver.close();
         throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);

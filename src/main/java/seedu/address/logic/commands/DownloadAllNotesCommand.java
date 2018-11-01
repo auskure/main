@@ -76,7 +76,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
                 throw new CommandException(Messages.MESSAGE_NOTES_FOLDER_NOT_FOUND);
             }
             return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
-                                        + currentDirPath + DOWNLOAD_FILE_PATH);
+                                        + downloadPath);
         }
         driver.close();
         throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
