@@ -19,7 +19,6 @@ If you are a student, all you have to do is to key in your time-table (and get y
 ** What it does: allows the users to `export` and `import` all information fields of one or more contacts, which includes the name, contact number, email, address and the time-table itself.
 ** Justification: This feature boosts the productivity of the user significantly, by cutting down the amount of time that he/she has to take to input his/her contacts' details. The user and his/her contacts will only have to key in their contact details and time-tables respectively in a one-time fashion, before exporting their details and sending it to each other for importing.
 ** Highlights: This enhancement builds upon all of the existing user fields, requiring an in-depth analysis into the workings of the `Logic` and `Model` component. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
-** Credits: 
 
 * *Minor enhancement*: added a `free` command that allows the user to find the next immediate available time-slot for himself, or his contacts from the current time.
 
@@ -38,14 +37,7 @@ If you are a student, all you have to do is to key in your time-table (and get y
 ** Community:
 *** PRs reviewed: To be added.
 
-
-** Tools:
-
-
-_{you can add/remove categories in the list above}_
-
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -64,13 +56,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
-
-
-
