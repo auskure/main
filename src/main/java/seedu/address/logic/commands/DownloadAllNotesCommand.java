@@ -1,4 +1,5 @@
 package seedu.address.logic.commands;
+import seedu.address.commons.core.Messages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,14 +34,14 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
             extractFilesFromJar();
         }
         catch(IOException io){
-            throw new CommandException(MESSAGE_EXTRACTION_JAR_FAIL);
+            throw new CommandException(Messages.MESSAGE_EXTRACTION_JAR_FAIL);
         }
 
         try{
             initializeChromeDriverPaths();
         }
         catch(NullPointerException npe){
-            throw new CommandException(MESSAGE_CHROME_DRIVER_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_CHROME_DRIVER_NOT_FOUND);
         }
 
         WebDriver driver = initializeWebDriver();
@@ -49,11 +50,11 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
         }
         catch(NoSuchElementException nse){
             driver.close();
-            throw new CommandException(MESSAGE_UNABLE_REACH_IVLE);
+            throw new CommandException(Messages.MESSAGE_UNABLE_REACH_IVLE);
         }
         if(!isLoggedIn(driver)) {
             driver.close();
-            throw new CommandException(MESSAGE_USERNAME_PASSWORD_ERROR);
+            throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
         }
         if(isModuleExisting(driver)){
             initializeDownloadFolder();
@@ -61,7 +62,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
             try{
                 dynamicWaiting();
             } catch(InterruptedException ie) {
-                throw new CommandException(MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
+                throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
             }
             driver.close();
             try{
@@ -69,16 +70,16 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
                         currentDirPath, DOWNLOAD_FILE_PATH, moduleCode);
             }
             catch (IOException ioe) {
-                throw new CommandException(MESSAGE_FILE_CORRUPTED);
+                throw new CommandException(Messages.MESSAGE_FILE_CORRUPTED);
             }
             catch (NullPointerException npe) {
-                throw new CommandException(MESSAGE_NOTES_FOLDER_NOT_FOUND);
+                throw new CommandException(Messages.MESSAGE_NOTES_FOLDER_NOT_FOUND);
             }
-            return new CommandResult(moduleCode + MESSAGE_SUCCESS
+            return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
                                         + currentDirPath + DOWNLOAD_FILE_PATH);
         }
         driver.close();
-        throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
     }
 
     /**

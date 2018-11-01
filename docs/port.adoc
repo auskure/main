@@ -5,19 +5,23 @@
 
 == [blue]#Overview#
 NSync is a student lifestyle management and utility application built apon AddressBook - Level 4.  The user interacts
+//More description + this PPP documents contribution of the project
 with it using a Command-Line interface with a graphic user interface created with JavaFX. It also implements Selenium
 chrome Driver to operate web interactions.
 
+//***describe the app, and what the portfolio includes.
+
 == [blue]#Summary of contributions#
-* *Major Enhancement* : added ability to download notes from IVLE automatically.
+* *Major Enhancement* : Added ability to download notes from IVLE automatically.
 
 
-** What it does: allows the user to download all notes of a certain module using the `downloadAllNotes` command
+** What it does: Allows the user to download all notes of a certain module using the `downloadAllNotes` command
 as well as view all the available files and select which files to download with the `downloadSelectNotes` command.
 
 ** Justification: This feature will allow the user to save significant amount of time each week, by simplifying the
+//More concise
 the download of all the files of all the modules to a couple of lines of input.
-
+//highilights=>technical challnges.
 ** Highlights: It uses the extremely flexible Selenium Webdriver library. With this existing library included, we would
 be able to implement other features that implement with the web: Going through Emails etc.
 
@@ -25,6 +29,7 @@ be able to implement other features that implement with the web: Going through E
 
 
 * *Minor Enhancement* :  added the ability to view the notes download using the `showNotes`
+//must have the same treatment as the major enchancement
 
 * *Code contributed* : [https://github.com/BearPerson1/Michaels-ver-of-ab4[Functional Code]]
 
@@ -36,10 +41,15 @@ be able to implement other features that implement with the web: Going through E
 *** Added entries to the User Guide for `downloadAllNotes`,`downloadSelectNotes` and `showNotes` command.
 
 ** Tools:
+
 *** Integrated third party library (apache.commons.io) to project
 *** Integrated third party library (selenium) to project
 
+
 == [blue]#Contributions to the User Guide#
+//quick preface to explain ^
+
+//for every picture, there must be a purpose of each picture. 
 
 === Notes Commands
 ***
@@ -78,6 +88,8 @@ image::chromeOpen.PNG[width="250"]
 
 Examples:
 
+//slot the pictures such that the pictures make sense
+
 __Download Successful__
 
 image::downloadAllSuccessful.PNG[width="900"]
@@ -109,15 +121,17 @@ image::downloadSelectFileExample.PNG[width="900"]
 ****
 Examples:
 
-[NOTE]
-the number on the left of the file represents the file ID, it is static.
-
-    Example: 0:LP41_More_UML_Inheritence.pptx
 
 __File Fetch Successful__
 
 image::downloadSelectFileSuccess1.PNG[width="900"]
 image::downloadSelectFileSuccess2.PNG[width="900"]
+
+    Example: 0:LP41_More_UML_Inheritence.pptx
+
+[NOTE]
+the number on the left of the file represents the file ID, it is static.
+
 
 __Module not found__
 
@@ -144,13 +158,15 @@ image::downloadSelectExample.PNG[width="900"]
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
-* if you entered a mix of invalid and valid file IDs, N*Sync will only only download the correct files, up till it encounters a invalid ID.
+* if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.
 
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
 
 ****
 Examples:
+
+
 
 __Download Successful__
 

@@ -57,7 +57,6 @@ test {
 dependencies {
 
     compile files('chromeDriversGradle/')
-
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 

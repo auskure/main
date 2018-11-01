@@ -1,4 +1,5 @@
 package seedu.address.logic.commands;
+import seedu.address.commons.core.Messages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,22 +19,14 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
 
     public static final String COMMAND_WORD = "downloadSelectNotes";
 
-    public static final String MESSAGE_USAGE = "To display all available notes:\r\ndownloadSelectNotes user/(username) " +
-            "pass/(password) mod/(moduleCode)\r\nTo select the notes(by index):\r\ndownloadSelectNotes user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
+    public static final String MESSAGE_USAGE = "To display all available notes:\r\n" + COMMAND_WORD + " user/(username) " +
+            "pass/(password) mod/(moduleCode)\r\nTo select the notes(by index):\r\n" + COMMAND_WORD + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
 
     public static final String NEWLINE_SEPERATOR = "\r\n";
 
-    public static final String NO_FILES_SELECTED_MESSAGE = "Please select a file after the \"file/\" tag. Ie: file/(0,1,2...n))";
-
-    public static final String MESSAGE_FILE_DOES_NOT_EXIST_ERROR = "A FILE YOU CHOSE DOES NOT EXIST\r\nDOWNLOAD NOT COMPLETE";
-
-    private static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
-
-    private static final String TREEVIEW_CLASS_ID = "TreeView";
-
-    private static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID = "href";
-
-    private static final String MESSAGE_SUCCESS_PREFIX = "Here are your the files available for: ";
+    public static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
+    public static final String TREEVIEW_CLASS_ID = "TreeView";
+    public static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID = "href";
 
     private ArrayList<Integer> fileSelect;
     private String availableDownloadFiles;
@@ -59,13 +52,13 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             extractFilesFromJar();
         }
         catch(IOException io){
-            throw new CommandException(MESSAGE_EXTRACTION_JAR_FAIL);
+            throw new CommandException(Messages.MESSAGE_EXTRACTION_JAR_FAIL);
         }
         try{
             initializeChromeDriverPaths();
         }
         catch(NullPointerException npe){
-            throw new CommandException(MESSAGE_CHROME_DRIVER_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_CHROME_DRIVER_NOT_FOUND);
         }
 
         WebDriver driver=initializeWebDriver();
@@ -82,17 +75,17 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
         }
         catch(NoSuchElementException nse){
             driver.close();
-            throw new CommandException(MESSAGE_UNABLE_REACH_IVLE);
+            throw new CommandException(Messages.MESSAGE_UNABLE_REACH_IVLE);
         }
         if(!isLoggedIn(driver)){
             driver.close();
-            throw new CommandException(MESSAGE_USERNAME_PASSWORD_ERROR);
+            throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
         }
         if(isModuleExisting(driver)){
-            if(fileSelect==null) {
+            if(fileSelect == null) {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
-                return new CommandResult(MESSAGE_SUCCESS_PREFIX + moduleCode + "\r\n" + availableDownloadFiles);
+                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS+ moduleCode + "\r\n" + availableDownloadFiles);
             }
 
             initializeDownloadFolder();
@@ -101,19 +94,19 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             }
             catch(IndexOutOfBoundsException iobe){
                 driver.close();
-                throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST_ERROR);
+                throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST_ERROR);
             }
             try{
                 dynamicWaiting();
             } catch(InterruptedException ie) {
-                throw new CommandException(MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
+                throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
             }
             driver.close();
-            return new CommandResult(moduleCode + MESSAGE_SUCCESS
+            return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
                     + currentDirPath + DOWNLOAD_FILE_PATH);
         }
         driver.close();
-        throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
     }
 
     /**

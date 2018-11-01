@@ -1,4 +1,5 @@
 package seedu.address.logic.parser;
+import seedu.address.commons.core.*;
 import seedu.address.logic.commands.DownloadSelectNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -28,7 +29,7 @@ public class DownloadSelectNotesCommandParser implements Parser {
         if(argMultimap.getValue(PREFIX_SELECT_FILE).isPresent()){
             String fileSelect = argMultimap.getValue(PREFIX_SELECT_FILE).get();
             if(fileSelect.isEmpty()){
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DownloadSelectNotesCommand.NO_FILES_SELECTED_MESSAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED));
 
             }
             return new DownloadSelectNotesCommand( username, password, moduleCode,fileSelect);

@@ -40,41 +40,21 @@ public abstract class DownloadAbstract extends Command {
 
     protected static final String IVLE_ADDRESS = "https://ivle.nus.edu.sg";
 
+    protected static final String DOWNLOAD_FILE_ONGOING_EXTENSION = "crdownload";
+
     protected static final String IVLE_USERNAME_FIELD_ID = "ctl00_ctl00_ContentPlaceHolder1_userid";
 
     protected static final String IVLE_PASSWORD_FIELD_ID = "ctl00_ctl00_ContentPlaceHolder1_password";
 
     protected static final String IVLE_LOGIN_BUTTON_ID = "ctl00_ctl00_ContentPlaceHolder1_btnSignIn";
 
-    protected static final String MESSAGE_USERNAME_PASSWORD_ERROR = "WRONG PASSWORD OR USERNAME ENTERED";
-
     protected static final String IVLE_DOWNLOAD_PAGE_ADDRESS = "https://ivle.nus.edu.sg/v1/File/download_all.aspx";
 
     protected static final String IVLE_MODULE_LIST_FIELD_ID =
             "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
 
-    protected static final String MESSAGE_MODULE_NOT_FOUND = "MODULE CODE NOT FOUND";
-
-    protected static final String MESSAGE_UNABLE_REACH_IVLE = "UNABLE TO LOGIN TO IVLE AT THIS TIME";
-
-    protected static final String MESSAGE_FILE_CORRUPTED = "Downloaded file was corrupted";
-
-    protected static final String MESSAGE_SUCCESS = "\r\nDownloaded file at ";
-
     protected static final String UNZIP_FILE_KEYWORD = "part";
 
-    protected static final String MESSAGE_CHROME_DRIVER_NOT_FOUND =
-            "chromeDrivers are not found, please check if you have installed the application correctly";
-
-    protected static final String MESSAGE_NOTES_FOLDER_NOT_FOUND =
-            "note folder is not found, please check if you have installed the application correctly";
-
-    protected static final String MESSAGE_EXTRACTION_JAR_FAIL =
-            "Extracting chromeDrivers or setting up Notes fold has failed";
-
-    protected static final String DOWNLOAD_FILE_ONGOING_EXTENSION = "crdownload";
-
-    protected static final String MESSAGE_DYNAMIC_WAITING_INTERRUPTED = "Waiting for the files have been interrupted";
 
     protected String username;
     protected String password;
