@@ -22,7 +22,7 @@ If you are a student, all you have to do is to key in your time-table (and get y
 
 * *Minor enhancement*: added a `free` command that allows the user to find the next immediate available time-slot for himself, or his contacts from the current time.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] <To be confirmed if we are still using collated code files>
 
 * *Other contributions*:
 
