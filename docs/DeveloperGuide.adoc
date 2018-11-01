@@ -1,4 +1,4 @@
-= NUSync - Developer Guide
+= NSync - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -551,7 +551,7 @@ to remember to implement his/her own checks.
 If they were to make their own version of the helper class but forget to implement their own checks for errors, `UniquePersonList`
 would still have backup checks.
 ** Cons: This makes code harder to understand, by introducing redundant checks, which would be misleading.  Redundant checks
-might also encourage careless programing habits, which is wrong.
+might also incorrectly encourage careless programing habits.
 // end::sortingofpersons[]
 
 === Logging
