@@ -35,7 +35,9 @@ If you are a student, all you have to do is to key in your time-table (and get y
 *** Added features coming in v2.0 in the User Guide (Pull Request #<To be added>)
 
 ** Community:
-*** PRs reviewed: To be added.
+*** PRs reviewed (with non-trivial review comments): To be added.
+*** Contributed to forum discussions: To be added.
+*** Reported bugs and suggestions for other teams in the class: To be added.
 
 == Contributions to the User Guide
 
