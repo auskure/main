@@ -43,7 +43,7 @@ be able to implement other features that implement with the web: Going through E
 
 === Notes Commands
 ***
-=== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
+=== [aqua]#Downloading all notes from a selected module from IVLE : `downloadAllNotes`#
 ***
 Downloads the your notes from IVLE, and stores them in the folder "notes"
 
@@ -91,7 +91,7 @@ __Password or username Incorrect__
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
 ***
-=== Display all notes from a selected module from IVLE : `downloadSelectNotes` __without__ prefix `"file/"`
+=== [aqua]#Display all notes from a selected module from IVLE : `downloadSelectNotes` __without__ prefix `"file/"`#
 
 ***
 Displays all the available notes of a selected module
@@ -129,7 +129,7 @@ image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
 
 ***
-=== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` __with__ prefix `"file/"`
+=== [aqua]#Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` __with__ prefix `"file/"`#
 ***
 
 Download a selective number of notes from IVLE, and stores them in the folder "notes".
@@ -162,7 +162,7 @@ image::downloadSelectFileNotFound.PNG[width="900"]
 ****
 
 ***
-=== Show all downloaded notes: `showNotes`
+=== [aqua]#Show all downloaded notes: `showNotes`#
 ***
 Displays all the downloaded notes in the UI
 
