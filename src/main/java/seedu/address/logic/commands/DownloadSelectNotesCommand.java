@@ -87,6 +87,13 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
                 driver.close();
                 return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS+ moduleCode + "\r\n" + availableDownloadFiles);
             }
+            /**
+             * Updated to disable download operations.
+             */
+            if(isDownloadDisabled){
+                driver.close();
+                return new CommandResult (Messages.MESSAGE_DOWNLOAD_DISABLED);
+            }
 
             initializeDownloadFolder();
             try{
