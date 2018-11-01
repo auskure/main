@@ -1,42 +1,70 @@
-= Low Wei Jie, Oscar - Project Portfolio
+= Loh Wei Jie, Oscar - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: NSync
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+If you are an NUS student who desires control of your academic life, look no further.
+NSync is a desktop contact list organizer which empowers NUS students.  On top of all basic functions you
+would expect in an ordinary contact list, we have tailored special tools which allow for timetable coordination
+between contacts, as well as an automated IVLE file downloader.  This would improve productivity among
+students, saving time on mundane tasks, thus allowing them to instead focus on understanding and appreciating
+ important academic concepts.
+
+
+NUSync is a desktop-based utility application used by NUS students. The user interacts with it using a CLI,
+ and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.  We have also incorporated
+ existing libraries such as Selenium Chrome Drivers for the automated IVLE file downloader.
 
 == Summary of contributions
 
-* *Major enhancement*: To be decided.
-** What it does: To be decided.
-** Justification: ide a convenient way to rectify them.
-** Highlights: To be decided.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Notes Deletion
+** What it does: In a single command, we allow you to delete all the notes you have downloaded using NSync.  This
+would helps you quickly and conveniently free up your storage space.
+** Justification: Because my teammate has already implemented an automated notes downloader, allowing you to download
+large folders conveniently, it is also useful to have an equally convenient method to delete your notes.  This
+removes the need for you to manually go to your storage to delete your own notes.
+** Credits: We made use of existing library ///, modified and improved upon extracting zip files online
+tutorials.
 
-* *Minor enhancement*: To be decided.
+* *Minor enhancement*: File Unzipping
+** What it does: This helps to unzip files and stores them in an appropriate folder. We make things more intuitive for
+you, by automatically unzipping your files and storing them in the notes folder, according to their respective
+directories.
+** Justification:This is because using IVLE's libraries, files are downloaded in a zip format.  Automatically unzipping
+ and storing your notes would add towards the best possible user experience.
+** Credits: We made use of existing library ///, modified and improved upon extracting zip files online
+tutorials.
 
+* *Minor enhancement*: Alphabetised contact list in the address book.
+** What it does: When you add a new contact to your contact list, the contact is added in an alphabetic order
+automatically.
+** Justification: This removes the need for you to search for your contacts according to the time at which they
+are added.  Contacts are alphabetised as they should be.
+** Credits: We made use of existing library ///.
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
+*** Successfully assigned and managed `issues` for all team members, and matched them to corresponding deadlines.
+*** Effectively planned and facilitated discussions on project direction and work delegation.
 
 ** Enhancements to existing features:
+*** Added a new attribute to the Person Class, called Enrolled Moduels.  This allows you to learn with just one glance,
+what modules your contact is taking.
 
 ** Documentation:
- https://github.com[#14]
+*** Performed updates and organized the User Guide into a more reader friendly format, in pull request #///
+
 ** Community:
+*** Pull requests reviewed with elaborate comments in pull request #79.
 
-** Tools:
-
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -45,9 +73,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=downloadAllNotes]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=clearNotes]
 
 == Contributions to the Developer Guide
 
@@ -55,15 +83,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=sortingofpersons]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
 
 
