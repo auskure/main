@@ -57,6 +57,13 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
             throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
         }
         if(isModuleExisting(driver)){
+            /**
+             * Updated to disable download operations.
+             */
+            if(isDownloadDisabled){
+                driver.close();
+                throw new CommandException(Messages.MESSAGE_DOWNLOAD_DISABLED);
+            }
             initializeDownloadFolder();
             downloadFiles(driver);
             try{

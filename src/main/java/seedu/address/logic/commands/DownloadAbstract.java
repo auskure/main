@@ -61,6 +61,7 @@ public abstract class DownloadAbstract extends Command {
     protected String moduleCode;
     protected String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
     protected String downloadPath = currentDirPath + DOWNLOAD_FILE_PATH;
+    protected boolean isDownloadDisabled = true;
 
 
     public DownloadAbstract(String username, String password, String moduleCode) {

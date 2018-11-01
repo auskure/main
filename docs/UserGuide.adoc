@@ -304,6 +304,11 @@ Shows only contacts who have GER1000 in their timetable and are free at mon 10am
 
 
 === Notes Commands
+****
+The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
+
+Users are still able to login and view available files to be downloaded.
+****
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
