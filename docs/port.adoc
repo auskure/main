@@ -1,9 +1,10 @@
 = Hu Yi Qing - Project Portfolio
 :imagesdir: images
-== [blue]#PROJECT: N*Sync#
+
+== [blue]#PROJECT: NSync#
 
 == [blue]#Overview#
-N*Sync is a student lifestyle management and utility application built apon AddressBook - Level 4.  The user interacts
+NSync is a student lifestyle management and utility application built apon AddressBook - Level 4.  The user interacts
 with it using a Command-Line interface with a graphic user interface created with JavaFX. It also implements Selenium
 chrome Driver to operate web interactions.
 
@@ -41,9 +42,9 @@ be able to implement other features that implement with the web: Going through E
 == [blue]#Contributions to the User Guide#
 
 === Notes Commands
-
-==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
-
+***
+=== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
+***
 Downloads the your notes from IVLE, and stores them in the folder "notes"
 
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
@@ -57,9 +58,8 @@ You would need to have Google Chrome installed in the default location in order 
 You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
 
 
-****
-image::downloadExample.PNG[width="900"]
 
+image::downloadExample.PNG[width="900"]
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
@@ -78,21 +78,23 @@ image::chromeOpen.PNG[width="250"]
 
 Examples:
 
-Download Successful
+__Download Successful__
 
 image::downloadAllSuccessful.PNG[width="900"]
 
-Module not found
+__Module not found__
 
 image::downloadModNotFound.PNG[width="900"]
 
-Password or username Incorrect
+__Password or username Incorrect__
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
+****
+***
+=== Display all notes from a selected module from IVLE : `downloadSelectNotes` __without__ prefix `"file/"`
 
-
-==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
-Displays all the available notes of a selected
+***
+Displays all the available notes of a selected module
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
@@ -104,7 +106,7 @@ image::downloadSelectFileExample.PNG[width="900"]
 * All available notes from the selected module would be sourced and displayed
 
 * if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
-
+****
 Examples:
 
 [NOTE]
@@ -112,25 +114,30 @@ the number on the left of the file represents the file ID, it is static.
 
     Example: 0:LP41_More_UML_Inheritence.pptx
 
-File Fetch Successful
+__File Fetch Successful__
 
 image::downloadSelectFileSuccess1.PNG[width="900"]
 image::downloadSelectFileSuccess2.PNG[width="900"]
 
-Module not found
+__Module not found__
 
 image::downloadModNotFound.PNG[width="900"]
 
-Password or username Incorrect
+__Password or username Incorrect__
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
+****
 
-==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
+***
+=== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` __with__ prefix `"file/"`
+***
+
 Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
 
 [TIP]
+
 Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
 
 image::downloadSelectExample.PNG[width="900"]
@@ -142,17 +149,21 @@ image::downloadSelectExample.PNG[width="900"]
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
 
+****
 Examples:
 
-Download Successful
+__Download Successful__
 
 image::downloadSelectSuccess.PNG[width="900"]
 
-File not found
+_File not found_
 
 image::downloadSelectFileNotFound.PNG[width="900"]
+****
 
-==== Show all downloaded notes: `showNotes`
+***
+=== Show all downloaded notes: `showNotes`
+***
 Displays all the downloaded notes in the UI
 
 Format: `showNotes`
@@ -161,9 +172,11 @@ Format: `showNotes`
 the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
-
+****
 Example:
 
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
+****
+***
