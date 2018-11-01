@@ -1,4 +1,4 @@
-= NSync - User Guide
+= N*Sync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,7 +19,7 @@ By: `Team W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+N*Sync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -304,7 +304,7 @@ Shows only contacts who have GER1000 in their timetable and are free at mon 10am
 
 
 === Notes Commands
-
+// tag::downloadAllNotes[]
 ==== Downloading notes from IVLE : `downloadAllNotes`
 
 Downloads the your notes from IVLE, and stores them in the folder "notes" +
@@ -327,14 +327,14 @@ Examples:
 Downloads all notes and resources for CS2101
 * `downloadAllNotes user/e1234567 pass/password1 mod/CS2113` +
 Downloads all notes and resources for CS2113
-
+// end::downloadAllNotes[]
 ==== Downloading notes from IVLE : `downloadSelectNotes`
-
+// tag::clearNotes[]
 ==== Clearing all downloaded notes : `clearNotes`
 
 Clears all downloaded notes.
 Format: clearNotes
-
+// end::clearNotes[]
 == Upcoming Features
 
 // tag::dataencryption[]
