@@ -1,4 +1,4 @@
-= N*Sync - User Guide
+= NSync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -15,11 +15,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team W12-2`      Since: `Aug 2018`      Licence: `MIT`
+By: `CS2113-AY1819S1-W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-N*Sync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -29,7 +29,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.PNG[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`delete`**`3` : deletes contact whose index number is 3
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -241,10 +241,78 @@ Format: `clear`
 
 === Timetable Commands
 
+==== Changing Time Slots: `change`
+
+You can change your own, or a contact's timetable to reflect whether there is an activity at a specified time slot,
+or whether it is free or busy.
+
+Format: `change INDEX/SELF DAY TIME ACTIVITY/FREE/BUSY`
+
+****
+* Changes the timetable of the person specified by index or your own timetable if self is inputted.
+* The DAY refers to which day of the timetable is going to be edited.
+* The TIME refers to which time within the day will be edited.
+* The ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
+* DAY must be mon, tue, wed, thu or fri (Non-case sensitive)
+* TIME must be 8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm
+****
+
+`change 1 mon 8am GER1000`
+Changes the mon 8am time slot of the first contact in the main contact list to GER1000
+
+Before:
+
+image::ChangeCommand1.PNG[width="800"]
+
+After:
+
+image::ChangeCommand2.PNG[width="800"]
+
+==== Sharing timetables `share`
+
+You can select a person whose timetable you would like to share. This outputs the text that you would input into the
+change command to get that timetable and copies it to your clipboard automatically. You can either choose to share a
+public or private version of the timetable.
+
+Public:
+
+image::ShareCommand1.PNG[width="800"]
+
+Private:
+
+image::ShareCommand2.PNG[width="800"]
+
+Format: `share INDEX PRIVACY`
+****
+* Shares the timetable of the person at the selected INDEX.
+* PRIVACY can be either public or private.
+* To import a timetable shared with you, use `change INDEX [TEXT COPIED TO CLIPBOARD]`. Timetable will be imported to
+ the person at the selected INDEX.
+****
+
+`share private 1`
+
+Outputs the private version of your first contact's timetable in the form of text. Copies this text to your keyboard.
+
+image::ShareCommand1.PNG[width="800"]
+
+Gives an output of:
+
+image::ShareCommandOutput.PNG[width="800"]
+
+Entering
+`change 1 [TEXT COPIED TO CLIPBOARD]`
+
+Changes the timetable of your first contact to the timetable that was shared. This results in:
+
+image::ShareCommand2.PNG[width="800"]
+
+
 ==== Merging timetables: `merge`
 
-Merges the timetable of multiple contacts and displays a timetable with the number of people busy
-for each time slot. It also displays the names of the people in the group.
+You can select multiple contacts whose timetables you would like to merge and give it a group name. This displays a
+collated timetable with the number of people busy for each time slot. It also displays the names of the people in the
+group.
 
 Format: `merge m/INDEX m/INDEX...`
 ****
@@ -281,8 +349,8 @@ image::MergeCommandList.PNG[width="800"]
 
 ==== Filters contacts based on free time slots and modules taken: `filter`
 
-The list of contacts displayed is filtered based on the user input. Contacts
-can either be filtered by their free time slots or modules taken.
+You can select a time slot or module you would like to filter your contacts by. Time slot filtering filters out
+people who are busy at the selected time slot. Module filtering filters out people who do not take the module.
 
 Format: `filter MODULE CODE/DAY TIME...`
 ****
@@ -293,42 +361,169 @@ Format: `filter MODULE CODE/DAY TIME...`
 * Contacts can be filtered by more than one module/day and time.
 ****
 
-`filter GER1000`
+`filter GER1000` +
 Shows only contacts who have GER1000 in the timetable.
 
-`filter mon 10am`
+`filter mon 10am` +
 Shows only contacts who are free at mon 10am.
 
-`filter GER1000 mon 10 am`
+`filter GER1000 mon 10 am` +
 Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
 
+==== Filters for next free time slots for one or more contact: `free`
+
+Format: `free f/INDEX`
+****
+* Displays next available time slot (from current time).
+* Running this command outside of the time window of 8am to 7pm will yield the next available time slot in the next day.
+* Running this command outside of the day window of Monday to Friday will yield the next available time slot in the next weekday.
+****
+
+`free f/3` +
+Shows the next available time slot (from current time) for contact whose index is 3.
+
+`free f/1 f/7 f/9` +
+Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
+
+==== Export user string: `export`
+
+To be filled in.
+
+==== Import user string: `import`
+
+To be filled in.
 
 === Notes Commands
-// tag::downloadAllNotes[]
-==== Downloading notes from IVLE : `downloadAllNotes`
 
-Downloads the your notes from IVLE, and stores them in the folder "notes" +
-Format: `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
+==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
+
+Downloads the your notes from IVLE, and stores them in the folder "notes" 
+
+Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
+
+[TIP]
+You do not have to Enter the full module code or worry about the capitalization.
+
+[NOTE]
+You would need to have Google Chrome installed in the default location in order to execute this command.
+[NOTE]
+You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised. 
+
+
 
 ****
+image::downloadExample.PNG[width="900"]
+
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
-* This process can take up to 1 minute, depending on the internet speed of the local area network.
+* if an incomplete module code is entered, it will select the a module that matches it the most 
+
+    Example: if you are enrolled in `CS2113` and `cs2101` entering `mod/cs21` will select `cs2101`
 
 * You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
+
+image::chromeOpen.PNG[width="250"]
+
+* NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
 
 Examples:
-
 * `downloadAllNotes user/e1234567 pass/password1 mod/CS2101` +
 Downloads all notes and resources for CS2101
 * `downloadAllNotes user/e1234567 pass/password1 mod/CS2113` +
 Downloads all notes and resources for CS2113
-// end::downloadAllNotes[]
-==== Downloading notes from IVLE : `downloadSelectNotes`
+Download Successful
+
+image::downloadAllSuccessful.PNG[width="900"]
+
+Module not found
+
+image::downloadModNotFound.PNG[width="900"]
+
+Password or username Incorrect
+
+image::downloadPasswordOrUsernameWrong.PNG[width="900"]
+
+
+==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
+Displays all the available notes of a selected
+
+Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
+
+[NOTE]
+Currently the files are not sorted in any order. In a future version we will make its sorted by file type
+
+image::downloadSelectFileExample.PNG[width="900"]
+
+* All available notes from the selected module would be sourced and displayed
+
+* if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
+
+Examples:
+
+[NOTE]
+the number on the left of the file represents the file ID, it is static. 
+
+    Example: 0:LP41_More_UML_Inheritence.pptx
+
+File Fetch Successful 
+
+image::downloadSelectFileSuccess1.PNG[width="900"]
+image::downloadSelectFileSuccess2.PNG[width="900"]
+
+Module not found
+
+image::downloadModNotFound.PNG[width="900"]
+
+Password or username Incorrect
+
+image::downloadPasswordOrUsernameWrong.PNG[width="900"]
+
+==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
+Download a selective number of notes from IVLE, and stores them in the folder "notes". 
+
+Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
+
+[TIP]
+Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
+
+image::downloadSelectExample.PNG[width="900"]
+
+* The files would be downloaded one by one from IVLE to your "notes" folder.
+
+* if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.
+
+    Example: file/0,1,2,90000000,3
+    if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded. 
+    
+Examples:
+
+Download Successful
+
+image::downloadSelectSuccess.PNG[width="900"]
+
+File not found
+
+image::downloadSelectFileNotFound.PNG[width="900"]
+
+==== Show all downloaded notes: `showNotes`
+Displays all the downloaded notes in the UI
+
+Format: `showNotes`
+
+[NOTE]
+the files are displayed in the order that it is in your directory
+
+* It recursively searches your `notes` folder and displays all the files available
+
+Example: 
+
+image::showNotes1.PNG[width="900"]
+image::showNotes2.PNG[width="900"]
+image::showNotes3.PNG[width="900"]
 // tag::clearNotes[]
 ==== Clearing all downloaded notes : `clearNotes`
 
@@ -340,7 +535,7 @@ Format: clearNotes
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+Coming to you soon!
 // end::dataencryption[]
 
 == FAQ
@@ -352,22 +547,40 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
 * *Clear* : `clear`
+
 * *Clear Notes* : `clearNotes`
+
 * *Download All Notes* : `downloadAllNotes user/e1234567 pass/password1 mod/CS2113`
-* *Download Selected Notes* :
+
+* *Download Selected Notes (seleted notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...n`
+
+* *Download Selected Notes (show all notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113` 
+
+* *Show notes* : `showNotes`
+
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
+
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+
 * *Help* : `help`
+
 * *History* : `history`
+
 * *List* : `list`
+
 * *Merge Timetables* : `merge [index 1] [index 2] <add more indices if required>`
 e.g. `merge 1 2 5`
+
 * *Redo* : `redo`
+
 * *Select* : `select INDEX` +
 e.g.`select 2`
+
 * *Undo* : `undo`

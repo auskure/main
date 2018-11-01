@@ -2,15 +2,14 @@ package seedu.address.logic.commands;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import seedu.address.commons.util.UnzipUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
@@ -19,19 +18,22 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
 
     public static final String COMMAND_WORD = "downloadSelectNotes";
 
-    public static final String MESSAGE_USAGE = "downloadSelectNotes user/(username) pass/(password) mod/(moduleCode) file/(0,1,2...n))";
+    public static final String MESSAGE_USAGE = "To display all available notes:\r\ndownloadSelectNotes user/(username) " +
+            "pass/(password) mod/(moduleCode)\r\nTo select the notes(by index):\r\ndownloadSelectNotes user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
 
     public static final String NEWLINE_SEPERATOR = "\r\n";
 
     public static final String NO_FILES_SELECTED_MESSAGE = "Please select a file after the \"file/\" tag. Ie: file/(0,1,2...n))";
 
-    public static final String MESSAGE_FILE_DOES_NOT_EXIST_ERROR = "A FILE YOU CHOSE DOES NOT EXIST\r\n DOWNLOAD NOT COMPLETE";
+    public static final String MESSAGE_FILE_DOES_NOT_EXIST_ERROR = "A FILE YOU CHOSE DOES NOT EXIST\r\nDOWNLOAD NOT COMPLETE";
 
     private static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
 
     private static final String TREEVIEW_CLASS_ID = "TreeView";
 
     private static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID = "href";
+
+    private static final String MESSAGE_SUCCESS_PREFIX = "Here are your the files available for: ";
 
     private ArrayList<Integer> fileSelect;
     private String availableDownloadFiles;
@@ -54,7 +56,13 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try{
-            initializeChromedriverPath();
+            extractFilesFromJar();
+        }
+        catch(IOException io){
+            throw new CommandException(MESSAGE_EXTRACTION_JAR_FAIL);
+        }
+        try{
+            initializeChromeDriverPaths();
         }
         catch(NullPointerException npe){
             throw new CommandException(MESSAGE_CHROME_DRIVER_NOT_FOUND);
@@ -84,7 +92,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
             if(fileSelect==null) {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
-                return new CommandResult(availableDownloadFiles);
+                return new CommandResult(MESSAGE_SUCCESS_PREFIX + moduleCode + "\r\n" + availableDownloadFiles);
             }
 
             initializeDownloadFolder();
@@ -95,18 +103,12 @@ public class DownloadSelectNotesCommand extends DownloadAbstract{
                 driver.close();
                 throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST_ERROR);
             }
-            dynamicWaiting();
-            driver.close();
             try{
-                UnzipUtil.unzipFile(downloadPath, UNZIP_FILE_KEYWORD,
-                        currentDirPath, DOWNLOAD_FILE_PATH, moduleCode);
+                dynamicWaiting();
+            } catch(InterruptedException ie) {
+                throw new CommandException(MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
             }
-            catch (IOException ioe) {
-                throw new CommandException(MESSAGE_FILE_CORRUPTED);
-            }
-            catch (NullPointerException npe) {
-                throw new CommandException(MESSAGE_NOTES_FOLDER_NOT_FOUND);
-            }
+            driver.close();
             return new CommandResult(moduleCode + MESSAGE_SUCCESS
                     + currentDirPath + DOWNLOAD_FILE_PATH);
         }

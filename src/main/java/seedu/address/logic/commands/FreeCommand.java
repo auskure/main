@@ -68,13 +68,13 @@ public class FreeCommand extends Command {
         //find a common free slot(s)
         if (indices.size() > 0) {
             for (String x : indices) {
-                personFirst = mergeTimetables(personFirst, lastShownList.get(Integer.parseInt(x) - 1));
+                personFirst = mergeTimetables(personFirst, lastShownList.get(Integer.parseInt(x) - 1), 0);
                 outputToUser += " " + lastShownList.get(Integer.parseInt(x) - 1).getName() + ",";
             }
         } else {
             //only finding 1 person free slot, so use the merge algorithm to compare both the same person
             //to change the timeslots to free or busy tag
-            personFirst = mergeTimetables(personFirst, personFirst);
+            personFirst = mergeTimetables(personFirst, personFirst, 0);
         }
 
         outputToUser = outputToUser.substring(0,outputToUser.length()-1);
@@ -125,7 +125,7 @@ public class FreeCommand extends Command {
             List<TimeSlots> timeslotToCheck = personFirst.getTimeSlots().get(days[dayToCheck]);
 
             for (TimeSlots x : timeslotToCheck) {
-                if (x.toString().equalsIgnoreCase("free")) {
+                if (x.toString().equalsIgnoreCase("0")) {
 
                     //don't add hours that are before current time if it is today
                     if ((isToday && (!(timeSlotIndex < currentHourIndex))) || (!isToday)) {
@@ -209,12 +209,16 @@ public class FreeCommand extends Command {
 
 
 
-     private Person mergeTimetables(Person person1, Person person2) {
-        Name mergedName = new Name("temp");
+    private Person mergeTimetables(Person person1, Person person2, int index) {
+        Name mergedName = new Name("a");
         Phone phone = new Phone("99999999");
         Email email = new Email("notimportant@no");
-        Address address = new Address("123");
-
+        Address address;
+        if (index == 0) {
+            address = new Address(person1.getName().toString() + ", " + person2.getName().toString());
+        } else {
+            address = new Address(person1.getAddress().toString() + ", " + person2.getName().toString());
+        }
         Set<Tag> mergedTags = new HashSet<>();
         mergedTags.add(new Tag("merged"));
         Map<String, List<TimeSlots>> mergedSlots = mergeTimeSlots(person1.getTimeSlots(), person2.getTimeSlots());
@@ -239,92 +243,20 @@ public class FreeCommand extends Command {
         TimeSlots[] thu2 = slots2.get("thu").toArray(new TimeSlots[0]);
         TimeSlots[] fri1 = slots1.get("fri").toArray(new TimeSlots[0]);
         TimeSlots[] fri2 = slots2.get("fri").toArray(new TimeSlots[0]);
-        List<TimeSlots> finalMon = new ArrayList<>();
-        List<TimeSlots> finalTue = new ArrayList<>();
-        List<TimeSlots> finalWed = new ArrayList<>();
-        List<TimeSlots> finalThu = new ArrayList<>();
-        List<TimeSlots> finalFri = new ArrayList<>();
+        List<TimeSlots> finalMon;
+        List<TimeSlots> finalTue;
+        List<TimeSlots> finalWed;
+        List<TimeSlots> finalThu;
+        List<TimeSlots> finalFri;
         Map<String, List<TimeSlots>> finalSlots = new HashMap<>();
 
+        finalMon = compareTimeSlots(mon1, mon2);
+        finalTue = compareTimeSlots(tue1, tue2);
+        finalWed = compareTimeSlots(wed1, wed2);
+        finalThu = compareTimeSlots(thu1, thu2);
+        finalFri = compareTimeSlots(fri1, fri2);
 
-        for (int i = 0; i < 12; i++) {
-            if (mon1[i].toString().equalsIgnoreCase("free")) {
-                if (mon2[i].toString().charAt(5) == 'm' || mon2[i].toString().charAt(5) == 'a') {
-                    finalMon.add(new TimeSlots("free"));
-                }
-            } else if (mon1[i].toString().equalsIgnoreCase("busy")) {
-                finalMon.add(new TimeSlots("busy"));
-            } else if ((mon1[i].toString().charAt(5) == 'm' || mon1[i].toString().charAt(5) == 'a')
-                    && (mon2[i].toString().charAt(5) == 'm' || mon2[i].toString().charAt(5) == 'a')) {
-                finalMon.add(new TimeSlots("free"));
-            } else {
-                finalMon.add(new TimeSlots("busy"));
-            }
-        }
-        for (int i = 0; i < 12; i++) {
-            if (tue1[i].toString().equalsIgnoreCase("free")) {
-                if (tue2[i].toString().charAt(5) == 'm' || tue2[i].toString().charAt(5) == 'a') {
-                    finalTue.add(new TimeSlots("free"));
-                }
-            } else if (tue1[i].toString().equalsIgnoreCase("busy")) {
-                finalTue.add(new TimeSlots("busy"));
-            } else if ((tue1[i].toString().charAt(5) == 'm' || tue1[i].toString().charAt(5) == 'a'
-                    || tue1[i].toString().equalsIgnoreCase("free"))
-                    && (tue2[i].toString().charAt(5) == 'm' || tue2[i].toString().charAt(5) == 'a'
-                    || tue2[i].toString().equalsIgnoreCase("free"))) {
-                finalTue.add(new TimeSlots("free"));
-            } else {
-                finalTue.add(new TimeSlots("busy"));
-            }
-        }
-        for (int i = 0; i < 12; i++) {
-            if (wed1[i].toString().equalsIgnoreCase("free")) {
-                if (wed2[i].toString().charAt(5) == 'm' || wed2[i].toString().charAt(5) == 'a') {
-                    finalWed.add(new TimeSlots("free"));
-                }
-            } else if (wed1[i].toString().equalsIgnoreCase("busy")) {
-                finalWed.add(new TimeSlots("busy"));
-            } else if ((wed1[i].toString().charAt(5) == 'm' || wed1[i].toString().charAt(5) == 'a'
-                    || wed1[i].toString().equalsIgnoreCase("free"))
-                    && (wed2[i].toString().charAt(5) == 'm' || wed2[i].toString().charAt(5) == 'a'
-                    || wed2[i].toString().equalsIgnoreCase("free"))) {
-                finalWed.add(new TimeSlots("free"));
-            } else {
-                finalWed.add(new TimeSlots("busy"));
-            }
-        }
-        for (int i = 0; i < 12; i++) {
-            if (thu1[i].toString().equalsIgnoreCase("free")) {
-                if (thu2[i].toString().charAt(5) == 'm' || thu2[i].toString().charAt(5) == 'a') {
-                    finalThu.add(new TimeSlots("free"));
-                }
-            } else if (thu1[i].toString().equalsIgnoreCase("busy")) {
-                finalThu.add(new TimeSlots("busy"));
-            } else if ((thu1[i].toString().charAt(5) == 'm' || thu1[i].toString().charAt(5) == 'a'
-                    || thu1[i].toString().equalsIgnoreCase("free"))
-                    && (thu2[i].toString().charAt(5) == 'm' || thu2[i].toString().charAt(5) == 'a'
-                    || thu2[i].toString().equalsIgnoreCase("free"))) {
-                finalThu.add(new TimeSlots("free"));
-            } else {
-                finalThu.add(new TimeSlots("busy"));
-            }
-        }
-        for (int i = 0; i < 12; i++) {
-            if (fri1[i].toString().equalsIgnoreCase("free")) {
-                if (fri2[i].toString().charAt(5) == 'm' || fri2[i].toString().charAt(5) == 'a') {
-                    finalFri.add(new TimeSlots("free"));
-                }
-            } else if (fri1[i].toString().equalsIgnoreCase("busy")) {
-                finalFri.add(new TimeSlots("busy"));
-            } else if ((fri1[i].toString().charAt(5) == 'm' || fri1[i].toString().charAt(5) == 'a'
-                    || fri1[i].toString().equalsIgnoreCase("free"))
-                    && (mon2[i].toString().charAt(5) == 'm' || mon2[i].toString().charAt(5) == 'a'
-                    || fri2[i].toString().equalsIgnoreCase("free"))) {
-                finalFri.add(new TimeSlots("free"));
-            } else {
-                finalFri.add(new TimeSlots("busy"));
-            }
-        }
+
         finalSlots.put("mon", finalMon);
         finalSlots.put("tue", finalTue);
         finalSlots.put("wed", finalWed);
@@ -333,6 +265,39 @@ public class FreeCommand extends Command {
         return finalSlots;
     }
 
+	List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2){
+        List<TimeSlots> finalDay = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+                if(day1[i].toString().equalsIgnoreCase("free")
+                        ||day1[i].toString().equalsIgnoreCase("0")){
+                    day1[i] = new TimeSlots("0");
+                }
+                else{
+                    try
+                    {
+                        Integer.parseInt(day1[i].toString());
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        day1[i] = new TimeSlots("1");
+                    }
+                }
+
+            if(day2[i].toString().equalsIgnoreCase("free")){
+                day2[i] = new TimeSlots("0");
+            }
+            else{
+                day2[i] = new TimeSlots("1");
+            }
+            String day1BusyCount = day1[i].toString();
+            String day2BusyCount = day2[i].toString();
+            int totalBusyCount = Integer.parseInt(day1BusyCount) + Integer.parseInt(day2BusyCount);
+            String newBusyCount = Integer.toString(totalBusyCount);
+            finalDay.add(new TimeSlots(newBusyCount));
+        }
+        return finalDay;
+    }
+	
 }
 
 
