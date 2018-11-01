@@ -387,11 +387,15 @@ Shows the next available time slot (from current time) for contacts whose indice
 
 ==== Export user string: `export`
 
-To be filled in.
+Format: `export INDEX`
+****
+* Exports all of a user's details in each respective field into a non-readable string.
+* 
+****
 
 ==== Import user string: `import`
 
-To be filled in.
+Format: `import <string>`
 
 === Notes Commands
 
