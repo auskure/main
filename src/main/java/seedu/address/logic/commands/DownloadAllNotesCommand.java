@@ -62,7 +62,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
              */
             if(isDownloadDisabled){
                 driver.close();
-                throw new CommandException(Messages.MESSAGE_DOWNLOAD_DISABLED);
+                return new CommandResult (Messages.MESSAGE_DOWNLOAD_DISABLED);
             }
             initializeDownloadFolder();
             downloadFiles(driver);
