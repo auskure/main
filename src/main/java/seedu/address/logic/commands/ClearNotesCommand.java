@@ -74,5 +74,5 @@ public class ClearNotesCommand extends Command {
         }
         file.delete();
     }
-	
+
 }

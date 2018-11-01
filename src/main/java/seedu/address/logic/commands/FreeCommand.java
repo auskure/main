@@ -297,8 +297,5 @@ public class FreeCommand extends Command {
         }
         return finalDay;
     }
-	
+
 }
-
-
-
