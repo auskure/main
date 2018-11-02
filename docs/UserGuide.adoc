@@ -377,23 +377,33 @@ Format: `free f/INDEX`
 * Displays next available time slot (from current time).
 * Running this command outside of the time window of 8am to 7pm will yield the next available time slot in the next day.
 * Running this command outside of the day window of Monday to Friday will yield the next available time slot in the next weekday.
+* Coming To You Soon: free for self time-table!
 ****
 
-Example 1: `free f/3` +
-Shows the next available time slot (from current time) for contact whose index is 3.
-
-Example 2: `free f/1 f/7 f/9` +
+Example 1: `free f/1 f/7 f/9` +
 Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
+
+Example 2: `free f/1` +
+Shows the next available time slot (from current time) for contact whose index is 1, and has a free time slot currently.
+
+image::FreeCommand1.png[width="800"]
+
+Example 3: `free f/1` +
+Shows the next available time slot (from current time) for contact whose index is 1, and does not have a free time slot currently.
+
+image::FreeCommand2.png[width="800"]
 
 ==== Export user string: `export`
 
-Format: `export INDEX`
+Format: `export PUBLIC/PRIVATE INDEX`
 ****
 * Exports all of a user's details in each respective field (including time-table) into a string.
 ****
 
-Example: `export 2` +
+Example: `export public 1` +
 Displays a string that contains the exported contact's details. This string is also copied to the user's clipboard.
+
+image::export.png[width="800"]
 
 ==== Import user string: `import`
 
@@ -401,6 +411,18 @@ Format: `import <string>`
 ****
 * The user's full details are imported into the application of the user who imported it.
 ****
+
+Example 1: Successful Import
+
+image::import.png[width="800"]
+
+Example 2: Failed Import - Incorrect String (corrupted string / incorrect string length)
+
+image::ImportIncorrectString.png[width="800"]
+
+Example 3: Failed Import - Duplicate Contact
+
+image::ImportDuplicatePerson.png[width="800"]
 
 === Notes Commands
 ****
@@ -579,7 +601,7 @@ e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 
-* *Export* : `export INDEX`
+* *Export* : `export PUBLIC/PRIVATE INDEX`
 
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
