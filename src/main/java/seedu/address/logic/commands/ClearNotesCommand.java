@@ -28,10 +28,10 @@ public class ClearNotesCommand extends Command {
     private static final String GITHUB_PLACEHOLDER_FILE_NAME = "placeholder.txt";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException{
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         Path downloadTempFolder = Paths.get("tempDownloadStorage");
         Path notesFolder = Paths.get("notes");
-        try{
+        try {
             createDirectoryIfMissing(downloadTempFolder);
             createDirectoryIfMissing(notesFolder);
         } catch (Exception e) {
@@ -51,20 +51,20 @@ public class ClearNotesCommand extends Command {
         File curDir = new File(notesDirectory);
         String currentName;
         File[] filesList = curDir.listFiles();
-        for(File file : filesList) {
+        for (File file : filesList) {
             currentName = file.getName();
             //No bookkeeping files stored by the Operating System should be deleted
-            if(file.isHidden()){
+            if (file.isHidden()) {
                 continue;
             }
 
             //The placeholding file for Github should not be deleted
-            if(currentName.equals(GITHUB_PLACEHOLDER_FILE_NAME)) {
+            if (currentName.equals(GITHUB_PLACEHOLDER_FILE_NAME)) {
                 continue;
             }
 
             String[] directoryContents = file.list();
-            if(file.isDirectory() && directoryContents != null){
+            if (file.isDirectory() && directoryContents != null) {
                 recursiveDelete(file);
                 continue;
             }
@@ -76,11 +76,11 @@ public class ClearNotesCommand extends Command {
     /**
      * Helps to delete notes in an occupied folder
      */
-    private static void recursiveDelete(File file){
-        if(file.isDirectory()){
+    private static void recursiveDelete(File file) {
+        if (file.isDirectory()) {
             File[] directoryContents = file.listFiles();
-            if(directoryContents != null){
-                for(File content : directoryContents){
+            if (directoryContents != null) {
+                for (File content : directoryContents) {
                     recursiveDelete(content);
                 }
             }

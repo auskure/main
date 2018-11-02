@@ -3,7 +3,14 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Set;
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TreeMap;
+import java.util.Collections;
+import java.util.Objects;
 
 import seedu.address.model.enrolledModule.EnrolledModule;
 import seedu.address.model.tag.Tag;

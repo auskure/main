@@ -18,27 +18,27 @@ public class TimeSlots implements Serializable {
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public static final String[] SET_VALUES = new String[]{"8am    ", "9am    ", "10am   ", "11am    ", "12pm   ",
-            "1pm    ", "2pm     ", "3pm     ", "4pm    ", "5pm     ", "6pm    ", "7pm"};
-    private static final String[] mon = new String[]{"free", "free", "free", "free", "free"
-            , "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"};
-    public static final String[] tue = new String[] { "free", "free", "free", "free", "free", "free", "free", "free",
-            "free", "free","free", "free", "free", "free", "free" };
+    public static final String[] SET_VALUES = new String[] {"8am    ", "9am    ", "10am   ", "11am    ", "12pm   ",
+        "1pm    ", "2pm     ", "3pm     ", "4pm    ", "5pm     ", "6pm    ", "7pm"};
+    private static final String[] mon = new String[] {"free", "free", "free", "free", "free"
+        , "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"};
+    public static final String[] tue = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
+        "free", "free", "free", "free", "free", "free", "free"};
 
-    public static final String[] wed = new String[] { "free", "free", "free", "free", "free", "free", "free", "free",
-            "free", "free","free", "free", "free", "free", "free" };
-    public static final String[] thu = new String[] { "free", "free", "free", "free", "free", "free", "free", "free",
-            "free", "free","free", "free", "free", "free", "free"};
-    public static final String[] fri = new String[] { "free", "free", "free", "free", "free", "free", "free", "free",
-            "free", "free","free", "free", "free", "free", "free" };
-    private static final String[] sampleTue = new String[]{"CS2040c", "CS2040c", "ST2332", "ST2332", "free", "free",
-            "CS2107", "CS2107", "free", "free", "free", "free"};
-    private static final String[] sampleWed = new String[]{"CS2101", "CS2101", "free", "free", "GES1041",
-            "GES1041", "free", "free", "CS2113", "CS2113","free", "free"};
-    private static final String[] sampleThu = new String[]{"free", "free", "MA1521", "MA1521", "free", "free",
-            "CS2040c", "CS2040c", "free", "free", "free", "free"};
-    private static final String[] sampleFri = new String[]{"free", "free", "CS2107", "free", "free",
-            "free", "CS2101", "free", "free", "free", "free", "free"};
+    public static final String[] wed = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
+        "free", "free", "free", "free", "free", "free", "free"};
+    public static final String[] thu = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
+        "free", "free", "free", "free", "free", "free", "free"};
+    public static final String[] fri = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
+        "free", "free", "free", "free", "free", "free", "free"};
+    private static final String[] sampleTue = new String[] {"CS2040c", "CS2040c", "ST2332", "ST2332", "free", "free",
+        "CS2107", "CS2107", "free", "free", "free", "free"};
+    private static final String[] sampleWed = new String[] {"CS2101", "CS2101", "free", "free", "GES1041",
+        "GES1041", "free", "free", "CS2113", "CS2113", "free", "free"};
+    private static final String[] sampleThu = new String[] {"free", "free", "MA1521", "MA1521", "free", "free",
+        "CS2040c", "CS2040c", "free", "free", "free", "free"};
+    private static final String[] sampleFri = new String[] {"free", "free", "CS2107", "free", "free",
+        "free", "CS2101", "free", "free", "free", "free", "free"};
 
 
     public String timeslot;
@@ -53,8 +53,9 @@ public class TimeSlots implements Serializable {
         requireNonNull(timeslot);
         this.timeslot = timeslot;
     }
+
     public static Map<String, List<TimeSlots>> initTimeSlots() {
-        Map<String, List<TimeSlots>> inittimeslot= new HashMap<>();
+        Map<String, List<TimeSlots>> inittimeslot = new HashMap<>();
         inittimeslot.put("mon", getMon());
         inittimeslot.put("tue", getTue());
         inittimeslot.put("wed", getWed());
@@ -63,8 +64,9 @@ public class TimeSlots implements Serializable {
 
         return inittimeslot;
     }
+
     public static Map<String, List<TimeSlots>> sampleTimeSlots() {
-        Map<String, List<TimeSlots>> sampletimeslot= new HashMap<>();
+        Map<String, List<TimeSlots>> sampletimeslot = new HashMap<>();
         sampletimeslot.put("mon", getMon());
         sampletimeslot.put("tue", getSampleTue());
         sampletimeslot.put("wed", getSampleWed());
@@ -80,14 +82,15 @@ public class TimeSlots implements Serializable {
 
     public static List<TimeSlots> getMon() {
         List<TimeSlots> monTimeSlots = new ArrayList<>();
-        for(String it: mon ){
+        for (String it : mon) {
             monTimeSlots.add(new TimeSlots(it));
         }
         return monTimeSlots;
     }
+
     public static List<TimeSlots> getTue() {
         List<TimeSlots> tueTimeSlots = new ArrayList<>();
-        for(String it: tue ){
+        for (String it : tue) {
             tueTimeSlots.add(new TimeSlots(it));
         }
         return tueTimeSlots;
@@ -95,7 +98,7 @@ public class TimeSlots implements Serializable {
 
     public static List<TimeSlots> getWed() {
         List<TimeSlots> wedTimeSlots = new ArrayList<>();
-        for(String it: wed ){
+        for (String it : wed) {
             wedTimeSlots.add(new TimeSlots(it));
         }
         return wedTimeSlots;
@@ -103,7 +106,7 @@ public class TimeSlots implements Serializable {
 
     public static List<TimeSlots> getThu() {
         List<TimeSlots> thuTimeSlots = new ArrayList<>();
-        for(String it: thu ){
+        for (String it : thu) {
             thuTimeSlots.add(new TimeSlots(it));
         }
         return thuTimeSlots;
@@ -119,7 +122,7 @@ public class TimeSlots implements Serializable {
 
     public static List<TimeSlots> getSampleTue() {
         List<TimeSlots> tueTimeSlots = new ArrayList<>();
-        for(String it: sampleTue ){
+        for (String it : sampleTue) {
             tueTimeSlots.add(new TimeSlots(it));
         }
         return tueTimeSlots;
@@ -127,7 +130,7 @@ public class TimeSlots implements Serializable {
 
     public static List<TimeSlots> getSampleWed() {
         List<TimeSlots> wedTimeSlots = new ArrayList<>();
-        for(String it: sampleWed ){
+        for (String it : sampleWed) {
             wedTimeSlots.add(new TimeSlots(it));
         }
         return wedTimeSlots;
@@ -135,7 +138,7 @@ public class TimeSlots implements Serializable {
 
     public static List<TimeSlots> getSampleThu() {
         List<TimeSlots> thuTimeSlots = new ArrayList<>();
-        for(String it: sampleThu ){
+        for (String it : sampleThu) {
             thuTimeSlots.add(new TimeSlots(it));
         }
         return thuTimeSlots;

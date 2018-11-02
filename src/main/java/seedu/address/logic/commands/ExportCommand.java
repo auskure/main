@@ -7,6 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.model.person.*;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+
 import java.io.ByteArrayOutputStream;
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
@@ -26,9 +27,9 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the person so as "
-            + "to import it into another system.\n"
-            + "Parameters: PRIVACY(public, private) INDEX (must be positive integer )\n"
-            + "Example: " + COMMAND_WORD + "public " + " " + "1";
+        + "to import it into another system.\n"
+        + "Parameters: PRIVACY(public, private) INDEX (must be positive integer )\n"
+        + "Example: " + COMMAND_WORD + "public " + " " + "1";
 
     private final String index;
     private final String privacy;
@@ -52,15 +53,14 @@ public class ExportCommand extends Command {
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
         Person myPerson;
-        if(index.equalsIgnoreCase("self")){
-            filteredPersonList= ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate
-                    ());
+        if (index.equalsIgnoreCase("self")) {
+            filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate
+                ());
             myPerson = filteredPersonList.get(0);
-        }
-        else {
+        } else {
             int num;
             try {
-                num = Integer.parseInt(index)-1;
+                num = Integer.parseInt(index) - 1;
             } catch (NumberFormatException nfe) {
                 throw new CommandException(String.format(MESSAGE_USAGE));
             }
@@ -71,8 +71,6 @@ public class ExportCommand extends Command {
             }
             myPerson = filteredPersonList.get(num);
         }
-
-
 
 
         if (!privacy.equalsIgnoreCase("public")) {
@@ -109,18 +107,17 @@ public class ExportCommand extends Command {
     }
 
 
-
-
     private void changeToBusy(Person source) {
         Map<String, List<TimeSlots>> timeSlots = source.getTimeSlots();
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
-        for(String day: days){
+        for (String day : days) {
             List<TimeSlots> daySlots = timeSlots.get(day);
-            for(int i=0; i<12; i++){
+            for (int i = 0; i < 12; i++) {
 
-                TimeSlots activity = daySlots.get(i);;
+                TimeSlots activity = daySlots.get(i);
+                ;
                 System.out.println(activity.toString() + " zzk");
-                if(!activity.toString().equalsIgnoreCase("free")){
+                if (!activity.toString().equalsIgnoreCase("free")) {
                     activity = new TimeSlots("busy");
                     daySlots.set(i, activity);
 
