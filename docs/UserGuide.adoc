@@ -395,12 +395,12 @@ image::FreeCommand2.png[width="800"]
 
 ==== Export user string: `export`
 
-Format: `export INDEX`
+Format: `export PUBLIC/PRIVATE INDEX`
 ****
 * Exports all of a user's details in each respective field (including time-table) into a string.
 ****
 
-Example: `export 2` +
+Example: `export public 1` +
 Displays a string that contains the exported contact's details. This string is also copied to the user's clipboard.
 
 image::export.png[width="800"]
@@ -601,7 +601,7 @@ e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 
-* *Export* : `export INDEX`
+* *Export* : `export PUBLIC/PRIVATE INDEX`
 
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
