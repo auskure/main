@@ -27,14 +27,16 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the person so as "
             + "to import it into another system.\n"
-            + "Parameters: INDEX (must be positive integer )\n"
-            + "Example: " + COMMAND_WORD + " " + "1";
+            + "Parameters: PRIVACY(public, private) INDEX (must be positive integer )\n"
+            + "Example: " + COMMAND_WORD + "public " + " " + "1";
 
-    private final Index index;
+    private final String index;
+    private final String privacy;
 
-    public ExportCommand(Index index) {
+    public ExportCommand(String privacy, String index) {
         requireNonNull(index);
         this.index = index;
+        this.privacy = privacy;
     }
 
     /**
@@ -49,14 +51,35 @@ public class ExportCommand extends Command {
 
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        Person myPerson;
+        if(index.equalsIgnoreCase("self")){
+            filteredPersonList= ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate
+                    ());
+            myPerson = filteredPersonList.get(0);
+        }
+        else {
+            int num;
+            try {
+                num = Integer.parseInt(index)-1;
+            } catch (NumberFormatException nfe) {
+                throw new CommandException(String.format(MESSAGE_USAGE));
+            }
+            filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
 
-        if (index.getZeroBased() >= filteredPersonList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            if (num >= filteredPersonList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            myPerson = filteredPersonList.get(num);
         }
 
-        Person myPerson = filteredPersonList.get(index.getZeroBased());
+
+
+
+        if (!privacy.equalsIgnoreCase("public")) {
+            changeToBusy(myPerson);
+        }
         String theString = getSerializedString(myPerson);
+
         StringSelection ss = new StringSelection(theString);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(ss, null);
@@ -83,11 +106,32 @@ public class ExportCommand extends Command {
             return "Error getting string, please try again";
         }
 
-
-
-
     }
 
+
+
+
+    private void changeToBusy(Person source) {
+        Map<String, List<TimeSlots>> timeSlots = source.getTimeSlots();
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
+        for(String day: days){
+            List<TimeSlots> daySlots = timeSlots.get(day);
+            for(int i=0; i<12; i++){
+
+                TimeSlots activity = daySlots.get(i);;
+                System.out.println(activity.toString() + " zzk");
+                if(!activity.toString().equalsIgnoreCase("free")){
+                    activity = new TimeSlots("busy");
+                    daySlots.set(i, activity);
+
+
+                }
+
+
+            }
+        }
+
+    }
 
 
 }
