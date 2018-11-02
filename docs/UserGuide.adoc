@@ -261,9 +261,11 @@ Example: `change 1 mon 8am GER1000` +
 Changes the time slot on Monday at 8am of the contact with index 1 in the main contact list to GER1000
 
 Before:
+
 image::ChangeCommand1.PNG[width="800"]
 
 After:
+
 image::ChangeCommand2.PNG[width="800"]
 
 ==== Sharing timetables `share`
@@ -359,14 +361,14 @@ Format: `filter MODULE CODE/DAY TIME...`
 * Contacts can be filtered by more than one module/day and time.
 ****
 
-`filter GER1000` +
+Example 1: `filter GER1000` +
 Shows only contacts who have GER1000 in the timetable.
 
-`filter mon 10am` +
-Shows only contacts who are free at mon 10am.
+Example 2: `filter mon 10am` +
+Shows only contacts who are free on Monday at 10am.
 
-`filter GER1000 mon 10 am` +
-Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
+Example 3: `filter GER1000 mon 10am` +
+Shows only contacts who have GER1000 in their timetable and are free on Monday at 10am.
 
 ==== Filters for next free time slots for one or more contact: `free`
 
@@ -377,22 +379,31 @@ Format: `free f/INDEX`
 * Running this command outside of the day window of Monday to Friday will yield the next available time slot in the next weekday.
 ****
 
-`free f/3` +
+Example 1: `free f/3` +
 Shows the next available time slot (from current time) for contact whose index is 3.
 
-`free f/1 f/7 f/9` +
+Example 2: `free f/1 f/7 f/9` +
 Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
 
 ==== Export user string: `export`
 
 Format: `export INDEX`
 ****
-* Exports all of a user's details in each respective field into a non-readable string.
+* Exports all of a user's details in each respective field (including time-table) into a string.
 ****
+
+Example: `export 2` +
+Displays a string that contains the exported contact's details. This string is also copied to the user's clipboard.
 
 ==== Import user string: `import`
 
 Format: `import <string>`
+****
+* Import all of a user's details in each respective field (including time-table).
+****
+
+Example: `import <string>` +
+The user's full details are imported into the application of the user who imported it.
 
 === Notes Commands
 ****
