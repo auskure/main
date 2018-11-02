@@ -403,12 +403,26 @@ Format: `export INDEX`
 Example: `export 2` +
 Displays a string that contains the exported contact's details. This string is also copied to the user's clipboard.
 
+image::export.png[width="800"]
+
 ==== Import user string: `import`
 
 Format: `import <string>`
 ****
 * The user's full details are imported into the application of the user who imported it.
 ****
+
+Example 1: Successful Import
+
+image::import.png[width="800"]
+
+Example 2: Failed Import - Incorrect String (corrupted string / incorrect string length)
+
+image::ImportIncorrectString.png[width="800"]
+
+Example 3: Failed Import - Duplicate Contact
+
+image::ImportDuplicatePerson.png[width="800"]
 
 === Notes Commands
 ****
