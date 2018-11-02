@@ -249,10 +249,10 @@ or whether it is free or busy.
 Format: `change INDEX/SELF DAY TIME ACTIVITY/FREE/BUSY`
 
 ****
-* Changes the timetable of the person specified by index or your own timetable if self is inputted.
-* The DAY refers to which day of the timetable is going to be edited.
-* The TIME refers to which time within the day will be edited.
-* The ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
+* Changes the timetable of the person specified by index or your own timetable (if self is selected).
+* DAY refers to which day of the timetable is going to be edited.
+* TIME refers to which time within the day will be edited.
+* ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
 * DAY must be mon, tue, wed, thu or fri (Non-case sensitive)
 * TIME must be 8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm
 ****
@@ -537,12 +537,12 @@ Example:
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
-// tag::clearNotes[]
+
 ==== Clearing all downloaded notes : `clearNotes`
 
 Clears all downloaded notes.
-Format: clearNotes
-// end::clearNotes[]
+Format: `clearNotes`
+
 === Upcoming Features
 
 // tag::dataencryption[]
@@ -579,12 +579,18 @@ e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 
+* *Import* : `import INDEX`
+
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+
+* *Free* : `free INDEX`
 
 * *Help* : `help`
 
 * *History* : `history`
+
+* *Import* : `import STRING`
 
 * *List* : `list`
 
