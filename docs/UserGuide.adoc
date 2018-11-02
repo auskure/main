@@ -29,7 +29,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.PNG[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -249,16 +249,16 @@ or whether it is free or busy.
 Format: `change INDEX/SELF DAY TIME ACTIVITY/FREE/BUSY`
 
 ****
-* Changes the timetable of the person specified by index or your own timetable if self is inputted.
-* The DAY refers to which day of the timetable is going to be edited.
-* The TIME refers to which time within the day will be edited.
-* The ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
+* Changes the timetable of the person specified by index or your own timetable (if self is selected).
+* DAY refers to which day of the timetable is going to be edited.
+* TIME refers to which time within the day will be edited.
+* ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
 * DAY must be mon, tue, wed, thu or fri (Non-case sensitive)
 * TIME must be 8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm
 ****
 
-`change 1 mon 8am GER1000`
-Changes the mon 8am time slot of the first contact in the main contact list to GER1000
+Example: `change 1 mon 8am GER1000` +
+Changes the time slot on Monday at 8am of the contact with index 1 in the main contact list to GER1000
 
 Before:
 
@@ -361,14 +361,14 @@ Format: `filter MODULE CODE/DAY TIME...`
 * Contacts can be filtered by more than one module/day and time.
 ****
 
-`filter GER1000` +
+Example 1: `filter GER1000` +
 Shows only contacts who have GER1000 in the timetable.
 
-`filter mon 10am` +
-Shows only contacts who are free at mon 10am.
+Example 2: `filter mon 10am` +
+Shows only contacts who are free on Monday at 10am.
 
-`filter GER1000 mon 10 am` +
-Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
+Example 3: `filter GER1000 mon 10am` +
+Shows only contacts who have GER1000 in their timetable and are free on Monday at 10am.
 
 ==== Filters for next free time slots for one or more contact: `free`
 
@@ -379,22 +379,28 @@ Format: `free f/INDEX`
 * Running this command outside of the day window of Monday to Friday will yield the next available time slot in the next weekday.
 ****
 
-`free f/3` +
+Example 1: `free f/3` +
 Shows the next available time slot (from current time) for contact whose index is 3.
 
-`free f/1 f/7 f/9` +
+Example 2: `free f/1 f/7 f/9` +
 Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
 
 ==== Export user string: `export`
 
 Format: `export INDEX`
 ****
-* Exports all of a user's details in each respective field into a non-readable string.
+* Exports all of a user's details in each respective field (including time-table) into a string.
 ****
+
+Example: `export 2` +
+Displays a string that contains the exported contact's details. This string is also copied to the user's clipboard.
 
 ==== Import user string: `import`
 
 Format: `import <string>`
+****
+* The user's full details are imported into the application of the user who imported it.
+****
 
 === Notes Commands
 ****
@@ -424,9 +430,9 @@ image::downloadExample.PNG[width="900"]
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
-* if an incomplete module code is entered, it will select the a module that matches it the most
+* If an incomplete module code is entered, it will select the module with the closest alphabetical similarity.
 
-Example: if you are enrolled in `CS2113` and `cs2101` entering `mod/cs21` will select `cs2101`
+Example: If you are enrolled in `CS2113` and `CS2101`, entering `mod/CS21` will select `CS2101`
 
 * You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
 
@@ -437,11 +443,11 @@ image::chromeOpen.PNG[width="250"]
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
 
-Examples:
-* `downloadAllNotes user/e1234567 pass/password1 mod/CS2101` +
+Example 1: `downloadAllNotes user/e1234567 pass/password1 mod/CS2101` +
 Downloads all notes and resources for CS2101
-* `downloadAllNotes user/e1234567 pass/password1 mod/CS2113` +
+Example 2: `downloadAllNotes user/e1234567 pass/password1 mod/CS2113` +
 Downloads all notes and resources for CS2113
+
 Download Successful
 
 image::downloadAllSuccessful.PNG[width="900"]
@@ -467,7 +473,7 @@ image::downloadSelectFileExample.PNG[width="900"]
 
 * All available notes from the selected module would be sourced and displayed
 
-* if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
+* If a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
 
 Examples:
 
@@ -522,7 +528,7 @@ Displays all the downloaded notes in the UI
 Format: `showNotes`
 
 [NOTE]
-the files are displayed in the order that it is in your directory
+The files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
 
@@ -531,13 +537,13 @@ Example:
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
-// tag::clearNotes[]
+
 ==== Clearing all downloaded notes : `clearNotes`
 
 Clears all downloaded notes.
-Format: clearNotes
-// end::clearNotes[]
-== Upcoming Features
+Format: `clearNotes`
+
+=== Upcoming Features
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -573,12 +579,18 @@ e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 
+* *Export* : `export INDEX`
+
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+
+* *Free* : `free INDEX`
 
 * *Help* : `help`
 
 * *History* : `history`
+
+* *Import* : `import STRING`
 
 * *List* : `list`
 
