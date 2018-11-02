@@ -261,11 +261,9 @@ Example: `change 1 mon 8am GER1000` +
 Changes the time slot on Monday at 8am of the contact with index 1 in the main contact list to GER1000
 
 Before:
-
 image::ChangeCommand1.PNG[width="800"]
 
 After:
-
 image::ChangeCommand2.PNG[width="800"]
 
 ==== Sharing timetables `share`
