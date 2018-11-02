@@ -19,13 +19,21 @@ public class ExportCommandParser implements Parser< ExportCommand> {
      */
     public  ExportCommand parse(String args) throws ParseException {
 
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new ExportCommand(index);
-        } catch (ParseException pe) {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
+        String[] keywords = trimmedArgs.split("\\s+");
+        if(!keywords[0].equalsIgnoreCase("private")&&!keywords[0].equalsIgnoreCase("public")){
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+        }
+        if(keywords.length > 2){
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+        }
+        return new ExportCommand(keywords[0], keywords[1]);
 
     }
 }

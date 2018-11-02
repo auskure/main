@@ -51,7 +51,7 @@ public class FreeCommand extends Command {
         lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
         for (String index : indices) {
-            if (Integer.parseInt(index) >= lastShownList.size()) {
+            if (Integer.parseInt(index) > lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
         }
