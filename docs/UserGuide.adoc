@@ -117,7 +117,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 ==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find MAIN/MERGED KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -129,10 +129,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find main John` +
+Returns `john` and `John Doe` from the main contact list
+* `find merged Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John` from the merged contact list
 
 ==== Deleting a person : `delete`
 
