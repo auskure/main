@@ -64,10 +64,8 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
         }
 
         WebDriver driver = initializeWebDriver();
-        Path downloadTempFolder = Paths.get("tempDownloadStorage");
         Path notesFolder = Paths.get("notes");
         try {
-            createDirectoryIfMissing(downloadTempFolder);
             createDirectoryIfMissing(notesFolder);
         } catch (Exception e) {
             throw new CommandException("Failed to create new folders");
@@ -110,6 +108,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
                 throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
             }
             driver.close();
+            model.indicateNotesDownloaded(COMMAND_WORD, moduleCode);
             return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
                 + downloadPath);
         }

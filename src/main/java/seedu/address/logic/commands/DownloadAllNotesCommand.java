@@ -4,7 +4,6 @@ import seedu.address.commons.core.Messages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import seedu.address.commons.util.UnzipUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -71,14 +70,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
                 throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
             }
             driver.close();
-            try {
-                UnzipUtil.unzipFile(downloadPath, UNZIP_FILE_KEYWORD,
-                    currentDirPath, DOWNLOAD_FILE_PATH, moduleCode);
-            } catch (IOException ioe) {
-                throw new CommandException(Messages.MESSAGE_FILE_CORRUPTED);
-            } catch (NullPointerException npe) {
-                throw new CommandException(Messages.MESSAGE_NOTES_FOLDER_NOT_FOUND);
-            }
+            model.indicateNotesDownloaded(COMMAND_WORD, moduleCode);
             return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
                 + downloadPath);
         }

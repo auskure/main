@@ -10,8 +10,13 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.NotesDownloadEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.model.NotesEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.commands.ClearNotesCommand;
+import seedu.address.logic.commands.DownloadAllNotesCommand;
+import seedu.address.logic.commands.DownloadSelectNotesCommand;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
@@ -22,13 +27,16 @@ public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private NotesDownloadStorage notesDownloadStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          NotesDownloadStorage notesDownloadStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.notesDownloadStorage = notesDownloadStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -90,4 +98,53 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    // ================ Notes Download methods ==============================
+
+    @Override
+    public Path getNotesFilePath() { return notesDownloadStorage.getNotesFilePath(); }
+
+    @Override
+    public void deleteAllNotes() throws IOException { notesDownloadStorage.deleteAllNotes(); }
+
+    @Override
+    public void relocateNotes(String moduleName) throws IOException { notesDownloadStorage.relocateNotes(moduleName); }
+
+    @Override
+    public void unzipNotes(String moduleName) throws IOException { notesDownloadStorage.unzipNotes(moduleName); }
+
+    @Override
+    @Subscribe
+    public void handleNotesManipulationEvent(NotesEvent notesEvent) throws IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(notesEvent, "notes manipulated"));
+
+        final String commandWord = notesEvent.getEvent();
+        //switch-case syntax is used here, to easily allow for future expandability.
+        switch (commandWord) {
+
+            case ClearNotesCommand.COMMAND_WORD:
+                deleteAllNotes();
+
+            default:
+                throw new IOException();
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleNotesDownloadedEvent(NotesDownloadEvent notesDownloadEvent) throws IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(notesDownloadEvent, "notes downloaded"));
+
+        final String commandWord = notesDownloadEvent.getEvent();
+        switch (commandWord) {
+
+            case DownloadAllNotesCommand.COMMAND_WORD:
+                unzipNotes(notesDownloadEvent.getModuleName());
+
+            case DownloadSelectNotesCommand.COMMAND_WORD:
+                relocateNotes(notesDownloadEvent.getModuleName());
+
+            default:
+                throw new IOException();
+        }
+    }
 }
