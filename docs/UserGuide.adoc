@@ -137,22 +137,22 @@ Returns any person having names `Betsy`, `Tim`, or `John` from the merged contac
 ==== Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `delete MAIN/MERGED INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the person at the specified `INDEX`, either in the main or merged person list.
+* The index refers to the index number shown either in the main or merged person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list main` +
+`delete main 2` +
+Deletes the 2nd person in the main list of the address book.
+* `find merged Betsy` +
+`delete merged 1` +
+Deletes the merged contact with index 1 in the results of the `find` command.
 
 ==== Selecting a person : `select`
 
