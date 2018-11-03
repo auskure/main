@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.ChangeTimeSlotCommand.MESSAGE_USAGE;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ChangeTimeSlotCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -50,9 +49,9 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
     }
 
     Boolean isInvalidDay(String day) {
-        if (!day.equalsIgnoreCase("mon") && !day.equalsIgnoreCase("tue") &&
-            !day.equalsIgnoreCase("wed") && !day.equalsIgnoreCase("thu") &&
-            !day.equalsIgnoreCase("fri")) {
+        if (!day.equalsIgnoreCase("mon") && !day.equalsIgnoreCase("tue")
+            && !day.equalsIgnoreCase("wed") && !day.equalsIgnoreCase("thu")
+            && !day.equalsIgnoreCase("fri")) {
             return true;
         } else {
             return false;

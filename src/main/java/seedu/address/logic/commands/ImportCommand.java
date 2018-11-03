@@ -6,7 +6,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
-import java.io.*;
+import java.io.ObjectInputStream;
+import java.io.ByteArrayInputStream;
 import java.util.Base64;
 
 import static java.util.Objects.requireNonNull;

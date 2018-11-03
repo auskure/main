@@ -21,8 +21,9 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
 
     public static final String COMMAND_WORD = "downloadSelectNotes";
 
-    public static final String MESSAGE_USAGE = "To display all available notes:\r\n" + COMMAND_WORD + " user/(username) " +
-        "pass/(password) mod/(moduleCode)\r\nTo select the notes(by index):\r\n" + COMMAND_WORD + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
+    public static final String MESSAGE_USAGE = "To display all available notes:\r\n" + COMMAND_WORD
+        + " user/(username) pass/(password) mod/(moduleCode)\r\nTo select the notes(by index):\r\n"
+        + COMMAND_WORD + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
 
     public static final String NEWLINE_SEPERATOR = "\r\n";
 
@@ -85,7 +86,8 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             if (fileSelect == null) {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
-                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode + "\r\n" + availableDownloadFiles);
+                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode + "\r\n"
+                    + availableDownloadFiles);
             }
             /**
              * Updated to disable download operations.
@@ -146,8 +148,8 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
     protected void downloadFiles(WebDriver driver) {
         WebElement treeview = driver.findElement(By.className(TREEVIEW_CLASS_ID));
         List<WebElement> fileResult = treeview.findElements(By.cssSelector(WORKBIN_CSS_SELECTOR_ID));
-        for (int fileID : fileSelect) {
-            driver.get(fileResult.get(fileID).getAttribute(FILE_DOWNLOAD_LINK_ATTRIBUTE_ID));
+        for (int fileId : fileSelect) {
+            driver.get(fileResult.get(fileId).getAttribute(FILE_DOWNLOAD_LINK_ATTRIBUTE_ID));
         }
     }
 }

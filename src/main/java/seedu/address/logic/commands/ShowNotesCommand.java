@@ -26,7 +26,8 @@ public class ShowNotesCommand extends Command {
 
     private static final String LINE_SEPARATOR = "====================================================================";
 
-    private static final String MESSAGE_FILE_LOCATION_ERROR = "The folder \"notes\" is not found!\r\nplease download some notes to continue using showNotes";
+    private static final String MESSAGE_FILE_LOCATION_ERROR = "The folder \"notes\" is not found!\r\n"
+        + "please download some notes to continue using showNotes";
 
     private String MESSAGE_STORED_NOTES = "";
 

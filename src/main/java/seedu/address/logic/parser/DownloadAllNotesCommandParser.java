@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.commands.DownloadAllNotesCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.stream.Stream;
 
@@ -15,10 +15,12 @@ public class DownloadAllNotesCommandParser implements Parser {
     @Override
     public DownloadAllNotesCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD, PREFIX_MODULECODE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD,
+            PREFIX_MODULECODE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PASSWORD, PREFIX_USERNAME, PREFIX_MODULECODE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DownloadAllNotesCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DownloadAllNotesCommand.MESSAGE_USAGE));
         }
 
         String username = argMultimap.getValue(PREFIX_USERNAME).get();

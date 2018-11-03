@@ -2,18 +2,13 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.person.*;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
 
-import java.io.ByteArrayOutputStream;
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.*;
 
 import static java.util.Objects.requireNonNull;
@@ -64,7 +59,8 @@ public class ShareCommand extends Command {
             } catch (NumberFormatException nfe) {
                 throw new CommandException(String.format(MESSAGE_USAGE));
             }
-            filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+            filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered
+                (new IsNotSelfOrMergedPredicate());
 
             if (num >= filteredPersonList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

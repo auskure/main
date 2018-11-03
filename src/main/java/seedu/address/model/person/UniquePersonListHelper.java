@@ -62,7 +62,7 @@ public class UniquePersonListHelper {
         requireAllNonNull(target, editedPerson);
         String editedPersonName = nameFinder(editedPerson);
         String targetName = nameFinder(target);
-        if (internalListHelper.get(targetName) == null){
+        if (internalListHelper.get(targetName) == null) {
             throw new PersonNotFoundException();
         }
         if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
@@ -102,7 +102,7 @@ public class UniquePersonListHelper {
     /**
      * Returns the name of the given person contact.
      */
-    private String nameFinder(Person person){
+    private String nameFinder(Person person) {
         return person.getName().toString();
     }
 

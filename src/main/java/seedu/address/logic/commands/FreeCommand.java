@@ -6,7 +6,13 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.enrolledModule.EnrolledModule;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
 import java.text.DateFormat;
@@ -92,7 +98,8 @@ public class FreeCommand extends Command {
         //if today is saturday or sunday, loop back to monday
         int dayToCheck;
         boolean isToday = true;
-        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
+        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.now().getDayOfWeek()
+            == DayOfWeek.SUNDAY) {
             dayToCheck = 0;
             isToday = false;
         } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.MONDAY) {
@@ -210,6 +217,11 @@ public class FreeCommand extends Command {
         return hours + ":00 " + amPm;
     }
 
+    /*
+     * To-be filled-in.
+     *
+     * @param to-be filled-in.
+     */
 
     private Person mergeTimetables(Person person1, Person person2, int index) {
         Name mergedName = new Name("a");
@@ -232,6 +244,12 @@ public class FreeCommand extends Command {
 
 
     }
+
+    /*
+     * To-be filled-in.
+     *
+     * @param to-be filled-in.
+     */
 
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {

@@ -17,10 +17,12 @@ public class DownloadSelectNotesCommandParser implements Parser {
     @Override
     public DownloadSelectNotesCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD, PREFIX_MODULECODE, PREFIX_SELECT_FILE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD,
+            PREFIX_MODULECODE, PREFIX_SELECT_FILE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PASSWORD, PREFIX_USERNAME, PREFIX_MODULECODE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DownloadSelectNotesCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DownloadSelectNotesCommand.MESSAGE_USAGE));
         }
 
         String username = argMultimap.getValue(PREFIX_USERNAME).get();
@@ -30,7 +32,8 @@ public class DownloadSelectNotesCommandParser implements Parser {
         if (argMultimap.getValue(PREFIX_SELECT_FILE).isPresent()) {
             String fileSelect = argMultimap.getValue(PREFIX_SELECT_FILE).get();
             if (fileSelect.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    Messages.MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED));
 
             }
             return new DownloadSelectNotesCommand(username, password, moduleCode, fileSelect);

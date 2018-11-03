@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-
 public class DownloadAllNotesCommand extends DownloadAbstract {
 
     public static final String COMMAND_WORD = "downloadAllNotes";
@@ -22,7 +21,8 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
 
     private static final String CHECKBOX_XPATH_VALUE = "//input[@type='checkbox']";
 
-    private static final String IVLE_DOWNLOAD_PAGE_BUTTON_ID = "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_btnDownloadSel";
+    private static final String IVLE_DOWNLOAD_PAGE_BUTTON_ID =
+        "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_btnDownloadSel";
 
 
     public DownloadAllNotesCommand(String username, String password, String moduleCode) {

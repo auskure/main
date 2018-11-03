@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.IOException;
@@ -105,8 +105,8 @@ public abstract class DownloadAbstract extends Command {
         if (!chromeDriverDir.exists()) {
             chromeDriverDir.mkdirs();
         }
-        File macChromeDriver = new File(MAC_CHROME_DRIVER_DIRECTORY + File.separator +
-            MAC_CHROME_DRIVER_NAME);
+        File macChromeDriver = new File(MAC_CHROME_DRIVER_DIRECTORY + File.separator
+            + MAC_CHROME_DRIVER_NAME);
         if (!macChromeDriver.exists()) {
             macChromeDriver.createNewFile();
             org.apache.commons.io.FileUtils.copyURLToFile(resource, macChromeDriver);
@@ -117,7 +117,8 @@ public abstract class DownloadAbstract extends Command {
      * initializeChromeDriverPaths dynamically sets the download path of the files and location of chromeDriver
      * so that its relative to where this project is stored and what OS the user is using.
      * <p>
-     * downloadPath will change from the root directory location of the application to the location of the tempDownloadStorage
+     * downloadPath will change from the root directory location of the application to the
+     * location of the tempDownloadStorage
      */
     protected void initializeChromeDriverPaths() {
         if (System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {

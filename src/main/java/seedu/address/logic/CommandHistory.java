@@ -29,8 +29,8 @@ public class CommandHistory {
         requireNonNull(userInput);
         // Only add history if the previous command was not a download command,
         // this is because download commands involve sensitive information
-        if(!userInput.contains(DownloadAllNotesCommand.COMMAND_WORD) &&
-                !userInput.contains(DownloadSelectNotesCommand.COMMAND_WORD)){
+        if (!userInput.contains(DownloadAllNotesCommand.COMMAND_WORD)
+            && !userInput.contains(DownloadSelectNotesCommand.COMMAND_WORD)) {
             userInputHistory.add(userInput);
         }
     }

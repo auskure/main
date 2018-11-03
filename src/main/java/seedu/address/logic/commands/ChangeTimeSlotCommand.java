@@ -26,8 +26,8 @@ public class ChangeTimeSlotCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the selected time slot "
         + "by the index number used in the displayed person list. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX " +
-        "DAY(mon, tue, wed, thu, fri) "
+        + "Parameters: INDEX "
+        + "DAY(mon, tue, wed, thu, fri) "
         + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
         + "Activity "
         + "Example: " + COMMAND_WORD + " 1 " + "mon "
