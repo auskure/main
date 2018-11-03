@@ -160,7 +160,7 @@ Selects the person identified by the index number used in the displayed person l
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the person and <to be confirmed> the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -170,7 +170,7 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd person in the address book.
-* `find Betsy` +
+* `find main Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
