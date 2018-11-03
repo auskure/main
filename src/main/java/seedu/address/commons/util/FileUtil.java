@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -7,11 +8,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Writes and reads files
+ * Writes, reads, relocates and deletes files
  */
 public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
+
+    private static final String PARAM_CURRENT_DIRECTORY = "user.dir";
+
+    /**
+     * Helps to find the current directory
+     */
+    public static String currentDirectory() {
+        return System.getProperty(PARAM_CURRENT_DIRECTORY);
+    }
 
     public static boolean isFileExists(Path file) {
         return Files.exists(file) && Files.isRegularFile(file);
@@ -103,6 +113,63 @@ public class FileUtil {
      */
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, content.getBytes(CHARSET));
+    }
+
+    /**
+     * Moves all files in a given folder, to a designated folder
+     */
+
+    public static void relocateFiles(Path folder, String designatedFolder) {
+        File currentDirectory = new File(folder.toString());
+        String targetFolder = currentDirectory.toString() + "/" + designatedFolder + "/";
+        String currentName;
+        File[] filesList = currentDirectory.listFiles();
+        for (File file : filesList) {
+            if (file.isDirectory() || file.isHidden()) {
+                continue;
+            }
+            currentName = file.getName();
+            file.renameTo(new File(targetFolder + currentName));
+        }
+    }
+
+    /**
+     * Deletes all files in a given folder
+     */
+    public static void deleteAllFiles(Path folder) {
+        File currentDirectory = new File(folder.toString());
+        String currentName;
+        File[] filesList = currentDirectory.listFiles();
+        for (File file : filesList) {
+            currentName = file.getName();
+            //No bookkeeping files stored by the Operating System should be deleted
+            if (file.isHidden()) {
+                continue;
+            }
+
+            String[] directoryContents = file.list();
+            if (file.isDirectory() && directoryContents != null) {
+                recursiveDelete(file);
+                continue;
+            }
+            System.out.println(currentName);
+            file.delete();
+        }
+    }
+
+    /**
+     * Helps to delete notes in an occupied folder
+     */
+    private static void recursiveDelete(File file) {
+        if (file.isDirectory()) {
+            File[] directoryContents = file.listFiles();
+            if (directoryContents != null) {
+                for (File content : directoryContents) {
+                    recursiveDelete(content);
+                }
+            }
+        }
+        file.delete();
     }
 
 }

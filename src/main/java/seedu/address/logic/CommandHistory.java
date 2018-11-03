@@ -1,12 +1,12 @@
 package seedu.address.logic;
 
-import seedu.address.logic.commands.DownloadAllNotesCommand;
-import seedu.address.logic.commands.DownloadSelectNotesCommand;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import seedu.address.logic.commands.DownloadAllNotesCommand;
+import seedu.address.logic.commands.DownloadSelectNotesCommand;
 
 /**
  * Stores the history of commands executed.

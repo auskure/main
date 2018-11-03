@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.NotesDownloadEvent;
+import seedu.address.commons.events.model.NotesEvent;
 import seedu.address.model.person.Person;
 
 /**
@@ -145,6 +147,18 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    // ================ Notes Manipulation ==============================
+
+    /** Raises an event to indicate the current notes are manipulated */
+    public void indicateNotesChanged(String event) {
+        raise(new NotesEvent(event));
+    }
+
+    /** Raises an event to indicate the current notes are manipulated */
+    public void indicateNotesDownloaded(String event, String moduleName) {
+        raise(new NotesDownloadEvent(event, moduleName));
     }
 
 }

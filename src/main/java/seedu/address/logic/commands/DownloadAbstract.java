@@ -11,9 +11,10 @@ import org.openqa.selenium.support.ui.Select;
 import java.io.IOException;
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+
+import static seedu.address.commons.util.FileUtil.currentDirectory;
 
 /**
  * DownloadAbstract is an abstract class that does the basic setting up of Selenium chrome drivers. Implementation of
@@ -55,14 +56,12 @@ public abstract class DownloadAbstract extends Command {
     protected static final String IVLE_MODULE_LIST_FIELD_ID =
         "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
 
-    protected static final String UNZIP_FILE_KEYWORD = "part";
-
 
     protected String username;
     protected String password;
     protected String moduleCode;
-    protected String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
-    protected String downloadPath = currentDirPath + DOWNLOAD_FILE_PATH;
+    protected String currentDirectoryPath;
+    protected String downloadPath;
     protected boolean isDownloadDisabled = true;
 
 
@@ -70,6 +69,8 @@ public abstract class DownloadAbstract extends Command {
         this.username = username;
         this.password = password;
         this.moduleCode = moduleCode.toLowerCase();
+        this.currentDirectoryPath = currentDirectory();
+        this.downloadPath = currentDirectoryPath + DOWNLOAD_FILE_PATH;
     }
 
     /**
@@ -83,7 +84,7 @@ public abstract class DownloadAbstract extends Command {
 
 
     protected void extractFilesFromJar() throws IOException {
-        File notesFolder = new File(currentDirPath + DOWNLOAD_FILE_PATH);
+        File notesFolder = new File(currentDirectoryPath + DOWNLOAD_FILE_PATH);
         if (!notesFolder.exists()) {
             notesFolder.mkdir();
         }
@@ -122,10 +123,10 @@ public abstract class DownloadAbstract extends Command {
      */
     protected void initializeChromeDriverPaths() {
         if (System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
+            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
                 + WINDOWS_CHROME_DRIVER_NAME);
         } else if (System.getProperty("os.name").contains(MAC_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/"
+            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/"
                 + MAC_CHROME_DRIVER_NAME);
         }
     }
