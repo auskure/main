@@ -19,7 +19,7 @@ public class FileUtil {
     /**
      * Helps to find the current directory
      */
-    public static String currentDirectory(){
+    public static String currentDirectory() {
         return System.getProperty(PARAM_CURRENT_DIRECTORY);
     }
 
@@ -119,13 +119,13 @@ public class FileUtil {
      * Moves all files in a given folder, to a designated folder
      */
 
-    public static void relocateFiles(Path folder, String designatedFolder){
+    public static void relocateFiles(Path folder, String designatedFolder) {
         File currentDirectory = new File(folder.toString());
         String targetFolder = currentDirectory.toString() + "/" + designatedFolder + "/";
         String currentName;
         File[] filesList = currentDirectory.listFiles();
-        for(File file : filesList){
-            if(file.isDirectory() || file.isHidden()){
+        for (File file : filesList) {
+            if (file.isDirectory() || file.isHidden()) {
                 continue;
             }
             currentName = file.getName();
@@ -140,15 +140,15 @@ public class FileUtil {
         File currentDirectory = new File(folder.toString());
         String currentName;
         File[] filesList = currentDirectory.listFiles();
-        for(File file : filesList) {
+        for (File file : filesList) {
             currentName = file.getName();
             //No bookkeeping files stored by the Operating System should be deleted
-            if(file.isHidden()){
+            if (file.isHidden()) {
                 continue;
             }
 
             String[] directoryContents = file.list();
-            if(file.isDirectory() && directoryContents != null){
+            if (file.isDirectory() && directoryContents != null) {
                 recursiveDelete(file);
                 continue;
             }
@@ -160,11 +160,11 @@ public class FileUtil {
     /**
      * Helps to delete notes in an occupied folder
      */
-    private static void recursiveDelete(File file){
-        if(file.isDirectory()){
+    private static void recursiveDelete(File file) {
+        if (file.isDirectory()) {
             File[] directoryContents = file.listFiles();
-            if(directoryContents != null){
-                for(File content : directoryContents){
+            if (directoryContents != null) {
+                for (File content : directoryContents) {
                     recursiveDelete(content);
                 }
             }

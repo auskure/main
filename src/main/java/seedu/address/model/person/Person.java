@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
-import seedu.address.model.enrolledModule.EnrolledModule;
+import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.tag.Tag;
 
 /**

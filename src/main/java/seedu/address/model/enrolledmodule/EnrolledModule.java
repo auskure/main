@@ -1,10 +1,14 @@
-package seedu.address.model.enrolledModule;
-
-import java.io.Serializable;
+package seedu.address.model.enrolledmodule;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.io.Serializable;
+
+/**
+ * Represents a Person's enrolled module in the address book.
+ * Guarantees: immutable; name is valid as declared in {@link #isValidEnRolledModuleName(String)}
+ */
 public class EnrolledModule implements Serializable {
     public static final String MESSAGE_ENROLLED_MODULE_CONSTRAINTS = "Enrolled Module names should be alphanumeric";
     public static final String ENROLLED_MODULE_VALIDATION_REGEX = "\\p{Alnum}+";

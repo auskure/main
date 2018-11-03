@@ -3,6 +3,9 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * Represents the storage component for the downloaded notes
+ */
 public interface NotesDownloadStorage {
 
     /**

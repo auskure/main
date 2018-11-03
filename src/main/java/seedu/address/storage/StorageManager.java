@@ -11,8 +11,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.NotesDownloadEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.model.NotesEvent;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.ClearNotesCommand;
 import seedu.address.logic.commands.DownloadAllNotesCommand;
@@ -101,16 +101,24 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ Notes Download methods ==============================
 
     @Override
-    public Path getNotesFilePath() { return notesDownloadStorage.getNotesFilePath(); }
+    public Path getNotesFilePath() {
+        return notesDownloadStorage.getNotesFilePath();
+    }
 
     @Override
-    public void deleteAllNotes() throws IOException { notesDownloadStorage.deleteAllNotes(); }
+    public void deleteAllNotes() throws IOException {
+        notesDownloadStorage.deleteAllNotes();
+    }
 
     @Override
-    public void relocateNotes(String moduleName) throws IOException { notesDownloadStorage.relocateNotes(moduleName); }
+    public void relocateNotes(String moduleName) throws IOException {
+        notesDownloadStorage.relocateNotes(moduleName);
+    }
 
     @Override
-    public void unzipNotes(String moduleName) throws IOException { notesDownloadStorage.unzipNotes(moduleName); }
+    public void unzipNotes(String moduleName) throws IOException {
+        notesDownloadStorage.unzipNotes(moduleName);
+    }
 
     @Override
     @Subscribe
@@ -121,11 +129,12 @@ public class StorageManager extends ComponentManager implements Storage {
         //switch-case syntax is used here, to easily allow for future expandability.
         switch (commandWord) {
 
-            case ClearNotesCommand.COMMAND_WORD:
-                deleteAllNotes();
+        case ClearNotesCommand.COMMAND_WORD:
+            deleteAllNotes();
+            return;
 
-            default:
-                throw new IOException();
+        default:
+            throw new IOException();
         }
     }
 
@@ -137,14 +146,16 @@ public class StorageManager extends ComponentManager implements Storage {
         final String commandWord = notesDownloadEvent.getEvent();
         switch (commandWord) {
 
-            case DownloadAllNotesCommand.COMMAND_WORD:
-                unzipNotes(notesDownloadEvent.getModuleName());
+        case DownloadAllNotesCommand.COMMAND_WORD:
+            unzipNotes(notesDownloadEvent.getModuleName());
+            return;
 
-            case DownloadSelectNotesCommand.COMMAND_WORD:
-                relocateNotes(notesDownloadEvent.getModuleName());
+        case DownloadSelectNotesCommand.COMMAND_WORD:
+            relocateNotes(notesDownloadEvent.getModuleName());
+            return;
 
-            default:
-                throw new IOException();
+        default:
+            throw new IOException();
         }
     }
 }

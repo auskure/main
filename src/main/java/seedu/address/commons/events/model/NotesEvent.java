@@ -11,7 +11,7 @@ public class NotesEvent extends BaseEvent {
         this.event = event;
     }
 
-    public String getEvent(){
+    public String getEvent() {
         return event;
     }
 
