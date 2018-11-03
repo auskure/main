@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENROLLED_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENROLLED_MODULE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,8 +36,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_ENROLLED_MODULE);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_ADDRESS, PREFIX_TAG, PREFIX_ENROLLED_MODULE);
 
 
         Index index;
@@ -66,7 +66,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
 
         parseEnrolledModulesForEdit(argMultimap.getAllValues(PREFIX_ENROLLED_MODULE))
-                                            .ifPresent(editPersonDescriptor::setEnrolledModules);
+            .ifPresent(editPersonDescriptor::setEnrolledModules);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -87,8 +87,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        for(String it:tagSet){
-            if (it.equalsIgnoreCase("self")||it.equalsIgnoreCase("merged")){
+        for (String it : tagSet) {
+            if (it.equalsIgnoreCase("self") || it.equalsIgnoreCase("merged")) {
                 throw new ParseException("Not allowed to set Self or Merged tag");
             }
         }
@@ -102,7 +102,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * {@code Map<String, EnrolledModule>} containing zero enrolledModules.
      */
     private Optional<Map<String, EnrolledModule>> parseEnrolledModulesForEdit(Collection<String> enrolledModules)
-            throws ParseException {
+        throws ParseException {
 
         assert enrolledModules != null;
 

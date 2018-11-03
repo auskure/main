@@ -35,8 +35,8 @@ public class EnrolledModule implements Serializable {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EnrolledModule // instanceof handles nulls
-                && enrolledModuleName.equals(((EnrolledModule)other).enrolledModuleName));
+            || (other instanceof EnrolledModule // instanceof handles nulls
+            && enrolledModuleName.equals(((EnrolledModule) other).enrolledModuleName));
         // state check
     }
 

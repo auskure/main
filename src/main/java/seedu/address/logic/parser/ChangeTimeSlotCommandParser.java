@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.ChangeTimeSlotCommand.MESSAGE_USAGE;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ChangeTimeSlotCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -23,14 +22,14 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
         String trimmedArgs = args.trim();
         String[] actions = trimmedArgs.split("\\s+");
 
-        if (actions.length < 4){
+        if (actions.length < 4) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ChangeTimeSlotCommand.MESSAGE_USAGE));
+                ChangeTimeSlotCommand.MESSAGE_USAGE));
         }
 
         if (actions.length % 3 != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ChangeTimeSlotCommand.MESSAGE_USAGE));
+                ChangeTimeSlotCommand.MESSAGE_USAGE));
         }
         String index = actions[0];
         for (int i = 1; i < actions.length; i++) {
@@ -50,9 +49,9 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
     }
 
     Boolean isInvalidDay(String day) {
-        if (!day.equalsIgnoreCase("mon") && !day.equalsIgnoreCase("tue") &&
-                !day.equalsIgnoreCase("wed") && !day.equalsIgnoreCase("thu") &&
-                !day.equalsIgnoreCase("fri")) {
+        if (!day.equalsIgnoreCase("mon") && !day.equalsIgnoreCase("tue")
+            && !day.equalsIgnoreCase("wed") && !day.equalsIgnoreCase("thu")
+            && !day.equalsIgnoreCase("fri")) {
             return true;
         } else {
             return false;
@@ -61,22 +60,21 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
 
     Boolean isInvalidTime(String time) {
         if (!time.equalsIgnoreCase("8am") && !time.equalsIgnoreCase("9am")
-                && !time.equalsIgnoreCase("10am")
-                && !time.equalsIgnoreCase("11am")
-                && !time.equalsIgnoreCase("12pm")
-                && !time.equalsIgnoreCase("1pm")
-                && !time.equalsIgnoreCase("2pm")
-                && !time.equalsIgnoreCase("3pm")
-                && !time.equalsIgnoreCase("4pm")
-                && !time.equalsIgnoreCase("5pm")
-                && !time.equalsIgnoreCase("6pm")
-                && !time.equalsIgnoreCase("7pm")) {
+            && !time.equalsIgnoreCase("10am")
+            && !time.equalsIgnoreCase("11am")
+            && !time.equalsIgnoreCase("12pm")
+            && !time.equalsIgnoreCase("1pm")
+            && !time.equalsIgnoreCase("2pm")
+            && !time.equalsIgnoreCase("3pm")
+            && !time.equalsIgnoreCase("4pm")
+            && !time.equalsIgnoreCase("5pm")
+            && !time.equalsIgnoreCase("6pm")
+            && !time.equalsIgnoreCase("7pm")) {
             return true;
-          }
-          else {
+        } else {
             return false;
-          }
-      }
+        }
+    }
 }
 
 

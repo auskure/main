@@ -29,8 +29,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        if (!deleteKeywords[0].equalsIgnoreCase("main") &&
-                !deleteKeywords[0].equalsIgnoreCase("merged")) {
+        if (!deleteKeywords[0].equalsIgnoreCase("main")
+                && !deleteKeywords[0].equalsIgnoreCase("merged")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         try {

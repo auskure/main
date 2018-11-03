@@ -22,14 +22,15 @@ import seedu.address.model.enrolledModule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.IsSelfPredicate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.IsSelfPredicate;
 
 //@@E0201942
+
 /**
  * Merges the timetables of multiple people
  */
@@ -39,11 +40,11 @@ public class MergeCommand extends Command {
     public static final String COMMAND_WORD = "merge";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Merges the timetables of selected people"
-            + "by the index number used in the last person listing.\n "
-            + "Parameters: INDEX (must be positive integer )"
-            + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
-            + "for all timetables you want to merge.\n"
-            + "Example: " + COMMAND_WORD + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME + "GES PROJECT";
+        + "by the index number used in the last person listing.\n "
+        + "Parameters: INDEX (must be positive integer )"
+        + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
+        + "for all timetables you want to merge.\n"
+        + "Example: " + COMMAND_WORD + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME + "GES PROJECT";
 
     public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
     public static final String MESSAGE_NOT_MERGED = "At least two people to merge must be provided";
@@ -82,17 +83,17 @@ public class MergeCommand extends Command {
                 index = Integer.parseInt(it) - 1;
             } catch (NumberFormatException nfe) {
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        MergeCommand.MESSAGE_USAGE), nfe);
+                    MergeCommand.MESSAGE_USAGE), nfe);
             }
             personsToMerge[i] = mainList.get(index);
             i++;
         }
-        personsToMerge[i]= selfList.get(0);
+        personsToMerge[i] = selfList.get(0);
         i++;
         for (int j = 0; j < i - 1; j++) {
             personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
         }
-        if (model.hasPerson(personsToMerge[i-1])) {
+        if (model.hasPerson(personsToMerge[i - 1])) {
             throw new CommandException(MESSAGE_DUPLICATE_GROUP);
         }
         model.addPerson(personsToMerge[i - 1]);
@@ -119,7 +120,7 @@ public class MergeCommand extends Command {
 
 
         return new Person(mergedName, phone, email, address, mergedTags, enrolledClassMap,
-                mergedSlots);
+            mergedSlots);
 
 
     }
@@ -158,28 +159,23 @@ public class MergeCommand extends Command {
         return finalSlots;
     }
 
-    List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2){
+    List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2) {
         List<TimeSlots> finalDay = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-                if(day1[i].toString().equalsIgnoreCase("free")
-                        ||day1[i].toString().equalsIgnoreCase("0")){
-                    day1[i] = new TimeSlots("0");
+            if (day1[i].toString().equalsIgnoreCase("free")
+                || day1[i].toString().equalsIgnoreCase("0")) {
+                day1[i] = new TimeSlots("0");
+            } else {
+                try {
+                    Integer.parseInt(day1[i].toString());
+                } catch (NumberFormatException e) {
+                    day1[i] = new TimeSlots("1");
                 }
-                else{
-                    try
-                    {
-                        Integer.parseInt(day1[i].toString());
-                    }
-                    catch (NumberFormatException e)
-                    {
-                        day1[i] = new TimeSlots("1");
-                    }
-                }
-
-            if(day2[i].toString().equalsIgnoreCase("free")){
-                day2[i] = new TimeSlots("0");
             }
-            else{
+
+            if (day2[i].toString().equalsIgnoreCase("free")) {
+                day2[i] = new TimeSlots("0");
+            } else {
                 day2[i] = new TimeSlots("1");
             }
             String day1BusyCount = day1[i].toString();

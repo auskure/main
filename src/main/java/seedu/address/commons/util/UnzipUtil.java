@@ -1,6 +1,5 @@
 package seedu.address.commons.util;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,13 +20,14 @@ public class UnzipUtil {
      * Returns if {@code unzipFilePath, targetFilePath and targetFileKeyword} is able to be found
      * e.g. user/main/toUnzip, user/main/target, zipped
      * The zipped file will then be deleted
+     *
      * @throws IOException if zipped file cannot be found, or if the buffered stream used to write the file is
-     * corrupted
+     *                     corrupted
      */
     public static void unzipFile(String unzipFilePath, String unzipFileKeyword,
                                  String currentDirectory, String targetFilePath, String moduleCode) throws IOException {
 
-        final String fullTargetFilePath =  currentDirectory + targetFilePath + "/" + moduleCode;
+        final String fullTargetFilePath = currentDirectory + targetFilePath + "/" + moduleCode;
         File curDir = new File(unzipFilePath);
 
         final File targetFile = getFile(curDir, unzipFileKeyword);
@@ -35,7 +35,7 @@ public class UnzipUtil {
         final String inputZipFile = unzipFilePath + "/" + targetFile.getName();
         final String outputZipFolder = fullTargetFilePath;
 
-        unZip(inputZipFile,outputZipFolder);
+        unZip(inputZipFile, outputZipFolder);
 
         targetFile.delete();
 
@@ -48,10 +48,10 @@ public class UnzipUtil {
         File targetFile = null;
         String currentName;
         File[] filesList = curDir.listFiles();
-        for(File file : filesList){
-            if(file.isFile()) {
+        for (File file : filesList) {
+            if (file.isFile()) {
                 currentName = file.getName();
-                if(currentName.contains(keyWord)) {
+                if (currentName.contains(keyWord)) {
                     targetFile = file;
                 }
             }
@@ -61,14 +61,15 @@ public class UnzipUtil {
 
     /**
      * Unzips the target file if it exists within the current directory.
+     *
      * @throws IOException in the unlikely case that the buffered stream is corrupted.
      */
-    private static void unZip(String zipFile, String outputFolder) throws IOException{
+    private static void unZip(String zipFile, String outputFolder) throws IOException {
         byte[] buffer = new byte[PARAM_BUFFER_SIZE];
         try {
             //create output directory is not exists
             File folder = new File(outputFolder);
-            if(!folder.exists()){
+            if (!folder.exists()) {
                 folder.mkdir();
             }
 
@@ -80,7 +81,7 @@ public class UnzipUtil {
             ZipEntry zipEntry = zipinputstream.getNextEntry();
 
             // Unzipping the folder
-            while(zipEntry != null) {
+            while (zipEntry != null) {
                 String fileName = zipEntry.getName();
                 File newFile = new File(outputFolder + File.separator + fileName);
                 //create all non exists folders
@@ -88,7 +89,7 @@ public class UnzipUtil {
                 new File(newFile.getParent()).mkdirs();
                 FileOutputStream fileOutputStream = new FileOutputStream(newFile);
                 int len;
-                while((len = zipinputstream.read(buffer)) > PARAM_MININUM_SIZE) {
+                while ((len = zipinputstream.read(buffer)) > PARAM_MININUM_SIZE) {
                     fileOutputStream.write(buffer, PARAM_OFFSET, len);
                 }
                 fileOutputStream.close();
@@ -97,7 +98,7 @@ public class UnzipUtil {
             zipinputstream.closeEntry();
             zipinputstream.close();
 
-        } catch(IOException ex){
+        } catch (IOException ex) {
             throw new IOException();
         }
     }

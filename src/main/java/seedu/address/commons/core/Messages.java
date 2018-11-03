@@ -15,17 +15,19 @@ public class Messages {
     public static final String MESSAGE_FILE_CORRUPTED = "Downloaded file was corrupted";
     public static final String MESSAGE_DOWNLOAD_SUCCESS = "\r\nDownloaded file at ";
     public static final String MESSAGE_CHROME_DRIVER_NOT_FOUND =
-            "chromeDrivers are not found, please check if you have installed the application correctly";
+        "chromeDrivers are not found, please check if you have installed the application correctly";
     public static final String MESSAGE_NOTES_FOLDER_NOT_FOUND =
-            "note folder is not found, please check if you have installed the application correctly";
+        "note folder is not found, please check if you have installed the application correctly";
     public static final String MESSAGE_EXTRACTION_JAR_FAIL =
-            "Extracting chromeDrivers or setting up Notes fold has failed";
+        "Extracting chromeDrivers or setting up Notes fold has failed";
     public static final String MESSAGE_DOWNLOAD_SELECT_SUCCESS = "Here are your the files available for: ";
     public static final String MESSAGE_USERNAME_PASSWORD_ERROR = "You have entered the Wrong username or Password.";
     public static final String MESSAGE_DYNAMIC_WAITING_INTERRUPTED = "Waiting for the files have been interrupted";
-    public static final String MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED = "Please select a file after the \"file/\" tag. Ie: file/(0,1,2...n))";
-    public static final String MESSAGE_FILE_DOES_NOT_EXIST_ERROR = "A file you selected does not exist, download Incomplete";
-    public static final String MESSAGE_DOWNLOAD_DISABLED = "The download function has temporarily been disabled " +
-            "in accordance with\r\nNUS Information Technology Acceptable use policy for IT resources Ver4.2," +
-            " Clause 4.6\r\nUsers are still able to login and view available files to be downloaded.";
+    public static final String MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED =
+        "Please select a file after the \"file/\" tag. Ie: file/(0,1,2...n))";
+    public static final String MESSAGE_FILE_DOES_NOT_EXIST_ERROR = "A file you selected does not exist,"
+        + "download Incomplete";
+    public static final String MESSAGE_DOWNLOAD_DISABLED = "The download function has temporarily been disabled "
+        + "in accordance with\r\nNUS Information Technology Acceptable use policy for IT resources Ver4.2,"
+        + " Clause 4.6\r\nUsers are still able to login and view available files to be downloaded.";
 }

@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -18,7 +17,8 @@ public class XmlAdaptedTimeSlots {
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedTimeSlots() {}
+    public XmlAdaptedTimeSlots() {
+    }
 
     /**
      * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
@@ -32,7 +32,9 @@ public class XmlAdaptedTimeSlots {
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedTimeSlots(TimeSlots source) { timeSlot = source.toString(); }
+    public XmlAdaptedTimeSlots(TimeSlots source) {
+        timeSlot = source.toString();
+    }
 
     /**
      * Converts this jaxb-friendly adapted tag object into the model's Tag object.

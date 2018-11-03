@@ -1,6 +1,14 @@
 package seedu.address.storage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -46,14 +54,15 @@ public class XmlAdaptedPerson {
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
                             List<XmlAdaptedTag> tagged, List<XmlAdaptedEnrolledModule> enrolled, Map<String,
-            ListWrapper> timeslots) {
+        ListWrapper> timeslots) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -80,20 +89,21 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged = source.getTags().stream()
-                .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
+            .map(XmlAdaptedTag::new)
+            .collect(Collectors.toList());
         XmlAdaptedEnrolledModule tempXmlClass;
-        for(String nameTemp : source.getEnrolledModules().keySet()){
+        for (String nameTemp : source.getEnrolledModules().keySet()) {
             tempXmlClass = new XmlAdaptedEnrolledModule(nameTemp);
             enrolled.add(tempXmlClass);
         }
         timeslots = toXmlAdaptedTimeSlots(source.getTimeSlots());
     }
-    public static Map<String, ListWrapper>toXmlAdaptedTimeSlots (Map<String, List<TimeSlots>> source) {
+
+    public static Map<String, ListWrapper> toXmlAdaptedTimeSlots(Map<String, List<TimeSlots>> source) {
         Map<String, ListWrapper> timeslots = new HashMap<>();
-        String[] days ={"mon", "tue", "wed", "thu", "fri"};
-        for(String day :days) {
-            ArrayList<XmlAdaptedTimeSlots> toAdd= new ArrayList<>();
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
+        for (String day : days) {
+            ArrayList<XmlAdaptedTimeSlots> toAdd = new ArrayList<>();
             ListWrapper wrapper = new ListWrapper();
             wrapper.setList(toAdd);
             for (TimeSlots i : source.get(day)) {
@@ -104,12 +114,12 @@ public class XmlAdaptedPerson {
         return timeslots;
     }
 
-    public static List<XmlAdaptedEnrolledModule> toXmlAdaptedEnrolledModules(Map<String, EnrolledModule> source){
+    public static List<XmlAdaptedEnrolledModule> toXmlAdaptedEnrolledModules(Map<String, EnrolledModule> source) {
         Iterator<Map.Entry<String, EnrolledModule>> it = source.entrySet().iterator();
         List<XmlAdaptedEnrolledModule> enrolledModules = new ArrayList<>();
         while (it.hasNext()) {
             Map.Entry<String, EnrolledModule> pair = it.next();
-             enrolledModules.add(new XmlAdaptedEnrolledModule(pair.getValue()));
+            enrolledModules.add(new XmlAdaptedEnrolledModule(pair.getValue()));
         }
         return enrolledModules;
     }
@@ -130,9 +140,9 @@ public class XmlAdaptedPerson {
             personEnrolledModules.add(enrolledClass.toModelType());
         }
 
-        final Map<String ,List<TimeSlots> >personTimeSlots = new HashMap<>();
-        String[] days ={"mon", "tue", "wed", "thu", "fri"};
-        for(String day: days){
+        final Map<String, List<TimeSlots>> personTimeSlots = new HashMap<>();
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
+        for (String day : days) {
             List<TimeSlots> toAdd = new ArrayList<>();
             for (XmlAdaptedTimeSlots i : timeslots.get(day).getList()) {
                 toAdd.add(i.toModelType());
@@ -175,13 +185,13 @@ public class XmlAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final Map<String, EnrolledModule> modelEnrolledClasses = new TreeMap<>();
-        for(EnrolledModule tempClass: personEnrolledModules){
+        for (EnrolledModule tempClass : personEnrolledModules) {
             modelEnrolledClasses.put(tempClass.enrolledModuleName, tempClass);
         }
-        final Map<String ,List<TimeSlots> >modelTimeSlots = new  HashMap<>(personTimeSlots);
+        final Map<String, List<TimeSlots>> modelTimeSlots = new HashMap<>(personTimeSlots);
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelEnrolledClasses,
-                modelTimeSlots);
+            modelTimeSlots);
     }
 
     @Override
@@ -196,11 +206,11 @@ public class XmlAdaptedPerson {
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
         return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged)
-                && enrolled.equals(otherPerson.enrolled)
-                && timeslots.equals(otherPerson.timeslots);
+            && Objects.equals(phone, otherPerson.phone)
+            && Objects.equals(email, otherPerson.email)
+            && Objects.equals(address, otherPerson.address)
+            && tagged.equals(otherPerson.tagged)
+            && enrolled.equals(otherPerson.enrolled)
+            && timeslots.equals(otherPerson.timeslots);
     }
 }
