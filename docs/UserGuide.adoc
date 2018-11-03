@@ -89,6 +89,9 @@ Examples:
 [NOTE]
 Contacts in this addressbook are automatically sorted in alphabetical order
 
+[NOTE]
+Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently work.
+
 ==== Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
