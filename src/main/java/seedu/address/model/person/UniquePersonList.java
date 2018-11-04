@@ -16,7 +16,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
  * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Person#isSamePerson(Person)
@@ -67,7 +67,7 @@ public class UniquePersonList implements Iterable<Person> {
         requireNonNull(replacement);
 
         uniquePersonListHelper.removeAll();
-        for(Person tempPerson: replacement){
+        for (Person tempPerson : replacement) {
             uniquePersonListHelper.add(tempPerson);
         }
         updateInternalList();
@@ -84,7 +84,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         uniquePersonListHelper.removeAll();
-        for(Person tempPerson: persons){
+        for (Person tempPerson : persons) {
             uniquePersonListHelper.add(tempPerson);
         }
         updateInternalList();
@@ -105,8 +105,8 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                && internalList.equals(((UniquePersonList) other).internalList));
+            || (other instanceof UniquePersonList // instanceof handles nulls
+            && internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override
@@ -127,12 +127,13 @@ public class UniquePersonList implements Iterable<Person> {
         }
         return true;
     }
+
     /**
      * Updates the internal list, allowing it to have sorted contacts
      */
-    private void updateInternalList(){
+    private void updateInternalList() {
         internalList.clear();
-        for(String name: uniquePersonListHelper.acquireAllNames()) {
+        for (String name : uniquePersonListHelper.acquireAllNames()) {
             internalList.add(uniquePersonListHelper.get(name));
         }
     }

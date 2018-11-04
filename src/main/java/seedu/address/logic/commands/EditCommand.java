@@ -1,7 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENROLLED_MODULE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -19,7 +24,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.enrolledModule.EnrolledModule;
+import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
@@ -37,17 +42,17 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]..." + "[" + PREFIX_ENROLLED_MODULE + "MODULE]..." + "\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+        + "by the index number used in the displayed person list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_TAG + "TAG]..." + "[" + PREFIX_ENROLLED_MODULE + "MODULE]..." + "\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -105,12 +110,12 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         Map<String, EnrolledModule> updatedEnrolledModules = editPersonDescriptor.getEnrolledModules()
-                                                            .orElse(personToEdit.getEnrolledModules());
+            .orElse(personToEdit.getEnrolledModules());
         Map<String, List<TimeSlots>> updatedTimeSlots = personToEdit.getTimeSlots();
 
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                updatedEnrolledModules, updatedTimeSlots);
+            updatedEnrolledModules, updatedTimeSlots);
     }
 
     @Override
@@ -128,7 +133,7 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+            && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 
     /**
@@ -233,7 +238,7 @@ public class EditCommand extends Command {
          */
 
         public void setEnrolledModules(Map<String, EnrolledModule> enrolledModules) {
-            if (enrolledModules != null){
+            if (enrolledModules != null) {
                 this.enrolledModules = enrolledModules;
             } else {
                 this.enrolledModules = new TreeMap<>();
@@ -247,7 +252,7 @@ public class EditCommand extends Command {
          */
 
         public Optional<Map<String, EnrolledModule>> getEnrolledModules() {
-            if (enrolledModules != null){
+            if (enrolledModules != null) {
                 return Optional.of(Collections.unmodifiableMap(enrolledModules));
             } else {
                 return Optional.empty();
@@ -278,12 +283,12 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags())
-                    && getEnrolledModules().equals(e.getEnrolledModules())
-                    && getTimeSlots().equals(e.getTimeSlots());
+                && getPhone().equals(e.getPhone())
+                && getEmail().equals(e.getEmail())
+                && getAddress().equals(e.getAddress())
+                && getTags().equals(e.getTags())
+                && getEnrolledModules().equals(e.getEnrolledModules())
+                && getTimeSlots().equals(e.getTimeSlots());
         }
     }
 }

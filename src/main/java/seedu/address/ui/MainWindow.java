@@ -19,8 +19,6 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.IsMergedPredicate;
-import seedu.address.model.person.TimetableContainsModulePredicate;
 
 /**
  * The Main Window. Provides the basic application layout containing

@@ -1,14 +1,15 @@
 package seedu.address.model.person;
 
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+
 
 /**
  * A supporting data structure (Treemap) that helps keep the contacts in the contact list sorted, increasing
@@ -62,7 +63,7 @@ public class UniquePersonListHelper {
         requireAllNonNull(target, editedPerson);
         String editedPersonName = nameFinder(editedPerson);
         String targetName = nameFinder(target);
-        if (internalListHelper.get(targetName) == null){
+        if (internalListHelper.get(targetName) == null) {
             throw new PersonNotFoundException();
         }
         if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
@@ -102,7 +103,7 @@ public class UniquePersonListHelper {
     /**
      * Returns the name of the given person contact.
      */
-    private String nameFinder(Person person){
+    private String nameFinder(Person person) {
         return person.getName().toString();
     }
 

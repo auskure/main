@@ -1,10 +1,12 @@
 package seedu.address;
 
-import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -26,6 +28,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.NotesDownloadStorage;
+import seedu.address.storage.NotesDownloadStorageHelper;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -62,7 +66,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        NotesDownloadStorage notesDownloadStorage = new NotesDownloadStorageHelper(userPrefs.getNotesFolderPath());
+
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, notesDownloadStorage);
 
         initLogging(config);
 

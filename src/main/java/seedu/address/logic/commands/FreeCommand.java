@@ -5,14 +5,28 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.enrolledModule.EnrolledModule;
-import seedu.address.model.person.*;
+import seedu.address.model.enrolledmodule.EnrolledModule;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.HashSet;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
@@ -27,11 +41,11 @@ public class FreeCommand extends Command {
     public static final String COMMAND_WORD = "free";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available timeslot for persons "
-            + "listed by their index number.\n"
-            + "Parameters: INDEX (must be positive integer )"
-            + PREFIX_FREE + "[INDEX]"
-            + "for all contacts you want to compare.\n"
-            + "Example: " + COMMAND_WORD + " " +  PREFIX_FREE + "1 " + PREFIX_FREE + "2 ";
+        + "listed by their index number.\n"
+        + "Parameters: INDEX (must be positive integer )"
+        + PREFIX_FREE + "[INDEX]"
+        + "for all contacts you want to compare.\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_FREE + "1 " + PREFIX_FREE + "2 ";
 
     private static final String MESSAGE_NOT_FREED = "There is no common free timeslot";
     private final List<String> indices;
@@ -77,19 +91,18 @@ public class FreeCommand extends Command {
             personFirst = mergeTimetables(personFirst, personFirst, 0);
         }
 
-        outputToUser = outputToUser.substring(0,outputToUser.length()-1);
+        outputToUser = outputToUser.substring(0, outputToUser.length() - 1);
         outputToUser = outputToUser + " is : ";
-
-
 
 
         //if today is saturday or sunday, loop back to monday
         int dayToCheck;
         boolean isToday = true;
-        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
+        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.now().getDayOfWeek()
+            == DayOfWeek.SUNDAY) {
             dayToCheck = 0;
             isToday = false;
-        }else if (LocalDate.now().getDayOfWeek() == DayOfWeek.MONDAY) {
+        } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.MONDAY) {
             dayToCheck = 0;
         } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.TUESDAY) {
             dayToCheck = 1;
@@ -150,14 +163,13 @@ public class FreeCommand extends Command {
             }
 
 
-
             String timeFrom;
             String timeTo;
             DateFormat sdf = new SimpleDateFormat("EEE hh:mm aa");
             if (listFoundSlot.size() > 0) {
                 //found a free slot
                 int foundHour = listFoundSlot.get(0) + 8;
-                int endHour = (listFoundSlot.get(listFoundSlot.size()-1) + 9);
+                int endHour = (listFoundSlot.get(listFoundSlot.size() - 1) + 9);
 
                 if (!(isToday && (foundHour == hourNow))) {
                     isToday = false;
@@ -171,7 +183,7 @@ public class FreeCommand extends Command {
                     timeFrom = getTimeFormatted(foundHour);
                     timeTo = getTimeFormatted(endHour);
                     outputToUser += days[dayToCheck] + " " + timeFrom + " - " + timeTo;
-            }
+                }
                 return new CommandResult(outputToUser);
             }
 
@@ -189,9 +201,9 @@ public class FreeCommand extends Command {
     }
 
     /*
-    * Formats the time into readable String
-    *
-    * @param Hour
+     * Formats the time into readable String
+     *
+     * @param Hour
      */
 
     private String getTimeFormatted(int hours) {
@@ -205,9 +217,11 @@ public class FreeCommand extends Command {
         return hours + ":00 " + amPm;
     }
 
-
-
-
+    /*
+     * To-be filled-in.
+     *
+     * @param to-be filled-in.
+     */
 
     private Person mergeTimetables(Person person1, Person person2, int index) {
         Name mergedName = new Name("a");
@@ -226,10 +240,16 @@ public class FreeCommand extends Command {
 
 
         return new Person(mergedName, phone, email, address, mergedTags, enrolledClassMap,
-                mergedSlots);
+            mergedSlots);
 
 
     }
+
+    /*
+     * To-be filled-in.
+     *
+     * @param to-be filled-in.
+     */
 
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {
@@ -265,28 +285,23 @@ public class FreeCommand extends Command {
         return finalSlots;
     }
 
-	List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2){
+    List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2) {
         List<TimeSlots> finalDay = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-                if(day1[i].toString().equalsIgnoreCase("free")
-                        ||day1[i].toString().equalsIgnoreCase("0")){
-                    day1[i] = new TimeSlots("0");
+            if (day1[i].toString().equalsIgnoreCase("free")
+                || day1[i].toString().equalsIgnoreCase("0")) {
+                day1[i] = new TimeSlots("0");
+            } else {
+                try {
+                    Integer.parseInt(day1[i].toString());
+                } catch (NumberFormatException e) {
+                    day1[i] = new TimeSlots("1");
                 }
-                else{
-                    try
-                    {
-                        Integer.parseInt(day1[i].toString());
-                    }
-                    catch (NumberFormatException e)
-                    {
-                        day1[i] = new TimeSlots("1");
-                    }
-                }
-
-            if(day2[i].toString().equalsIgnoreCase("free")){
-                day2[i] = new TimeSlots("0");
             }
-            else{
+
+            if (day2[i].toString().equalsIgnoreCase("free")) {
+                day2[i] = new TimeSlots("0");
+            } else {
                 day2[i] = new TimeSlots("1");
             }
             String day1BusyCount = day1[i].toString();

@@ -7,7 +7,6 @@ import static seedu.address.storage.XmlAdaptedPerson.toXmlAdaptedTimeSlots;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,10 +14,9 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.enrolledModule.EnrolledModule;
+import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.person.*;
 import seedu.address.testutil.Assert;
-import seedu.address.testutil.TypicalPersons;
 
 public class XmlAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

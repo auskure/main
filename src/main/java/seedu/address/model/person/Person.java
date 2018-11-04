@@ -3,9 +3,16 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
 
-import seedu.address.model.enrolledModule.EnrolledModule;
+import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,7 +36,7 @@ public class Person implements Serializable {
      * Name, Phone, Email, Address and Tags are to be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address,
-                  Set<Tag> tags, Map<String, EnrolledModule> enrolledModules, Map<String ,List<TimeSlots> > timeslots) {
+                  Set<Tag> tags, Map<String, EnrolledModule> enrolledModules, Map<String, List<TimeSlots>> timeslots) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -37,15 +44,14 @@ public class Person implements Serializable {
         this.address = address;
         this.tags.addAll(tags);
         EnrolledModule tempModule;
-        for(String tempModuleName: enrolledModules.keySet()){
+        for (String tempModuleName : enrolledModules.keySet()) {
             tempModule = enrolledModules.get(tempModuleName);
             this.enrolledModules.put(tempModuleName, tempModule);
         }
 
         if (timeslots != null) {
             this.timeslots = new HashMap<>(timeslots);
-        }
-        else{
+        } else {
             this.timeslots = TimeSlots.sampleTimeSlots();
         }
 
@@ -80,7 +86,8 @@ public class Person implements Serializable {
      * if modification is attempted.
      */
     public Map<String, EnrolledModule> getEnrolledModules() {
-        return Collections.unmodifiableMap(enrolledModules); }
+        return Collections.unmodifiableMap(enrolledModules);
+    }
 
     /**
      * Returns an immutable timeslot map, which throws {@code UnsupportedOperationException}
@@ -100,7 +107,7 @@ public class Person implements Serializable {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+            && otherPerson.getName().equals(getName());
     }
 
     /**
@@ -119,11 +126,11 @@ public class Person implements Serializable {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags())
-                && otherPerson.getEnrolledModules().equals(getEnrolledModules());
+            && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getTags().equals(getTags())
+            && otherPerson.getEnrolledModules().equals(getEnrolledModules());
     }
 
     @Override
@@ -136,16 +143,16 @@ public class Person implements Serializable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Enrolled Modules: ");
-        for(String temp: getEnrolledModules().keySet()){
+        for (String temp : getEnrolledModules().keySet()) {
             temp = temp + " ";
             builder.append(temp);
         }

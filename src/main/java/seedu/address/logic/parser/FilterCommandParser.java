@@ -1,16 +1,15 @@
 package seedu.address.logic.parser;
 
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
-
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.TimetableContainsModulePredicate;
 
 //@@E0201942
+
 /**
  * Parses input arguments and creates a new FilterCommand object
  */
@@ -25,24 +24,24 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
         String[] keywords = trimmedArgs.split("\\s+");
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         for (int i = 0; i < keywords.length; i++) {
             for (String day : days) {
                 if (keywords[i].equalsIgnoreCase(day)) {
-                    if(i+1 >= keywords.length){
+                    if (i + 1 >= keywords.length) {
                         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                FilterCommand.MESSAGE_USAGE));
+                            FilterCommand.MESSAGE_USAGE));
                     }
                     String time = keywords[i + 1];
                     int timeIndex = changeTimeToIndex(time);
-                    if(timeIndex ==13 ){
+                    if (timeIndex == 13) {
                         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                FilterCommand.MESSAGE_USAGE));
+                            FilterCommand.MESSAGE_USAGE));
                     }
-                    keywords[i+1]= Integer.toString(timeIndex);
+                    keywords[i + 1] = Integer.toString(timeIndex);
                 }
             }
         }
@@ -50,7 +49,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         return new FilterCommand(new TimetableContainsModulePredicate(Arrays.asList(keywords)));
     }
 
-    private int changeTimeToIndex (String time) throws ParseException {
+    private int changeTimeToIndex(String time) throws ParseException {
         int index = 13;
         if (time.equalsIgnoreCase("8am")) {
             index = 0;
