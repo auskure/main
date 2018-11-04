@@ -58,7 +58,7 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        // ================ AddressBook Commands ==============================
+        // ============================== AddressBook Commands ==============================
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -95,41 +95,40 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        // ================ TimeTable Commands ==============================
-        case MergeCommand.COMMAND_WORD:
-            return new MergeCommandParser().parse(arguments);
-
-        case FilterCommand.COMMAND_WORD:
-            return new FilterCommandParser().parse(arguments);
-
+        // ============================== Time Table Commands ==============================
         case ChangeTimeSlotCommand.COMMAND_WORD:
             return new ChangeTimeSlotCommandParser().parse(arguments);
-
-        case FreeCommand.COMMAND_WORD:
-            return new FreeCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
 
+        case FilterCommand.COMMAND_WORD:
+            return new FilterCommandParser().parse(arguments);
+
+        case FreeCommand.COMMAND_WORD:
+            return new FreeCommandParser().parse(arguments);
+
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
 
-        // ================ Notes Download Commands ==============================
+        case MergeCommand.COMMAND_WORD:
+            return new MergeCommandParser().parse(arguments);
+
+        // ============================== Notes Download Commands ==============================
+        case ClearNotesCommand.COMMAND_WORD:
+            return new ClearNotesCommand();
+
         case DownloadAllNotesCommand.COMMAND_WORD:
             return new DownloadAllNotesCommandParser().parse(arguments);
 
         case DownloadSelectNotesCommand.COMMAND_WORD:
             return new DownloadSelectNotesCommandParser().parse(arguments);
 
-        case ClearNotesCommand.COMMAND_WORD:
-            return new ClearNotesCommand();
-
-        case ShowNotesCommand.COMMAND_WORD:
-            return new ShowNotesCommand();
-
         case ShareCommand.COMMAND_WORD:
             return new ShareCommandParser().parse(arguments);
 
+        case ShowNotesCommand.COMMAND_WORD:
+            return new ShowNotesCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

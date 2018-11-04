@@ -32,10 +32,12 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the person so as "
-        + "to import it into another system.\n"
-        + "Parameters: PRIVACY(public, private) INDEX (must be positive integer )\n"
-        + "Example: " + COMMAND_WORD + "public " + " " + "1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export a person's full details "
+        + "into a string, which is used for import (into another NSync).\n"
+        + "Select 'public' if you would like to export the time-table in its entirety, "
+        + "or select 'private' if you would like to hide the contents of the occupied-time slots.\n"
+        + "Parameters: PRIVACY (public, private), INDEX (positive integer)\n"
+        + "Example: " + COMMAND_WORD + " public 1";
 
     private final String index;
     private final String privacy;
@@ -47,8 +49,8 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * Calls getSerializedString to get the Base64 String for the person selected through the index
-     * The generated string is copied to the user's clipboard for easy copy and pasting
+     * Calls getSerializedString to get a Base64 string for the person selected through the index.
+     * This generated string is copied to the user's clipboard for convenience (easy pasting).
      *
      * @throws CommandException if the index given is invalid
      */
@@ -59,6 +61,7 @@ public class ExportCommand extends Command {
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
         Person myPerson;
+
         if (index.equalsIgnoreCase("self")) {
             filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate());
             myPerson = filteredPersonList.get(0);
@@ -67,7 +70,8 @@ public class ExportCommand extends Command {
             try {
                 num = Integer.parseInt(index) - 1;
             } catch (NumberFormatException nfe) {
-                throw new CommandException(String.format(MESSAGE_USAGE));
+                throw new CommandException(String.format("You have entered an invalid number for the INDEX parameter. " +
+                    "Please enter a valid index.\n" + MESSAGE_USAGE));
             }
             filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered
                 (new IsNotSelfOrMergedPredicate());
@@ -75,23 +79,24 @@ public class ExportCommand extends Command {
             if (num >= filteredPersonList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
+
             myPerson = filteredPersonList.get(num);
         }
-
 
         if (!privacy.equalsIgnoreCase("public")) {
             changeToBusy(myPerson);
         }
-        String theString = getSerializedString(myPerson);
 
-        StringSelection ss = new StringSelection(theString);
+        String serializedString = getSerializedString(myPerson);
+
+        StringSelection ss = new StringSelection(serializedString);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(ss, null);
 
-        String output = theString;
-        output += "\n";
-        output += "The string has been copied onto the clipboard.";
-        return new CommandResult(output);
+        String outputToUser = serializedString + "\n";
+        outputToUser += "The generated string has been copied onto your clip-board.";
+
+        return new CommandResult(outputToUser);
 
     }
 
@@ -104,40 +109,32 @@ public class ExportCommand extends Command {
         try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
             oos.writeObject(o);
             oos.close();
-            return Base64.getEncoder().encodeToString(baos.toByteArray());
 
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
         } catch (Exception e) {
-            return "Error getting string, please try again";
+            return "Error generating string. Please try again.";
         }
 
     }
 
 
     private void changeToBusy(Person source) {
+
         Map<String, List<TimeSlots>> timeSlots = source.getTimeSlots();
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         for (String day : days) {
             List<TimeSlots> daySlots = timeSlots.get(day);
             for (int i = 0; i < 12; i++) {
-
                 TimeSlots activity = daySlots.get(i);
-                ;
+
                 System.out.println(activity.toString() + " zzk");
                 if (!activity.toString().equalsIgnoreCase("free")) {
                     activity = new TimeSlots("busy");
                     daySlots.set(i, activity);
-
-
                 }
-
-
             }
         }
 
     }
 
-
 }
-
-
-
