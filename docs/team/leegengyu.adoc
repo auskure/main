@@ -20,7 +20,7 @@ NSync is a desktop application with a command-line interface that helps students
 ** Justification: Each user has to key in their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.
 ** Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the `Logic` and `Model` components. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] <To be confirmed if we are still using collated code files>
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=leegengyu[Functional and test code]]
 
 * *Other contributions*:
 
