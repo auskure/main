@@ -400,22 +400,27 @@ You can find a common free time-slot for up to N contacts <to be filled in>.
 
 ==== Export user string: `export`
 
-Exports all of a user's details in each respective field (including time-table) into an encoded string. +
+Exports all of a user's details in each respective field into an encoded string. +
 Format: `export PUBLIC/PRIVATE INDEX`
 
 [TIP]
-You do not have to manually copy the entire displayed string. It has already been copied for you! All you have to do is to send it in its entirety to a fellow user who will import it.
+Upon execution of the command, the generated string will be automatically copied for you (ie no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+
+****
+* Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.
+* Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).
+****
 
 Example 1: `export public 1` +
-`Figure 1`: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to see the  time-table of contact index 1 in its entirety (ie the full contents of the time-table).
+Figure 2: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to see the  time-table of contact index 1 in its entirety (ie the full contents of the time-table).
 
-image::ExportPublic.png[width="800"]
-Figure 1
+image::ExportPublicView.png[width="800"]
+Figure 2
 
 Example 2: `export private 1` +
-`Figure 2`: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to only see the free and busy time-slots of contact index 1.
+Figure 3: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to only see the free and busy time-slots of contact index 1.
 
-image::ExportPrivate.png[width="800"]
+image::ExportPrivateView.png[width="800"]
 Figure 2
 
 [NOTE]
