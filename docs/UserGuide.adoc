@@ -404,7 +404,7 @@ Exports all of a user's details in each respective field into an encoded string.
 Format: `export PUBLIC/PRIVATE INDEX`
 
 [TIP]
-Upon execution of the command, the generated string will be automatically copied for you (ie no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
 
 ****
 * Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.
@@ -412,16 +412,16 @@ Upon execution of the command, the generated string will be automatically copied
 ****
 
 Example 1: `export public 1` +
-Figure 2: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to see the  time-table of contact index 1 in its entirety (ie the full contents of the time-table).
+Figure 2: The user who imports the string will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table).
 
 image::ExportPublicView.png[width="800"]
-Figure 2
+Figure 3: What the user who imports will see (public view)
 
 Example 2: `export private 1` +
-Figure 3: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to only see the free and busy time-slots of contact index 1.
+Figure 3: The user who imports the string will see only the free and busy time-slots of contact index 1.
 
 image::ExportPrivateView.png[width="800"]
-Figure 2
+Figure 3: What the user who imports will see (private view)
 
 [NOTE]
 Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
