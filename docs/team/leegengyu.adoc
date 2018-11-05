@@ -3,6 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This page serves to document my contributions to my group (W12-2)'s project (NSync) for the NUS module CS2113T.
+
 == PROJECT: NSync
 
 ---
@@ -11,16 +13,20 @@
 
 NSync was created to help students resolve the issue of scheduling meetings between their peers, team mates and friends.
 
-If you are a student, all you have to do is to key in your time-table (and get your friends to do so as well!) once, and we will find you your common meeting time-slot in a simple and fuss-free manner!
+As a desktop application with a command-line interface, NSync's users are able to find common meeting time-slots in a simple and fuss-free manner.
 
 == Summary of contributions
 
 * *Major enhancement*: added the feature to *export and import user details*
-** What it does: allows the users to `export` and `import` all information fields of one or more contacts, which includes the name, contact number, email, address and the time-table itself.
-** Justification: This feature boosts the productivity of the user significantly, by cutting down the amount of time that he/she has to take to input his/her contacts' details. The user and his/her contacts will only have to key in their contact details and time-tables respectively in a one-time fashion, before exporting their details and sending it to each other for importing.
-** Highlights: This enhancement builds upon all of the existing user fields, requiring an in-depth analysis into the workings of the `Logic` and `Model` component. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
+** What it does: Allows the user to `export` and `import` all information fields of one or more contacts. These fields include the name, contact number, email, address and time-table of the contact.
+** Justification: This feature significantly reduces the amount of time that the user has to take to input a contacts' manually. The user and his/her contacts will only have to key in their contact details and time-tables respectively in a one-time fashion, before exporting their details and sending it to each other for importing.
+** Highlights: This enhancement builds upon all of the existing user fields, and requires an in-depth understanding of the workings of the `Logic` and `Model` components of NSync. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
 
 * *Minor enhancement*: added a `free` command that allows the user to find the next immediate available time-slot for himself, or his contacts from the current time.
+** What it does: 
+** Justification: This feature addresses the core problem that our application strives to solve, which is to make the process of finding a common time-slot between contacts hassle-free. The user will be able to find the next common time-slot for himself and his contacts with a command, instead of visually searching for a time-slot through the GUI.
+** Highlights: This enhancement builds on top of the `merge` command to return a common available time-slot between contacts, and requires an understanding of the predicates under the `Model` component.
+** Credits: Lim Zhi Hui Alden (team-mate) for his implementation of the `merge` command, which the `free` command was built on top of
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] <To be confirmed if we are still using collated code files>
 
@@ -35,9 +41,9 @@ If you are a student, all you have to do is to key in your time-table (and get y
 *** Added features coming in v2.0 in the User Guide (Pull Request #<To be added>)
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): To be added.
-*** Contributed to forum discussions: To be added.
-*** Reported bugs and suggestions for other teams in the class: To be added.
+*** Bug reports reviewed (with non-trivial review comments): All issues from https://github.com/CS2113-AY1819S1-W12-2/main/issues/99[#99] to https://github.com/CS2113-AY1819S1-W12-2/main/issues/135[#135]
+*** Contributed to forum discussions: https://github.com/nusCS2113-AY1819S1/forum/issues/14[#14], https://github.com/nusCS2113-AY1819S1/forum/issues/27[#27].
+*** Reported bugs and suggestions for other teams in the class: https://github.com/CS2113-AY1819S1-T09-4/main/issues/129[#129], https://github.com/CS2113-AY1819S1-T09-4/main/issues/131[#131], https://github.com/CS2113-AY1819S1-T09-4/main/issues/133[#133], https://github.com/CS2113-AY1819S1-T09-4/main/issues/136[#136], https://github.com/CS2113-AY1819S1-T09-4/main/issues/138[#138], https://github.com/CS2113-AY1819S1-T09-4/main/issues/140[#140], https://github.com/CS2113-AY1819S1-T09-4/main/issues/141[#141], https://github.com/CS2113-AY1819S1-T09-4/main/issues/143[#143]
 
 == Contributions to the User Guide
 
