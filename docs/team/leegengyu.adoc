@@ -20,18 +20,13 @@ NSync is a desktop application with a command-line interface that helps students
 ** Justification: Each user has to key in their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.
 ** Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the `Logic` and `Model` components. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
 
-* *Minor enhancement*: Added the feature to *find the next immediate free time-slot*.
-** What it does: Allows the user to find the next immediate `free` time-slot for himself, and/or his contacts from the current time.
-** Justification: This feature addresses the core problem that our application strives to solve, which is to make the process of finding a common time-slot between contacts hassle-free. In addition, the user no longer has to visually search for a time-slot through the time-table GUI if he/she would like to find out when is his next available time-slot.
-** Highlights: This enhancement builds on top of the `merge` command to return a common available time-slot between contacts, and requires an understanding of the predicates under the `Model` component.
-** Credits: Lim Zhi Hui Alden (team-mate) for his implementation of the `merge` command, which the `free` command was built on top of.
-
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] <To be confirmed if we are still using collated code files>
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed https://github.com/CS2113-AY1819S1-W12-2/main/releases[releases]: `v1.2`, `v1.3`, `v1.3(PE)` on GitHub
+*** Managed releases for NSync: `v1.2`, `v1.3`, `v1.3(PE)` on GitHub
+*** Bug reports reviewed (with non-trivial review comments): All issues from #99 to #135
 
 ** Enhancements to existing features:
 *** Stream-lined error-handling in terms of message displayed to users in the event of an incorrect command (To be updated)
@@ -41,9 +36,8 @@ NSync is a desktop application with a command-line interface that helps students
 *** Added features coming in v2.0 in the User Guide (Pull Request #<To be added>)
 
 ** Community:
-*** Bug reports reviewed (with non-trivial review comments): All issues from https://github.com/CS2113-AY1819S1-W12-2/main/issues/99[#99] to https://github.com/CS2113-AY1819S1-W12-2/main/issues/135[#135]
-*** Contributed to forum discussions: https://github.com/nusCS2113-AY1819S1/forum/issues/14[#14], https://github.com/nusCS2113-AY1819S1/forum/issues/27[#27].
-*** Reported bugs and suggestions for other teams in the class: https://github.com/CS2113-AY1819S1-T09-4/main/issues/129[#129], https://github.com/CS2113-AY1819S1-T09-4/main/issues/131[#131], https://github.com/CS2113-AY1819S1-T09-4/main/issues/133[#133], https://github.com/CS2113-AY1819S1-T09-4/main/issues/136[#136], https://github.com/CS2113-AY1819S1-T09-4/main/issues/138[#138], https://github.com/CS2113-AY1819S1-T09-4/main/issues/140[#140], https://github.com/CS2113-AY1819S1-T09-4/main/issues/141[#141], https://github.com/CS2113-AY1819S1-T09-4/main/issues/143[#143]
+*** Contributed to forum discussions: #14, #27
+*** Reported bugs and suggestions for team T09-4 in the class: #129, #131, #133, #136, #138, #140, #141, #143
 
 == Contributions to the User Guide
 
