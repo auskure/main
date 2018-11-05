@@ -22,9 +22,9 @@ As a desktop application with a command-line interface, NSync's users are able t
 ** Justification: This feature significantly reduces the amount of time that the user has to take to input a contacts' manually. The user and his/her contacts will only have to key in their contact details and time-tables respectively in a one-time fashion, before exporting their details and sending it to each other for importing.
 ** Highlights: This enhancement builds upon all of the existing user fields, and requires an in-depth understanding of the workings of the `Logic` and `Model` components of NSync. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
 
-* *Minor enhancement*: added a `free` command that allows the user to find the next immediate available time-slot for himself, or his contacts from the current time.
-** What it does: 
-** Justification: This feature addresses the core problem that our application strives to solve, which is to make the process of finding a common time-slot between contacts hassle-free. The user will be able to find the next common time-slot for himself and his contacts with a command, instead of visually searching for a time-slot through the GUI.
+* *Minor enhancement*: added the feature to find the next immediate available free time-slot.
+** What it does: Allows the user to find the next immediate `free` time-slot for himself, or his contacts from the current time.
+** Justification: This feature addresses the core problem that our application strives to solve, which is to make the process of finding a common time-slot between contacts hassle-free. The user no longer has to visually search for a time-slot through the time-table GUI.
 ** Highlights: This enhancement builds on top of the `merge` command to return a common available time-slot between contacts, and requires an understanding of the predicates under the `Model` component.
 ** Credits: Lim Zhi Hui Alden (team-mate) for his implementation of the `merge` command, which the `free` command was built on top of
 
@@ -33,9 +33,11 @@ As a desktop application with a command-line interface, NSync's users are able t
 * *Other contributions*:
 
 ** Project management:
-*** To be added.
+*** Managed https://github.com/CS2113-AY1819S1-W12-2/main/releases[releases]: `v1.2`, `v1.3`, `v1.3(PE)` on GitHub
 
 ** Enhancements to existing features:
+*** Stream-lined error-handling in terms of message displayed to users in the event of an incorrect command (To be updated)
+*** Wrote additional tests for existing features and tests for new features, increasing coverage from x% to y% (To be updated)
 
 ** Documentation:
 *** Added features coming in v2.0 in the User Guide (Pull Request #<To be added>)

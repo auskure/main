@@ -90,7 +90,7 @@ Examples:
 Contacts in this addressbook are automatically sorted in alphabetical order
 
 [NOTE]
-Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently work.
+Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently work
 
 ==== Listing all persons : `list`
 
@@ -398,15 +398,23 @@ image::FreeCommand2.png[width="800"]
 
 ==== Export user string: `export`
 
+Exports all of a user's details in each respective field (including time-table) into an encoded string.
 Format: `export PUBLIC/PRIVATE INDEX`
-****
-* Exports all of a user's details in each respective field (including time-table) into a string.
-****
+
+[TIP]
+You do not have to manually copy the entire displayed string. It has already been copied for you! All you have to do is to send it in its entirety to a fellow user who will import it.
 
 Example: `export public 1` +
-Displays a string that contains the exported contact's details. This string is also copied to the user's clipboard.
+Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to see the  time-table of contact index 1 in its entirety (ie the full contents of the time-table).
 
-image::export.png[width="800"]
+image::ExportPublic.png[width="800"]
+Figure 1
+
+image::ExportPrivate.png[width="800"]
+Figure 2
+
+[INFO]
+Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
 
 ==== Import user string: `import`
 
