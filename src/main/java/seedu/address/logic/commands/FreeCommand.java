@@ -9,6 +9,7 @@ import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.IsSelfPredicate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -40,14 +41,13 @@ public class FreeCommand extends Command {
 
     public static final String COMMAND_WORD = "free";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available timeslot for persons "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available time slot for persons "
         + "listed by their index number.\n"
-        + "Parameters: INDEX (must be positive integer )"
-        + PREFIX_FREE + "[INDEX]"
-        + "for all contacts you want to compare.\n"
+        + "Parameter: " + PREFIX_FREE + "[INDEX]"
+        + " for all contacts you would like to compare.\n"
         + "Example: " + COMMAND_WORD + " " + PREFIX_FREE + "1 " + PREFIX_FREE + "2 ";
 
-    private static final String MESSAGE_NOT_FREED = "There is no common free timeslot";
+    private static final String MESSAGE_NOT_FREED = "There are no common free time slots found.";
     private final List<String> indices;
     private final String[] days = {"mon", "tue", "wed", "thu", "fri"};
 
@@ -64,38 +64,62 @@ public class FreeCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
         lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
+        // Check if inputs are valid
+        // Checking could not be done in parser as Model is only available here
         for (String index : indices) {
-            if (Integer.parseInt(index) > lastShownList.size()) {
+            if (index.equalsIgnoreCase("self")) {
+                continue;
+            }
+
+            int currentIndex = 0;
+            try {
+                currentIndex = Integer.parseInt(index);
+            } catch (NumberFormatException e) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            if (currentIndex > lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
         }
 
-        //remove the first person from the list as we have reference to him in personFirst
-        Person personFirst = lastShownList.get(Integer.parseInt(indices.get(0)) - 1);
+        // remove the first person from the list as we have reference to him in personFirst
+        Person personFirst;
+        if (indices.get(0).equalsIgnoreCase("self")) {
+            personFirst = model.getFilteredPersonList().filtered(new IsSelfPredicate()).get(0);
+        }
+        else {
+            personFirst = lastShownList.get(Integer.parseInt(indices.get(0)) - 1);
+        }
         indices.remove(0);
 
-        //start generation of output string to user
+        // start generation of output string to user
         String outputToUser = "The next available timeslot for";
         outputToUser += " " + personFirst.getName() + ",";
 
-        //if trying to find free slots for more than 1 person, use the merge algorithm to create a merged timetable to
-        //find a common free slot(s)
+        // if trying to find free slots for more than 1 person, use the merge algorithm to create a merged timetable to
+        // find a common free slot(s)
         if (indices.size() > 0) {
             for (String x : indices) {
-                personFirst = mergeTimetables(personFirst, lastShownList.get(Integer.parseInt(x) - 1), 0);
-                outputToUser += " " + lastShownList.get(Integer.parseInt(x) - 1).getName() + ",";
+                Person personTemp;
+                if (x.equalsIgnoreCase("self")) {
+                    personTemp = model.getFilteredPersonList().filtered(new IsSelfPredicate()).get(0);
+                } else {
+                    personTemp = lastShownList.get(Integer.parseInt(x) - 1);
+                }
+                personFirst = mergeTimetables(personFirst, personTemp, 0);
+                outputToUser += " " + personTemp.getName() + ",";
             }
         } else {
-            //only finding 1 person free slot, so use the merge algorithm to compare both the same person
-            //to change the timeslots to free or busy tag
+            // only finding 1 person free slot, so use the merge algorithm to compare both the same person
+            // to change the time slots to free or busy tag
             personFirst = mergeTimetables(personFirst, personFirst, 0);
         }
 
         outputToUser = outputToUser.substring(0, outputToUser.length() - 1);
-        outputToUser = outputToUser + " is : ";
+        outputToUser = outputToUser + " is: ";
 
 
-        //if today is saturday or sunday, loop back to monday
+        // if today is saturday or sunday, loop back to monday
         int dayToCheck;
         boolean isToday = true;
         if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.now().getDayOfWeek()
@@ -118,7 +142,7 @@ public class FreeCommand extends Command {
         Calendar rightNow = Calendar.getInstance();
         int hourNow = rightNow.get(Calendar.HOUR_OF_DAY);
         if (hourNow >= 20) {
-            //after 8pm, loop to next day
+            // after 8pm, loop to next day
             dayToCheck++;
             dayToCheck %= 5;
             hourNow = 8;
@@ -127,7 +151,7 @@ public class FreeCommand extends Command {
 
         List<Integer> listFoundSlot = new ArrayList<>();
 
-        //loop for 6 days, the 6th day is to look for time that is on this day but hours before current hour
+        // loop for 6 days, the 6th day is to look for time that is on this day but hours before current hour
         for (int i = 0; i < 6; i++) {
 
             int timeSlotIndex = 0;
@@ -140,10 +164,10 @@ public class FreeCommand extends Command {
             for (TimeSlots x : timeslotToCheck) {
                 if (x.toString().equalsIgnoreCase("0")) {
 
-                    //don't add hours that are before current time if it is today
+                    // do not add hours that are before current time if it is today
                     if ((isToday && (!(timeSlotIndex < currentHourIndex))) || (!isToday)) {
 
-                        //finding consecutive slots
+                        // finding consecutive slots
                         if (found == false) {
                             found = true;
                             prevIndex = timeSlotIndex;
@@ -167,7 +191,7 @@ public class FreeCommand extends Command {
             String timeTo;
             DateFormat sdf = new SimpleDateFormat("EEE hh:mm aa");
             if (listFoundSlot.size() > 0) {
-                //found a free slot
+                // found a free slot
                 int foundHour = listFoundSlot.get(0) + 8;
                 int endHour = (listFoundSlot.get(listFoundSlot.size() - 1) + 9);
 
@@ -194,8 +218,8 @@ public class FreeCommand extends Command {
         }
 
 
-        //if after 6 loops and we are not able to find a common timeslot, returns message
-        //to inform user that there is no common free timeslot
+        // if after 6 loops and we are not able to find a common timeslot, returns message
+        // to inform user that there is no common free timeslot
         return new CommandResult(MESSAGE_NOT_FREED);
 
     }
@@ -216,12 +240,6 @@ public class FreeCommand extends Command {
         }
         return hours + ":00 " + amPm;
     }
-
-    /*
-     * To-be filled-in.
-     *
-     * @param to-be filled-in.
-     */
 
     private Person mergeTimetables(Person person1, Person person2, int index) {
         Name mergedName = new Name("a");
@@ -244,12 +262,6 @@ public class FreeCommand extends Command {
 
 
     }
-
-    /*
-     * To-be filled-in.
-     *
-     * @param to-be filled-in.
-     */
 
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {
@@ -314,3 +326,4 @@ public class FreeCommand extends Command {
     }
 
 }
+

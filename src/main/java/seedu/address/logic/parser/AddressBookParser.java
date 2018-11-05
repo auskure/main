@@ -59,7 +59,7 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        // ================ AddressBook Commands ==============================
+        // ============================== AddressBook Commands ==============================
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -96,26 +96,32 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        // ================ TimeTable Commands ==============================
-        case MergeCommand.COMMAND_WORD:
-            return new MergeCommandParser().parse(arguments);
-
-        case FilterCommand.COMMAND_WORD:
-            return new FilterCommandParser().parse(arguments);
-
+        // ============================== Time Table Commands ==============================
         case ChangeTimeSlotCommand.COMMAND_WORD:
             return new ChangeTimeSlotCommandParser().parse(arguments);
-
-        case FreeCommand.COMMAND_WORD:
-            return new FreeCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
 
+        case FilterCommand.COMMAND_WORD:
+            return new FilterCommandParser().parse(arguments);
+
+        case FreeCommand.COMMAND_WORD:
+            return new FreeCommandParser().parse(arguments);
+
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
+            
+        case MergeCommand.COMMAND_WORD:
+            return new MergeCommandParser().parse(arguments);
+            
+        case ShareCommand.COMMAND_WORD:
+            return new ShareCommandParser().parse(arguments);
 
-        // ================ Notes Download Commands ==============================
+        case ShowNotesCommand.COMMAND_WORD:
+            return new ShowNotesCommand();
+
+        // ============================== Notes Download Commands ==============================
         case ClearNotesCommand.COMMAND_WORD:
             return new ClearNotesCommand();
 
@@ -130,10 +136,6 @@ public class AddressBookParser {
 
         case ShowNotesCommand.COMMAND_WORD:
             return new ShowNotesCommand();
-
-        case ShareCommand.COMMAND_WORD:
-            return new ShareCommandParser().parse(arguments);
-
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

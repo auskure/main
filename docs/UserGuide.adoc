@@ -1,4 +1,4 @@
-= NSync - User Guide
+= N*Sync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,7 +19,7 @@ By: `CS2113-AY1819S1-W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+N*Sync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -29,7 +29,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.PNG[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -88,6 +88,9 @@ Examples:
 
 [NOTE]
 Contacts in this addressbook are automatically sorted in alphabetical order
+
+[NOTE]
+Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently work
 
 ==== Listing all persons : `list`
 
@@ -249,16 +252,16 @@ or whether it is free or busy.
 Format: `change INDEX/SELF DAY TIME ACTIVITY/FREE/BUSY`
 
 ****
-* Changes the timetable of the person specified by index or your own timetable (if self is selected).
-* DAY refers to which day of the timetable is going to be edited.
-* TIME refers to which time within the day will be edited.
-* ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
+* Changes the timetable of the person specified by index or your own timetable if self is inputted.
+* The DAY refers to which day of the timetable is going to be edited.
+* The TIME refers to which time within the day will be edited.
+* The ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot
 * DAY must be mon, tue, wed, thu or fri (Non-case sensitive)
 * TIME must be 8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm
 ****
 
-Example: `change 1 mon 8am GER1000` +
-Changes the time slot on Monday at 8am of the contact with index 1 in the main contact list to GER1000
+`change 1 mon 8am GER1000`
+Changes the mon 8am time slot of the first contact in the main contact list to GER1000
 
 Before:
 
@@ -361,71 +364,102 @@ Format: `filter MODULE CODE/DAY TIME...`
 * Contacts can be filtered by more than one module/day and time.
 ****
 
-Example 1: `filter GER1000` +
+`filter GER1000` +
 Shows only contacts who have GER1000 in the timetable.
 
-Example 2: `filter mon 10am` +
-Shows only contacts who are free on Monday at 10am.
+`filter mon 10am` +
+Shows only contacts who are free at mon 10am.
 
-Example 3: `filter GER1000 mon 10am` +
-Shows only contacts who have GER1000 in their timetable and are free on Monday at 10am.
+`filter GER1000 mon 10 am` +
+Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
 
-==== Filters for next free time slots for one or more contact: `free`
+// tag::freecommand[]
+==== Filters for next free time slot for one or more contact: `free`
+Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (ie no scheduled activities)? Use `free` which allows you to find the next available time-slot from the current time, to easily find answers to these questions!
 
-Format: `free f/INDEX`
-****
-* Displays next available time slot (from current time).
-* Running this command outside of the time window of 8am to 7pm will yield the next available time slot in the next day.
-* Running this command outside of the day window of Monday to Friday will yield the next available time slot in the next weekday.
-* Coming To You Soon: free for self time-table!
-****
+Format: `free f/INDEX ...`
 
-Example 1: `free f/1 f/7 f/9` +
+image::SampleTimeTable.png[width="800"]
+Figure 1: Sample time-table for illustration purposes below
+
+Figure 1: +
+If the current day and time is Monday 3:00pm, the next available time-slot shown is Monday 4:00pm till 8:00pm. +
+If the current day and time is Monday 4:34pm, the next available time-slot shown is Monday 4:34pm till 8:00pm.
+
+Example 1: `free f/self` +
+Shows the next available time slot (from current time) for myself.
+
+Example 2: `free f/1 f/7 f/9` +
 Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
 
-Example 2: `free f/1` +
-Shows the next available time slot (from current time) for contact whose index is 1, and has a free time slot currently.
+[NOTE]
+Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
 
-image::FreeCommand1.png[width="800"]
+[NOTE]
+You can find a common free time-slot for up to N contacts <to be filled in>.
+// end::freecommand[]
 
-Example 3: `free f/1` +
-Shows the next available time slot (from current time) for contact whose index is 1, and does not have a free time slot currently.
-
-image::FreeCommand2.png[width="800"]
-
+// tag::exportcommand[]
 ==== Export user string: `export`
 
+Exports all of a user's details in each respective field into an encoded string. +
 Format: `export PUBLIC/PRIVATE INDEX`
+
+[TIP]
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+
 ****
-* Exports all of a user's details in each respective field (including time-table) into a string.
+* Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.
+* Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).
 ****
 
-Example: `export public 1` +
-Displays a string that contains the exported contact's details. This string is also copied to the user's clipboard.
+Example 1: `export public 1` +
+Figure 2: The user who imports the string will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table).
 
-image::export.png[width="800"]
+image::ExportPublicView.png[width="800"]
+Figure 2: What the user who imports will see (public view)
 
+Example 2: `export private 1` +
+Figure 3: The user who imports the string will see only the free and busy time-slots of contact index 1.
+
+image::ExportPrivateView.png[width="800"]
+Figure 3: What the user who imports will see (private view)
+
+[NOTE]
+Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
+// end::exportcommand[]
+
+// tag::importcommand[]
 ==== Import user string: `import`
 
-Format: `import <string>`
-****
-* The user's full details are imported into the application of the user who imported it.
-****
+All of a contact's details are imported into the application of the user who imports it. +
+Format: `import STRING` (How should I specify that it is a "string"?)
 
-Example 1: Successful Import
+[TIP]
+Importing a contact with the same name as another contact in your copy of NSync will result in the imported data over-writing the existing details of the contact here!
 
-image::import.png[width="800"]
+Example 1: +
+Figure 4 shows that you have entered a valid string as part of the command. All of the imported user's details are now found in your application.
 
-Example 2: Failed Import - Incorrect String (corrupted string / incorrect string length)
+image::ImportSuccessPublicPrivate.png[width="800"]
+Figure 4: Successful import of either a public or private contact
 
-image::ImportIncorrectString.png[width="800"]
+Example 2: +
+Figure 5 shows that you have entered an invalid string as part of the command. You might have entered one or more incorrect  characters, or missed out on one or more characters from the intended string!
 
-Example 3: Failed Import - Duplicate Contact
+image::ImportFailedGeneric.png[width="800"]
+Figure 5: Failed import - invalid string
 
-image::ImportDuplicatePerson.png[width="800"]
+Example 3: +
+Figure 6 shows that there is already an existing contact with exactly the same details of the contact that you are trying to import.
+
+image::ImportFailedDuplicate.png[width="800"]
+Figure 6: Example 3: Failed import - duplicate contact
+// end::importcommand[]
 
 === Notes Commands
 ****
+[NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
 
 Users are still able to login and view available files to be downloaded.
@@ -452,23 +486,20 @@ image::downloadExample.PNG[width="900"]
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
-* If an incomplete module code is entered, it will select the module with the closest alphabetical similarity.
+* if an incomplete module code is entered, it will select the a module that matches it the most
 
-Example: If you are enrolled in `CS2113` and `CS2101`, entering `mod/CS21` will select `CS2101`
+    Example: if you are enrolled in `CS2113` and `cs2101` entering `mod/cs21` will select `cs2101`
 
 * You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
 
 image::chromeOpen.PNG[width="250"]
 
-* NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
+* N*Sync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
 
-Example 1: `downloadAllNotes user/e1234567 pass/password1 mod/CS2101` +
-Downloads all notes and resources for CS2101
-Example 2: `downloadAllNotes user/e1234567 pass/password1 mod/CS2113` +
-Downloads all notes and resources for CS2113
+Examples:
 
 Download Successful
 
@@ -495,14 +526,14 @@ image::downloadSelectFileExample.PNG[width="900"]
 
 * All available notes from the selected module would be sourced and displayed
 
-* If a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
+* if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
 
 Examples:
 
 [NOTE]
 the number on the left of the file represents the file ID, it is static.
 
-Example: 0:LP41_More_UML_Inheritence.pptx
+    Example: 0:LP41_More_UML_Inheritence.pptx
 
 File Fetch Successful
 
@@ -529,7 +560,7 @@ image::downloadSelectExample.PNG[width="900"]
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
-* if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.
+* if you entered a mix of invalid and valid file IDs, N*Sync will only only download the correct files, up till it encounters a invalid ID.
 
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
@@ -550,7 +581,7 @@ Displays all the downloaded notes in the UI
 Format: `showNotes`
 
 [NOTE]
-The files are displayed in the order that it is in your directory
+the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
 
@@ -563,9 +594,9 @@ image::showNotes3.PNG[width="900"]
 ==== Clearing all downloaded notes : `clearNotes`
 
 Clears all downloaded notes.
-Format: `clearNotes`
+Format: clearNotes
 
-=== Upcoming Features
+== Upcoming Features
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -601,18 +632,12 @@ e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 
-* *Export* : `export PUBLIC/PRIVATE INDEX`
-
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-
-* *Free* : `free INDEX`
 
 * *Help* : `help`
 
 * *History* : `history`
-
-* *Import* : `import STRING`
 
 * *List* : `list`
 
