@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-This page serves to document my contributions to my group (W12-2)'s project (NSync) for the NUS module CS2113T.
+This page serves to document my contributions to my group's project (NSync) for a Software Engineering module in NUS.
 
 == PROJECT: NSync
 
@@ -11,20 +11,18 @@ This page serves to document my contributions to my group (W12-2)'s project (NSy
 
 == Overview
 
-NSync was created to help students resolve the issue of scheduling meetings between their peers, team mates and friends.
-
-As a desktop application with a command-line interface, NSync's users are able to find common meeting time-slots in a simple and fuss-free manner.
+NSync is a desktop application with a command-line interface that helps students resolve the problem of scheduling meetings between their peers, team mates and friends in a simple and fuss-free manner.
 
 == Summary of contributions
 
-* *Major enhancement*: added the feature to *export and import user details*
-** What it does: Allows the user to `export` and `import` all information fields of one or more contacts. These fields include the name, contact number, email, address and time-table of the contact.
-** Justification: This feature significantly reduces the amount of time that the user has to take to input a contacts' manually. The user and his/her contacts will only have to key in their contact details and time-tables respectively in a one-time fashion, before exporting their details and sending it to each other for importing.
-** Highlights: This enhancement builds upon all of the existing user fields, and requires an in-depth understanding of the workings of the `Logic` and `Model` components of NSync. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
+* *Major enhancement*: Added the feature to *export and import user details*.
+** What it does: Allows the user to `export` and `import` all the details of a particular contact. These details include the name, contact number, email, address and time-table of the contact.
+** Justification: Each user has to key in their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.
+** Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the `Logic` and `Model` components of NSync. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
 
-* *Minor enhancement*: added the feature to find the next immediate available free time-slot.
-** What it does: Allows the user to find the next immediate `free` time-slot for himself, or his contacts from the current time.
-** Justification: This feature addresses the core problem that our application strives to solve, which is to make the process of finding a common time-slot between contacts hassle-free. The user no longer has to visually search for a time-slot through the time-table GUI.
+* *Minor enhancement*: Added the feature to *find the next immediate free time-slot*.
+** What it does: Allows the user to find the next immediate `free` time-slot for himself, and/or his contacts from the current time.
+** Justification: This feature addresses the core problem that our application strives to solve, which is to make the process of finding a common time-slot between contacts hassle-free. In addition, the user no longer has to visually search for a time-slot through the time-table GUI if he/she would like to find out when is his next available time-slot.
 ** Highlights: This enhancement builds on top of the `merge` command to return a common available time-slot between contacts, and requires an understanding of the predicates under the `Model` component.
 ** Credits: Lim Zhi Hui Alden (team-mate) for his implementation of the `merge` command, which the `free` command was built on top of
 
