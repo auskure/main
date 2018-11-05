@@ -60,7 +60,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             index = 2;
         } else if (time.equalsIgnoreCase("11am")) {
             index = 3;
-        } else if (time.equalsIgnoreCase("12am")) {
+        } else if (time.equalsIgnoreCase("12pm")) {
             index = 4;
         } else if (time.equalsIgnoreCase("1pm")) {
             index = 5;
