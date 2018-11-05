@@ -1,4 +1,4 @@
-= N*Sync - User Guide
+= NSync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,7 +19,7 @@ By: `CS2113-AY1819S1-W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-N*Sync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -494,7 +494,7 @@ of the specified module.
 
 image::chromeOpen.PNG[width="250"]
 
-* N*Sync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
+* NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
@@ -560,7 +560,7 @@ image::downloadSelectExample.PNG[width="900"]
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
-* if you entered a mix of invalid and valid file IDs, N*Sync will only only download the correct files, up till it encounters a invalid ID.
+* if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.
 
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
