@@ -421,7 +421,7 @@ Exporting more than 1 user's details at a time is currently not available (but w
 
 ==== Import user string: `import`
 
-The user's full details are imported into the application of the user who imported it. +
+A contact's full details (particulars and time-table) are imported into the application of the user who imports it. +
 Format: `import STRING` (How should I specify that it is a "string"?)
 
 Example 1: Successful Import of either a Public or Private Contact
@@ -429,6 +429,9 @@ Example 1: Successful Import of either a Public or Private Contact
 image::ImportSuccessPublicPrivate.png[width="800"]
 
 Example 2: Failed Import - Incorrect String (corrupted string / incorrect string length)
+
+[NOTE]
+You have to import the entire string that has been provided by the user who exported it. Changing one character alone will result in an invalid import.
 
 image::ImportFailedGeneric.png[width="800"]
 
@@ -438,6 +441,7 @@ image::ImportFailedDuplicate.png[width="800"]
 
 === Notes Commands
 ****
+[NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
 
 Users are still able to login and view available files to be downloaded.
