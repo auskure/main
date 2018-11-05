@@ -374,22 +374,23 @@ Example 3: `filter GER1000 mon 10am` +
 Shows only contacts who have GER1000 in their timetable and are free on Monday at 10am.
 
 ==== Filters for next free time slot for one or more contact: `free`
-Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (ie no scheduled activities)? Use `free` to answer these questions!
+Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (ie no scheduled activities)? +
+Use `free` which allows you to find the next available time-slot from the current time, to easily find answers to these questions!
 
 Format: `free f/INDEX ...`
-****
-* Displays next available time slot from the current time.
-* Running this command outside of the time window of 8am to 7pm, or the day window of Monday to Friday will display the next available time slot in the next weekday.
-****
+
+[NOTE]
+Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
 
 image::SampleTimeTable.png[width="800"]
-Figure 1: Sample time-table for illustration purposes below.
+Figure 1: Sample time-table for illustration purposes below
 
-Example 1: `free f/self` +
-Shows the next available time slot (from current time) for my own self.
 Figure 1: +
 If the current day and time is Monday 3:00pm, the application will inform you that your next available time-slot is Monday 4:00pm till 8:00pm. +
 If the current day and time is Monday 4:34pm, the application will inform you that your next available time-slot is Monday 4:34pm till 8:00pm.
+
+Example 1: `free f/self` +
+Shows the next available time slot (from current time) for my own self.
 
 Example 2: `free f/1 f/7 f/9` +
 Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
