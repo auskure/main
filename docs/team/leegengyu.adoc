@@ -51,9 +51,11 @@ NSync is a desktop application with a command-line interface that helps students
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=freecommand]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=exportcommand]
+
+include::../UserGuide.adoc[tag=importcommand]
 
 == Contributions to the Developer Guide
 
