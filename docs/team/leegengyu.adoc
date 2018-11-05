@@ -18,13 +18,13 @@ NSync is a desktop application with a command-line interface that helps students
 * *Major enhancement*: Added the feature to *export and import user details*.
 ** What it does: Allows the user to `export` and `import` all the details of a particular contact. These details include the name, contact number, email, address and time-table of the contact.
 ** Justification: Each user has to key in their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.
-** Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the `Logic` and `Model` components of NSync. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
+** Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the `Logic` and `Model` components. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
 
 * *Minor enhancement*: Added the feature to *find the next immediate free time-slot*.
 ** What it does: Allows the user to find the next immediate `free` time-slot for himself, and/or his contacts from the current time.
 ** Justification: This feature addresses the core problem that our application strives to solve, which is to make the process of finding a common time-slot between contacts hassle-free. In addition, the user no longer has to visually search for a time-slot through the time-table GUI if he/she would like to find out when is his next available time-slot.
 ** Highlights: This enhancement builds on top of the `merge` command to return a common available time-slot between contacts, and requires an understanding of the predicates under the `Model` component.
-** Credits: Lim Zhi Hui Alden (team-mate) for his implementation of the `merge` command, which the `free` command was built on top of
+** Credits: Lim Zhi Hui Alden (team-mate) for his implementation of the `merge` command, which the `free` command was built on top of.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] <To be confirmed if we are still using collated code files>
 
