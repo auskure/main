@@ -43,9 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private SelfCardPanel selfCardPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -128,9 +125,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -211,7 +205,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

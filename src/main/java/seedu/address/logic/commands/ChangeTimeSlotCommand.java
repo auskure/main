@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,15 +26,15 @@ public class ChangeTimeSlotCommand extends Command {
     public static final String COMMAND_WORD = "change";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the selected time slot "
-        + "by the index number used in the displayed person list. "
-        + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX "
-        + "DAY(mon, tue, wed, thu, fri) "
-        + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
-        + "Activity "
-        + "Example: " + COMMAND_WORD + " 1 " + "mon "
-        + "8am "
-        + "CS2107";
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX " +
+            "DAY(mon, tue, wed, thu, fri) "
+            + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
+            + "Activity "
+            + "Example: " + COMMAND_WORD + " 1 " + "mon "
+            + "8am "
+            + "CS2107";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Time slot changed: %1$s";
     public static final String MESSAGE_EDIT_SELF_SUCCESS = "Time slot changed: Self";
@@ -54,45 +56,31 @@ public class ChangeTimeSlotCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
         Person personToChange;
-        try {
+        try{
             int index = Integer.parseInt(reference);
             lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
-            if (index - 1 >= lastShownList.size()) {
+            if (index-1>= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
 
-            personToChange = lastShownList.get(index - 1);
-        } catch (NumberFormatException nfe) {
+             personToChange = lastShownList.get(index-1);
+        }
+        catch(NumberFormatException nfe){
+            if(!reference.equalsIgnoreCase("self")){
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
             int index = 0;
             lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsSelfPredicate());
             personToChange = lastShownList.get(index);
         }
 
         Map<String, List<TimeSlots>> timeSlots = personToChange.getTimeSlots();
-        String day = null;
-        String time = null;
+        Map<String, List<TimeSlots>> changedTimeSlots = createNewTimetable(timeSlots);
 
-        for (int i = 1; i < actions.length; i++) {
-
-            String activity;
-            if (i % 3 == 1) {
-                day = actions[i];
-            }
-            if (i % 3 == 2) {
-                time = actions[i];
-            }
-            if (i % 3 == 0) {
-                activity = actions[i];
-
-                timeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
-
-            }
-        }
-
-        Person newPerson = new Person(personToChange.getName(), personToChange.getPhone(), personToChange.getEmail(),
-            personToChange.getAddress(), personToChange.getTags(), personToChange.getEnrolledModules(),
-            timeSlots);
+        Person newPerson= new Person(personToChange.getName(),personToChange.getPhone(),personToChange.getEmail(),
+                personToChange.getAddress(),personToChange.getTags(),personToChange.getEnrolledModules(),
+                changedTimeSlots);
 
         if (!personToChange.isSamePerson(newPerson) && model.hasPerson(newPerson)) {
             throw new CommandException(MESSAGE_NOTHING_CHANGED);
@@ -101,9 +89,11 @@ public class ChangeTimeSlotCommand extends Command {
         model.updatePerson(personToChange, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        if (!reference.equalsIgnoreCase("self")) {
+
+        if(!reference.equalsIgnoreCase("self")) {
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newPerson));
-        } else {
+        }
+        else{
             return new CommandResult(String.format(MESSAGE_EDIT_SELF_SUCCESS));
         }
     }
@@ -120,6 +110,43 @@ public class ChangeTimeSlotCommand extends Command {
             return false;
         }
         return false;
+    }
+    private Map<String, List<TimeSlots>> createNewTimetable(Map<String, List<TimeSlots>> timeSlots){
+        Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>() ;
+        String[] days ={"mon", "tue", "wed", "thu", "fri"};
+        String day = null;
+        String time = null;
+        for(String d: days){
+            List<TimeSlots> toAdd;
+            toAdd = copyDay(timeSlots.get(d));
+            changedTimeSlots.put(d, toAdd);
+        }
+
+        for (int i = 1; i < actions.length; i++) {
+
+            String activity;
+            if (i % 3 == 1) {
+                day = actions[i];
+            }
+            if (i % 3 == 2) {
+                time = actions[i];
+            }
+            if (i % 3 == 0) {
+                activity = actions[i];
+
+                changedTimeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
+
+            }
+        }
+        return changedTimeSlots;
+    }
+
+    private List<TimeSlots> copyDay(List<TimeSlots> toCopy){
+        List<TimeSlots> finalSlots = new ArrayList<>();
+        for(TimeSlots toAdd : toCopy){
+            finalSlots.add(toAdd);
+        }
+        return finalSlots;
     }
 
     private int changeTimeToIndex(String time) {
@@ -153,5 +180,4 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return index;
     }
-
 }
