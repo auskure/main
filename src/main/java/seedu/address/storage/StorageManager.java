@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -12,9 +13,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.NotesDownloadEvent;
 import seedu.address.commons.events.model.NotesEvent;
+import seedu.address.commons.events.model.NotesSelectedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.ClearNotesCommand;
+import seedu.address.logic.commands.DeleteSelectNotesCommand;
 import seedu.address.logic.commands.DownloadAllNotesCommand;
 import seedu.address.logic.commands.DownloadSelectNotesCommand;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -111,6 +114,11 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public void deleteSelectedNotes(Set<String> moduleNames) throws IOException {
+        notesDownloadStorage.deleteSelectedNotes(moduleNames);
+    }
+
+    @Override
     public void relocateNotes(String moduleName) throws IOException {
         notesDownloadStorage.relocateNotes(moduleName);
     }
@@ -122,8 +130,8 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleNotesManipulationEvent(NotesEvent notesEvent) throws IOException {
-        logger.info(LogsCenter.getEventHandlingLogMessage(notesEvent, "notes manipulated"));
+    public void handleAllNotesManipulationEvent(NotesEvent notesEvent) throws IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(notesEvent, "all notes manipulated"));
 
         final String commandWord = notesEvent.getEvent();
         //switch-case syntax is used here, to easily allow for future expandability.
@@ -147,15 +155,35 @@ public class StorageManager extends ComponentManager implements Storage {
         switch (commandWord) {
 
         case DownloadAllNotesCommand.COMMAND_WORD:
-            unzipNotes(notesDownloadEvent.getModuleName());
+            unzipNotes(notesDownloadEvent.getModuleCode());
             return;
 
         case DownloadSelectNotesCommand.COMMAND_WORD:
-            relocateNotes(notesDownloadEvent.getModuleName());
+            relocateNotes(notesDownloadEvent.getModuleCode());
             return;
 
         default:
             throw new IOException();
         }
     }
+
+    @Override
+    @Subscribe
+    public void handleSelectedNotesManipulationEvent(NotesSelectedEvent notesSelectedEventEvent) throws IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(notesSelectedEventEvent,
+                "selected notes manipulated"));
+
+        final String commandWord = notesSelectedEventEvent.getEvent();
+        //switch-case syntax is used here, to easily allow for future expandability.
+        switch (commandWord) {
+
+        case DeleteSelectNotesCommand.COMMAND_WORD:
+            deleteSelectedNotes(notesSelectedEventEvent.getModuleCodes());
+            return;
+
+        default:
+            throw new IOException();
+        }
+    }
+
 }

@@ -3,14 +3,14 @@ package seedu.address.commons.events.model;
 /** Indicates new notes have been downloaded*/
 public class NotesDownloadEvent extends NotesEvent {
 
-    private final String moduleName;
+    private final String moduleCode;
 
-    public NotesDownloadEvent(String event, String moduleName) {
+    public NotesDownloadEvent(String event, String moduleCode) {
         super(event);
-        this.moduleName = moduleName;
+        this.moduleCode = moduleCode;
     }
 
-    public String getModuleName() {
-        return moduleName;
+    public String getModuleCode() {
+        return moduleCode;
     }
 }

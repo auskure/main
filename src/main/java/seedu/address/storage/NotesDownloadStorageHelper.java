@@ -2,12 +2,14 @@ package seedu.address.storage;
 
 import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 import static seedu.address.commons.util.FileUtil.deleteAllFiles;
+import static seedu.address.commons.util.FileUtil.deleteSelectedFolders;
 import static seedu.address.commons.util.FileUtil.relocateFiles;
 import static seedu.address.commons.util.UnzipUtil.unzipFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
@@ -33,6 +35,15 @@ public class NotesDownloadStorageHelper implements NotesDownloadStorage {
         createDirectoryIfMissing(absoluteNotesFilePath);
 
         deleteAllFiles(absoluteNotesFilePath);
+    }
+
+    /**
+     * Deletes selected notes in the notes folder
+     */
+    public void deleteSelectedNotes(Set moduleNames) throws IOException {
+        createDirectoryIfMissing(absoluteNotesFilePath);
+
+        deleteSelectedFolders(absoluteNotesFilePath, moduleNames);
     }
 
     /**

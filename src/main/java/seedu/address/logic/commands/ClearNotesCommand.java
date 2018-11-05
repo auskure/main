@@ -18,8 +18,7 @@ public class ClearNotesCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
 
-        model.indicateNotesChanged(COMMAND_WORD);
-
+        model.resetNotesData(COMMAND_WORD);
         return new CommandResult(MESSAGE_DELETE_ALL_NOTES_SUCCESS);
     }
 

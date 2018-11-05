@@ -3,10 +3,12 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.NotesDownloadEvent;
 import seedu.address.commons.events.model.NotesEvent;
+import seedu.address.commons.events.model.NotesSelectedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -46,6 +48,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, NotesDown
     void deleteAllNotes() throws IOException;
 
     @Override
+    void deleteSelectedNotes(Set<String> moduleNames) throws IOException;
+
+    @Override
     void relocateNotes(String moduleName) throws IOException;
 
     @Override
@@ -55,11 +60,18 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, NotesDown
      * Depending on the type of the event, this executes operations on notes currently stored in your computer
      * Raises {@link IOException} if there was an error during saving.
      */
-    void handleNotesManipulationEvent(NotesEvent notesEvent) throws IOException;
+    void handleAllNotesManipulationEvent(NotesEvent notesEvent) throws IOException;
 
     /**
      * Depending on the type of the event, this executes operations on new notes downloaded
      * Raises {@link IOException} if there was an error during saving.
      */
     void handleNotesDownloadedEvent(NotesDownloadEvent notesDownloadEvent) throws IOException;
+
+    /**
+     * Depending on the type of the event, this executes operations on selected notes
+     * Raises {@link IOException} if there was an error during saving.
+     */
+    void handleSelectedNotesManipulationEvent(NotesSelectedEvent notesSelectedEventEvent) throws IOException;
+
 }
