@@ -7,7 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -17,7 +16,7 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
-            "pink", "black", "grey", "maroon", "navy"};
+        "pink", "black", "grey", "maroon", "navy"};
 
 
     /**
@@ -67,7 +66,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
 
-        for(String tempEnrolledClassName : person.getEnrolledModules().keySet()){
+        for (String tempEnrolledClassName : person.getEnrolledModules().keySet()) {
             Label enrolledModule = new Label(tempEnrolledClassName);
             enrolledModule.setPrefSize(51, 10);
             enrolledModule.getStyleClass().add(getColor(tempEnrolledClassName));
@@ -121,8 +120,7 @@ public class PersonCard extends UiPart<Region> {
             } else if (it.equalsIgnoreCase("free")) {
                 slot.getStyleClass().add("white");
                 slot.setText(" ");
-            }
-             else {
+            } else {
                 slot.getStyleClass().add(getColor(it));
             }
 
@@ -174,6 +172,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+            && person.equals(card.person);
     }
 }

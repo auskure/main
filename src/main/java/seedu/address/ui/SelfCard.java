@@ -7,7 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -17,7 +16,7 @@ public class SelfCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
-            "pink", "black", "grey", "maroon", "navy"};
+        "pink", "black", "grey", "maroon", "navy"};
 
 
     /**
@@ -66,11 +65,13 @@ public class SelfCard extends UiPart<Region> {
         address.setText(" ");
         email.setText(" ");
 
-       /* for(String tempEnrolledClassName : person.getEnrolledClasses().keySet()){
+        /*
+        for (String tempEnrolledClassName : person.getEnrolledClasses().keySet()) {
             Label enrolledClass = new Label(tempEnrolledClassName);
             enrolledClass.setPrefSize(61, 10);
             header.getChildren().add(enrolledClass);
-        }*/
+        }
+        */
 
         for (String it : TimeSlots.getHeader()) {
             Label day = new Label(it);
@@ -127,6 +128,7 @@ public class SelfCard extends UiPart<Region> {
             day.getChildren().add(slot);
         }
     }
+
     //Returns a colour based on the module code
     public static String getColor(String tagName) {
         return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
@@ -170,6 +172,6 @@ public class SelfCard extends UiPart<Region> {
         // state check
         SelfCard card = (SelfCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+            && person.equals(card.person);
     }
 }

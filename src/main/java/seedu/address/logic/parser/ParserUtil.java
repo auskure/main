@@ -11,7 +11,7 @@ import java.util.TreeMap;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.enrolledModule.EnrolledModule;
+import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -126,10 +126,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String enrolledModule} into a {@code EnrolledModule}.
+     * Parses a {@code String enrolledmodule} into a {@code EnrolledModule}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code enrolledModule} is invalid.
+     * @throws ParseException if the given {@code enrolledmodule} is invalid.
      */
     public static EnrolledModule parseEnrolledModule(String enrolledModule) throws ParseException {
         requireNonNull(enrolledModule);

@@ -7,7 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -17,7 +16,7 @@ public class TimetableCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = {"white", "yellow", "darkorange", "maroon",
-             "black"};
+        "black"};
 
 
     /**
@@ -105,11 +104,10 @@ public class TimetableCard extends UiPart<Region> {
         for (String it : mods) {
             Label slot = new Label(it);
             slot.setPrefSize(51, 25);
-            if(it.equalsIgnoreCase("busy")) {
+            if (it.equalsIgnoreCase("busy")) {
                 slot.getStyleClass().add("black");
                 slot.setText(" ");
-            }
-            else if (it.equalsIgnoreCase("0")||it.equalsIgnoreCase("free")) {
+            } else if (it.equalsIgnoreCase("0") || it.equalsIgnoreCase("free")) {
                 slot.getStyleClass().add("white");
                 slot.setText(" ");
             } else {
@@ -125,10 +123,9 @@ public class TimetableCard extends UiPart<Region> {
     //Returns a colour based on the module code
     public static String getColor(String tagName) {
         int tagIndex = Integer.parseInt(tagName);
-        if (tagIndex<=4) {
+        if (tagIndex <= 4) {
             return TAG_COLOR_STYLES[tagIndex];
-        }
-        else{
+        } else {
             return TAG_COLOR_STYLES[4];
         }
     }
@@ -171,6 +168,6 @@ public class TimetableCard extends UiPart<Region> {
         // state check
         TimetableCard card = (TimetableCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+            && person.equals(card.person);
     }
 }

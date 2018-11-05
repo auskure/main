@@ -1,12 +1,12 @@
 package seedu.address.logic;
 
-import seedu.address.logic.commands.DownloadAllNotesCommand;
-import seedu.address.logic.commands.DownloadSelectNotesCommand;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import seedu.address.logic.commands.DownloadAllNotesCommand;
+import seedu.address.logic.commands.DownloadSelectNotesCommand;
 
 /**
  * Stores the history of commands executed.
@@ -29,8 +29,8 @@ public class CommandHistory {
         requireNonNull(userInput);
         // Only add history if the previous command was not a download command,
         // this is because download commands involve sensitive information
-        if(!userInput.contains(DownloadAllNotesCommand.COMMAND_WORD) &&
-                !userInput.contains(DownloadSelectNotesCommand.COMMAND_WORD)){
+        if (!userInput.contains(DownloadAllNotesCommand.COMMAND_WORD)
+            && !userInput.contains(DownloadSelectNotesCommand.COMMAND_WORD)) {
             userInputHistory.add(userInput);
         }
     }

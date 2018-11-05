@@ -1,18 +1,25 @@
 package seedu.address.logic.commands;
 
+import javafx.collections.ObservableList;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.commons.core.Messages;
-import seedu.address.model.person.*;
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.IsSelfPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeSlots;
+
 import java.io.ByteArrayOutputStream;
-import java.awt.datatransfer.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Clipboard;
 import java.awt.Toolkit;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.Objects.requireNonNull;
 
@@ -25,21 +32,25 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the person so as "
-            + "to import it into another system.\n"
-            + "Parameters: INDEX (must be positive integer )\n"
-            + "Example: " + COMMAND_WORD + " " + "1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export a person's full details "
+        + "into a string, which is used for import (into another NSync).\n"
+        + "Select 'public' if you would like to export the time-table in its entirety, "
+        + "or select 'private' if you would like to hide the contents of the occupied-time slots.\n"
+        + "Parameters: PRIVACY (public, private), INDEX (positive integer)\n"
+        + "Example: " + COMMAND_WORD + " public 1";
 
-    private final Index index;
+    private final String index;
+    private final String privacy;
 
-    public ExportCommand(Index index) {
+    public ExportCommand(String privacy, String index) {
         requireNonNull(index);
         this.index = index;
+        this.privacy = privacy;
     }
 
     /**
-     * Calls getSerializedString to get the Base64 String for the person selected through the index
-     * The generated string is copied to the user's clipboard for easy copy and pasting
+     * Calls getSerializedString to get a Base64 string for the person selected through the index.
+     * This generated string is copied to the user's clipboard for convenience (easy pasting).
      *
      * @throws CommandException if the index given is invalid
      */
@@ -49,22 +60,43 @@ public class ExportCommand extends Command {
 
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        Person myPerson;
 
-        if (index.getZeroBased() >= filteredPersonList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (index.equalsIgnoreCase("self")) {
+            filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate());
+            myPerson = filteredPersonList.get(0);
+        } else {
+            int num;
+            try {
+                num = Integer.parseInt(index) - 1;
+            } catch (NumberFormatException nfe) {
+                throw new CommandException(String.format("You have entered an invalid number for the INDEX parameter. " +
+                    "Please enter a valid index.\n" + MESSAGE_USAGE));
+            }
+            filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered
+                (new IsNotSelfOrMergedPredicate());
+
+            if (num >= filteredPersonList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            myPerson = filteredPersonList.get(num);
         }
 
-        Person myPerson = filteredPersonList.get(index.getZeroBased());
-        String theString = getSerializedString(myPerson);
-        StringSelection ss = new StringSelection(theString);
+        if (!privacy.equalsIgnoreCase("public")) {
+            changeToBusy(myPerson);
+        }
+
+        String serializedString = getSerializedString(myPerson);
+
+        StringSelection ss = new StringSelection(serializedString);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(ss, null);
 
-        String output = theString;
-        output += "\n";
-        output += "The string has been copied onto the clipboard.";
-        return new CommandResult(output);
+        String outputToUser = serializedString + "\n";
+        outputToUser += "The generated string has been copied onto your clip-board.";
+
+        return new CommandResult(outputToUser);
 
     }
 
@@ -77,20 +109,32 @@ public class ExportCommand extends Command {
         try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
             oos.writeObject(o);
             oos.close();
+
             return Base64.getEncoder().encodeToString(baos.toByteArray());
-
         } catch (Exception e) {
-            return "Error getting string, please try again";
+            return "Error generating string. Please try again.";
         }
-
-
-
 
     }
 
 
+    private void changeToBusy(Person source) {
+
+        Map<String, List<TimeSlots>> timeSlots = source.getTimeSlots();
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
+        for (String day : days) {
+            List<TimeSlots> daySlots = timeSlots.get(day);
+            for (int i = 0; i < 12; i++) {
+                TimeSlots activity = daySlots.get(i);
+
+                System.out.println(activity.toString() + " zzk");
+                if (!activity.toString().equalsIgnoreCase("free")) {
+                    activity = new TimeSlots("busy");
+                    daySlots.set(i, activity);
+                }
+            }
+        }
+
+    }
 
 }
-
-
-
