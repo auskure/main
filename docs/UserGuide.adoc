@@ -373,11 +373,11 @@ Shows only contacts who are free on Monday at 10am.
 Example 3: `filter GER1000 mon 10am` +
 Shows only contacts who have GER1000 in their timetable and are free on Monday at 10am.
 
+// tag::freecommand[]
 ==== Filters for next free time slot for one or more contact: `free`
 Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (ie no scheduled activities)? Use `free` which allows you to find the next available time-slot from the current time, to easily find answers to these questions!
 
 Format: `free f/INDEX ...`
-
 
 image::SampleTimeTable.png[width="800"]
 Figure 1: Sample time-table for illustration purposes below
@@ -397,7 +397,9 @@ Running this command outside the day window of Monday to Friday or time window o
 
 [NOTE]
 You can find a common free time-slot for up to N contacts <to be filled in>.
+// end::freecommand[]
 
+// tag::exportcommand[]
 ==== Export user string: `export`
 
 Exports all of a user's details in each respective field into an encoded string. +
@@ -425,7 +427,9 @@ Figure 3: What the user who imports will see (private view)
 
 [NOTE]
 Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
+// end::exportcommand[]
 
+// tag::importcommand[]
 ==== Import user string: `import`
 
 All of a contact's details are imported into the application of the user who imports it. +
@@ -451,6 +455,7 @@ Figure 6 shows that there is already an existing contact with exactly the same d
 
 image::ImportFailedDuplicate.png[width="800"]
 Figure 6: Example 3: Failed import - duplicate contact
+// end::importcommand[]
 
 === Notes Commands
 ****
