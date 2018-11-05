@@ -8,6 +8,7 @@ import seedu.address.model.tag.Tag;
 
 
 //@@E0201942
+
 /**
  * Tests that a {@code Person}'s {@code Tag} matches any of the keywords given.
  */
@@ -27,29 +28,35 @@ public class TimetableContainsModulePredicate implements Predicate<Person> {
         }
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         Map<String, List<TimeSlots>> timetable = person.getTimeSlots();
+        boolean timeCheck = true;
+        int modCheck = 0;
+        int count = keywords.size();
         for (int i = 0; i < keywords.size(); i++) {
             for (String day : days) {
                 if (keywords.get(i).equalsIgnoreCase(day)) {
                     List<TimeSlots> daySlots = timetable.get(day);
                     int timeIndex = Integer.parseInt(keywords.get(i + 1));
                     TimeSlots checkSlot = daySlots.get(timeIndex);
-                    if (checkSlot.toString().equalsIgnoreCase("free")) {
-                        return true;
+                    count = count - 2;
+                    if (!checkSlot.toString().equalsIgnoreCase("free")) {
+                        timeCheck = false;
                     }
                 }
             }
         }
-        for (String day : days) {
-            List<TimeSlots> daySlots = timetable.get(day);
-            for (TimeSlots module : daySlots) {
-                for (String check : keywords) {
+        for (String check : keywords) {
+            for (String day : days) {
+                List<TimeSlots> daySlots = timetable.get(day);
+                for (TimeSlots module : daySlots) {
                     if (check.equalsIgnoreCase(module.toString())) {
-                        return true;
+                        modCheck++;
+                        break;
                     }
                 }
             }
         }
-        return false;
+
+        return (modCheck == count && timeCheck);
     }
 
 
