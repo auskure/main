@@ -383,8 +383,8 @@ image::SampleTimeTable.png[width="800"]
 Figure 1: Sample time-table for illustration purposes below
 
 Figure 1: +
-If the current day and time is Monday 3:00pm, the application will inform you that your next available time-slot is Monday 4:00pm till 8:00pm. +
-If the current day and time is Monday 4:34pm, the application will inform you that your next available time-slot is Monday 4:34pm till 8:00pm.
+If the current day and time is Monday 3:00pm, the next available time-slot shown is Monday 4:00pm till 8:00pm. +
+If the current day and time is Monday 4:34pm, the next available time-slot shown is Monday 4:34pm till 8:00pm.
 
 Example 1: `free f/self` +
 Shows the next available time slot (from current time) for myself.
@@ -394,6 +394,9 @@ Shows the next available time slot (from current time) for contacts whose indice
 
 [NOTE]
 Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
+
+[NOTE]
+You can find a common free time-slot for up to N contacts <to be filled in>.
 
 ==== Export user string: `export`
 
