@@ -430,11 +430,11 @@ image::ImportSuccessPublicPrivate.png[width="800"]
 
 Example 2: Failed Import - Incorrect String (corrupted string / incorrect string length)
 
-image::ImportIncorrectString.png[width="800"]
+image::ImportFailedGeneric.png[width="800"]
 
 Example 3: Failed Import - Duplicate Contact
 
-image::ImportDuplicatePerson.png[width="800"]
+image::ImportFailedDuplicate.png[width="800"]
 
 === Notes Commands
 ****
