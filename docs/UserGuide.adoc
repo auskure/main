@@ -397,7 +397,7 @@ To be filled in.
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
-Downloads the your notes from IVLE, and stores them in the folder "notes" 
+Downloads the your notes from IVLE, and stores them in the folder "notes"
 
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
@@ -407,7 +407,7 @@ You do not have to Enter the full module code or worry about the capitalization.
 [NOTE]
 You would need to have Google Chrome installed in the default location in order to execute this command.
 [NOTE]
-You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised. 
+You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
 
 
 ****
@@ -416,7 +416,7 @@ image::downloadExample.PNG[width="900"]
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
-* if an incomplete module code is entered, it will select the a module that matches it the most 
+* if an incomplete module code is entered, it will select the a module that matches it the most
 
     Example: if you are enrolled in `CS2113` and `cs2101` entering `mod/cs21` will select `cs2101`
 
@@ -461,11 +461,11 @@ image::downloadSelectFileExample.PNG[width="900"]
 Examples:
 
 [NOTE]
-the number on the left of the file represents the file ID, it is static. 
+the number on the left of the file represents the file ID, it is static.
 
     Example: 0:LP41_More_UML_Inheritence.pptx
 
-File Fetch Successful 
+File Fetch Successful
 
 image::downloadSelectFileSuccess1.PNG[width="900"]
 image::downloadSelectFileSuccess2.PNG[width="900"]
@@ -479,7 +479,7 @@ Password or username Incorrect
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 
 ==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
-Download a selective number of notes from IVLE, and stores them in the folder "notes". 
+Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
 
@@ -493,8 +493,8 @@ image::downloadSelectExample.PNG[width="900"]
 * if you entered a mix of invalid and valid file IDs, N*Sync will only only download the correct files, up till it encounters a invalid ID.
 
     Example: file/0,1,2,90000000,3
-    if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded. 
-    
+    if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
+
 Examples:
 
 Download Successful
@@ -515,7 +515,7 @@ the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
 
-Example: 
+Example:
 
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
@@ -552,7 +552,7 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 
 * *Download Selected Notes (seleted notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...n`
 
-* *Download Selected Notes (show all notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113` 
+* *Download Selected Notes (show all notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113`
 
 * *Show notes* : `showNotes`
 
