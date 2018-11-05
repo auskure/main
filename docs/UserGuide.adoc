@@ -404,16 +404,19 @@ Format: `export PUBLIC/PRIVATE INDEX`
 [TIP]
 You do not have to manually copy the entire displayed string. It has already been copied for you! All you have to do is to send it in its entirety to a fellow user who will import it.
 
-Example: `export public 1` +
-Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to see the  time-table of contact index 1 in its entirety (ie the full contents of the time-table).
+Example 1: `export public 1` +
+`Figure 1`: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to see the  time-table of contact index 1 in its entirety (ie the full contents of the time-table).
 
 image::ExportPublic.png[width="800"]
 Figure 1
 
+Example 2: `export private 1` +
+`Figure 2`: Displays a string that has contact index 1's details encoded within it. Importing the string will allow the user to only see the free and busy time-slots of contact index 1.
+
 image::ExportPrivate.png[width="800"]
 Figure 2
 
-[INFO]
+[NOTE]
 Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
 
 ==== Import user string: `import`
