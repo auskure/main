@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-This page serves to document my contributions to my group's project (NSync) for a Software Engineering module in NUS.
+This portfolio documents my contributions to a NUS Software Engineering project.
 
 == PROJECT: NSync
 
