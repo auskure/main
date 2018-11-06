@@ -1,12 +1,6 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
-import seedu.address.commons.core.Messages;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,7 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 public class DownloadSelectNotesCommand extends DownloadAbstract {
 

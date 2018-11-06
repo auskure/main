@@ -1,5 +1,14 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
+
+import static seedu.address.commons.util.FileUtil.currentDirectory;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -7,14 +16,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
-
-import java.io.IOException;
-import java.io.File;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-
-import static seedu.address.commons.util.FileUtil.currentDirectory;
 
 /**
  * DownloadAbstract is an abstract class that does the basic setting up of Selenium chrome drivers. Implementation of
@@ -123,8 +124,8 @@ public abstract class DownloadAbstract extends Command {
      */
     protected void initializeChromeDriverPaths() {
         if (System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
-                + WINDOWS_CHROME_DRIVER_NAME);
+            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY
+                + "/" + WINDOWS_CHROME_DRIVER_NAME);
         } else if (System.getProperty("os.name").contains(MAC_OS_NAME)) {
             System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/"
                 + MAC_CHROME_DRIVER_NAME);
