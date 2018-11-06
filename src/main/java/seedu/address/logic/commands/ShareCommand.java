@@ -19,7 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 
-
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.IsSelfPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeSlots;
 
 /**
  * Export a person into string
@@ -30,9 +37,9 @@ public class ShareCommand extends Command {
     public static final String COMMAND_WORD = "share";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export a contact's timetable "
-            + "to import it into another address book.\n"
-            + "Parameters: PRIVACY(public, private) INDEX (must be positive integer )\n"
-            + "Example: " + COMMAND_WORD + "public " + " " + "1";
+        + "to import it into another address book.\n"
+        + "Parameters: PRIVACY(public, private) INDEX (must be positive integer )\n"
+        + "Example: " + COMMAND_WORD + "public " + " " + "1";
 
     private final String index;
     private final String privacy;
@@ -57,7 +64,8 @@ public class ShareCommand extends Command {
         Person myPerson;
         if (index.equalsIgnoreCase("self")) {
             filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate
-                    ());
+                ());
+          
             myPerson = filteredPersonList.get(0);
         } else {
             int num;

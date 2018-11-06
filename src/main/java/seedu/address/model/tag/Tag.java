@@ -1,9 +1,9 @@
 package seedu.address.model.tag;
 
-import java.io.Serializable;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.io.Serializable;
 
 /**
  * Represents a Tag in the address book.
@@ -15,7 +15,6 @@ public class Tag implements Serializable {
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
     public String tagName;
-
 
     /**
      * Constructs a {@code Tag}.

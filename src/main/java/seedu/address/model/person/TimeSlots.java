@@ -15,6 +15,7 @@ import java.util.Map;
 public class TimeSlots implements Serializable {
 
 
+
     private static final String[] SET_VALUES = {"8am    ", "9am    ", "10am   ", "11am    ", "12pm   ",
             "1pm    ", "2pm     ", "3pm     ", "4pm    ", "5pm     ", "6pm    ", "7pm"};
     private static final String[] free = {"free", "free", "free", "free", "free"
@@ -27,10 +28,8 @@ public class TimeSlots implements Serializable {
             "CS2040c", "CS2040c", "free", "free", "free", "free"};
     private static final String[] sampleFri = {"free", "free", "CS2107", "free", "free",
             "free", "CS2101", "free", "free", "free", "free", "free"};
-
-
+  
     private String timeslot;
-
 
     /**
      * Constructs a {@code Tag}.

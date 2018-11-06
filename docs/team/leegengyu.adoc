@@ -3,41 +3,37 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This portfolio documents my contributions to a NUS Software Engineering project.
+
 == PROJECT: NSync
 
 ---
 
 == Overview
 
-NSync was created to help students resolve the issue of scheduling meetings between their peers, team mates and friends.
-
-If you are a student, all you have to do is to key in your time-table (and get your friends to do so as well!) once, and we will find you your common meeting time-slot in a simple and fuss-free manner!
+NSync is a desktop application with a command-line interface that helps students resolve the problem of scheduling meetings between their peers, team mates and friends in a simple and fuss-free manner.
 
 == Summary of contributions
 
-* *Major enhancement*: added the feature to *export and import user details*
-** What it does: allows the users to `export` and `import` all information fields of one or more contacts, which includes the name, contact number, email, address and the time-table itself.
-** Justification: This feature boosts the productivity of the user significantly, by cutting down the amount of time that he/she has to take to input his/her contacts' details. The user and his/her contacts will only have to key in their contact details and time-tables respectively in a one-time fashion, before exporting their details and sending it to each other for importing.
-** Highlights: This enhancement builds upon all of the existing user fields, requiring an in-depth analysis into the workings of the `Logic` and `Model` component. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
+* *Main Feature Implemented*: Feature to *export and import user details*.
+** What it does: Allows the user to `export` and `import` all the details of a particular contact. These details include the name, contact number, email, address and time-table of the contact.
+** Justification: Each user has to key in their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.
+** Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the `Logic` and `Model` components. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
 
-* *Minor enhancement*: added a `free` command that allows the user to find the next immediate available time-slot for himself, or his contacts from the current time.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] <To be confirmed if we are still using collated code files>
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=leegengyu[Functional and test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** To be added.
-
-** Enhancements to existing features:
-
-** Documentation:
-*** Added features coming in v2.0 in the User Guide (Pull Request #<To be added>)
+*** Managed releases for NSync: `v1.2`, `v1.3`, `v1.3(PE)` on GitHub
+*** Bug reports of NSync reviewed (with non-trivial review comments): All issues from #99 to #135
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): To be added.
-*** Contributed to forum discussions: To be added.
-*** Reported bugs and suggestions for other teams in the class: To be added.
+*** Contributed to forum discussions: #14, #27
+*** Reported bugs and suggestions for team T09-4 in the class: #129, #131, #133, #136, #138, #140, #141, #143
+
+** Minor Enhancement: Added the feature to *find the next immediate free time-slot*.
+*** Allows the user to find the next immediate `free` time-slot for himself, and/or his contacts from the current time.
 
 == Contributions to the User Guide
 
@@ -45,9 +41,11 @@ If you are a student, all you have to do is to key in your time-table (and get y
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=freecommand]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=exportcommand]
+
+include::../UserGuide.adoc[tag=importcommand]
 
 == Contributions to the Developer Guide
 

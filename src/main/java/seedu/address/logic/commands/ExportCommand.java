@@ -1,5 +1,17 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
+
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.Messages;
@@ -10,18 +22,6 @@ import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.IsSelfPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
-
-import java.io.ByteArrayOutputStream;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Clipboard;
-import java.awt.Toolkit;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
-
-import static java.util.Objects.requireNonNull;
 
 
 /**
@@ -70,8 +70,8 @@ public class ExportCommand extends Command {
             try {
                 num = Integer.parseInt(index) - 1;
             } catch (NumberFormatException nfe) {
-                throw new CommandException(String.format("You have entered an invalid number for the INDEX parameter. " +
-                    "Please enter a valid index.\n" + MESSAGE_USAGE));
+                throw new CommandException(String.format("You have entered an invalid number for the INDEX parameter. "
+                    + "Please enter a valid index.\n" + MESSAGE_USAGE));
             }
             filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered
                 (new IsNotSelfOrMergedPredicate());

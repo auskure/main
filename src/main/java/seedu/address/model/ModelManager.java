@@ -2,7 +2,11 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.FileUtil.loadFolders;
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.NotesDownloadEvent;
 import seedu.address.commons.events.model.NotesEvent;
+import seedu.address.commons.events.model.NotesSelectedEvent;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final Set<String> notesDownloaded;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        notesDownloaded = loadFolders(userPrefs.getNotesFolderPath());
     }
 
     public ModelManager() {
@@ -43,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetAddressBookData(ReadOnlyAddressBook newData) {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
     }
@@ -151,14 +158,59 @@ public class ModelManager extends ComponentManager implements Model {
 
     // ================ Notes Manipulation ==============================
 
-    /** Raises an event to indicate the current notes are manipulated */
-    public void indicateNotesChanged(String event) {
+    /**
+     * Returns an unmodifiable view of the list of downloaded notes
+     */
+    public Set<String> getNotesList() {
+        return Collections.unmodifiableSet(notesDownloaded);
+    }
+
+    /**
+     * clears the list of notes
+     */
+    public void resetNotesData(String event) {
+        notesDownloaded.clear();
+        indicateAllNotesChanged(event);
+    }
+
+    /**
+     * add a new entry to the list of downloaded notes
+     */
+    public void addNotes(String event, String moduleCode) {
+        notesDownloaded.add(moduleCode);
+        indicateNotesDownloaded(event, moduleCode);
+    }
+
+    /**
+     * remove existing notes from the list of downloaded notes, and deletes those notes from storage
+     */
+    public void deleteSelectedNotes(String event, Set<String> moduleCodes) {
+        for (String tempName : moduleCodes) {
+            for (Iterator<String> iterator = notesDownloaded.iterator(); iterator.hasNext();) {
+                String tempNotes = iterator.next();
+                if (tempNotes.contains(tempName)) {
+                    iterator.remove();
+                }
+            }
+        }
+        indicateSelectedNotesChanged(event, moduleCodes);
+    }
+
+    /** Raises an event to indicate that all current notes are manipulated */
+    private void indicateAllNotesChanged(String event) {
         raise(new NotesEvent(event));
     }
 
+    /**
+     * Raises an event to indicate that some of the current notes are manipulated
+     */
+    private void indicateSelectedNotesChanged(String event, Set<String> moduleCodes) {
+        raise(new NotesSelectedEvent(event, moduleCodes));
+    }
+
     /** Raises an event to indicate the current notes are manipulated */
-    public void indicateNotesDownloaded(String event, String moduleName) {
-        raise(new NotesDownloadEvent(event, moduleName));
+    private void indicateNotesDownloaded(String event, String moduleCode) {
+        raise(new NotesDownloadEvent(event, moduleCode));
     }
 
 }

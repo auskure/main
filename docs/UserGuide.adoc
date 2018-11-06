@@ -1,4 +1,4 @@
-= N*Sync - User Guide
+= NSync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -13,13 +13,13 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2113-AY1819S1-W12-2/main
 
 By: `CS2113-AY1819S1-W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-N*Sync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -29,7 +29,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.PNG[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes contact whose index number is 3
+* **`delete`**`main 3` : deletes contact whose index number is 3
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -51,6 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `1..`​ after them can be used multiple times, excluding zero times e.g. `[ENROLLED MODULE]1..`
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -89,6 +90,9 @@ Examples:
 [NOTE]
 Contacts in this addressbook are automatically sorted in alphabetical order
 
+[NOTE]
+Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently work
+
 ==== Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
@@ -117,7 +121,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 ==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find MAIN/MERGED KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -129,15 +133,15 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find main John` +
+Returns `john` and `John Doe` from the main contact list
+* `find merged Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John` from the merged contact list
 
 ==== Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `delete MAIN/MERGED INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -148,10 +152,10 @@ Format: `delete INDEX`
 Examples:
 
 * `list` +
-`delete 2` +
+`delete main 2` +
 Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
+* `find merged Betsy` +
+`delete merged 1` +
 Deletes the 1st person in the results of the `find` command.
 
 ==== Selecting a person : `select`
@@ -160,7 +164,7 @@ Selects the person identified by the index number used in the displayed person l
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the person and <to be confirmed> at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -170,7 +174,7 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd person in the address book.
-* `find Betsy` +
+* `find main Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
@@ -370,35 +374,101 @@ Shows only contacts who are free at mon 10am.
 `filter GER1000 mon 10 am` +
 Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
 
-==== Filters for next free time slots for one or more contact: `free`
+// tag::freecommand[]
+==== Filters for next free time slot for one or more contact: `free`
+Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (ie no scheduled activities)? Use `free` which allows you to find the next available time-slot from the current time, to easily find answers to these questions!
 
-Format: `free f/INDEX`
-****
-* Displays next available time slot (from current time).
-* Running this command outside of the time window of 8am to 7pm will yield the next available time slot in the next day.
-* Running this command outside of the day window of Monday to Friday will yield the next available time slot in the next weekday.
-****
+Format: `free f/INDEX ...`
 
-`free f/3` +
-Shows the next available time slot (from current time) for contact whose index is 3.
+image::SampleTimeTable.png[width="800"]
+Figure 1: Sample time-table for illustration purposes below
 
-`free f/1 f/7 f/9` +
+Figure 1: +
+If the current day and time is Monday 3:00pm, the next available time-slot shown is Monday 4:00pm till 8:00pm. +
+If the current day and time is Monday 4:34pm, the next available time-slot shown is Monday 4:34pm till 8:00pm.
+
+Example 1: `free f/self` +
+Shows the next available time slot (from current time) for myself.
+
+Example 2: `free f/1 f/7 f/9` +
 Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
 
+[NOTE]
+Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
+
+[NOTE]
+You can find a common free time-slot for up to N contacts <to be filled in>.
+// end::freecommand[]
+
+// tag::exportcommand[]
 ==== Export user string: `export`
 
-To be filled in.
+Exports all of a user's details in each respective field into an encoded string. +
+Format: `export PUBLIC/PRIVATE INDEX`
 
+[TIP]
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+
+****
+* Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.
+* Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).
+****
+
+Example 1: `export public 1` +
+Figure 2: The user who imports the string will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table).
+
+image::ExportPublicView.png[width="800"]
+Figure 2: What the user who imports will see (public view)
+
+Example 2: `export private 1` +
+Figure 3: The user who imports the string will see only the free and busy time-slots of contact index 1.
+
+image::ExportPrivateView.png[width="800"]
+Figure 3: What the user who imports will see (private view)
+
+[NOTE]
+Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
+// end::exportcommand[]
+
+// tag::importcommand[]
 ==== Import user string: `import`
 
-To be filled in.
+All of a contact's details are imported into the application of the user who imports it. +
+Format: `import STRING` (How should I specify that it is a "string"?)
+
+[TIP]
+Importing a contact with the same name as another contact in your copy of NSync will result in the imported data over-writing the existing details of the contact here!
+
+Example 1: +
+Figure 4 shows that you have entered a valid string as part of the command. All of the imported user's details are now found in your application.
+
+image::ImportSuccessPublicPrivate.png[width="800"]
+Figure 4: Successful import of either a public or private contact
+
+Example 2: +
+Figure 5 shows that you have entered an invalid string as part of the command. You might have entered one or more incorrect  characters, or missed out on one or more characters from the intended string!
+
+image::ImportFailedGeneric.png[width="800"]
+Figure 5: Failed import - invalid string
+
+Example 3: +
+Figure 6 shows that there is already an existing contact with exactly the same details of the contact that you are trying to import.
+
+image::ImportFailedDuplicate.png[width="800"]
+Figure 6: Example 3: Failed import - duplicate contact
+// end::importcommand[]
 
 === Notes Commands
+****
+[NOTE]
+The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
+
+Users are still able to login and view available files to be downloaded.
+****
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
-Downloads the your notes from IVLE, and stores them in the folder "notes"
-
+Downloads the your notes from IVLE, and stores them in the folder "notes" +
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [TIP]
@@ -424,7 +494,7 @@ of the specified module.
 
 image::chromeOpen.PNG[width="250"]
 
-* N*Sync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
+* NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
@@ -445,8 +515,7 @@ image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 
 
 ==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
-Displays all the available notes of a selected
-
+Displays all the available notes of a selected +
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [NOTE]
@@ -490,7 +559,7 @@ image::downloadSelectExample.PNG[width="900"]
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
-* if you entered a mix of invalid and valid file IDs, N*Sync will only only download the correct files, up till it encounters a invalid ID.
+* if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.
 
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
@@ -506,8 +575,7 @@ File not found
 image::downloadSelectFileNotFound.PNG[width="900"]
 
 ==== Show all downloaded notes: `showNotes`
-Displays all the downloaded notes in the UI
-
+Displays all the downloaded notes in the UI +
 Format: `showNotes`
 
 [NOTE]
@@ -521,11 +589,38 @@ image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
 
+// tag::clearNotes[]
 ==== Clearing all downloaded notes : `clearNotes`
 
-Clears all downloaded notes.
-Format: clearNotes
+Clears all downloaded notes. +
+Format: `clearNotes`
+// end::clearNotes[]
+// tag::deleteSelectNotes[]
+==== Deleting notes from one or more selected modules : `deleteSelectNotes`
 
+Deletes the notes that belong to the specified module, from storage +
+Format: `deleteSelectNotes [ENROLLED MODULE]1..`
+
+****
+* Deletes notes of the `ENROLLED MODULE`.
+* The notes of the `ENROLLED MODULE` would be deleted, if they were downloaded using the command
+`downloadAllnotes` or  `downloadSelectNotes`.
+****
+
+Examples:
+
+* `deleteSelectNotes CS2100` +
+Deletes the notes belonging to the module CS2100.
+* `deleteSelectNotes CS2105 CS2106` +
+Deletes the notes belongs to the modules CS2105 and CS2106.
+* `deleteSelectNotes CS` +
+Deletes the notes belongs to modules that have "CS" in their names
+* `deleteSelectNotes PL3232` +
+Will not delete anything if "PL3232" does not exist as your downloaded notes.
+* `deleteSelectNotes PL3232 CS2106` +
+Will not delete anything if "PL3232" does not exist as your downloaded notes, however notes
+belonging to "CS2106" would be deleted.
+// end::deleteSelectNotes[]
 == Upcoming Features
 
 // tag::dataencryption[]
@@ -541,16 +636,19 @@ Coming to you soon!
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...[em/ENROLLED MODULE]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague em/CS2101 em/CS2113`
 
 * *Clear* : `clear`
 
 * *Clear Notes* : `clearNotes`
 
+* *Delete selected notes* : `deleteSelectedNotes [ENROLLED MODULE]1.." +
+e.g. `deleteSelectedNotes CS2105 CS2106`
+
 * *Download All Notes* : `downloadAllNotes user/e1234567 pass/password1 mod/CS2113`
 
-* *Download Selected Notes (seleted notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...n`
+* *Download Selected Notes (selected notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...`
 
 * *Download Selected Notes (show all notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113`
 

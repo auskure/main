@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -94,7 +95,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetAddressBookData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,6 +151,26 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<String> getNotesList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetNotesData(String event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addNotes(String event, String moduleName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteSelectedNotes(String event, Set<String> moduleNames) {
             throw new AssertionError("This method should not be called.");
         }
     }

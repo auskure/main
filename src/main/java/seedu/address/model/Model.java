@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ public interface Model {
     /**
      * Clears existing backing model and replaces with the provided new data.
      */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetAddressBookData(ReadOnlyAddressBook newData);
 
     /**
      * Returns the AddressBook
@@ -88,13 +89,24 @@ public interface Model {
     // ================ Notes Manipulation ==============================
 
     /**
-     * Raises an event to indicate the current notes are manipulated
+     * Returns an unmodifiable view of the list of downloaded notes
      */
-    public void indicateNotesChanged(String event);
+    public Set<String> getNotesList();
 
     /**
-     * Raises an event to indicate the current notes are manipulated
+     * clears the list of notes
      */
-    public void indicateNotesDownloaded(String event, String moduleName);
+    public void resetNotesData(String event);
+
+    /**
+     * add a new entry to the list of downloaded notes
+     */
+    public void addNotes(String event, String moduleName);
+
+    /**
+     * remove existing notes from the list of downloaded notes, and deletes those notes from storage
+     */
+    public void deleteSelectedNotes(String event, Set<String> moduleNames);
+
 
 }
