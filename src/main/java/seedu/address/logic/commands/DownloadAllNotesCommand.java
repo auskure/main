@@ -92,6 +92,8 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
      * @param driver is the current existing WebDriver session
      */
 
+
+
     protected void downloadFiles(WebDriver driver) {
         List<WebElement> checkBoxList = driver.findElements(By.xpath(CHECKBOX_XPATH_VALUE));
         for (WebElement checkBox : checkBoxList) {

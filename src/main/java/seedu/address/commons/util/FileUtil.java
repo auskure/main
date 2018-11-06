@@ -36,7 +36,8 @@ public class FileUtil {
     /**
      * Helps to find all valid folders in a chosen directory
      */
-    public static Set<String> loadFolders(Path directory) {
+
+    public static Set<String> loadFolders(Path directory) throws NullPointerException{
         File targetDirectory = new File(currentDirectory() + "/" + directory.toString());
         Set<String> folderNames = new TreeSet<>();
         String currentName;
