@@ -51,6 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `1..`​ after them can be used multiple times, excluding zero times e.g. `[ENROLLED MODULE]1..`
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -467,8 +468,7 @@ Users are still able to login and view available files to be downloaded.
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
-Downloads the your notes from IVLE, and stores them in the folder "notes"
-
+Downloads the your notes from IVLE, and stores them in the folder "notes" +
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [TIP]
@@ -515,8 +515,7 @@ image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 
 
 ==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
-Displays all the available notes of a selected
-
+Displays all the available notes of a selected +
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [NOTE]
@@ -576,8 +575,7 @@ File not found
 image::downloadSelectFileNotFound.PNG[width="900"]
 
 ==== Show all downloaded notes: `showNotes`
-Displays all the downloaded notes in the UI
-
+Displays all the downloaded notes in the UI +
 Format: `showNotes`
 
 [NOTE]
@@ -591,11 +589,38 @@ image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
 
+// tag::clearNotes[]
 ==== Clearing all downloaded notes : `clearNotes`
 
-Clears all downloaded notes.
-Format: clearNotes
+Clears all downloaded notes. +
+Format: `clearNotes`
+// end::clearNotes[]
+// tag::deleteSelectNotes[]
+==== Deleting notes from one or more selected modules : `deleteSelectNotes`
 
+Deletes the notes that belong to the specified module, from storage +
+Format: `deleteSelectNotes [ENROLLED MODULE]1..`
+
+****
+* Deletes notes of the `ENROLLED MODULE`.
+* The notes of the `ENROLLED MODULE` would be deleted, if they were downloaded using the command
+`downloadAllnotes` or  `downloadSelectNotes`.
+****
+
+Examples:
+
+* `deleteSelectNotes CS2100` +
+Deletes the notes belonging to the module CS2100.
+* `deleteSelectNotes CS2105 CS2106` +
+Deletes the notes belongs to the modules CS2105 and CS2106.
+* `deleteSelectNotes CS` +
+Deletes the notes belongs to modules that have "CS" in their names
+* `deleteSelectNotes PL3232` +
+Will not delete anything if "PL3232" does not exist as your downloaded notes.
+* `deleteSelectNotes PL3232 CS2106` +
+Will not delete anything if "PL3232" does not exist as your downloaded notes, however notes
+belonging to "CS2106" would be deleted.
+// end::deleteSelectNotes[]
 == Upcoming Features
 
 // tag::dataencryption[]
@@ -611,16 +636,19 @@ Coming to you soon!
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...[em/ENROLLED MODULE]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague em/CS2101 em/CS2113`
 
 * *Clear* : `clear`
 
 * *Clear Notes* : `clearNotes`
 
+* *Delete selected notes* : `deleteSelectedNotes [ENROLLED MODULE]1.." +
+e.g. `deleteSelectedNotes CS2105 CS2106`
+
 * *Download All Notes* : `downloadAllNotes user/e1234567 pass/password1 mod/CS2113`
 
-* *Download Selected Notes (seleted notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...n`
+* *Download Selected Notes (selected notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...`
 
 * *Download Selected Notes (show all notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113`
 
