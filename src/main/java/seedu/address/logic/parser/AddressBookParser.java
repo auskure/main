@@ -12,6 +12,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearNotesCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteSelectNotesCommand;
 import seedu.address.logic.commands.DownloadAllNotesCommand;
 import seedu.address.logic.commands.DownloadSelectNotesCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -110,22 +111,28 @@ public class AddressBookParser {
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
-
+            
         case MergeCommand.COMMAND_WORD:
             return new MergeCommandParser().parse(arguments);
+            
+        case ShareCommand.COMMAND_WORD:
+            return new ShareCommandParser().parse(arguments);
+
+        case ShowNotesCommand.COMMAND_WORD:
+            return new ShowNotesCommand();
 
         // ============================== Notes Download Commands ==============================
         case ClearNotesCommand.COMMAND_WORD:
             return new ClearNotesCommand();
+
+        case DeleteSelectNotesCommand.COMMAND_WORD:
+            return new DeleteSelectNotesCommandParser().parse(arguments);
 
         case DownloadAllNotesCommand.COMMAND_WORD:
             return new DownloadAllNotesCommandParser().parse(arguments);
 
         case DownloadSelectNotesCommand.COMMAND_WORD:
             return new DownloadSelectNotesCommandParser().parse(arguments);
-
-        case ShareCommand.COMMAND_WORD:
-            return new ShareCommandParser().parse(arguments);
 
         case ShowNotesCommand.COMMAND_WORD:
             return new ShowNotesCommand();

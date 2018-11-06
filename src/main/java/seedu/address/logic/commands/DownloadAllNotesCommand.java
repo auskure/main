@@ -71,7 +71,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
                 throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
             }
             driver.close();
-            model.indicateNotesDownloaded(COMMAND_WORD, moduleCode);
+            model.addNotes(COMMAND_WORD, moduleCode);
             return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
                 + downloadPath);
         }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -36,6 +37,25 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code concatenatedStrings} into a {@code String[]} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if {@code concatenatedStrings} is empty.
+     */
+    public static Set<String> parseSelectModuleNames(String concatenatedStrings) throws ParseException {
+        String trimmedIndex = concatenatedStrings.trim();
+        if (trimmedIndex.isEmpty()) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+
+        String[] stringArray = trimmedIndex.split(" ");
+        Set<String> moduleNames = new TreeSet<>();
+        for (String tempName : stringArray) {
+            moduleNames.add(tempName);
+        }
+        return moduleNames;
     }
 
     /**

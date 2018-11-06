@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Writes, reads, relocates and deletes files
@@ -30,6 +32,25 @@ public class FileUtil {
     public static boolean isDirectoryExists(Path directory) {
         return Files.exists(directory) && Files.isDirectory(directory);
     }
+
+    /**
+     * Helps to find all valid folders in a chosen directory
+     */
+    public static Set<String> loadFolders(Path directory) {
+        File targetDirectory = new File(currentDirectory() + "/" + directory.toString());
+        Set<String> folderNames = new TreeSet<>();
+        String currentName;
+        File[] filesList = targetDirectory.listFiles();
+        for (File tempFolder : filesList) {
+            if (tempFolder.isHidden() || tempFolder.isFile()) {
+                continue;
+            }
+            currentName = tempFolder.getName();
+            folderNames.add(currentName);
+        }
+        return folderNames;
+    }
+
 
     /**
      * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},
@@ -152,8 +173,41 @@ public class FileUtil {
                 recursiveDelete(file);
                 continue;
             }
-            System.out.println(currentName);
             file.delete();
+        }
+    }
+
+    /**
+     * Deletes all files in a given folder
+     */
+    public static void deleteSelectedFolders(Path folder, Set<String> folderNames) {
+        File currentDirectory = new File(folder.toString());
+        String currentName;
+        File[] filesList = currentDirectory.listFiles();
+        Boolean isTarget;
+        for (File tempFolder : filesList) {
+            currentName = tempFolder.getName();
+            isTarget = false;
+            for (String name : folderNames) {
+                if (currentName.contains(name)) {
+                    isTarget = true;
+                }
+            }
+
+            //No bookkeeping files stored by the Operating System should be deleted
+            if (tempFolder.isHidden()) {
+                continue;
+            }
+
+            if (!isTarget) {
+                continue;
+            }
+
+            String[] directoryContents = tempFolder.list();
+            if (tempFolder.isDirectory() && directoryContents != null) {
+                recursiveDelete(tempFolder);
+            }
+            tempFolder.delete();
         }
     }
 
