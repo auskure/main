@@ -1,16 +1,16 @@
 package seedu.address.logic.parser;
 //@@author BearPerson1
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.DownloadSelectNotesCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELECT_FILE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SELECT_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.DownloadSelectNotesCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class DownloadSelectNotesCommandParser implements Parser {
 

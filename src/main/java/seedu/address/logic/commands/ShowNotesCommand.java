@@ -1,21 +1,14 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 
 import java.io.File;
 import java.nio.file.Paths;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 public class ShowNotesCommand extends Command {
-
-    private String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
-
-    private String notesPathExtension = "/notes";
-
-    private String notesPath = currentDirPath + notesPathExtension;
-
     public static final String COMMAND_WORD = "showNotes";
 
     private static final String DIRECTORY_IDENTIFIER = "Directory: ";
@@ -28,6 +21,12 @@ public class ShowNotesCommand extends Command {
 
     private static final String MESSAGE_FILE_LOCATION_ERROR = "The folder \"notes\" is not found!\r\n"
         + "please download some notes to continue using showNotes";
+
+    private String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
+
+    private String notesPathExtension = "/notes";
+
+    private String notesPath = currentDirPath + notesPathExtension;
 
     private String MESSAGE_STORED_NOTES = "";
 

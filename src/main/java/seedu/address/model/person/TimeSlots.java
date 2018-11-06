@@ -1,12 +1,12 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Tag in the address book.
@@ -19,17 +19,16 @@ public class TimeSlots implements Serializable {
 
     public static final String[] SET_VALUES = new String[] {"8am    ", "9am    ", "10am   ", "11am    ", "12pm   ",
         "1pm    ", "2pm     ", "3pm     ", "4pm    ", "5pm     ", "6pm    ", "7pm"};
-    private static final String[] mon = new String[] {"free", "free", "free", "free", "free"
-        , "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"};
     public static final String[] tue = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
         "free", "free", "free", "free", "free", "free", "free"};
-
     public static final String[] wed = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
         "free", "free", "free", "free", "free", "free", "free"};
     public static final String[] thu = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
         "free", "free", "free", "free", "free", "free", "free"};
     public static final String[] fri = new String[] {"free", "free", "free", "free", "free", "free", "free", "free",
         "free", "free", "free", "free", "free", "free", "free"};
+    private static final String[] mon = new String[] {"free", "free", "free", "free", "free",
+        "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"};
     private static final String[] sampleTue = new String[] {"CS2040c", "CS2040c", "ST2332", "ST2332", "free", "free",
         "CS2107", "CS2107", "free", "free", "free", "free"};
     private static final String[] sampleWed = new String[] {"CS2101", "CS2101", "free", "free", "GES1041",
@@ -39,9 +38,7 @@ public class TimeSlots implements Serializable {
     private static final String[] sampleFri = new String[] {"free", "free", "CS2107", "free", "free",
         "free", "CS2101", "free", "free", "free", "free", "free"};
 
-
     public String timeslot;
-
 
     /**
      * Constructs a {@code Tag}.

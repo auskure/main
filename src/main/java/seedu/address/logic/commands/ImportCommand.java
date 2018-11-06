@@ -1,17 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-
-import java.io.ObjectInputStream;
-import java.io.ByteArrayInputStream;
-import java.util.Base64;
-
-import static java.util.Objects.requireNonNull;
-
 
 /**
  * Import a person from a string
