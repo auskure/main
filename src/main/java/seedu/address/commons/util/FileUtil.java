@@ -159,10 +159,8 @@ public class FileUtil {
      */
     public static void deleteAllFiles(Path folder) {
         File currentDirectory = new File(folder.toString());
-        String currentName;
         File[] filesList = currentDirectory.listFiles();
         for (File file : filesList) {
-            currentName = file.getName();
             //No bookkeeping files stored by the Operating System should be deleted
             if (file.isHidden()) {
                 continue;
