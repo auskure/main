@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,15 +16,22 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * DownloadSelectCommand has 2 functions depending on the existance of PREFIX_SELECT_FILE. If PREFIX_SELECT_FILE
+ * exists it displays all available notes for that module, else, it will follow the index supplied after
+ * PREFIX_SELECT_FILE to download the files and store it in the "notes folder"
+ * <p>
+ * DownloadSelectCommand extends on DownloadAbstract that extends on Commands
+ */
+
 public class DownloadSelectNotesCommand extends DownloadAbstract {
 
     public static final String COMMAND_WORD = "downloadSelectNotes";
 
-    public static final String MESSAGE_USAGE = "To display all available notes:\r\n" + COMMAND_WORD
-        + " user/(username) pass/(password) mod/(moduleCode)\r\nTo select the notes(by index):\r\n"
-        + COMMAND_WORD + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
+    public static final String MESSAGE_USAGE = "To display all available notes:" + NEWLINE_SEPERATOR + COMMAND_WORD
+            + " user/(username) pass/(password) mod/(moduleCode)" + NEWLINE_SEPERATOR + "To select the notes(by index):" +
+            NEWLINE_SEPERATOR + COMMAND_WORD + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
 
-    public static final String NEWLINE_SEPERATOR = "\r\n";
 
     public static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
     public static final String TREEVIEW_CLASS_ID = "TreeView";
@@ -65,12 +70,6 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
         }
 
         WebDriver driver = initializeWebDriver();
-        Path notesFolder = Paths.get("notes");
-        try {
-            createDirectoryIfMissing(notesFolder);
-        } catch (Exception e) {
-            throw new CommandException("Failed to create new folders");
-        }
         try {
             loginIvle(driver);
         } catch (NoSuchElementException nse) {
@@ -85,8 +84,8 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             if (fileSelect == null) {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
-                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode + "\r\n"
-                    + availableDownloadFiles);
+                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode +
+                        NEWLINE_SEPERATOR + availableDownloadFiles);
             }
             /**
              * Updated to disable download operations.
@@ -111,7 +110,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             driver.close();
             model.addNotes(COMMAND_WORD, moduleCode);
             return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
-                + downloadPath);
+                    + downloadPath);
         }
         driver.close();
         throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);

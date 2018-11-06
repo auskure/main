@@ -10,17 +10,20 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.DownloadAllNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class DownloadAllNotesCommandParser implements Parser {
+public class DownloadAllNotesCommandParser implements Parser
+{
 
     @Override
-    public DownloadAllNotesCommand parse(String args) throws ParseException {
+    public DownloadAllNotesCommand parse(String args) throws ParseException
+    {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD,
-            PREFIX_MODULECODE);
+                PREFIX_MODULECODE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PASSWORD, PREFIX_USERNAME, PREFIX_MODULECODE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_PASSWORD, PREFIX_USERNAME, PREFIX_MODULECODE))
+        {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DownloadAllNotesCommand.MESSAGE_USAGE));
+                    DownloadAllNotesCommand.MESSAGE_USAGE));
         }
 
         String username = argMultimap.getValue(PREFIX_USERNAME).get();
@@ -30,7 +33,8 @@ public class DownloadAllNotesCommandParser implements Parser {
         return new DownloadAllNotesCommand(username, password, moduleCode);
     }
 
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes)
+    {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

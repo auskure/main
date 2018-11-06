@@ -14,6 +14,12 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * DownloadAllNotesCommand Will download all the notes from a selected module and store it in the "notes" folder.
+ * <p>
+ * DownloadAllNotesCommand extends on DownloadAbstract that extends on command.
+ */
+
 public class DownloadAllNotesCommand extends DownloadAbstract {
 
     public static final String COMMAND_WORD = "downloadAllNotes";
@@ -23,7 +29,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
     private static final String CHECKBOX_XPATH_VALUE = "//input[@type='checkbox']";
 
     private static final String IVLE_DOWNLOAD_PAGE_BUTTON_ID =
-        "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_btnDownloadSel";
+            "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_btnDownloadSel";
 
 
     public DownloadAllNotesCommand(String username, String password, String moduleCode) {
@@ -74,7 +80,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
             driver.close();
             model.addNotes(COMMAND_WORD, moduleCode);
             return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
-                + downloadPath);
+                    + downloadPath);
         }
         driver.close();
         throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);

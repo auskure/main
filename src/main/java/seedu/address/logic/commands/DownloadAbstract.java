@@ -55,8 +55,9 @@ public abstract class DownloadAbstract extends Command {
     protected static final String IVLE_DOWNLOAD_PAGE_ADDRESS = "https://ivle.nus.edu.sg/v1/File/download_all.aspx";
 
     protected static final String IVLE_MODULE_LIST_FIELD_ID =
-        "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
+            "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
 
+    public static final String NEWLINE_SEPERATOR = "\r\n";
 
     protected String username;
     protected String password;
@@ -91,13 +92,13 @@ public abstract class DownloadAbstract extends Command {
         }
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
-            + WINDOWS_CHROME_DRIVER_NAME);
+                + WINDOWS_CHROME_DRIVER_NAME);
         File chromeDriverDir = new File(WINDOWS_CHROME_DRIVER_DIRECTORY);
         if (!chromeDriverDir.exists()) {
             chromeDriverDir.mkdirs();
         }
         File windowsChromeDriver = new File(WINDOWS_CHROME_DRIVER_DIRECTORY
-            + File.separator + WINDOWS_CHROME_DRIVER_NAME);
+                + File.separator + WINDOWS_CHROME_DRIVER_NAME);
         if (!windowsChromeDriver.exists()) {
             windowsChromeDriver.createNewFile();
             org.apache.commons.io.FileUtils.copyURLToFile(resource, windowsChromeDriver);
@@ -108,7 +109,7 @@ public abstract class DownloadAbstract extends Command {
             chromeDriverDir.mkdirs();
         }
         File macChromeDriver = new File(MAC_CHROME_DRIVER_DIRECTORY + File.separator
-            + MAC_CHROME_DRIVER_NAME);
+                + MAC_CHROME_DRIVER_NAME);
         if (!macChromeDriver.exists()) {
             macChromeDriver.createNewFile();
             org.apache.commons.io.FileUtils.copyURLToFile(resource, macChromeDriver);
@@ -124,11 +125,11 @@ public abstract class DownloadAbstract extends Command {
      */
     protected void initializeChromeDriverPaths() {
         if (System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY
-                + "/" + WINDOWS_CHROME_DRIVER_NAME);
+            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" +
+                    WINDOWS_CHROME_DRIVER_DIRECTORY + "/" + WINDOWS_CHROME_DRIVER_NAME);
         } else if (System.getProperty("os.name").contains(MAC_OS_NAME)) {
             System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/"
-                + MAC_CHROME_DRIVER_NAME);
+                    + MAC_CHROME_DRIVER_NAME);
         }
     }
 
@@ -232,7 +233,7 @@ public abstract class DownloadAbstract extends Command {
         do {
             Thread.sleep(100);
         } while (!org.apache.commons.io.FileUtils.listFiles
-            (new File(downloadPath), keyExtentions, false).isEmpty());
+                (new File(downloadPath), keyExtentions, false).isEmpty());
     }
 
     /**
