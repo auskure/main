@@ -118,9 +118,6 @@ public class AddressBookParser {
         case ShareCommand.COMMAND_WORD:
             return new ShareCommandParser().parse(arguments);
 
-        case ShowNotesCommand.COMMAND_WORD:
-            return new ShowNotesCommand();
-
         // ============================== Notes Download Commands ==============================
         case ClearNotesCommand.COMMAND_WORD:
             return new ClearNotesCommand();
