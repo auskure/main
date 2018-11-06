@@ -1,21 +1,24 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.commons.core.Messages;
-import seedu.address.model.person.*;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
-import java.io.ByteArrayOutputStream;
-import java.awt.datatransfer.*;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.IsSelfPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeSlots;
 import java.awt.Toolkit;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import static java.util.Objects.requireNonNull;
+
 
 
 /**
@@ -52,15 +55,14 @@ public class ShareCommand extends Command {
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
         Person myPerson;
-        if(index.equalsIgnoreCase("self")){
-            filteredPersonList= ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate
+        if (index.equalsIgnoreCase("self")) {
+            filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate
                     ());
             myPerson = filteredPersonList.get(0);
-        }
-        else {
+        } else {
             int num;
             try {
-                num = Integer.parseInt(index)-1;
+                num = Integer.parseInt(index) - 1;
             } catch (NumberFormatException nfe) {
                 throw new CommandException(String.format(MESSAGE_USAGE));
             }
@@ -92,16 +94,15 @@ public class ShareCommand extends Command {
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         List<String> exportStrings = new ArrayList<>();
         String finalExport = " ";
-        for(String day: days){
+        for (String day : days) {
             List<TimeSlots> daySlots = timeSlots.get(day);
-            for(int i=0; i<12; i++){
+            for (int i = 0; i < 12; i++) {
                 TimeSlots activity;
-                if(privacy.equalsIgnoreCase("public")) {
+                if (privacy.equalsIgnoreCase("public")) {
                     activity = daySlots.get(i);
-                }
-                else {
+                } else {
                     activity = daySlots.get(i);
-                    if(!activity.toString().equalsIgnoreCase("free")){
+                    if (!activity.toString().equalsIgnoreCase("free")) {
                         activity = new TimeSlots("busy");
                     }
                 }
@@ -109,14 +110,14 @@ public class ShareCommand extends Command {
                 exportStrings.add(stringToInput);
             }
         }
-        for(int i=0; i<exportStrings.size();i++){
+        for (int i = 0; i < exportStrings.size(); i++) {
             finalExport = finalExport + exportStrings.get(i);
         }
         return finalExport;
     }
 
-    private String indexToTime(int index){
-        String[] timings ={"8am", "9am", "10am","11am", "12pm", "1pm", "2pm","3pm", "4pm", "5pm", "6pm", "7pm"};
+    private String indexToTime(int index) {
+        String[] timings = {"8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm"};
         return timings[index];
     }
 }

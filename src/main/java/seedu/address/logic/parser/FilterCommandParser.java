@@ -48,8 +48,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         return new FilterCommand(new TimetableContainsModulePredicate(Arrays.asList(keywords)));
     }
-
-    private int changeTimeToIndex(String time) throws ParseException {
+    /**
+     * Changes an inputted time into the correct index in the list of time slots in a day
+     */
+    private int changeTimeToIndex(String time) {
         int index = 13;
         if (time.equalsIgnoreCase("8am")) {
             index = 0;
