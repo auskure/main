@@ -1,5 +1,5 @@
 = Hu Yi Qing - Project Portfolio
-:imagesdir: images
+:imagesdir: ../images
 
 == [blue]#PROJECT: NSync#
 
