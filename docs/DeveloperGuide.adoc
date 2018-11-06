@@ -382,13 +382,13 @@ contacts. Better follows Separation of Concerns Principle.
 === Notes Manipulation feature
 ==== Current Implementation
 
-The delete notesList mechanism is facilitated by `NotesDownloaded`.
-It is a part of `ModelManager`, storing the names of the modules of notesList
+The notes manipulation mechanism is facilitated by `NotesDownloaded`.
+It is a part of `ModelManager`, storing the names of the modules of notes
 downloaded.
 Additionally, it implements the following operations:
 
-* `NotesDownloaded#setNotes(Set<String> notesList)` -- Replaces the contents of the notesList list with {@code notesList}.
-* `NotesDownloaded#addNotes(String n)` --  Adds new notesList {@code n} to the NotesDownloaded
+* `NotesDownloaded#setNotes(Set<String> notes)` -- Replaces the contents of the notes list with {@code notes}.
+* `NotesDownloaded#addNotes(String n)` --  Adds new notes {@code n} to the NotesDownloaded
 * `NotesDownloaded#deleteSelectedNotes(Set<String> modulesCodes)` -- Removes {@code moduleCodes} from NotesDownloaded.
 * `NotesDownloaded#clear() -- Clears the existing data of this {@code NotesDownloaded}.
 
@@ -396,16 +396,18 @@ The first operation is only used once in the initialization of `ModelManager`.
 These last 3 operations are exposed in the `Model` interface as `Model#addNotes(String, String)`,
  Model#deleteSelectedNotes(String, Set<String>)` and `Model#resetNotesData()` respectively.
 
-Given below is an example usage scenario and how the notesList manipulation mechanism behaves at each step.
+Within `NotesDownloaded`, there is an attribute called notes, where the names of the modules are stored.
+notes is a TreeSet, which helps to sort the modules stored according to their names, in an lexicographical
+order. TreeSet's underlying data structure is a binary tree.
+
+Given below is an example usage scenario and how the notes manipulation mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `NotesDownloaded` will be initialized with the
-initial notesList state, which is empty.
+initial notes state, which is empty.
 
-image::NotesManipulationStartingStateTreeDiagram.png[width="800"]
-
-Step 2. The user executes `downloadAllNotes user/e0123456 pass/password1 mod/CS2101` command to download all notesList
-for the module CS2101.  The `downloadAllNotes` command calls `Model#addNotes(String, String)`, module code of the newly
- downloaded notesList to be saved in notesList
+Step 2. The user executes `downloadAllNotes user/e0123456 pass/password1 mod/CS2101` command to download all notes
+for the module CS2101.  The `downloadAllNotes` command calls `Model#addNotes(String, String)`.  This in turn calls
+ NotesDownloaded#addNotes(String).  Thus, the module code of the newly downloaded notes are  to be saved in notes
 
  state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the
   `currentStatePointer` is shifted to the newly inserted address book state.
@@ -885,15 +887,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find availability of provided time slot | decide on my next course of action with that information
 
-|`* * *` |user |download the notesList of a specific module in one command | avoid downloading unnecessary notesList
+|`* * *` |user |download the notes of a specific module in one command | avoid downloading unnecessary notes
 
-|`* * *` |lazy IVLE user |download all my notesList in one command | avoid the cumbersome experience of visiting IVLE
+|`* * *` |lazy IVLE user |download all my notes in one command | avoid the cumbersome experience of visiting IVLE
 
-|`* * *` |user |view the notesList already downloaded | keep track of the notesList that I already have
+|`* * *` |user |view the notes already downloaded | keep track of the notes that I already have
 
-|`* * *` |user |delete all downloaded notesList | free up some space on my local drive
+|`* * *` |user |delete all downloaded notes | free up some space on my local drive
 
-|`* * *` |user |view my enrolled modules | store my notesList according to the modules I am enrolled in
+|`* * *` |user |view my enrolled modules | store my notes according to the modules I am enrolled in
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -901,7 +903,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |find next ‘busy’ time slot (from current time) |be aware of what is coming up for me next
 
-|`* *` |user |delete the notesList of a specified module |keep my local drive organized
+|`* *` |user |delete the notes of a specified module |keep my local drive organized
 
 |`*` |user with many persons in the address book |locate a person easily |not waste time when trying to locate a contact
 

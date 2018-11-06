@@ -466,9 +466,9 @@ The download function has temporarily been disabled in accordance with NUS Infor
 Users are still able to login and view available files to be downloaded.
 ****
 
-==== Downloading all notesList from a selected module from IVLE : `downloadAllNotes`
+==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
-Downloads the your notesList from IVLE, and stores them in the folder "notesList" +
+Downloads the your notes from IVLE, and stores them in the folder "notes" +
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [TIP]
@@ -483,7 +483,7 @@ You would be unable to see your inputted command after inputting it, this is a s
 ****
 image::downloadExample.PNG[width="900"]
 
-* Automatically accesses the your IVLE account using Google Chrome, and downloads all notesList and resources
+* Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
 * if an incomplete module code is entered, it will select the a module that matches it the most
@@ -496,7 +496,7 @@ image::chromeOpen.PNG[width="250"]
 
 * NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
-* If the process is successful, the result window of NSync will display the exact path to your newly downloaded notesList.
+* If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
 
 Examples:
@@ -514,8 +514,8 @@ Password or username Incorrect
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 
 
-==== Display all notesList from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
-Displays all the available notesList of a selected +
+==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
+Displays all the available notes of a selected +
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [NOTE]
@@ -523,7 +523,7 @@ Currently the files are not sorted in any order. In a future version we will mak
 
 image::downloadSelectFileExample.PNG[width="900"]
 
-* All available notesList from the selected module would be sourced and displayed
+* All available notes from the selected module would be sourced and displayed
 
 * if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
 
@@ -547,8 +547,8 @@ Password or username Incorrect
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 
-==== Downloading selective notesList from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
-Download a selective number of notesList from IVLE, and stores them in the folder "notesList".
+==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
+Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
 
@@ -557,7 +557,7 @@ Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
 
 image::downloadSelectExample.PNG[width="900"]
 
-* The files would be downloaded one by one from IVLE to your "notesList" folder.
+* The files would be downloaded one by one from IVLE to your "notes" folder.
 
 * if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.
 
@@ -574,14 +574,14 @@ File not found
 
 image::downloadSelectFileNotFound.PNG[width="900"]
 
-==== Show all downloaded notesList: `showNotes`
-Displays all the downloaded notesList in the UI +
+==== Show all downloaded notes: `showNotes`
+Displays all the downloaded notes in the UI +
 Format: `showNotes`
 
 [NOTE]
 the files are displayed in the order that it is in your directory
 
-* It recursively searches your `notesList` folder and displays all the files available
+* It recursively searches your `notes` folder and displays all the files available
 
 Example:
 
@@ -590,35 +590,35 @@ image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
 
 // tag::clearNotes[]
-==== Clearing all downloaded notesList : `clearNotes`
+==== Clearing all downloaded notes : `clearNotes`
 
-Clears all downloaded notesList. +
+Clears all downloaded notes. +
 Format: `clearNotes`
 // end::clearNotes[]
 // tag::deleteSelectNotes[]
-==== Deleting notesList from one or more selected modules : `deleteSelectNotes`
+==== Deleting notes from one or more selected modules : `deleteSelectNotes`
 
-Deletes the notesList that belong to the specified module, from storage +
+Deletes the notes that belong to the specified module, from storage +
 Format: `deleteSelectNotes [ENROLLED MODULE]1..`
 
 ****
-* Deletes notesList of the `ENROLLED MODULE`.
-* The notesList of the `ENROLLED MODULE` would be deleted, if they were downloaded using the command
+* Deletes notes of the `ENROLLED MODULE`.
+* The notes of the `ENROLLED MODULE` would be deleted, if they were downloaded using the command
 `downloadAllnotes` or  `downloadSelectNotes`.
 ****
 
 Examples:
 
 * `deleteSelectNotes CS2100` +
-Deletes the notesList belonging to the module CS2100.
+Deletes the notes belonging to the module CS2100.
 * `deleteSelectNotes CS2105 CS2106` +
-Deletes the notesList belongs to the modules CS2105 and CS2106.
+Deletes the notes belongs to the modules CS2105 and CS2106.
 * `deleteSelectNotes CS` +
-Deletes the notesList belongs to modules that have "CS" in their names
+Deletes the notes belongs to modules that have "CS" in their names
 * `deleteSelectNotes PL3232` +
-Will not delete anything if "PL3232" does not exist as your downloaded notesList.
+Will not delete anything if "PL3232" does not exist as your downloaded notes.
 * `deleteSelectNotes PL3232 CS2106` +
-Will not delete anything if "PL3232" does not exist as your downloaded notesList, however notesList
+Will not delete anything if "PL3232" does not exist as your downloaded notes, however notes
 belonging to "CS2106" would be deleted.
 // end::deleteSelectNotes[]
 == Upcoming Features
@@ -643,16 +643,16 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 
 * *Clear Notes* : `clearNotes`
 
-* *Delete selected notesList* : `deleteSelectedNotes [ENROLLED MODULE]1.." +
+* *Delete selected notes* : `deleteSelectedNotes [ENROLLED MODULE]1.." +
 e.g. `deleteSelectedNotes CS2105 CS2106`
 
 * *Download All Notes* : `downloadAllNotes user/e1234567 pass/password1 mod/CS2113`
 
-* *Download Selected Notes (selected notesList)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...`
+* *Download Selected Notes (selected notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3...`
 
-* *Download Selected Notes (show all notesList)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113`
+* *Download Selected Notes (show all notes)* : `downloadSelectNotes user/e1234567 pass/password1 mod/CS2113`
 
-* *Show notesList* : `showNotes`
+* *Show notes* : `showNotes`
 
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`

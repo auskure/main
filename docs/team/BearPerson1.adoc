@@ -9,15 +9,15 @@
 
 == Overview
 
-NUSync is an utility application that consists of a timetable manager, as well as an all in one IVLE notesList downloader.
+NUSync is an utility application that consists of a timetable manager, as well as an all in one IVLE notes downloader.
 
 == Summary of contributions
 
 * *Major enhancement*: IVLE Notes downloader
-** What it does: Allows the user to select and download all/selected notesList
+** What it does: Allows the user to select and download all/selected notes
 
 
-** Justification: Allows the user to download his or her notesList with a single line of command. Additionally, allow the users to download a single file with at most 2 lines of command. This method significantly triumphs the existing method; which involves manually transversing the IVLE web page, in terms of efficiency.
+** Justification: Allows the user to download his or her notes with a single line of command. Additionally, allow the users to download a single file with at most 2 lines of command. This method significantly triumphs the existing method; which involves manually transversing the IVLE web page, in terms of efficiency.
 
 
 ** Highlights: This is a completely new feature that has been added into the existing AddressBook level 4 code base. It does not improve on any existing feature at the moment.
