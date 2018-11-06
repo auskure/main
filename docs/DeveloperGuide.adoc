@@ -325,7 +325,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 
 // tag::mergetimetable[]
-=== Merge Timetable
+=== Merge Timetable Feature
 ==== Current Implementation
 The merge feature allows for users to select multiple contacts and outputs a merged timetable with all
 their common free slots. When the user inputs the indexes of the contacts he wants to merge, the `Persons` are stored
@@ -376,12 +376,102 @@ merged timetable and names of people being merged whenever merge command is call
 ** Pros: Better user experience by letting user easily see the merged timetable. Does not need manual deletion of
 contacts. Better follows Separation of Concerns Principle.
 ** Cons: Requires more time to implement.
-
-
 // end::mergetimetable[]
 
+// tag::deleteNotes[]
+=== Notes Manipulation feature
+==== Current Implementation
+
+The notes manipulation mechanism is facilitated by `NotesDownloaded`.
+It is a part of `ModelManager`, storing the names of the modules of notes
+downloaded.
+Additionally, it implements the following operations:
+
+* `NotesDownloaded#setNotes(Set<String> notes)` -- Replaces the contents of the notes list with {@code notes}.
+* `NotesDownloaded#addNotes(String n)` --  Adds new notes {@code n} to the NotesDownloaded
+* `NotesDownloaded#deleteSelectedNotes(Set<String> modulesCodes)` -- Removes {@code moduleCodes} from NotesDownloaded.
+* `NotesDownloaded#clear() -- Clears the existing data of this {@code NotesDownloaded}.
+
+The first operation is only used once in the initialization of `ModelManager`.
+These last 3 operations are exposed in the `Model` interface as `Model#addNotes(String, String)`,
+ Model#deleteSelectedNotes(String, Set<String>)` and `Model#resetNotesData()` respectively.
+
+Within `NotesDownloaded`, there is an attribute called notes, where the names of the modules are stored.
+notes is a TreeSet, which helps to sort the modules stored according to their names, in an lexicographical
+order. TreeSet's underlying data structure is a binary tree.
+
+Given below is an example usage scenario and how the notes manipulation mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `NotesDownloaded` will be initialized with the
+initial notes state, which is empty.
+
+Step 2. The user executes `downloadAllNotes user/e0123456 pass/password1 mod/CS2101` command to download all notes
+for the module CS2101.  The `downloadAllNotes` command calls `Model#addNotes(String, String)`.  This in turn calls
+ NotesDownloaded#addNotes(String).  Thus, the module code of the newly downloaded notes are  to be saved in notes
+
+ state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the
+  `currentStatePointer` is shifted to the newly inserted address book state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::deleteNotes[]
+
 // tag::sortingofpersons[]
-=== Sorting of contacts in addressbook feature
+=== Sorting of contacts feature
 ==== Current Implementation
 
 The sorting mechanism is implemented with `UniquePersonListHelper`, which is facilitated by `UniquePersonList`, which keeps a list of unique persons in `AddressBook`.
