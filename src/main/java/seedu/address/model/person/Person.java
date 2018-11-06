@@ -111,26 +111,17 @@ public class Person implements Serializable {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both persons have the same name.
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
 
         if (!(other instanceof Person)) {
             return false;
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-            && otherPerson.getPhone().equals(getPhone())
-            && otherPerson.getEmail().equals(getEmail())
-            && otherPerson.getAddress().equals(getAddress())
-            && otherPerson.getTags().equals(getTags())
-            && otherPerson.getEnrolledModules().equals(getEnrolledModules());
+        return otherPerson.getName().equals(getName());
     }
 
     @Override
