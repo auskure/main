@@ -2,6 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.commons.core.Messages;
+import javafx.collections.ObservableList;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.IsSelfPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.TimeSlots;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -9,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -57,6 +65,7 @@ public class ShareCommand extends Command {
         if (index.equalsIgnoreCase("self")) {
             filteredPersonList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate
                 ());
+          
             myPerson = filteredPersonList.get(0);
         } else {
             int num;

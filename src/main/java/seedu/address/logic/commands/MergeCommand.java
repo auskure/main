@@ -101,8 +101,9 @@ public class MergeCommand extends Command {
         return new CommandResult(MESSAGE_MERGE_TIMETABLE_SUCCESS);
 
     }
-
-
+    /**
+     * Merges the timetables of 2 people
+     */
     private Person mergeTimetables(Person person1, Person person2, int index) {
         Name mergedName = name;
         Phone phone = new Phone("99999999");
@@ -124,6 +125,9 @@ public class MergeCommand extends Command {
 
 
     }
+    /**
+     * Creates a new merged timetable from 2 timetables.
+     */
 
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {
@@ -159,6 +163,9 @@ public class MergeCommand extends Command {
         return finalSlots;
     }
 
+    /**
+     * Compares 2 lists of time slots and returns a merged list.
+     */
     List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2) {
         List<TimeSlots> finalDay = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
