@@ -11,12 +11,15 @@ import java.io.File;
 import static junit.framework.TestCase.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
-public class DownloadAllNotesCommandTest {
+public class DownloadSelectNotesCommandTest {
+
 
     private static String INCORRECT_USERNAME = "dummy";
     private static String INCORRECT_PASSWORD = "dummy";
     private static String INCORRECT_MODULE_CODE = "dummy";
     private static String CORRECT_MODULE_CODE = "cs2113";
+    private static String CORRECT_FILE_INDEX = "0";
+    private static String INCORRECT_FILE_INDEX = "10000000";
 
     private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
@@ -25,8 +28,8 @@ public class DownloadAllNotesCommandTest {
      * checks if incorrect username and password fails correctly
      */
     @Test
-    public void execute_DownloadAllNotesCommand_WrongUserNameAndPass() {
-        DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
+    public void execute_DownloadSelectNotesCommand_WrongUserNameAndPass() {
+        DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
                 CORRECT_MODULE_CODE);
         assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
     }
@@ -34,22 +37,33 @@ public class DownloadAllNotesCommandTest {
     /**
      * checks if incorrect module code will fail correctly
      */
-
     @Test
-    public void execute_DownloadAllNotesCommand_InvalidModuleCode() {
-        DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
-                INCORRECT_MODULE_CODE);
+    public void execute_DownloadSelectNotesCommand_InvalidModuleCodeFailure() {
+        DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
+                INCORRECT_PASSWORD, INCORRECT_MODULE_CODE);
+
         assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
     }
 
     /**
-     * checks if notes file is correctly created after execution of downloadAllNotesCommand.
+     * checks if wrong file Index will fail correctly
+     */
+
+    @Test
+    public void execute_DownloadSelectNotesCommand_invalidFileName() {
+        DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
+                INCORRECT_PASSWORD, INCORRECT_MODULE_CODE, INCORRECT_FILE_INDEX);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+    }
+
+    /**
+     * checks if notes file is correctly created after execution of downloadSelectNotesCommand.
      */
 
     @Test
     public void execute_notesFilesCreated() {
-        DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
-                CORRECT_MODULE_CODE);
+        DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
+                INCORRECT_PASSWORD, INCORRECT_MODULE_CODE, CORRECT_FILE_INDEX);
         String intendedFileLocation = System.getProperty("user.dir") + DownloadAllNotesCommand.DOWNLOAD_FILE_PATH;
         File notesFile = new File(intendedFileLocation);
         assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
@@ -62,8 +76,8 @@ public class DownloadAllNotesCommandTest {
 
     @Test
     public void execute_WindowsDriverExtracted() {
-        DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
-                CORRECT_MODULE_CODE);
+        DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
+                INCORRECT_PASSWORD, INCORRECT_MODULE_CODE);
         String intendedFileLocation = System.getProperty("user.dir") +
                 "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_DIRECTORY;
         File windowsDriverDir = new File(intendedFileLocation);
@@ -88,8 +102,8 @@ public class DownloadAllNotesCommandTest {
 
     @Test
     public void execute_MacDriverExtracted() {
-        DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
-                CORRECT_MODULE_CODE);
+        DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
+                INCORRECT_PASSWORD, INCORRECT_MODULE_CODE);
         String intendedFileLocation = System.getProperty("user.dir") +
                 "/" + DownloadAllNotesCommand.MAC_CHROME_DRIVER_DIRECTORY;
         File macDriverDir = new File(intendedFileLocation);
@@ -114,8 +128,8 @@ public class DownloadAllNotesCommandTest {
 
     @Test
     public void execute_checkNotesFolderClearForDownload() {
-        DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
-                CORRECT_MODULE_CODE);
+        DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
+                INCORRECT_PASSWORD, INCORRECT_MODULE_CODE, CORRECT_FILE_INDEX);
         String intendedFileLocation = System.getProperty("user.dir") +
                 DownloadAllNotesCommand.DOWNLOAD_FILE_PATH;
         assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
@@ -131,3 +145,4 @@ public class DownloadAllNotesCommandTest {
     }
 
 }
+

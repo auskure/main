@@ -7,6 +7,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
+import java.io.File;
+
+import static junit.framework.TestCase.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -66,10 +69,27 @@ public class ShowNotesCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
+    /**
+     * test if properly displays files
+     */
+
     @Test
-    public void dummy() {
+    public void execute_showNotes_properlyShownotes() {
         Model expectedModel = model;
-        ShowNotesCommand cmd = new ShowNotesCommand();
-        assertCommandSuccess(cmd, model, commandHistory, CURRENT_NOTES_DIR_RESULT, expectedModel);
+        ShowNotesCommand command = new ShowNotesCommand();
+        assertCommandSuccess(command, model, commandHistory, CURRENT_NOTES_DIR_RESULT, expectedModel);
     }
+
+    @Test
+
+    /**
+     * test if properly detects file location
+     */
+
+    public void execute_showNotes_properlyFindNotesFolderSuccess() {
+        String intendedFileLocation = System.getProperty("user.dir") + ShowNotesCommand.NOTES_PATH_EXTENSION;
+        File notesFolder = new File(intendedFileLocation);
+        assertTrue(notesFolder.exists());
+    }
+
 }

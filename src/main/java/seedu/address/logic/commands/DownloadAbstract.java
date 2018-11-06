@@ -1,14 +1,6 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
 
-import static seedu.address.commons.util.FileUtil.currentDirectory;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +8,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+
+import static seedu.address.commons.util.FileUtil.currentDirectory;
 
 /**
  * DownloadAbstract is an abstract class that does the basic setting up of Selenium chrome drivers. Implementation of
@@ -65,7 +65,6 @@ public abstract class DownloadAbstract extends Command {
     protected String currentDirectoryPath;
     protected String downloadPath;
     protected boolean isDownloadDisabled = true;
-
 
     public DownloadAbstract(String username, String password, String moduleCode) {
         this.username = username;

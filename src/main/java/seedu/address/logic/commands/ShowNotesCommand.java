@@ -24,11 +24,9 @@ public class ShowNotesCommand extends Command {
 
     private String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
 
-    private String notesPathExtension = "/notes";
+    public static String NOTES_PATH_EXTENSION = "/notes";
 
-    private String notesPath = currentDirPath + notesPathExtension;
-
-    private String MESSAGE_STORED_NOTES = "";
+    private String notesPath = currentDirPath + NOTES_PATH_EXTENSION;
 
     private String notesResult = "";
 
