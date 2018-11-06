@@ -15,7 +15,7 @@ NSync is a desktop application with a command-line interface that helps students
 
 == Summary of contributions
 
-* *Major enhancement*: Added the feature to *export and import user details*.
+* *Main Feature Implemented*: Feature to *export and import user details*.
 ** What it does: Allows the user to `export` and `import` all the details of a particular contact. These details include the name, contact number, email, address and time-table of the contact.
 ** Justification: Each user has to key in their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.
 ** Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the `Logic` and `Model` components. The implementation required coalescing all of a user's details during exporting, as well as decoding it into the respective fields subsequently during importing.
@@ -26,18 +26,14 @@ NSync is a desktop application with a command-line interface that helps students
 
 ** Project management:
 *** Managed releases for NSync: `v1.2`, `v1.3`, `v1.3(PE)` on GitHub
-*** Bug reports reviewed (with non-trivial review comments): All issues from #99 to #135
-
-** Enhancements to existing features:
-*** Stream-lined error-handling in terms of message displayed to users in the event of an incorrect command (To be updated)
-*** Wrote additional tests for existing features and tests for new features, increasing coverage from x% to y% (To be updated)
-
-** Documentation:
-*** Added features coming in v2.0 in the User Guide (Pull Request #<To be added>)
+*** Bug reports of NSync reviewed (with non-trivial review comments): All issues from #99 to #135
 
 ** Community:
 *** Contributed to forum discussions: #14, #27
 *** Reported bugs and suggestions for team T09-4 in the class: #129, #131, #133, #136, #138, #140, #141, #143
+
+** Minor Enhancement: Added the feature to *find the next immediate free time-slot*
+*** Allows the user to find the next immediate `free` time-slot for himself, and/or his contacts from the current time.
 
 == Contributions to the User Guide
 

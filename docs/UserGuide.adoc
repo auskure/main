@@ -1,4 +1,4 @@
-= N*Sync - User Guide
+= NSync - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -13,13 +13,13 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2113-AY1819S1-W12-2/main
 
 By: `CS2113-AY1819S1-W12-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-N*Sync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
+NSync is a program for NUS students who *strive to keep their lives organised, despite their busy schedules*.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -29,7 +29,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.PNG[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes contact whose index number is 3
+* **`delete`**`main 3` : deletes contact whose index number is 3
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -120,7 +120,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 ==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find MAIN/MERGED KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -132,15 +132,15 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find main John` +
+Returns `john` and `John Doe` from the main contact list
+* `find merged Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John` from the merged contact list
 
 ==== Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `delete MAIN/MERGED INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -151,10 +151,10 @@ Format: `delete INDEX`
 Examples:
 
 * `list` +
-`delete 2` +
+`delete main 2` +
 Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
+* `find merged Betsy` +
+`delete merged 1` +
 Deletes the 1st person in the results of the `find` command.
 
 ==== Selecting a person : `select`
@@ -163,7 +163,7 @@ Selects the person identified by the index number used in the displayed person l
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the person and <to be confirmed> at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -173,7 +173,7 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd person in the address book.
-* `find Betsy` +
+* `find main Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
@@ -494,7 +494,7 @@ of the specified module.
 
 image::chromeOpen.PNG[width="250"]
 
-* N*Sync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
+* NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
@@ -560,7 +560,7 @@ image::downloadSelectExample.PNG[width="900"]
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
-* if you entered a mix of invalid and valid file IDs, N*Sync will only only download the correct files, up till it encounters a invalid ID.
+* if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.
 
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
