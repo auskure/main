@@ -12,7 +12,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* NSync is a utility application targeted at NUS students, to simplify some of their daily routines such as arranging a common timeslot with friends, and downloading their notes from IVLE.
+* NSync is a utility application targeted at NUS students, to simplify some of their daily routines such as arranging a common timeslot with friends, and downloading their notesList from IVLE.
 * As a Java application, it has a Graphical User Interface (GUI) but most of the user interactions happen through a Command Line Interface (CLI).
 
 == Site Map

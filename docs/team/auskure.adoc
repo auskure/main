@@ -13,17 +13,17 @@ This portfolio showcases my ability to produce functional code and documentation
 == Overview
 
 NSync is a desktop-based utility application used by NUS students, with tailored tools for timetable
-coordination and notes acquisition, allowing for streamlining of work processes.
+coordination and notesList acquisition, allowing for streamlining of work processes.
 
 == Summary of contributions
 
 * *Major enhancement*: Notes Deletion
-** What it does: In a single command, we allow the user to delete the notes he has downloaded using
+** What it does: In a single command, we allow the user to delete the notesList he has downloaded using
  NSync.  This helps him quickly and conveniently free up storage space.
-** Justification: Because my teammate has already implemented an automated notes downloader, allowing
+** Justification: Because my teammate has already implemented an automated notesList downloader, allowing
 the user to download large folders conveniently, it is also useful to have an equally convenient method
-to delete notes.  This removes the need for the user to manually go to storage to delete his own
-notes.
+to delete notesList.  This removes the need for the user to manually go to storage to delete his own
+notesList.
 ** Highlights: As this enhancement involves interaction with actual storage, a good understanding of
 how `Model` and `Storage` components work together, is required.
 Existing file manipulation libraries such as java.io and java nio libraries were incorporated into this
@@ -40,13 +40,13 @@ an understanding of how javafx works is required.  For the sorting algorithms, w
 library java.util.
 
 * *Minor enhancement*: File Unzipping
-** What it does: As a supporting enhancement to the notes download enhancement, file unzipping helps to
- unzip downloaded notes. We make things more intuitive for the user, by automatically storing
+** What it does: As a supporting enhancement to the notesList download enhancement, file unzipping helps to
+ unzip downloaded notesList. We make things more intuitive for the user, by automatically storing
   unzipped files according to the modules they belong to.
 ** Justification: IVLE's libraries downloads files in a zip format.  Automatically unzipping
  and storing the files saves the user's time.
-** Highlights: This enhancement is an add on to the main enhancement, download notes.  To allow the user
-to achieve a seamless experience, it is important to work together as a team.  A deep understanding of the main enhancement, download notes,
+** Highlights: This enhancement is an add on to the main enhancement, download notesList.  To allow the user
+to achieve a seamless experience, it is important to work together as a team.  A deep understanding of the main enhancement, download notesList,
 is required.  We made use of existing library java.io, java.nio, and java.util.zip, as well as
 modified and improved upon extracting zip files online tutorials.
 
