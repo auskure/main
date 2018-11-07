@@ -375,20 +375,18 @@ Shows only contacts who are free at mon 10am.
 Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
 
 // tag::freecommand[]
-==== Filters for next free time slot for one or more contact: `free`
-Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (ie no scheduled activities)? Use `free` which allows you to find the next available time-slot from the current time, to easily find answers to these questions!
+==== Filters for next free time slot: `free`
+Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (with no scheduled activities)? `free` allows you to easily find the next available time-slot from the current time, giving you answers to these questions!
 
 Format: `free f/INDEX ...`
 
 image::SampleTimeTable.png[width="800"]
-Figure 1: Sample time-table for illustration purposes below
-
-Figure 1: +
-If the current day and time is Monday 3:00pm, the next available time-slot shown is Monday 4:00pm till 8:00pm. +
-If the current day and time is Monday 4:34pm, the next available time-slot shown is Monday 4:34pm till 8:00pm.
+Figure 1: Sample time-table
 
 Example 1: `free f/self` +
-Shows the next available time slot (from current time) for myself.
+Shows the next available time slot (from current time) for myself (Figure 1). +
+If the current day and time is Monday 3:00pm, the next available time-slot shown is Monday 4:00pm till 8:00pm. +
+If the current day and time is Monday 4:34pm, the next available time-slot shown is Monday 4:34pm till 8:00pm.
 
 Example 2: `free f/1 f/7 f/9` +
 Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
@@ -401,30 +399,31 @@ You can find a common free time-slot for up to N contacts <to be filled in>.
 // end::freecommand[]
 
 // tag::exportcommand[]
-==== Export user string: `export`
-
-Exports all of a user's details in each respective field into an encoded string. +
+==== Export user data: `export`
+Met a new acquaintence whom you would like to schedule a follow-up session with? `export` allows you to export all of a user's (or your own) details in each respective field into an encoded string. (Once you have sent the string to another user, he/she can use `import` to retrieve the data within the encoded string!) +
 Format: `export PUBLIC/PRIVATE INDEX`
-
-[TIP]
-The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
 
 ****
 * Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.
 * Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).
 ****
 
+All examples shown below are with reference to the time-table shown in Figure 1.
+
 Example 1: `export public 1` +
-Figure 2: The user who imports the string will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table).
+The user who imports the string will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table), as seen in Figure 2.
 
 image::ExportPublicView.png[width="800"]
 Figure 2: What the user who imports will see (public view)
 
 Example 2: `export private 1` +
-Figure 3: The user who imports the string will see only the free and busy time-slots of contact index 1.
+The user who imports the string will see only the free and busy time-slots of contact index 1, as seen in Figure 3.
 
 image::ExportPrivateView.png[width="800"]
 Figure 3: What the user who imports will see (private view)
+
+[TIP]
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
 
 [NOTE]
 Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
