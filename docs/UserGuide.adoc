@@ -384,12 +384,11 @@ image::SampleTimeTableGYCommands.png[width="800"]
 Figure 1: Sample time-table
 
 Example 1: `free f/self` +
-Shows the next available time slot (from current time) for myself (with reference to Figure 1). +
-If the current day and time is Monday 3:00pm, the next available time-slot shown is Monday 4:00pm till 8:00pm. +
-If the current day and time is Monday 4:34pm, the next available time-slot shown is Monday 4:34pm till 8:00pm.
+Running this command will show your next available time slot (from current time). +
+With reference to Figure 1 above, if the current day and time is Monday 3:00pm, your next available time-slot shown is Monday 4:00pm till 8:00pm. If the current day and time is Monday 4:34pm, your next available time-slot shown is Monday 4:34pm till 8:00pm.
 
 Example 2: `free f/1 f/7 f/9` +
-Shows the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
+Running this command will show the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
 
 [NOTE]
 Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
@@ -408,16 +407,16 @@ Format: `export PUBLIC/PRIVATE SELF/INDEX`
 * Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).
 ****
 
-All examples shown below are with reference to the sample time-table shown in Figure 1.
+All examples shown below are with reference to the sample time-table shown in Figure 1 above.
 
 Example 1: `export public self` +
-The importing user will see your time-table in its entirety (ie the full contents of the time-table), as seen in Figure 2.
+The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), as seen in Figure 2 below.
 
 image::ExportPublic.png[width="800"]
 Figure 2: What the user who imports will see (public view)
 
-Example 2: `export private 1` +
-The importing user will see only the free and busy time-slots in your time-table, as seen in Figure 3.
+Example 2: `export private self` +
+The importing user will see only the free and busy time-slots in your time-table, as seen in Figure 3 below.
 
 image::ExportPrivate.png[width="800"]
 Figure 3: What the user who imports will see (private view)
