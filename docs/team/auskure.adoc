@@ -79,9 +79,9 @@ https://github.com/CS2113-AY1819S1-W12-2/main/pull/148[#148]
 They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=downloadAllNotes]
-
 include::../UserGuide.adoc[tag=clearNotes]
+
+include::../UserGuide.adoc[tag=deleteSelectNotes]
 
 == Contributions to the Developer Guide
 

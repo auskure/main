@@ -226,5 +226,4 @@ Usage examples:
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
-
 ****

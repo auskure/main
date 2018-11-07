@@ -39,6 +39,10 @@ public class FileUtil {
         public static Set<String> loadFolders(Path directory){
         File targetDirectory = new File(currentDirectory() + "/" + directory.toString());
         Set<String> folderNames = new TreeSet<>();
+        //user currently has no downloaded notes
+        if (!isDirectoryExists(directory)) {
+            return folderNames;
+        }
         String currentName;
         File[] filesList = targetDirectory.listFiles();
         for (File tempFolder : filesList) {
@@ -159,10 +163,8 @@ public class FileUtil {
      */
     public static void deleteAllFiles(Path folder) {
         File currentDirectory = new File(folder.toString());
-        String currentName;
         File[] filesList = currentDirectory.listFiles();
         for (File file : filesList) {
-            currentName = file.getName();
             //No bookkeeping files stored by the Operating System should be deleted
             if (file.isHidden()) {
                 continue;

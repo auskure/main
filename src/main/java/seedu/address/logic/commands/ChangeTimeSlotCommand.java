@@ -36,6 +36,7 @@ public class ChangeTimeSlotCommand extends Command {
         + "8am "
         + "CS2107";
 
+
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Time slot changed: %1$s";
     public static final String MESSAGE_EDIT_SELF_SUCCESS = "Time slot changed: Self";
     public static final String MESSAGE_NOTHING_CHANGED = "No time slot was changed";
