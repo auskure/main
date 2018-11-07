@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -22,13 +23,13 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
-import seedu.address.model.tag.Tag;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Updates all the groups you have with the lastest timetables from the contacts in the group.
@@ -45,14 +46,8 @@ public class UpdateMergedCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mergedList =
-                (
-                        (ObservableList<Person>) filteredPersonList
-                ).filtered(new IsMergedPredicate());
-        List<Person> mainList =
-                (
-                        (ObservableList<Person>) filteredPersonList
-                ).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mergedList = ((ObservableList<Person>) filteredPersonList).filtered(new IsMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
         Map<String, ArrayList<String>> removedPersons = new HashMap<>();
         for (int l = 0; l < mergedList.size(); l++) {
             Person merged = mergedList.get(l);
@@ -68,10 +63,7 @@ public class UpdateMergedCommand extends Command {
                 String splitName[] = name.split("\\s+");
                 if (!name.equalsIgnoreCase("self")) {
                     List<String> getPerson = new ArrayList<>(Arrays.asList(splitName));
-                    List<Person> singlePersonList =
-                            (
-                                    (FilteredList<Person>) mainList
-                            ).filtered(new NameContainsKeywordsPredicate(getPerson));
+                    List<Person> singlePersonList = ((FilteredList<Person>) mainList).filtered(new NameContainsKeywordsPredicate(getPerson));
                     if (singlePersonList.size() < 1) {
                         if (removedPersons.get(name) == null) {
                             removedPersons.put(name, new ArrayList<>());
