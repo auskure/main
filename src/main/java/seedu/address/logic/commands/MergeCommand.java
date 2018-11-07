@@ -40,14 +40,14 @@ public class MergeCommand extends Command {
     public static final String COMMAND_WORD = "merge";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Merges the timetables of selected people"
-        + "by the index number used in the last person listing.\n"
-        + "Parameters: INDEX (must be positive integer )"
-        + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
-        + "for all timetables you want to merge.\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME + "GES PROJECT";
+            + "by the index number used in the last person listing.\n"
+            + "Parameters: INDEX (must be positive integer )"
+            + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
+            + "for all timetables you want to merge.\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME + "GES PROJECT";
 
     public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
-    public static final String MESSAGE_NOT_MERGED = "At least two people to merge must be provided";
+    public static final String MESSAGE_NOT_MERGED = "At least one people to merge must be provided";
     public static final String MESSAGE_INVALID_INDEX = "Invalid index. Index selected does not exist.";
 
     private final List<String> indices;
@@ -83,9 +83,9 @@ public class MergeCommand extends Command {
                 index = Integer.parseInt(it) - 1;
             } catch (NumberFormatException nfe) {
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MergeCommand.MESSAGE_USAGE), nfe);
+                        MergeCommand.MESSAGE_USAGE), nfe);
             }
-            if(index >  mainList.size()-1){
+            if (index > mainList.size() - 1) {
                 throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
                         MergeCommand.MESSAGE_USAGE));
             }
@@ -98,13 +98,14 @@ public class MergeCommand extends Command {
             personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
         }
         if (model.hasPerson(personsToMerge[i - 1])) {
-            model.deletePerson(personsToMerge[i-1]);
+            model.deletePerson(personsToMerge[i - 1]);
         }
         model.addPerson(personsToMerge[i - 1]);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_MERGE_TIMETABLE_SUCCESS);
 
     }
+
     /**
      * Merges the timetables of 2 people
      */
@@ -125,10 +126,11 @@ public class MergeCommand extends Command {
 
 
         return new Person(mergedName, phone, email, address, mergedTags, enrolledClassMap,
-            mergedSlots);
+                mergedSlots);
 
 
     }
+
     /**
      * Creates a new merged timetable from 2 timetables.
      */
@@ -174,7 +176,7 @@ public class MergeCommand extends Command {
         List<TimeSlots> finalDay = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             if (day1[i].toString().equalsIgnoreCase("free")
-                || day1[i].toString().equalsIgnoreCase("0")) {
+                    || day1[i].toString().equalsIgnoreCase("0")) {
                 day1[i] = new TimeSlots("0");
             } else {
                 try {

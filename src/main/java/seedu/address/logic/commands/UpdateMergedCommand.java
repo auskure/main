@@ -1,31 +1,35 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.apache.commons.collections.MultiMap;
-import org.apache.commons.lang3.ObjectUtils;
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
-import static java.util.Objects.isNull;
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
+/**
+ * Updates all the groups you have with the lastest timetables from the contacts in the group.
+ */
 public class UpdateMergedCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_UPDATE_SUCCESS = "Groups updated";
 
-    public static final String MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS = "Groups updated. \nContacts who were in" +
-            " " +
-            "groups were detected to have been deleted.\nList of deleted contacts and affected groups: \n";
+    public static final String MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS = "Groups updated. \nContacts who were in"
+            + " " + "groups were detected to have been deleted.\nList of deleted contacts and affected groups: \n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -74,26 +78,24 @@ public class UpdateMergedCommand extends Command {
             model.addPerson(personsToMerge[i - 1]);
         }
         model.commitAddressBook();
-        if(!removedPersons.isEmpty()){
+        if (!removedPersons.isEmpty()) {
             String output = "";
             Iterator<Map.Entry<String, ArrayList<String>>> it = removedPersons.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, ArrayList<String>> removedName = it.next();
                 output = output + removedName.getKey() + ":" + " ";
                 ArrayList<String> removedModules = removedName.getValue();
-                for(String removedModule : removedModules){
-                    if(removedModule.equalsIgnoreCase(removedModules.get(removedModules.size()-1))){
-                        output = output + removedModule + "\n" ;
-                    }
-                    else{
+                for (String removedModule : removedModules) {
+                    if (removedModule.equalsIgnoreCase(removedModules.get(removedModules.size() - 1))) {
+                        output = output + removedModule + "\n";
+                    } else {
                         output = output + removedModule + ", ";
                     }
-            }
+                }
 
             }
             return new CommandResult(MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + output);
-        }
-        else {
+        } else {
             return new CommandResult(MESSAGE_UPDATE_SUCCESS);
         }
 

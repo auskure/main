@@ -15,19 +15,18 @@ import java.util.Map;
 public class TimeSlots implements Serializable {
 
 
-
     private static final String[] SET_VALUES = {"8am    ", "9am    ", "10am   ", "11am    ", "12pm   ",
-            "1pm    ", "2pm     ", "3pm     ", "4pm    ", "5pm     ", "6pm    ", "7pm"};
-    private static final String[] free = {"free", "free", "free", "free", "free"
-            , "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"};
+        "1pm    ", "2pm     ", "3pm     ", "4pm    ", "5pm     ", "6pm    ", "7pm"};
+    private static final String[] free = {"free", "free", "free", "free", "free",
+        "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"};
     private static final String[] sampleTue = {"CS2040c", "CS2040c", "ST2332", "ST2332", "free", "free",
-            "CS2107", "CS2107", "free", "free", "free", "free"};
+        "CS2107", "CS2107", "free", "free", "free", "free"};
     private static final String[] sampleWed = {"CS2101", "CS2101", "free", "free", "GES1041",
-            "GES1041", "free", "free", "CS2113", "CS2113", "free", "free"};
+        "GES1041", "free", "free", "CS2113", "CS2113", "free", "free"};
     private static final String[] sampleThu = {"free", "free", "MA1521", "MA1521", "free", "free",
-            "CS2040c", "CS2040c", "free", "free", "free", "free"};
+        "CS2040c", "CS2040c", "free", "free", "free", "free"};
     private static final String[] sampleFri = {"free", "free", "CS2107", "free", "free",
-            "free", "CS2101", "free", "free", "free", "free", "free"};
+        "free", "CS2101", "free", "free", "free", "free", "free"};
 
     private String timeslot;
 
@@ -40,18 +39,20 @@ public class TimeSlots implements Serializable {
         requireNonNull(timeslot);
         this.timeslot = timeslot;
     }
+
     /**
      * Creates a map of lists of free time slots
      */
     public static Map<String, List<TimeSlots>> initTimeSlots() {
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         Map<String, List<TimeSlots>> inittimeslot = new HashMap<>();
-        for(String day : days){
+        for (String day : days) {
             inittimeslot.put(day, getFreeTimeSlots());
         }
 
         return inittimeslot;
     }
+
     /**
      * Creates a map of lists of sample time slots
      */
@@ -65,6 +66,7 @@ public class TimeSlots implements Serializable {
 
         return sampletimeslot;
     }
+
     /**
      * Gets header for timetable for the UI.
      */
@@ -82,6 +84,7 @@ public class TimeSlots implements Serializable {
         }
         return freeTimeSlots;
     }
+
     /**
      * Creates a list of sample time slots for tuesday
      */
@@ -92,6 +95,7 @@ public class TimeSlots implements Serializable {
         }
         return tueTimeSlots;
     }
+
     /**
      * Creates a list of sample time slots for wednesday
      */
@@ -102,6 +106,7 @@ public class TimeSlots implements Serializable {
         }
         return wedTimeSlots;
     }
+
     /**
      * Creates a list of sample time slots for thursday
      */
@@ -112,6 +117,7 @@ public class TimeSlots implements Serializable {
         }
         return thuTimeSlots;
     }
+
     /**
      * Creates a list of sample time slots for friday
      */

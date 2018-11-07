@@ -36,7 +36,7 @@ public class MergeCommandParser implements Parser<MergeCommand> {
         }
 
 
-        if (indices.size() < 2) {
+        if (indices.size() < 1) {
             throw new ParseException(MESSAGE_NOT_MERGED);
         }
 
