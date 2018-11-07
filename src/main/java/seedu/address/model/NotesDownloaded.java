@@ -66,7 +66,7 @@ public class NotesDownloaded implements ReadOnlyNotesDownloaded {
 
     /**
      * Adds new notes to the NotesDownloaded
-     * The notes must not already exist in NotesDownloaded.
+     * If the notes already exist, no new entry will be created.
      */
     public void addNotes(String n) {
         notesList.add(n);
