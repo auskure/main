@@ -73,6 +73,9 @@ public class AddressBookParser {
             return new RedoCommand();
 
         // ============================== Time Table Commands ==============================
+        case ChangeTimeSlotCommand.COMMAND_WORD:
+            return new ChangeTimeSlotCommandParser().parse(arguments);
+
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
 
@@ -87,9 +90,6 @@ public class AddressBookParser {
 
         case MergeCommand.COMMAND_WORD:
             return new MergeCommandParser().parse(arguments);
-
-        case ShareCommand.COMMAND_WORD:
-            return new ShareCommandParser().parse(arguments);
 
         case UpdateMergedCommand.COMMAND_WORD:
             return new UpdateMergedCommand();
