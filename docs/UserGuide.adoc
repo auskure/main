@@ -458,6 +458,7 @@ image::ImportFailedDuplicate.png[width="800"]
 Figure 6: Example 3: Failed import - duplicate contact
 // end::importcommand[]
 
+
 === Notes Commands
 ****
 [NOTE]
@@ -466,7 +467,9 @@ The download function has temporarily been disabled in accordance with NUS Infor
 Users are still able to login and view available files to be downloaded.
 ****
 
+'''
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
+'''
 
 Downloads the your notes from IVLE, and stores them in the folder "notes" +
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
@@ -482,6 +485,8 @@ You would be unable to see your inputted command after inputting it, this is a s
 
 ****
 image::downloadExample.PNG[width="900"]
+Example `DownloadAllNotes` command usage.
+****
 
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
@@ -499,55 +504,67 @@ image::chromeOpen.PNG[width="250"]
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
 
-Examples:
+Examples and what you might expect :
 
-Download Successful
+Download Successful :
 
 image::downloadAllSuccessful.PNG[width="900"]
 
-Module not found
+Module not found :
 
 image::downloadModNotFound.PNG[width="900"]
 
 Password or username Incorrect
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
+****
 
-
+'''
 ==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
+'''
 Displays all the available notes of a selected +
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [NOTE]
 Currently the files are not sorted in any order. In a future version we will make its sorted by file type
 
+
+****
 image::downloadSelectFileExample.PNG[width="900"]
+Example `DownloadSelectFile` *without* `file/` prefix usage
+****
 
 * All available notes from the selected module would be sourced and displayed
 
 * if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
+****
+Examples and what you might expect :
 
-Examples:
 
-[NOTE]
-the number on the left of the file represents the file ID, it is static.
-
-    Example: 0:LP41_More_UML_Inheritence.pptx
-
-File Fetch Successful
+File Fetch Successful :
 
 image::downloadSelectFileSuccess1.PNG[width="900"]
 image::downloadSelectFileSuccess2.PNG[width="900"]
 
-Module not found
+[NOTE]
+the number on the left of the file represents the file ID, it is static.
+
+    Example: "0:LP41_More_UML_Inheritence.pptx"
+    0 is the file index.
+
+
+Module not found :
 
 image::downloadModNotFound.PNG[width="900"]
 
-Password or username Incorrect
+Password or username Incorrect :
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
+****
 
+'''
 ==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
+'''
 Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
@@ -555,7 +572,11 @@ Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENRO
 [TIP]
 Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
 
+****
+
 image::downloadSelectExample.PNG[width="900"]
+Example `DownloadSelectFile` *with* `file/` prefix usage
+****
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
@@ -564,7 +585,8 @@ image::downloadSelectExample.PNG[width="900"]
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
 
-Examples:
+****
+Examples and what you might expect :
 
 Download Successful
 
@@ -574,7 +596,12 @@ File not found
 
 image::downloadSelectFileNotFound.PNG[width="900"]
 
+****
+
+'''
 ==== Show all downloaded notes: `showNotes`
+'''
+
 Displays all the downloaded notes in the UI +
 Format: `showNotes`
 
@@ -582,12 +609,14 @@ Format: `showNotes`
 the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
-
-Example:
+****
+Usage examples:
 
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
+
+****
 
 // tag::clearNotes[]
 ==== Clearing all downloaded notes : `clearNotes`
