@@ -27,9 +27,9 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
 
     public static final String COMMAND_WORD = "downloadSelectNotes";
 
-    public static final String MESSAGE_USAGE = "To display all available notes:" + NEWLINE_SEPERATOR + COMMAND_WORD
-            + " user/(username) pass/(password) mod/(moduleCode)" + NEWLINE_SEPERATOR +
-            "To select the notes(by index):" + NEWLINE_SEPERATOR + COMMAND_WORD +
+    public static final String MESSAGE_USAGE = "To display all available notes:" + NEWLINE_SEPARATOR + COMMAND_WORD
+            + " user/(username) pass/(password) mod/(moduleCode)" + NEWLINE_SEPARATOR +
+            "To select the notes(by index):" + NEWLINE_SEPARATOR + COMMAND_WORD +
             " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
 
 
@@ -85,7 +85,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
                 return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode +
-                        NEWLINE_SEPERATOR + availableDownloadFiles);
+                        NEWLINE_SEPARATOR + availableDownloadFiles);
             }
             /**
              * Updated to disable download operations.
@@ -129,7 +129,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
         List<WebElement> fileResult = treeview.findElements(By.cssSelector(WORKBIN_CSS_SELECTOR_ID));
         String result = new String();
         for (int i = 0; i < fileResult.size(); i++) {
-            result += (i + ": " + fileResult.get(i).getText() + NEWLINE_SEPERATOR);
+            result += (i + ": " + fileResult.get(i).getText() + NEWLINE_SEPARATOR);
             //below statements are for debug. todo: remove when publishing
             //System.out.println(fileResult.get(i).getText()); // filename
             //System.out.println(fileResult.get(i).getAttribute("href")); // link
