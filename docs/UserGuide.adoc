@@ -380,7 +380,7 @@ Want to meet up with your friends at the soonest opportunity? Or would you like 
 
 Format: `free f/[SELF/INDEX] ...`
 
-image::SampleTimeTable.png[width="800"]
+image::SampleTimeTableGYCommands.png[width="800"]
 Figure 1: Sample time-table
 
 Example 1: `free f/self` +
@@ -413,13 +413,13 @@ All examples shown below are with reference to the time-table shown in Figure 1.
 Example 1: `export public 1` +
 The importing user will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table), as seen in Figure 2.
 
-image::ExportPublicView.png[width="800"]
+image::ExportPublic.png[width="800"]
 Figure 2: What the user who imports will see (public view)
 
 Example 2: `export private 1` +
 The user who imports the string will see only the free and busy time-slots of contact index 1, as seen in Figure 3.
 
-image::ExportPrivateView.png[width="800"]
+image::ExportPrivate.png[width="800"]
 Figure 3: What the user who imports will see (private view)
 
 [TIP]
