@@ -22,7 +22,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.TimeSlots;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -30,6 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.person.TimeSlots;
 
 /**
  * Updates all the groups you have with the lastest timetables from the contacts in the group.

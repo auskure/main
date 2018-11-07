@@ -19,13 +19,19 @@ import java.util.TreeMap;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.enrolledmodule.EnrolledModule;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.IsSelfPredicate;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -82,7 +88,7 @@ public class EditCommand extends Command {
             if (Integer.parseInt(index) > lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
-            personToEdit = lastShownList.get(Integer.parseInt(index)-1);
+            personToEdit = lastShownList.get(Integer.parseInt(index) - 1);
         }
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -93,10 +99,9 @@ public class EditCommand extends Command {
         model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        if(index.equalsIgnoreCase("self")){
+        if (index.equalsIgnoreCase("self")) {
             return new CommandResult(MESSAGE_EDIT_SELF_SUCCESS);
-        }
-        else {
+        } else {
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
         }
     }
