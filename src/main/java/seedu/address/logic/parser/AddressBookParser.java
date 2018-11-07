@@ -111,10 +111,10 @@ public class AddressBookParser {
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
-            
+
         case MergeCommand.COMMAND_WORD:
             return new MergeCommandParser().parse(arguments);
-            
+
         case ShareCommand.COMMAND_WORD:
             return new ShareCommandParser().parse(arguments);
 

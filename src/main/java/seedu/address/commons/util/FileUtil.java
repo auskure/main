@@ -71,6 +71,17 @@ public class FileUtil {
     }
 
     /**
+     * Returns a string that does not include "/"
+     * @param name A string representing a folder/file name, and hence, should not have "/" within the name
+     */
+    public static String cleanName(String name) {
+        if (!name.contains("/")) {
+            return name;
+        }
+        return name.substring(name.lastIndexOf("/") + 1);
+    }
+
+    /**
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */
