@@ -116,15 +116,15 @@ image::chromeOpen.PNG[width="250"]
 
 Examples and what you might expect :
 
-Download Successful :
+_Download Successful :_
 
 image::downloadAllSuccessful.PNG[width="900"]
 
-Module not found :
+_Module not found :_
 
 image::downloadModNotFound.PNG[width="900"]
 
-Password or username Incorrect
+_Password or username Incorrect :_
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
@@ -152,7 +152,7 @@ Example `DownloadSelectFile` *without* `file/` prefix usage
 Examples and what you might expect :
 
 
-File Fetch Successful :
+_File Fetch Successful :_
 
 image::downloadSelectFileSuccess1.PNG[width="900"]
 image::downloadSelectFileSuccess2.PNG[width="900"]
@@ -164,11 +164,11 @@ the number on the left of the file represents the file ID, it is static.
     0 is the file index.
 
 
-Module not found :
+_Module not found :_
 
 image::downloadModNotFound.PNG[width="900"]
 
-Password or username Incorrect :
+_Password or username Incorrect :_
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
@@ -199,11 +199,11 @@ Example `DownloadSelectFile` *with* `file/` prefix usage
 ****
 Examples and what you might expect :
 
-Download Successful
+_Download Successful_
 
 image::downloadSelectSuccess.PNG[width="900"]
 
-File not found
+_File not found_
 
 image::downloadSelectFileNotFound.PNG[width="900"]
 
@@ -221,7 +221,7 @@ the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
 ****
-Usage examples:
+Examples of usage:
 
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
