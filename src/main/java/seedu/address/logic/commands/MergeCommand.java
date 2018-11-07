@@ -44,7 +44,8 @@ public class MergeCommand extends Command {
             + "Parameters: INDEX (must be positive integer )"
             + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
             + "for all timetables you want to merge.\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME + "GES PROJECT";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME
+            + "GES PROJECT";
 
     public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
     public static final String MESSAGE_NOT_MERGED = "At least one people to merge must be provided";
