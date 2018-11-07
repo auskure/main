@@ -40,15 +40,15 @@ public class MergeCommand extends Command {
     public static final String COMMAND_WORD = "merge";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Merges the timetables of selected people"
-        + "by the index number used in the last person listing.\n "
+        + "by the index number used in the last person listing.\n"
         + "Parameters: INDEX (must be positive integer )"
         + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
         + "for all timetables you want to merge.\n"
-        + "Example: " + COMMAND_WORD + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME + "GES PROJECT";
+        + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME + "GES PROJECT";
 
     public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
     public static final String MESSAGE_NOT_MERGED = "At least two people to merge must be provided";
-    public static final String MESSAGE_DUPLICATE_GROUP = "Group name already used, please choose another one";
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index. Index selected does not exist.";
 
     private final List<String> indices;
     private final Name name;
@@ -85,6 +85,10 @@ public class MergeCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MergeCommand.MESSAGE_USAGE), nfe);
             }
+            if(index >  mainList.size()-1){
+                throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
+                        MergeCommand.MESSAGE_USAGE));
+            }
             personsToMerge[i] = mainList.get(index);
             i++;
         }
@@ -94,7 +98,7 @@ public class MergeCommand extends Command {
             personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
         }
         if (model.hasPerson(personsToMerge[i - 1])) {
-            throw new CommandException(MESSAGE_DUPLICATE_GROUP);
+            model.deletePerson(personsToMerge[i-1]);
         }
         model.addPerson(personsToMerge[i - 1]);
         model.commitAddressBook();
