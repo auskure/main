@@ -64,7 +64,7 @@ public abstract class DownloadAbstract extends Command {
     protected String moduleCode;
     protected String currentDirectoryPath;
     protected String downloadPath;
-    protected boolean isDownloadDisabled = true;
+    protected boolean isDownloadDisabled = false;
 
     public DownloadAbstract(String username, String password, String moduleCode) {
         this.username = username;
