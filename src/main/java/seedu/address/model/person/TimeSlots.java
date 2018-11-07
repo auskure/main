@@ -28,13 +28,13 @@ public class TimeSlots implements Serializable {
             "CS2040c", "CS2040c", "free", "free", "free", "free"};
     private static final String[] sampleFri = {"free", "free", "CS2107", "free", "free",
             "free", "CS2101", "free", "free", "free", "free", "free"};
-  
+
     private String timeslot;
 
     /**
      * Constructs a {@code Tag}.
      *
-     * @param tagName A valid tag name.
+     * @param timeslot A valid timeslot.
      */
     public TimeSlots(String timeslot) {
         requireNonNull(timeslot);
