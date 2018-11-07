@@ -1,12 +1,23 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
 
-import java.io.File;
-import java.nio.file.Paths;
+import static seedu.address.commons.util.FileUtil.currentDirectory;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+
+import java.io.File;
+
+/**
+ * ShowNotesCommand locates the "notes" folder as specified by the DownloadAbstract class, it then recursively
+ * searches for the files and sorts them based on the file type: Directory or file. And appends tabs and spaces
+ * according to the depth of the file.
+ * <p>
+ * ShowNotesCommand extends on the Command class.
+ */
+
 
 public class ShowNotesCommand extends Command {
     public static final String COMMAND_WORD = "showNotes";
@@ -17,31 +28,34 @@ public class ShowNotesCommand extends Command {
 
     private static final String NEWLINE_SEPARATOR = "\r\n";
 
-    private static final String LINE_SEPARATOR = "====================================================================";
+    private static final String LINE_SEPARATOR =
+            "====================================================================";
 
-    private static final String MESSAGE_FILE_LOCATION_ERROR = "The folder \"notes\" is not found!" + NEWLINE_SEPARATOR
-            + "please download some notes to continue using showNotes";
+    private static final String NOTES_PATH_EXTENSION = DownloadAbstract.DOWNLOAD_FILE_PATH;
 
-    private String currentDirPath = Paths.get(".").toAbsolutePath().normalize().toString();
-
-    public static String NOTES_PATH_EXTENSION = "/notes";
+    private String currentDirPath = currentDirectory();
 
     private String notesPath = currentDirPath + NOTES_PATH_EXTENSION;
 
     private String notesResult = "";
 
-    public String MESSAGE_SUCCESS = "Here are your Notes stored in:" + NEWLINE_SEPARATOR + notesPath + NEWLINE_SEPARATOR;
+    private String messageShownotesSuccess = "Here are your Notes stored in:"
+            + NEWLINE_SEPARATOR + notesPath + NEWLINE_SEPARATOR;
 
-    private int DEFAULT_TAB_COUNT = 0;
+    private int defaultTabCount = 0;
+
+    public static String getNotesPathExtension() {
+        return NOTES_PATH_EXTENSION;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            getDirectoryFileValues(new File(notesPath), DEFAULT_TAB_COUNT);
+            getDirectoryFileValues(new File(notesPath), defaultTabCount);
         } catch (NullPointerException npe) {
-            throw new CommandException(MESSAGE_FILE_LOCATION_ERROR);
+            throw new CommandException(Messages.MESSAGE_FILE_LOCATION_ERROR);
         }
-        return new CommandResult(MESSAGE_SUCCESS + notesResult);
+        return new CommandResult(messageShownotesSuccess + notesResult);
     }
 
     /**

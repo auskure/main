@@ -4,12 +4,11 @@
 == [blue]#PROJECT: NSync#
 
 == [blue]#Overview#
-NSync is a student lifestyle management and utility application built apon AddressBook - Level 4.  The user interacts
-//More description + this PPP documents contribution of the project
-with it using a Command-Line interface with a graphic user interface created with JavaFX. It also implements Selenium
-chrome Driver to operate web interactions.
 
-//***describe the app, and what the portfolio includes.
+
+NSync is a student lifestyle management and utility application built apon AddressBook - Level 4. The application uses a Command-Line interface to interact with the user. It aims to increase the efficiency of time consuming tasks that predominantly exist in a students life.
+
+This document documents the contributions of Hu YiQing across the duration of the project.
 
 == [blue]#Summary of contributions#
 * *Major Enhancement* : Added ability to download notes from IVLE automatically.
@@ -18,12 +17,10 @@ chrome Driver to operate web interactions.
 ** What it does: Allows the user to download all notes of a certain module using the `downloadAllNotes` command
 as well as view all the available files and select which files to download with the `downloadSelectNotes` command.
 
-** Justification: This feature will allow the user to save significant amount of time each week, by simplifying the
-//More concise
-the download of all the files of all the modules to a couple of lines of input.
-//highilights=>technical challnges.
-** Highlights: It uses the extremely flexible Selenium Webdriver library. With this existing library included, we would
-be able to implement other features that implement with the web: Going through Emails etc.
+** Justification: This feature will streamline notes downloads by simplifying it to 1 to 2 lines of command input.
+
+** Highlights: We employed the Selenium Web-driver library to implement this feature. The libraries uses features that has several conflicts with the existing code base, which required special care to resolve.
+
 
 ** Credits: Selenium WebDriver.
 
@@ -33,9 +30,27 @@ be able to implement other features that implement with the web: Going through E
 
 * *Code contributed* : [https://github.com/BearPerson1/Michaels-ver-of-ab4[Functional Code]]
 
+
+* *Other Contributions :*
 ** Project management:
 *** Implemented auto extraction of ChromeDrivers from the .jar.
 *** Implemented auto creation of additional file paths from .jar.
+
+** Community:
+*** Reported Bugs and requested request of special libraries (examples: https://github.com/nusCS2113-AY1819S1/forum/issues/71[1],
+https://github.com/nusCS2113-AY1819S1/forum/issues/11[2])
+
+*** Reviewed multiple pull requests: (Examples: https://github.com/CS2113-AY1819S1-W12-2/main/pull/145[#145],
+https://github.com/CS2113-AY1819S1-W12-2/main/pull/151[#151],
+https://github.com/CS2113-AY1819S1-W12-2/main/pull/150[#151])
+
+*** Reported bugs for other teams: (Examples: https://github.com/CS2113-AY1819S1-T12-2/main/issues/178[1],
+https://github.com/CS2113-AY1819S1-T12-2/main/issues/154[2],
+https://github.com/CS2113-AY1819S1-T12-2/main/issues/166[3])
+
+*** Responded to bug reports: (Examples:
+https://github.com/CS2113-AY1819S1-W12-2/main/issues/129[1],
+https://github.com/CS2113-AY1819S1-W12-2/main/issues/128[2])
 
 ** Documentation:
 *** Added entries to the User Guide for `downloadAllNotes`,`downloadSelectNotes` and `showNotes` command.
@@ -47,16 +62,26 @@ be able to implement other features that implement with the web: Going through E
 
 
 == [blue]#Contributions to the User Guide#
-//quick preface to explain ^
 
-//for every picture, there must be a purpose of each picture.
+****
+Displayed below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+****
 
-=== Notes Commands
-***
-=== [aqua]#Downloading all notes from a selected module from IVLE : `downloadAllNotes`#
-***
-Downloads the your notes from IVLE, and stores them in the folder "notes"
+'''
 
+=== [aqua]#Notes Commands#
+****
+[NOTE]
+The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
+
+Users are still able to login and view available files to be downloaded.
+****
+
+'''
+==== [aqua]#Downloading all notes from a selected module from IVLE : `downloadAllNotes`#
+'''
+
+Downloads the your notes from IVLE, and stores them in the folder "notes" +
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [TIP]
@@ -68,8 +93,11 @@ You would need to have Google Chrome installed in the default location in order 
 You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
 
 
-
+****
 image::downloadExample.PNG[width="900"]
+Example `DownloadAllNotes` command usage.
+****
+
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
@@ -81,80 +109,85 @@ of the specified module.
 
 image::chromeOpen.PNG[width="250"]
 
-* N*Sync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
+* NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
 * If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 ****
 
-Examples:
+Examples and what you might expect :
 
-//slot the pictures such that the pictures make sense
-
-__Download Successful__
+_Download Successful :_
 
 image::downloadAllSuccessful.PNG[width="900"]
 
-__Module not found__
+_Module not found :_
 
 image::downloadModNotFound.PNG[width="900"]
 
-__Password or username Incorrect__
+_Password or username Incorrect :_
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
-***
-=== [aqua]#Display all notes from a selected module from IVLE : `downloadSelectNotes` __without__ prefix `"file/"`#
 
-***
-Displays all the available notes of a selected module
+'''
+==== [aqua]#Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`#
 
+'''
+Displays all the available notes of a selected +
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 [NOTE]
 Currently the files are not sorted in any order. In a future version we will make its sorted by file type
 
+
+****
 image::downloadSelectFileExample.PNG[width="900"]
+Example `DownloadSelectFile` *without* `file/` prefix usage
+****
 
 * All available notes from the selected module would be sourced and displayed
 
 * if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
 ****
-Examples:
+Examples and what you might expect :
 
 
-__File Fetch Successful__
+_File Fetch Successful :_
 
 image::downloadSelectFileSuccess1.PNG[width="900"]
 image::downloadSelectFileSuccess2.PNG[width="900"]
 
-    Example: 0:LP41_More_UML_Inheritence.pptx
-
 [NOTE]
 the number on the left of the file represents the file ID, it is static.
 
+    Example: "0:LP41_More_UML_Inheritence.pptx"
+    0 is the file index.
 
-__Module not found__
+
+_Module not found :_
 
 image::downloadModNotFound.PNG[width="900"]
 
-__Password or username Incorrect__
+_Password or username Incorrect :_
 
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
 
-***
-=== [aqua]#Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` __with__ prefix `"file/"`#
-***
-
+'''
+==== [aqua]#Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`#
+'''
 Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
 
 [TIP]
-
 Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
 
+****
+
 image::downloadSelectExample.PNG[width="900"]
+Example `DownloadSelectFile` *with* `file/` prefix usage
+****
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
@@ -164,24 +197,23 @@ image::downloadSelectExample.PNG[width="900"]
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
 
 ****
-Examples:
+Examples and what you might expect :
 
-
-
-__Download Successful__
+_Download Successful_
 
 image::downloadSelectSuccess.PNG[width="900"]
 
 _File not found_
 
 image::downloadSelectFileNotFound.PNG[width="900"]
+
 ****
 
-***
-=== [aqua]#Show all downloaded notes: `showNotes`#
-***
-Displays all the downloaded notes in the UI
+'''
+==== [aqua]#Show all downloaded notes: `showNotes`#
+'''
 
+Displays all the downloaded notes in the UI
 Format: `showNotes`
 
 [NOTE]
@@ -189,10 +221,9 @@ the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
 ****
-Example:
+Examples of usage:
 
 image::showNotes1.PNG[width="900"]
 image::showNotes2.PNG[width="900"]
 image::showNotes3.PNG[width="900"]
 ****
-***

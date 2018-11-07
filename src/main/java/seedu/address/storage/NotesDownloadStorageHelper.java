@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.util.FileUtil.cleanName;
 import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 import static seedu.address.commons.util.FileUtil.deleteAllFiles;
 import static seedu.address.commons.util.FileUtil.deleteSelectedFolders;
@@ -50,6 +51,7 @@ public class NotesDownloadStorageHelper implements NotesDownloadStorage {
      * Relocates notes to their appropriate folders
      */
     public void relocateNotes(String moduleName) throws IOException {
+        moduleName = cleanName(moduleName);
         Path moduleDirectory = Paths.get(notesFilePath.toString(), moduleName);
         createDirectoryIfMissing(moduleDirectory);
         relocateFiles(absoluteNotesFilePath, moduleName);

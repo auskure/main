@@ -16,8 +16,6 @@ public class Messages {
     public static final String MESSAGE_DOWNLOAD_SUCCESS = "\r\nDownloaded file at ";
     public static final String MESSAGE_CHROME_DRIVER_NOT_FOUND =
         "chromeDrivers are not found, please check if you have installed the application correctly";
-    public static final String MESSAGE_NOTES_FOLDER_NOT_FOUND =
-        "note folder is not found, please check if you have installed the application correctly";
     public static final String MESSAGE_EXTRACTION_JAR_FAIL =
         "Extracting chromeDrivers or setting up Notes folder has failed";
     public static final String MESSAGE_DOWNLOAD_SELECT_SUCCESS = "Here are your the files available for: ";
@@ -30,4 +28,9 @@ public class Messages {
     public static final String MESSAGE_DOWNLOAD_DISABLED = "The download function has temporarily been disabled "
         + "in accordance with\r\nNUS Information Technology Acceptable use policy for IT resources Ver4.2,"
         + " Clause 4.6\r\nUsers are still able to login and view available files to be downloaded.";
+    public static final String NEWLINE_SEPARATOR = "\r\n";
+
+    public static final String MESSAGE_FILE_LOCATION_ERROR = "The folder \"notes\" is not found!" + NEWLINE_SEPARATOR
+            + "please download some notes to continue using showNotes";
+
 }

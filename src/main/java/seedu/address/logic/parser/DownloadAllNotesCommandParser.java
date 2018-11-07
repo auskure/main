@@ -1,27 +1,31 @@
 package seedu.address.logic.parser;
 //@@author BearPerson1
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
-
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DownloadAllNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class DownloadAllNotesCommandParser implements Parser
-{
+import java.util.stream.Stream;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.*;
+
+/**
+ * DownloadAllNotesCommandParser parses the input that follows after the
+ * DownloadAllNotesCommand.COMMAND_WORD that follows the prefix. and creates a new DownloadAllNotesCommand
+ * object
+ *
+ * DownloadAllNotesCommandParser implements the interface parser
+ */
+
+public class DownloadAllNotesCommandParser implements Parser {
 
     @Override
-    public DownloadAllNotesCommand parse(String args) throws ParseException
-    {
+    public DownloadAllNotesCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD,
                 PREFIX_MODULECODE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PASSWORD, PREFIX_USERNAME, PREFIX_MODULECODE))
-        {
+        if (!arePrefixesPresent(argMultimap, PREFIX_PASSWORD, PREFIX_USERNAME, PREFIX_MODULECODE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DownloadAllNotesCommand.MESSAGE_USAGE));
         }
@@ -33,8 +37,7 @@ public class DownloadAllNotesCommandParser implements Parser
         return new DownloadAllNotesCommand(username, password, moduleCode);
     }
 
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes)
-    {
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
