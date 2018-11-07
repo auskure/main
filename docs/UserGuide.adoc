@@ -378,7 +378,7 @@ Shows only contacts who have GER1000 in their timetable and are free at mon 10am
 ==== Filters for next free time slot: `free`
 Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (with no scheduled activities)? `free` allows you to easily find the next available time-slot from the current time, giving you answers to these questions!
 
-Format: `free f/INDEX ...`
+Format: `free f/[SELF/INDEX] ...`
 
 image::SampleTimeTable.png[width="800"]
 Figure 1: Sample time-table
@@ -400,8 +400,8 @@ You can find a common free time-slot for up to N contacts <to be filled in>.
 
 // tag::exportcommand[]
 ==== Export user data: `export`
-Met a new acquaintence whom you would like to schedule a follow-up session with? `export` allows you to export all of a user's (or your own) details in each respective field into an encoded string. (Once you have sent the string to another user, he/she can use `import` to retrieve the data within the encoded string!) +
-Format: `export PUBLIC/PRIVATE INDEX`
+Met a new acquaintence whom you would like to schedule a follow-up session with? `export` allows you to export all of a user's (or your own) details in each respective field into an encoded string. (Once you have sent the string to another user, he/she can use `import` to retrieve the data within the encoded string.) +
+Format: `export PUBLIC/PRIVATE SELF/INDEX`
 
 ****
 * Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.
@@ -411,7 +411,7 @@ Format: `export PUBLIC/PRIVATE INDEX`
 All examples shown below are with reference to the time-table shown in Figure 1.
 
 Example 1: `export public 1` +
-The user who imports the string will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table), as seen in Figure 2.
+The importing user will see the time-table of contact index 1 in its entirety (ie the full contents of the time-table), as seen in Figure 2.
 
 image::ExportPublicView.png[width="800"]
 Figure 2: What the user who imports will see (public view)
