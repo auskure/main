@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
-import static seedu.address.commons.util.FileUtil.createDirectoryIfMissing;
 
 import java.io.IOException;
 import java.util.ArrayList;
