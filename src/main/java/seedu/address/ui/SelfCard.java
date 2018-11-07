@@ -5,7 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
 
 
@@ -16,7 +20,7 @@ public class SelfCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
     private static final String[] TAG_COLOR_STYLES = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
-        "pink", "black", "grey", "maroon", "navy"};
+         "pink", "black", "grey", "maroon", "navy"};
 
 
     /**
@@ -58,20 +62,43 @@ public class SelfCard extends UiPart<Region> {
 
     public SelfCard(Person person, int displayedIndex) {
         super(FXML);
+
+        Name selfName = person.getName();
+        Phone selfPhone = person.getPhone();
+        Address selfAddress = person.getAddress();
+        Email selfEmail = person.getEmail();
+
         this.person = person;
         id.setText("");
-        name.setText("Self");
-        phone.setText(" ");
-        address.setText(" ");
-        email.setText(" ");
-
-        /*
-        for (String tempEnrolledClassName : person.getEnrolledClasses().keySet()) {
-            Label enrolledClass = new Label(tempEnrolledClassName);
-            enrolledClass.setPrefSize(61, 10);
-            header.getChildren().add(enrolledClass);
+        if (selfName.equals(new Name("Self"))) {
+            name.setText("Self");
+        } else {
+            name.setText(selfName.toString());
         }
-        */
+        if (selfPhone.equals(new Phone("000"))) {
+            phone.setText(" ");
+        } else {
+            phone.setText(selfPhone.toString());
+        }
+        if (selfAddress.equals(new Address("self"))) {
+            address.setText(" ");
+        } else {
+            address.setText(selfAddress.toString());
+        }
+        if (selfEmail.equals(new Email("self@self"))) {
+            email.setText(" ");
+        } else {
+            email.setText(selfEmail.toString());
+        }
+
+
+        for (String tempEnrolledClassName : person.getEnrolledModules().keySet()) {
+            Label enrolledClass = new Label(tempEnrolledClassName);
+            enrolledClass.setPrefSize(51, 10);
+            enrolledClass.getStyleClass().add(getColor(tempEnrolledClassName));
+            enrolledClasses.getChildren().add(enrolledClass);
+        }
+
 
         for (String it : TimeSlots.getHeader()) {
             Label day = new Label(it);
@@ -172,6 +199,6 @@ public class SelfCard extends UiPart<Region> {
         // state check
         SelfCard card = (SelfCard) other;
         return id.getText().equals(card.id.getText())
-            && person.equals(card.person);
+                && person.equals(card.person);
     }
 }

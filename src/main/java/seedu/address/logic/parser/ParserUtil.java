@@ -171,7 +171,7 @@ public class ParserUtil {
         EnrolledModule tempEnrolledModule;
         for (String enrolledModuleName : enrolledModules) {
             tempEnrolledModule = parseEnrolledModule(enrolledModuleName);
-            enrolledModuleMap.put(tempEnrolledModule.enrolledModuleName, tempEnrolledModule);
+            enrolledModuleMap.put(enrolledModuleName, tempEnrolledModule);
         }
         return enrolledModuleMap;
     }

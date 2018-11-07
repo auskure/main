@@ -1,116 +1,119 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MERGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.Messages;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IsMergedPredicate;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.IsSelfPredicate;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
-//@@E0201942
-
 /**
- * Merges the timetables of multiple people
+ * Updates all the groups you have with the lastest timetables from the contacts in the group.
  */
+public class UpdateMergedCommand extends Command {
+    public static final String COMMAND_WORD = "update";
 
-public class MergeCommand extends Command {
+    public static final String MESSAGE_UPDATE_SUCCESS = "Groups updated";
 
-    public static final String COMMAND_WORD = "merge";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Merges the timetables of selected people"
-            + "by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be positive integer )"
-            + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
-            + "for all timetables you want to merge.\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME
-            + "GES PROJECT";
-
-    public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
-    public static final String MESSAGE_NOT_MERGED = "At least one people to merge must be provided";
-    public static final String MESSAGE_INVALID_INDEX = "Invalid index. Index selected does not exist.";
-
-    private final List<String> indices;
-    private final Name name;
-
-    public MergeCommand(List<String> indices, String name) {
-        requireNonNull(indices);
-        requireNonNull(name);
-
-        this.indices = indices;
-        this.name = new Name(name);
-    }
+    public static final String MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS = "Groups updated. \nContacts who were in"
+            + " " + "groups were detected to have been deleted.\nList of deleted contacts and affected groups: \n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-        List<Person> mainList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
-        List<Person> selfList = ((ObservableList<Person>) lastShownList).filtered(new IsSelfPredicate());
-        Person[] personsToMerge = new Person[lastShownList.size()];
-
-
-        for (String index : indices) {
-            if (Integer.parseInt(index) > lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        List<Person> filteredPersonList = model.getFilteredPersonList();
+        List<Person> mergedList = ((ObservableList<Person>) filteredPersonList).filtered(new IsMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList).filtered
+                (new IsNotSelfOrMergedPredicate());
+        Map<String, ArrayList<String>> removedPersons = new HashMap<>();
+        for (int l = 0; l < mergedList.size(); l++) {
+            Person merged = mergedList.get(l);
+            Address people = merged.getAddress();
+            Name groupName = merged.getName();
+            String groupNameString = groupName.toString();
+            String peopleString = people.toString();
+            peopleString = peopleString.trim();
+            String[] persons = peopleString.split("\\s*(=>|,|\\s)\\s");
+            Person[] personsToMerge = new Person[persons.length + 1];
+            int i = 0;
+            for (String name : persons) {
+                String[] splitName = name.split("\\s+");
+                if (!name.equalsIgnoreCase("self")) {
+                    List<String> getPerson = new ArrayList<>(Arrays.asList(splitName));
+                    List<Person> singlePersonList = ((FilteredList<Person>) mainList).filtered
+                            (new NameContainsKeywordsPredicate(getPerson));
+                    if (singlePersonList.size() < 1) {
+                        if (removedPersons.get(name) == null) {
+                            removedPersons.put(name, new ArrayList<>());
+                        }
+                        removedPersons.get(name).add(groupNameString);
+                        continue;
+                    }
+                    Person person = singlePersonList.get(0);
+                    personsToMerge[i] = person;
+                    i++;
+                }
             }
-        }
 
-        int i = 0;
-        for (String it : indices) {
-            int index;
-            try {
-                index = Integer.parseInt(it) - 1;
-            } catch (NumberFormatException nfe) {
-                throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        MergeCommand.MESSAGE_USAGE), nfe);
-            }
-            if (index > mainList.size() - 1) {
-                throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
-                        MergeCommand.MESSAGE_USAGE));
-            }
-            personsToMerge[i] = mainList.get(index);
+            List<Person> selfList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate());
+            personsToMerge[i] = selfList.get(0);
             i++;
-        }
-        personsToMerge[i] = selfList.get(0);
-        i++;
-        for (int j = 0; j < i - 1; j++) {
-            personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
-        }
-        if (model.hasPerson(personsToMerge[i - 1])) {
+            for (int j = 0; j < i - 1; j++) {
+                personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j, groupName);
+            }
             model.deletePerson(personsToMerge[i - 1]);
+            model.addPerson(personsToMerge[i - 1]);
         }
-        model.addPerson(personsToMerge[i - 1]);
         model.commitAddressBook();
-        return new CommandResult(MESSAGE_MERGE_TIMETABLE_SUCCESS);
+        if (!removedPersons.isEmpty()) {
+            String output = "";
+            Iterator<Map.Entry<String, ArrayList<String>>> it = removedPersons.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<String, ArrayList<String>> removedName = it.next();
+                output = output + removedName.getKey() + ":" + " ";
+                ArrayList<String> removedModules = removedName.getValue();
+                for (String removedModule : removedModules) {
+                    if (removedModule.equalsIgnoreCase(removedModules.get(removedModules.size() - 1))) {
+                        output = output + removedModule + "\n";
+                    } else {
+                        output = output + removedModule + ", ";
+                    }
+                }
+
+            }
+            return new CommandResult(MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + output);
+        } else {
+            return new CommandResult(MESSAGE_UPDATE_SUCCESS);
+        }
 
     }
 
     /**
      * Merges the timetables of 2 people
      */
-    private Person mergeTimetables(Person person1, Person person2, int index) {
+    private Person mergeTimetables(Person person1, Person person2, int index, Name name) {
         Name mergedName = name;
         Phone phone = new Phone("99999999");
         Email email = new Email("notimportant@no");
@@ -123,7 +126,7 @@ public class MergeCommand extends Command {
         Set<Tag> mergedTags = new HashSet<>();
         mergedTags.add(new Tag("merged"));
         Map<String, List<TimeSlots>> mergedSlots = mergeTimeSlots(person1.getTimeSlots(), person2.getTimeSlots());
-        Map<String, EnrolledModule> enrolledClassMap = new TreeMap<>();
+        Map<String, seedu.address.model.enrolledmodule.EnrolledModule> enrolledClassMap = new TreeMap<>();
 
 
         return new Person(mergedName, phone, email, address, mergedTags, enrolledClassMap,
@@ -200,8 +203,4 @@ public class MergeCommand extends Command {
         }
         return finalDay;
     }
-
 }
-
-
-
