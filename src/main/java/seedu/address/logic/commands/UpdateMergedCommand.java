@@ -47,7 +47,8 @@ public class UpdateMergedCommand extends Command {
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mergedList = ((ObservableList<Person>) filteredPersonList).filtered(new IsMergedPredicate());
-        List<Person> mainList = ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList).filtered
+                (new IsNotSelfOrMergedPredicate());
         Map<String, ArrayList<String>> removedPersons = new HashMap<>();
         for (int l = 0; l < mergedList.size(); l++) {
             Person merged = mergedList.get(l);
@@ -60,10 +61,11 @@ public class UpdateMergedCommand extends Command {
             Person[] personsToMerge = new Person[persons.length + 1];
             int i = 0;
             for (String name : persons) {
-                String splitName[] = name.split("\\s+");
+                String[] splitName = name.split("\\s+");
                 if (!name.equalsIgnoreCase("self")) {
                     List<String> getPerson = new ArrayList<>(Arrays.asList(splitName));
-                    List<Person> singlePersonList = ((FilteredList<Person>) mainList).filtered(new NameContainsKeywordsPredicate(getPerson));
+                    List<Person> singlePersonList = ((FilteredList<Person>) mainList).filtered
+                            (new NameContainsKeywordsPredicate(getPerson));
                     if (singlePersonList.size() < 1) {
                         if (removedPersons.get(name) == null) {
                             removedPersons.put(name, new ArrayList<>());
