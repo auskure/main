@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import javafx.collections.ObservableList;
 import org.junit.Before;
 import org.junit.Test;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

@@ -1,15 +1,9 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 
 /**
  * Contains helper methods for testing command parsers.
