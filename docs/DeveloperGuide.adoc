@@ -378,105 +378,20 @@ contacts. Better follows Separation of Concerns Principle.
 ** Cons: Requires more time to implement.
 // end::mergetimetable[]
 
-// tag::deleteNotes[]
-=== Notes Manipulation feature
-==== Current Implementation
-
-The notes manipulation mechanism is facilitated by `NotesDownloaded`.
-It is a part of `ModelManager`, storing the names of the modules of notes
-downloaded.
-Additionally, it implements the following operations:
-
-* `NotesDownloaded#setNotes(Set<String> notes)` -- Replaces the contents of the notes list with {@code notes}.
-* `NotesDownloaded#addNotes(String n)` --  Adds new notes {@code n} to the NotesDownloaded
-* `NotesDownloaded#deleteSelectedNotes(Set<String> modulesCodes)` -- Removes {@code moduleCodes} from NotesDownloaded.
-* `NotesDownloaded#clear() -- Clears the existing data of this {@code NotesDownloaded}.
-
-The first operation is only used once in the initialization of `ModelManager`.
-These last 3 operations are exposed in the `Model` interface as `Model#addNotes(String, String)`,
- Model#deleteSelectedNotes(String, Set<String>)` and `Model#resetNotesData()` respectively.
-
-Within `NotesDownloaded`, there is an attribute called notes, where the names of the modules are stored.
-notes is a TreeSet, which helps to sort the modules stored according to their names, in an lexicographical
-order. TreeSet's underlying data structure is a binary tree.
-
-Given below is an example usage scenario and how the notes manipulation mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `NotesDownloaded` will be initialized with the
-initial notes state, which is empty.
-
-Step 2. The user executes `downloadAllNotes user/e0123456 pass/password1 mod/CS2101` command to download all notes
-for the module CS2101.  The `downloadAllNotes` command calls `Model#addNotes(String, String)`.  This in turn calls
- NotesDownloaded#addNotes(String).  Thus, the module code of the newly downloaded notes are  to be saved in notes
-
- state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the
-  `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::deleteNotes[]
-
 // tag::sortingofpersons[]
 === Sorting of contacts feature
 ==== Current Implementation
 
-The sorting mechanism is implemented with `UniquePersonListHelper`, which is facilitated by `UniquePersonList`, which keeps a list of unique persons in `AddressBook`.
-`UniquePersonListHelper` sorts the contacts in `UniquePersonList` in an alphabetical order, according to the person's name.
-It implements the following operations:
+The sorting mechanism is implemented with `UniquePersonListHelper`, which is facilitated by `UniquePersonList`,
+ which keeps a list of unique persons in `AddressBook`.
+`UniquePersonListHelper` sorts the contacts in `UniquePersonList` in an lexicographical order, according
+to the person's name. It implements the following operations:
+
+Because `UniquePersonListHelper` stores persons in a treemap, with person name as the key, and person
+as the value in the key-value pair of the treemap, it is able to automatically sort persons according
+to their names.   Therefore, it is possible to iterate through `UniquePersonListHelper`,
+in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
+copied into `UniquePersonList`.
 
 * `UniquePersonList#add()` -- Adds a new person to `UniquePersonList`, and hence the contact list
 * `UniquePersonList#remove()` -- Removes a new person to `UniquePersonList`, and hence the contact list
@@ -498,121 +413,99 @@ Within `AddressBook`, the above listed operations are directly exposed as
 
 Given below is an example usage scenario and how the sorting mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UniquePersonListHelper` will be initialized with the saved
-persons of the application. For this example, let us assume that the `UniquePersonList` is empty, and hence, there are
-no saved persons.
+Step 1. The user launches the application for the first time. The `UniquePersonListHelper` will be initialized
+ with the saved persons of the application. For this example, let us assume that the `UniquePersonList`
+ is empty, and hence, there are no saved persons.
 
 `UniquePersonList` will also be initialized, and will read inputs from `UniquePersonListHelper`.  Since
-`UniquePersonListHelper` is empty, `UniquePersonList` will also be empty.
+`UniquePersonListHelper` is empty, `UniquePersonList` will also be empty.  This is shown in the figure below.
 
-image::SortedListStartingStateListAndTreeDiagram.png[width="800"]
+image::SortedListStartingStateListAndTreeDiagram.png[width="500",align="center"]
 
 Step 2. The user executes `add n/David ...` command, which calls `Model#addPerson()`, to add a new person.
-The new person will be added to `UniquePersonListHelper`, and `UniquePersonList` will take reference from `UniquePersonListHelper`.
+The new person will be added to `UniquePersonListHelper`, and `UniquePersonList` will take reference from
+`UniquePersonListHelper`.  This is shown in the figure below.
 
-image::SortedListCommand1TreeStateDiagram.png[width="800"]
+image::SortedListCommand1TreeStateDiagram.png[width="500",align="center"]
 
-`UniquePersonListHelper` will always have the correctly sorted persons.  Therefore, it is possible to iterate through
-`UniquePersonListHelper` in order to get the sorted order of persons.  This sorted order will be copied into `UniquePersonList`.
+`UniquePersonListHelper` has the sorted order of person, and this sorted order will be copied into
+ `UniquePersonList`.  This is shown in the figure below.
 
-image::SortedListCommand1ListStateDiagram.png[width="800"]
-
-Step 3. The user executes `add n/Aaron ...`, , which also calls `Model#addPerson()`, to add a new person. Like step 2, the new person will be added to
-`UniquePersonListHelper`, and `UniquePersonList` will take reference from `UniquePersonListHelper`.
-
-Because `UniquePersonListHelper` stores persons in a treemap, with person name as the key, and person as the value in
- the key-value pair of the treemap, it is able to automatically sort persons according to their names.
-
-
-image::SortedListCommand2TreeStateDiagram.png[width="800"]
-
-When `UniquePersonListHelper` is being iterated through, it will be done so in an in-order depth-first-search, allowing
-the output to be the sorted order of persons.  This allows `UniquePersonList` to copy over the sorted order of persons,
-from `UniquePersonListHelper`.
-
-image::SortedListCommand2ListStateDiagram.png[width="800"]
-
-Step 4. The user executes `add n/Esther ...`, which also calls `Model#addPerson()`, to add a new person. Like step 3, the new person will be added to
-`UniquePersonListHelper`, and `UniquePersonList` will take reference from `UniquePersonListHelper`.
-
-Because `UniquePersonListHelper` stores persons in a treemap, Esther will be put behind both Aaron and David.
-
-image::SortedListCommand3TreeStateDiagram.png[width="800"]
-
-Like step 3, when `UniquePersonListHelper` is being iterated through, it will be done so in an in-order depth-first-
-search, allowing the output to be the sorted order of persons.  This allows `UniquePersonList` to copy over the sorted
-order of persons, from `UniquePersonListHelper`.
-
-image::SortedListCommand3ListStateDiagram.png[width="800"]
-
-Step 5. The user now decides that adding the person was a mistake.  The user wishes to change Esther's name to Bella.
-The user decides to edit the person Esther, by executing the `edit 3 n/Bella...` command.  This calls `Model#updatePerson()` The `edit 3 n/Bella...`
-command will check if Esther is a valid person, and will replace the name Esther, with the name Bella.  All other
-properties of that person instance will remain the same.
-
-Because alphabetically, B comes before D, person Bella, which was previously Esther, will now come before David.  The
-red-black tree underlying data structure of treemap, is able to handle this.
-
-image::SortedListCommand4TreeStateDiagram.png[width="800"]
-
-Like step 4, when `UniquePersonListHelper` is being iterated through, it will be done so in an in-order depth-first-
-search, allowing the output to be the sorted order of persons.  This allows `UniquePersonList` to copy over the sorted
-order of persons, from `UniquePersonListHelper`.
-
-image::SortedListCommand4ListStateDiagram.png[width="800"]
-
-Step 6. The user now decides that the person, Bella was a mistake.  Person Bella should not be in the `AddressBook`.
-The user wishes to delete the person Bella, by executing the `delete 2` command.  This calls `Model#deletePerson()`.
-  The `delete 2` command will check if
-Bella is a valid person, and if so, will delete the person Bella.
-
-The red-black tree which is the underlying data structure of treemap, is able to handle this operation.  It simply
-replaces the node it is about to delete, with the in-order successor.  More operations will be done to ensure a balanced
-tree, within the underlying red-black tree.
-
-image::SortedListCommand5TreeStateDiagram.png[width="800"]
-
-Like step 5, when `UniquePersonListHelper` is being iterated through, it will be done so in an in-order depth-first-
-search, allowing the output to be the sorted order of persons.  This allows `UniquePersonList` to copy over the sorted
-order of persons, from `UniquePersonListHelper`.
-
-image::SortedListCommand5ListStateDiagram.png[width="800"]
-
-[NOTE]
-If the Bella does not exist in `UniquePersonListHelper`,`UniquePersonListHelper` will return an error, and the
- `delete` command will not be executed.
+image::SortedListCommand1ListStateDiagram.png[width="500",align="center"]
 
 The following sequence diagram shows how the `UniquePersonList` stays sorted when an `add` command is executed:
 
 image::SortedListSequenceDiagramCommandAdd.png[width="800"]
+
+Step 3. The user executes `add n/Aaron ...`, which also calls `Model#addPerson()`, to add a new person.
+Like step 2, the new person will be added to
+`UniquePersonListHelper`.
+This is shown in the figure below.
+
+image::SortedListCommand2TreeStateDiagram.png[width="500",align="center"]
+
+`UniquePersonList` will take reference from `UniquePersonListHelper`, as shown in the figure below.
+
+image::SortedListCommand2ListStateDiagram.png[width="500",align="center"]
+
+Step 4. The user executes `add n/Bella ...`, which also calls `Model#addPerson()`, to add a new person.
+Because lexicographically, "B" comes before "D", person Bella, will be placed between Aaron and David.
+`UniquePersonListHelper` stores persons in a treemap, and the red-black tree underlying data structure of
+treemap, is able to handle this.   The new person will be added to `UniquePersonListHelper` in a sorted order,
+ as shown in the figure below.
+
+image::SortedListCommand3TreeStateDiagram.png[width="500",align="center"]
+
+`UniquePersonList` will take reference from `UniquePersonListHelper`, as shown in the figure below.
+
+image::SortedListCommand3ListStateDiagram.png[width="500",align="center"]
+
+Step 5. The user now decides that adding the person Bella was a mistake.  Person Bella should not be in the `AddressBook`.
+The user wishes to delete the person Bella, by executing the `delete 2` command.  This calls `Model#deletePerson()`.
+  The `delete 2` command will check if Bella is a valid person, and if so, will delete the person Bella.
+
+The red-black tree which is the underlying data structure of treemap, is able to handle this operation.  It simply
+replaces the node it is about to delete, with the in-order successor.  More operations will be done to ensure a balanced
+tree, within the underlying red-black tree.  This is shown in the figure below.
+
+image::SortedListCommand5TreeStateDiagram.png[width="500",align="center"]
+
+`UniquePersonList` will take reference from `UniquePersonListHelper`, as shown in the figure below.
+
+image::SortedListCommand5ListStateDiagram.png[width="500",align="center"]
+
+[NOTE]
+If the Bella does not exist in `UniquePersonListHelper`,`UniquePersonListHelper` will return an error, and the
+ `delete` command will not be executed.
 
 The following sequence diagram shows how the `UniquePersonList` stays sorted when an `delete` command is executed:
 It is very similar to that of the `add` command.
 
 image::SortedListSequenceDiagramCommandDelete.png[width="800"]
 
-Step 7. The user then decides to execute the command `list`. Commands that do not modify the address book, such as
+Step 6. The user then decides to execute the command `list`. Commands that do not modify the address book, such as
 `list`, will usually not call `Model#addPerson()`, `Model#deletePerson()`, `Model#updatePerson()`, `Model#resetData()`,
-or `Model#hasPerson()`.  Thus the state of `UniquePersonListHelper` will remain unchanged.
+or `Model#hasPerson()`.  Thus the state of `UniquePersonListHelper` will remain unchanged.  This is shown in the figure
+below.
 
-image::SortedListCommand6TreeStateDiagram.png[width="800"]
+image::SortedListCommand6TreeStateDiagram.png[width="500",align="center"]
 
-Therefore, `UniquePersonList` will also remain unchanged.
+Therefore, `UniquePersonList` will also remain unchanged, as shown in the figure below.
 
-image::SortedListCommand6ListStateDiagram.png[width="800"]
+image::SortedListCommand6ListStateDiagram.png[width="500",align="center"]
 
-Step 8. The user executes `clear`, which calls `Model#resetData()`.  This replaces all data in the address book with an
-empty address book.  Hence, `UniquePersonListHelper` will be cleared of all persons.
+Step 7. The user executes `clear`, which calls `Model#resetData()`.  This replaces all data in the address book with an
+empty address book.  Hence, `UniquePersonListHelper` will be cleared of all persons.  This is shown in the figure below.
 
-image::SortedListCommand7TreeStateDiagram.png[width="800"]
+image::SortedListCommand7TreeStateDiagram.png[width="500",align="center"]
 
-Therefore, `UniquePersonList` will also be cleared of all persons.
+Therefore, `UniquePersonList` will also be cleared of all persons, as shown in the figure below.
 
-image::SortedListCommand7ListStateDiagram.png[width="800"]
+image::SortedListCommand7ListStateDiagram.png[width="500",align="center"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::SortedListActivityDiagram.png[width="650"]
+image::SortedListActivityDiagram.png[width="400",align="center"]
 
 ==== Design Considerations
 
@@ -640,8 +533,8 @@ to remember to implement his/her own checks.
 ** Pros: This would add an additional layer of defence to possible careless mistakes by developers in the future.  E.g.
 If they were to make their own version of the helper class but forget to implement their own checks for errors, `UniquePersonList`
 would still have backup checks.
-** Cons: This makes code harder to understand, by introducing redundant checks, which would be misleading.  Redundant checks
-might also incorrectly encourage careless programing habits.
+** Cons: Introducing redundant checks, which would be misleading, This makes code harder to understand.
+  Redundant checks might also incorrectly encourage careless programing habits.
 // end::sortingofpersons[]
 
 === Logging
