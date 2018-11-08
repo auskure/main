@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+/**
+ * Wraps a list so it can be properly saved even when in a map.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ListWrapper {
 

@@ -3,7 +3,9 @@ package seedu.address.model.person;
 import java.util.function.Predicate;
 
 import seedu.address.model.tag.Tag;
-
+/**
+ * Tests that a {@code Person}'s {@code Tag} does not contain merged or self tag
+ */
 public class IsNotSelfOrMergedPredicate implements Predicate<Person> {
 
     public IsNotSelfOrMergedPredicate() {

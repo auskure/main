@@ -19,22 +19,23 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits an existing person's timetable in the address book.
  */
 public class ChangeTimeSlotCommand extends Command {
 
     public static final String COMMAND_WORD = "change";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the selected time slot "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX " +
-            "DAY(mon, tue, wed, thu, fri) "
-            + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
-            + "Activity "
-            + "Example: " + COMMAND_WORD + " 1 " + "mon "
-            + "8am "
-            + "CS2107";
+        + "by the index number used in the displayed person list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX "
+        + "DAY(mon, tue, wed, thu, fri) "
+        + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
+        + "Activity "
+        + "Example: " + COMMAND_WORD + " 1 " + "mon "
+        + "8am "
+        + "CS2107";
+
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Time slot changed: %1$s";
     public static final String MESSAGE_EDIT_SELF_SUCCESS = "Time slot changed: Self";
@@ -56,18 +57,17 @@ public class ChangeTimeSlotCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
         Person personToChange;
-        try{
+        try {
             int index = Integer.parseInt(reference);
             lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
-            if (index-1>= lastShownList.size()) {
+            if (index - 1 >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
 
-             personToChange = lastShownList.get(index-1);
-        }
-        catch(NumberFormatException nfe){
-            if(!reference.equalsIgnoreCase("self")){
+            personToChange = lastShownList.get(index - 1);
+        } catch (NumberFormatException nfe) {
+            if (!reference.equalsIgnoreCase("self")) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             int index = 0;
@@ -78,9 +78,9 @@ public class ChangeTimeSlotCommand extends Command {
         Map<String, List<TimeSlots>> timeSlots = personToChange.getTimeSlots();
         Map<String, List<TimeSlots>> changedTimeSlots = createNewTimetable(timeSlots);
 
-        Person newPerson= new Person(personToChange.getName(),personToChange.getPhone(),personToChange.getEmail(),
-                personToChange.getAddress(),personToChange.getTags(),personToChange.getEnrolledModules(),
-                changedTimeSlots);
+        Person newPerson = new Person(personToChange.getName(), personToChange.getPhone(), personToChange.getEmail(),
+            personToChange.getAddress(), personToChange.getTags(), personToChange.getEnrolledModules(),
+            changedTimeSlots);
 
         if (!personToChange.isSamePerson(newPerson) && model.hasPerson(newPerson)) {
             throw new CommandException(MESSAGE_NOTHING_CHANGED);
@@ -90,10 +90,9 @@ public class ChangeTimeSlotCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
 
-        if(!reference.equalsIgnoreCase("self")) {
+        if (!reference.equalsIgnoreCase("self")) {
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newPerson));
-        }
-        else{
+        } else {
             return new CommandResult(String.format(MESSAGE_EDIT_SELF_SUCCESS));
         }
     }
@@ -111,12 +110,15 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return false;
     }
-    private Map<String, List<TimeSlots>> createNewTimetable(Map<String, List<TimeSlots>> timeSlots){
-        Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>() ;
-        String[] days ={"mon", "tue", "wed", "thu", "fri"};
+    /**
+     * Copies a person's timetable.
+     */
+    private Map<String, List<TimeSlots>> createNewTimetable(Map<String, List<TimeSlots>> timeSlots) {
+        Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
         String day = null;
         String time = null;
-        for(String d: days){
+        for (String d : days) {
             List<TimeSlots> toAdd;
             toAdd = copyDay(timeSlots.get(d));
             changedTimeSlots.put(d, toAdd);
@@ -140,15 +142,19 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return changedTimeSlots;
     }
-
-    private List<TimeSlots> copyDay(List<TimeSlots> toCopy){
+    /**
+     * Copies the timeslots in a day of a timetable.
+     */
+    private List<TimeSlots> copyDay(List<TimeSlots> toCopy) {
         List<TimeSlots> finalSlots = new ArrayList<>();
-        for(TimeSlots toAdd : toCopy){
+        for (TimeSlots toAdd : toCopy) {
             finalSlots.add(toAdd);
         }
         return finalSlots;
     }
-
+    /**
+     * Converts from a time to its corresponding index.
+     */
     private int changeTimeToIndex(String time) {
         int index;
         if (time.equalsIgnoreCase("8am")) {

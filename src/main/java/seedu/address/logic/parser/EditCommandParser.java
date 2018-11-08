@@ -36,16 +36,22 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_TAG, PREFIX_ENROLLED_MODULE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_ENROLLED_MODULE);
 
 
-        Index index;
+        String index;
+        Index indexCheck;
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        if (argMultimap.getPreamble().equalsIgnoreCase("self")) {
+            index = argMultimap.getPreamble();
+        } else {
+            try {
+                indexCheck = ParserUtil.parseIndex(argMultimap.getPreamble());
+                index = argMultimap.getPreamble();
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            }
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -66,7 +72,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
 
         parseEnrolledModulesForEdit(argMultimap.getAllValues(PREFIX_ENROLLED_MODULE))
-            .ifPresent(editPersonDescriptor::setEnrolledModules);
+                .ifPresent(editPersonDescriptor::setEnrolledModules);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -102,7 +108,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * {@code Map<String, EnrolledModule>} containing zero enrolledModules.
      */
     private Optional<Map<String, EnrolledModule>> parseEnrolledModulesForEdit(Collection<String> enrolledModules)
-        throws ParseException {
+            throws ParseException {
 
         assert enrolledModules != null;
 

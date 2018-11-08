@@ -1,5 +1,21 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -15,23 +31,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.HashSet;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
-
 
 /**
  * Checks for common free time slot for 1 or multiple people
@@ -86,8 +85,7 @@ public class FreeCommand extends Command {
         Person personFirst;
         if (indices.get(0).equalsIgnoreCase("self")) {
             personFirst = model.getFilteredPersonList().filtered(new IsSelfPredicate()).get(0);
-        }
-        else {
+        } else {
             personFirst = lastShownList.get(Integer.parseInt(indices.get(0)) - 1);
         }
         indices.remove(0);

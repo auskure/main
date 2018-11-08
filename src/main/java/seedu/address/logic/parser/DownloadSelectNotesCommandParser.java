@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 //@@author BearPerson1
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.DownloadSelectNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -7,10 +8,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.util.stream.Stream;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SELECT_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
+import static seedu.address.logic.parser.CliSyntax.*;
+
+/**
+ * DownloadSelectNotesCommandParser parses the input that is followed after the
+ * DownloadSelectNotesCommand.COMMAND_WORD. Has 2 different constructors depending on the existence of the
+ * PREFIX_SELECT_FILE prefix and creates a new DownloadSelectNotesCommand object
+ *
+ * DownloadSelectNotesCommandParser implements interface Parser
+ */
 
 public class DownloadSelectNotesCommandParser implements Parser {
 
@@ -18,11 +24,11 @@ public class DownloadSelectNotesCommandParser implements Parser {
     public DownloadSelectNotesCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD,
-            PREFIX_MODULECODE, PREFIX_SELECT_FILE);
+                PREFIX_MODULECODE, PREFIX_SELECT_FILE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PASSWORD, PREFIX_USERNAME, PREFIX_MODULECODE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DownloadSelectNotesCommand.MESSAGE_USAGE));
+                    DownloadSelectNotesCommand.MESSAGE_USAGE));
         }
 
         String username = argMultimap.getValue(PREFIX_USERNAME).get();
@@ -33,7 +39,7 @@ public class DownloadSelectNotesCommandParser implements Parser {
             String fileSelect = argMultimap.getValue(PREFIX_SELECT_FILE).get();
             if (fileSelect.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Messages.MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED));
+                        Messages.MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED));
 
             }
             return new DownloadSelectNotesCommand(username, password, moduleCode, fileSelect);

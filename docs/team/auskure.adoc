@@ -92,3 +92,4 @@ This showcases my ability to write technical documentation and the technical
 |===
 
 include::../DeveloperGuide.adoc[tag=sortingofpersons]
+

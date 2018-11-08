@@ -98,7 +98,9 @@ public class XmlAdaptedPerson {
         }
         timeslots = toXmlAdaptedTimeSlots(source.getTimeSlots());
     }
-
+    /**
+     * Changes all the time slots in a map of lists into their xml adapted form.
+     */
     public static Map<String, ListWrapper> toXmlAdaptedTimeSlots(Map<String, List<TimeSlots>> source) {
         Map<String, ListWrapper> timeslots = new HashMap<>();
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
@@ -113,7 +115,9 @@ public class XmlAdaptedPerson {
         }
         return timeslots;
     }
-
+    /**
+     * Changes all the enrolled modules in a list into their xml adapted form.
+     */
     public static List<XmlAdaptedEnrolledModule> toXmlAdaptedEnrolledModules(Map<String, EnrolledModule> source) {
         Iterator<Map.Entry<String, EnrolledModule>> it = source.entrySet().iterator();
         List<XmlAdaptedEnrolledModule> enrolledModules = new ArrayList<>();

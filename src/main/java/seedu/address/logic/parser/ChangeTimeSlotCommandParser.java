@@ -47,7 +47,9 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
 
         return new ChangeTimeSlotCommand(index, actions);
     }
-
+    /**
+     * Checks if the day inputted is valid
+     */
     Boolean isInvalidDay(String day) {
         if (!day.equalsIgnoreCase("mon") && !day.equalsIgnoreCase("tue")
             && !day.equalsIgnoreCase("wed") && !day.equalsIgnoreCase("thu")
@@ -57,7 +59,9 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
             return false;
         }
     }
-
+    /**
+     * Checks if the time inputted is valid
+     */
     Boolean isInvalidTime(String time) {
         if (!time.equalsIgnoreCase("8am") && !time.equalsIgnoreCase("9am")
             && !time.equalsIgnoreCase("10am")

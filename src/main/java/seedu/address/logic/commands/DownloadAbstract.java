@@ -1,5 +1,14 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
+
+import static seedu.address.commons.util.FileUtil.currentDirectory;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -7,14 +16,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
-
-import java.io.IOException;
-import java.io.File;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-
-import static seedu.address.commons.util.FileUtil.currentDirectory;
 
 /**
  * DownloadAbstract is an abstract class that does the basic setting up of Selenium chrome drivers. Implementation of
@@ -54,8 +55,9 @@ public abstract class DownloadAbstract extends Command {
     protected static final String IVLE_DOWNLOAD_PAGE_ADDRESS = "https://ivle.nus.edu.sg/v1/File/download_all.aspx";
 
     protected static final String IVLE_MODULE_LIST_FIELD_ID =
-        "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
+            "ctl00_ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_ContentPlaceHolder1_ddlModule";
 
+    protected static final String NEWLINE_SEPARATOR = "\r\n";
 
     protected String username;
     protected String password;
@@ -63,7 +65,6 @@ public abstract class DownloadAbstract extends Command {
     protected String currentDirectoryPath;
     protected String downloadPath;
     protected boolean isDownloadDisabled = true;
-
 
     public DownloadAbstract(String username, String password, String moduleCode) {
         this.username = username;
@@ -90,13 +91,13 @@ public abstract class DownloadAbstract extends Command {
         }
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
-            + WINDOWS_CHROME_DRIVER_NAME);
+                + WINDOWS_CHROME_DRIVER_NAME);
         File chromeDriverDir = new File(WINDOWS_CHROME_DRIVER_DIRECTORY);
         if (!chromeDriverDir.exists()) {
             chromeDriverDir.mkdirs();
         }
         File windowsChromeDriver = new File(WINDOWS_CHROME_DRIVER_DIRECTORY
-            + File.separator + WINDOWS_CHROME_DRIVER_NAME);
+                + File.separator + WINDOWS_CHROME_DRIVER_NAME);
         if (!windowsChromeDriver.exists()) {
             windowsChromeDriver.createNewFile();
             org.apache.commons.io.FileUtils.copyURLToFile(resource, windowsChromeDriver);
@@ -107,7 +108,7 @@ public abstract class DownloadAbstract extends Command {
             chromeDriverDir.mkdirs();
         }
         File macChromeDriver = new File(MAC_CHROME_DRIVER_DIRECTORY + File.separator
-            + MAC_CHROME_DRIVER_NAME);
+                + MAC_CHROME_DRIVER_NAME);
         if (!macChromeDriver.exists()) {
             macChromeDriver.createNewFile();
             org.apache.commons.io.FileUtils.copyURLToFile(resource, macChromeDriver);
@@ -123,11 +124,11 @@ public abstract class DownloadAbstract extends Command {
      */
     protected void initializeChromeDriverPaths() {
         if (System.getProperty("os.name").contains(WINDOWS_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + WINDOWS_CHROME_DRIVER_DIRECTORY + "/"
-                + WINDOWS_CHROME_DRIVER_NAME);
+            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/"
+                    + WINDOWS_CHROME_DRIVER_DIRECTORY + "/" + WINDOWS_CHROME_DRIVER_NAME);
         } else if (System.getProperty("os.name").contains(MAC_OS_NAME)) {
-            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + MAC_CHROME_DRIVER_DIRECTORY + "/"
-                + MAC_CHROME_DRIVER_NAME);
+            System.setProperty("webdriver.chrome.driver", currentDirectoryPath + "/" + MAC_CHROME_DRIVER_DIRECTORY
+                    + "/" + MAC_CHROME_DRIVER_NAME);
         }
     }
 
@@ -231,7 +232,7 @@ public abstract class DownloadAbstract extends Command {
         do {
             Thread.sleep(100);
         } while (!org.apache.commons.io.FileUtils.listFiles
-            (new File(downloadPath), keyExtentions, false).isEmpty());
+                (new File(downloadPath), keyExtentions, false).isEmpty());
     }
 
     /**

@@ -1,12 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FreeCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import java.util.List;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.FreeCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
+
+import java.util.List;
+
+import seedu.address.logic.commands.FreeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new FreeCommand object
