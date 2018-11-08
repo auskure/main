@@ -3,10 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -40,6 +37,8 @@ public class ChangeTimeSlotCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Time slot changed: %1$s";
     public static final String MESSAGE_EDIT_SELF_SUCCESS = "Time slot changed: Self";
     public static final String MESSAGE_NOTHING_CHANGED = "No time slot was changed";
+    public static final String MESSAGE_INVALID_DAY = "Invalid Day. ";
+    public static final String MESSAGE_INVALID_TIME = "Invalid Time. ";
 
     private final String reference;
     private final String[] actions;
@@ -61,7 +60,7 @@ public class ChangeTimeSlotCommand extends Command {
             int index = Integer.parseInt(reference);
             lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
-            if (index - 1 >= lastShownList.size()) {
+            if (index - 1 >= lastShownList.size() || index < 1) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
 
@@ -99,16 +98,10 @@ public class ChangeTimeSlotCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-        return false;
+        return other == this // short circuit if same object
+                || (other instanceof ChangeTimeSlotCommand // instanceof handles nulls
+                && reference.equals(((ChangeTimeSlotCommand) other).reference) &&
+                Arrays.equals(actions,(((ChangeTimeSlotCommand) other).actions) ));
     }
     /**
      * Copies a person's timetable.

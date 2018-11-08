@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.ChangeTimeSlotCommand.MESSAGE_INVALID_DAY;
+import static seedu.address.logic.commands.ChangeTimeSlotCommand.MESSAGE_INVALID_TIME;
 import static seedu.address.logic.commands.ChangeTimeSlotCommand.MESSAGE_USAGE;
 
 import seedu.address.logic.commands.ChangeTimeSlotCommand;
@@ -32,15 +34,16 @@ public class ChangeTimeSlotCommandParser implements Parser<ChangeTimeSlotCommand
                 ChangeTimeSlotCommand.MESSAGE_USAGE));
         }
         String index = actions[0];
+
         for (int i = 1; i < actions.length; i++) {
             if (i % 3 == 1) {
                 if (isInvalidDay(actions[i])) {
-                    throw new ParseException("Invalid Day. " + MESSAGE_USAGE);
+                    throw new ParseException(MESSAGE_INVALID_DAY + MESSAGE_USAGE);
                 }
             }
             if (i % 3 == 2) {
                 if (isInvalidTime(actions[i])) {
-                    throw new ParseException("Invalid Time. " + MESSAGE_USAGE);
+                    throw new ParseException(MESSAGE_INVALID_TIME + MESSAGE_USAGE);
                 }
             }
         }

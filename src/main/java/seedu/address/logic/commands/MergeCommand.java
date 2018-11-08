@@ -39,22 +39,25 @@ public class MergeCommand extends Command {
 
     public static final String COMMAND_WORD = "merge";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Merges the timetables of selected people"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Merges the timetables of selected people "
             + "by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be positive integer )"
-            + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME]"
+            + "Parameters: INDEX (must be positive integer) + GROUP NAME (must not be empty)"
+            + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME] "
             + "for all timetables you want to merge.\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME
             + "GES PROJECT";
 
     public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
-    public static final String MESSAGE_NOT_MERGED = "At least one people to merge must be provided";
     public static final String MESSAGE_INVALID_INDEX = "Invalid index. Index selected does not exist.";
+    public static final String MESSAGE_UPDATE_GROUP_SUCCESS = "Group has been edited: %1$s";
+    public static final String MESSAGE_INDEX_NEEDS_TO_BE_NUMBER = "Invalid index. Index needs to be a positive " +
+            "integer\n";
+    public static final String MESSAGE_NO_GROUP_NAME = "No group name entered.";
 
-    private final List<String> indices;
+    private final List<Integer> indices;
     private final Name name;
 
-    public MergeCommand(List<String> indices, String name) {
+    public MergeCommand(List<Integer> indices, String name) {
         requireNonNull(indices);
         requireNonNull(name);
 
@@ -70,27 +73,19 @@ public class MergeCommand extends Command {
         List<Person> selfList = ((ObservableList<Person>) lastShownList).filtered(new IsSelfPredicate());
         Person[] personsToMerge = new Person[lastShownList.size()];
 
-
-        for (String index : indices) {
-            if (Integer.parseInt(index) > lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        for (Integer index : indices) {
+            if (index > lastShownList.size()) {
+                throw new CommandException(MESSAGE_INVALID_INDEX);
             }
         }
 
         int i = 0;
-        for (String it : indices) {
-            int index;
-            try {
-                index = Integer.parseInt(it) - 1;
-            } catch (NumberFormatException nfe) {
-                throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        MergeCommand.MESSAGE_USAGE), nfe);
-            }
-            if (index > mainList.size() - 1) {
+        for (int it : indices) {
+            if (it > mainList.size() - 1 || it < 0) {
                 throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
                         MergeCommand.MESSAGE_USAGE));
             }
-            personsToMerge[i] = mainList.get(index);
+            personsToMerge[i] = mainList.get(it);
             i++;
         }
         personsToMerge[i] = selfList.get(0);
@@ -100,11 +95,20 @@ public class MergeCommand extends Command {
         }
         if (model.hasPerson(personsToMerge[i - 1])) {
             model.deletePerson(personsToMerge[i - 1]);
+            model.addPerson(personsToMerge[i - 1]);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_UPDATE_GROUP_SUCCESS, name));
         }
         model.addPerson(personsToMerge[i - 1]);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_MERGE_TIMETABLE_SUCCESS);
 
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MergeCommand // instanceof handles nulls
+                && indices.equals(((MergeCommand) other).indices) && name.equals(((MergeCommand) other).name) );
     }
 
     /**
