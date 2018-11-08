@@ -91,7 +91,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the list of downloaded notes
      */
-    public Set<String> getNotesList();
+    ReadOnlyNotesDownloaded getNotesList();
 
     /**
      * clears the list of notes

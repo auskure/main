@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits an existing person's timetable in the address book.
  */
 public class ChangeTimeSlotCommand extends Command {
 
@@ -110,7 +110,9 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return false;
     }
-
+    /**
+     * Copies a person's timetable.
+     */
     private Map<String, List<TimeSlots>> createNewTimetable(Map<String, List<TimeSlots>> timeSlots) {
         Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
@@ -140,7 +142,9 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return changedTimeSlots;
     }
-
+    /**
+     * Copies the timeslots in a day of a timetable.
+     */
     private List<TimeSlots> copyDay(List<TimeSlots> toCopy) {
         List<TimeSlots> finalSlots = new ArrayList<>();
         for (TimeSlots toAdd : toCopy) {
@@ -148,7 +152,9 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return finalSlots;
     }
-
+    /**
+     * Converts from a time to its corresponding index.
+     */
     private int changeTimeToIndex(String time) {
         int index;
         if (time.equalsIgnoreCase("8am")) {

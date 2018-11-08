@@ -101,7 +101,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void setSelf() {
-        Person self = (new Person(new Name("Self"), new Phone("9999999"), new Email("self@self"), new Address("self"),
+        Person self = (new Person(new Name("Self"), new Phone("000"), new Email("self@self"), new Address("self"),
                 getTagSet("self"), new TreeMap<>(), TimeSlots.initTimeSlots()));
         persons.add(self);
     }

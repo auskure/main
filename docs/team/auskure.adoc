@@ -29,7 +29,7 @@ how `Model` and `Storage` components work together, is required.
 Existing file manipulation libraries such as java.io and java nio libraries were incorporated into this
 enhancement.
 
-* *Minor enhancement*: Alphabetised contact list in the address book.
+* *Minor enhancement 1*: Alphabetised contact list in the address book.
 ** What it does: When you add a new contact to your contact list, the contact is added in an alphabetic
  order automatically.  This is opposed to the original implementation, which simply appends the new
  contact to the end of the list.
@@ -39,7 +39,7 @@ enhancement.
 an understanding of how javafx works is required.  For the sorting algorithms, we made use of existing
 library java.util.
 
-* *Minor enhancement*: File Unzipping
+* *Minor enhancement 2*: File Unzipping
 ** What it does: As a supporting enhancement to the notes download enhancement, file unzipping helps to
  unzip downloaded notes. We make things more intuitive for the user, by automatically storing
   unzipped files according to the modules they belong to.
@@ -86,14 +86,10 @@ include::../UserGuide.adoc[tag=deleteSelectNotes]
 == Contributions to the Developer Guide
 
 |===
-|_The following shows my contributions to the user guide, in relation to functions `clearNotes` and
-  `deleteSelectNotes`. They showcase my ability to write technical documentation and the technical
+|_The following shows my contributions to the user guide, in relation to the alphabetised contact list enhancement.
+This showcases my ability to write technical documentation and the technical
    depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=sortingofpersons]
 
-
-
-//easy to read, you languaege, diagram wiht description, tense
-//which diagram goes with what
