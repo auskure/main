@@ -1,13 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.TimeSlots;
-import seedu.address.model.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +8,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
+import seedu.address.model.tag.Tag;
+
 public class MergedBuilder {
     private Person mergedPerson;
 
@@ -23,13 +23,18 @@ public class MergedBuilder {
      * Takes a list of Person objects and creates a merged Person contact.
      */
     public MergedBuilder(List<Person> personsToMerge, String groupName) {
-        for (int j = 0; j < personsToMerge.size() -1 ; j++) {
+        for (int j = 0; j < personsToMerge.size() - 1; j++) {
             personsToMerge.set(j + 1, mergeTimetables(personsToMerge.get(j), personsToMerge.get(j + 1), j, groupName));
         }
         this.mergedPerson = personsToMerge.get(personsToMerge.size() - 1);
     }
 
-    public Person getMergedPerson(){return this.mergedPerson;}
+    /**
+     * Returns the merged Person.
+     */
+    public Person getMergedPerson() {
+        return this.mergedPerson;
+    }
 
     /**
      * Merges 2 people into a single person with a merged timetable
@@ -59,7 +64,6 @@ public class MergedBuilder {
     /**
      * Creates a new merged timetable from 2 timetables.
      */
-
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {
         TimeSlots[] mon1 = slots1.get("mon").toArray(new TimeSlots[0]);

@@ -1,8 +1,17 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -12,15 +21,6 @@ import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.IsSelfPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class ChangeTimeSlotCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -143,14 +143,20 @@ public class ChangeTimeSlotCommandTest {
         assertIndexSelectionFailure(index, actions, expectedMessage);
     }
 
-
+    /**
+     * Executes a {@code ChangeTimeSlotCommand} with the given {@code index} and {@code actions}, and checks that the
+     * correct person has the correct time slot changed in the correct way.
+     */
     private void assertContactChangeSuccess(String index, String[] actions, Person personToChange) {
         ChangeTimeSlotCommand changeCommand = new ChangeTimeSlotCommand(index, actions);
         String expectedMessage = String.format(ChangeTimeSlotCommand.MESSAGE_EDIT_PERSON_SUCCESS, personToChange);
 
         assertCommandSuccess(changeCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-
+    /**
+     * Executes a {@code ChangeTimeSlotCommand} with the given {@code index} and {@code actions}, and checks that the
+     * self contact has the correct time slot changed in the correct way.
+     */
     public void assertSelfChangeSuccess(String index, String[] actions) {
         ChangeTimeSlotCommand changeCommand = new ChangeTimeSlotCommand(index, actions);
         String expectedMessage = ChangeTimeSlotCommand.MESSAGE_EDIT_SELF_SUCCESS;
@@ -158,7 +164,10 @@ public class ChangeTimeSlotCommandTest {
         assertCommandSuccess(changeCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
-
+    /**
+     * Executes a {@code ChangeTimeSlotCommand} with the given {@code index}, {@code actions}, and checks that a
+     * {@code CommandException}is thrown with the {@code expectedMessage}.
+     */
     public void assertNothingChangedFailure(String index, String[] actions) {
         ChangeTimeSlotCommand changeCommand = new ChangeTimeSlotCommand(index, actions);
         String expectedMessage = ChangeTimeSlotCommand.MESSAGE_NOTHING_CHANGED;
@@ -166,6 +175,10 @@ public class ChangeTimeSlotCommandTest {
         assertCommandFailure(changeCommand, model, commandHistory, expectedMessage);
     }
 
+    /**
+     * Executes a {@code ChangeTimeSlotCommand} with the given {@code index}, {@code actions}, and checks that a
+     * {@code CommandException}is thrown with the {@code expectedMessage}.
+     */
     private void assertIndexSelectionFailure(String index, String[] actions, String expectedMessage) {
         ChangeTimeSlotCommand changeCommand = new ChangeTimeSlotCommand(index, actions);
 

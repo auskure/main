@@ -4,6 +4,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.TreeMap;
+
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -13,7 +15,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.*;
 
-import java.util.TreeMap;
 
 public class ClearCommandTest {
 
