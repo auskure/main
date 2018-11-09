@@ -10,13 +10,13 @@ import java.io.File;
 
 import static junit.framework.TestCase.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.CORRECT_MODULE_CODE;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_MODULE_CODE;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_PASSWORD;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_USERNAME;
+
 
 public class DownloadAllNotesCommandTest {
-
-    private static String INCORRECT_USERNAME = "dummy";
-    private static String INCORRECT_PASSWORD = "dummy";
-    private static String INCORRECT_MODULE_CODE = "dummy";
-    private static String CORRECT_MODULE_CODE = "cs2113";
 
     private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
