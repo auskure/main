@@ -7,11 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.stream.Stream;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
+
 import seedu.address.logic.commands.DownloadAllNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-
-
 
 /**
  * DownloadAllNotesCommandParser parses the input that follows after the
