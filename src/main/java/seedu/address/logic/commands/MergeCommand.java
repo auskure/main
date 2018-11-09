@@ -112,7 +112,7 @@ public class MergeCommand extends Command {
     }
 
     /**
-     * Merges the timetables of 2 people
+     * Merges 2 people into a single person with a merged timetable
      */
     private Person mergeTimetables(Person person1, Person person2, int index) {
         Name mergedName = name;
