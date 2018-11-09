@@ -18,10 +18,10 @@ coordination and notes acquisition, allowing for streamlining of work processes.
 == Summary of contributions
 
 * *Major enhancement*: Notes Deletion
-** What it does: In a single command, we allow the user to delete the notes he has downloaded using
- NSync.  This helps him quickly and conveniently free up storage space.
+** What it does: In a single command, we allow the user to delete the notes previously downloaded using
+ NSync, allowing him to quickly and conveniently free up storage space.
 ** Justification: Because my teammate has already implemented an automated notes downloader, allowing
-the user to download large folders conveniently, it is also useful to have an equally convenient method
+the user to download large folders conveniently, it important to have an equally convenient method
 to delete notes.  This removes the need for the user to manually go to storage to delete his own
 notes.
 ** Highlights: As this enhancement involves interaction with actual storage, a good understanding of
@@ -29,46 +29,25 @@ how `Model` and `Storage` components work together, is required.
 Existing file manipulation libraries such as java.io and java nio libraries were incorporated into this
 enhancement.
 
-* *Minor enhancement*: Alphabetised contact list in the address book.
+* *Minor enhancement*: Alphabetised contact list in the address book
 ** What it does: When you add a new contact to your contact list, the contact is added in an alphabetic
  order automatically.  This is opposed to the original implementation, which simply appends the new
- contact to the end of the list.
-** Justification:  This makes the contact list appear more organized.
- Contacts are alphabetised as they should be.
-** Highlights: This enhancement worked very closely with the graphical user interface javafx.  As such
-an understanding of how javafx works is required.  For the sorting algorithms, we made use of existing
-library java.util.
+ contact to the end of the contact list.
+** Justification:  Alphabetisation allows the contact list to appear more organized.
+** Highlights: Understanding of time complexity of algorithms is required.
+For the sorting algorithms, we incorporated the existing library java.util.
 
-* *Minor enhancement*: File Unzipping
-** What it does: As a supporting enhancement to the notes download enhancement, file unzipping helps to
- unzip downloaded notes. We make things more intuitive for the user, by automatically storing
-  unzipped files according to the modules they belong to.
-** Justification: IVLE's libraries downloads files in a zip format.  Automatically unzipping
- and storing the files saves the user's time.
-** Highlights: This enhancement is an add on to the main enhancement, download notes.  To allow the user
-to achieve a seamless experience, it is important to work together as a team.  A deep understanding of the main enhancement, download notes,
-is required.  We made use of existing library java.io, java.nio, and java.util.zip, as well as
-modified and improved upon extracting zip files online tutorials.
-
-* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=auskure[Functional and test code]]
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=auskure[Functional and test code]
 
 * *Other contributions*:
 
-** Project management:
-*** Successfully assigned and managed `issues` for all team members, and matched them to corresponding deadlines.
-*** Effectively planned and facilitated discussions on project direction and work delegation.
+** Project management: Successfully assigned and managed `issues` for all team members, and matched them to corresponding deadlines.
 
-** Enhancements to existing features:
-*** Added a new attribute to the Person Class, called Enrolled Modules.  This allows you to learn with just one glance,
-what modules your contact is taking.
-
-** Documentation:
-*** Performed updates and organized the User Guide into a more reader friendly format, in pull request
+** Documentation: Organized the User Guide into a more reader friendly format +
 https://github.com/CS2113-AY1819S1-W12-2/main/pull/61[#61]
 
-** Community:
-*** Pull requests reviewed with elaborate comments in pull request
-https://github.com/CS2113-AY1819S1-W12-2/main/pull/72[#72],
+** Community: Pull requests meticulously reviewed +
+https://github.com/CS2113-AY1819S1-W12-2/main/pull/72[#72] +
 https://github.com/CS2113-AY1819S1-W12-2/main/pull/148[#148]
 
 
@@ -86,14 +65,10 @@ include::../UserGuide.adoc[tag=deleteSelectNotes]
 == Contributions to the Developer Guide
 
 |===
-|_The following shows my contributions to the user guide, in relation to functions `clearNotes` and
-  `deleteSelectNotes`. They showcase my ability to write technical documentation and the technical
+|_The following shows my contributions to the user guide, in relation to the alphabetised contact list enhancement.
+This showcases my ability to write technical documentation and the technical
    depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=sortingofpersons]
 
-
-
-//easy to read, you languaege, diagram wiht description, tense
-//which diagram goes with what
