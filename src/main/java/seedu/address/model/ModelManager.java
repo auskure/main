@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.FileUtil.loadFolders;
 
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,9 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.NotesDownloadEvent;
 import seedu.address.commons.events.model.NotesEvent;
-import seedu.address.commons.events.model.NotesSelectedEvent;
 import seedu.address.model.person.Person;
 
 /**
@@ -29,7 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final Set<String> notesDownloaded;
+    private final NotesDownloaded notesDownloaded;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,7 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        notesDownloaded = loadFolders(userPrefs.getNotesFolderPath());
+        notesDownloaded = new NotesDownloaded();
+        notesDownloaded.setNotes(loadFolders(userPrefs.getNotesFolderPath()));
     }
 
     public ModelManager() {
@@ -161,8 +159,9 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Returns an unmodifiable view of the list of downloaded notes
      */
-    public Set<String> getNotesList() {
-        return Collections.unmodifiableSet(notesDownloaded);
+    @Override
+    public ReadOnlyNotesDownloaded getNotesList() {
+        return notesDownloaded;
     }
 
     /**
@@ -170,47 +169,43 @@ public class ModelManager extends ComponentManager implements Model {
      */
     public void resetNotesData(String event) {
         notesDownloaded.clear();
-        indicateAllNotesChanged(event);
+        indicateNotesManipulated(event);
     }
 
     /**
      * add a new entry to the list of downloaded notes
      */
     public void addNotes(String event, String moduleCode) {
-        notesDownloaded.add(moduleCode);
-        indicateNotesDownloaded(event, moduleCode);
+        notesDownloaded.addNotes(moduleCode);
+        indicateNotesManipulated(event, moduleCode);
     }
 
     /**
      * remove existing notes from the list of downloaded notes, and deletes those notes from storage
      */
     public void deleteSelectedNotes(String event, Set<String> moduleCodes) {
-        for (String tempName : moduleCodes) {
-            for (Iterator<String> iterator = notesDownloaded.iterator(); iterator.hasNext();) {
-                String tempNotes = iterator.next();
-                if (tempNotes.contains(tempName)) {
-                    iterator.remove();
-                }
-            }
-        }
-        indicateSelectedNotesChanged(event, moduleCodes);
-    }
-
-    /** Raises an event to indicate that all current notes are manipulated */
-    private void indicateAllNotesChanged(String event) {
-        raise(new NotesEvent(event));
+        notesDownloaded.deleteSelectedNotes(moduleCodes);
+        indicateNotesManipulated(event, moduleCodes);
     }
 
     /**
-     * Raises an event to indicate that some of the current notes are manipulated
+     * Raises an event to indicate that the current notes are manipulated
      */
-    private void indicateSelectedNotesChanged(String event, Set<String> moduleCodes) {
-        raise(new NotesSelectedEvent(event, moduleCodes));
+    private void indicateNotesManipulated(String event, Set<String> moduleCodes) {
+        raise(new NotesEvent(event, moduleCodes));
     }
 
     /** Raises an event to indicate the current notes are manipulated */
-    private void indicateNotesDownloaded(String event, String moduleCode) {
-        raise(new NotesDownloadEvent(event, moduleCode));
+    private void indicateNotesManipulated(String event, String moduleCode) {
+        Set<String> tempSet = new TreeSet<>();
+        tempSet.add(moduleCode);
+        raise(new NotesEvent(event, tempSet));
+    }
+
+    /** Raises an event to indicate the current notes are manipulated */
+    private void indicateNotesManipulated(String event) {
+        Set<String> tempSet = new TreeSet<>();
+        raise(new NotesEvent(event, tempSet));
     }
 
 }

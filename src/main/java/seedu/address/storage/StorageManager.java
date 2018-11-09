@@ -11,9 +11,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.NotesDownloadEvent;
 import seedu.address.commons.events.model.NotesEvent;
-import seedu.address.commons.events.model.NotesSelectedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.ClearNotesCommand;
@@ -130,59 +128,36 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAllNotesManipulationEvent(NotesEvent notesEvent) throws IOException {
+    public void handleNotesManipulationEvent(NotesEvent notesEvent) {
         logger.info(LogsCenter.getEventHandlingLogMessage(notesEvent, "all notes manipulated"));
 
         final String commandWord = notesEvent.getEvent();
+        final String moduleCode = notesEvent.getSingleModuleCode();
         //switch-case syntax is used here, to easily allow for future expandability.
-        switch (commandWord) {
+        try {
+            switch (commandWord) {
 
-        case ClearNotesCommand.COMMAND_WORD:
-            deleteAllNotes();
-            return;
+            case ClearNotesCommand.COMMAND_WORD:
+                deleteAllNotes();
+                return;
 
-        default:
-            throw new IOException();
-        }
-    }
+            case DeleteSelectNotesCommand.COMMAND_WORD:
+                deleteSelectedNotes(notesEvent.getModuleCodes());
+                return;
 
-    @Override
-    @Subscribe
-    public void handleNotesDownloadedEvent(NotesDownloadEvent notesDownloadEvent) throws IOException {
-        logger.info(LogsCenter.getEventHandlingLogMessage(notesDownloadEvent, "notes downloaded"));
+            case DownloadAllNotesCommand.COMMAND_WORD:
+                unzipNotes(moduleCode);
+                return;
 
-        final String commandWord = notesDownloadEvent.getEvent();
-        switch (commandWord) {
+            case DownloadSelectNotesCommand.COMMAND_WORD:
+                relocateNotes(moduleCode);
+                return;
 
-        case DownloadAllNotesCommand.COMMAND_WORD:
-            unzipNotes(notesDownloadEvent.getModuleCode());
-            return;
-
-        case DownloadSelectNotesCommand.COMMAND_WORD:
-            relocateNotes(notesDownloadEvent.getModuleCode());
-            return;
-
-        default:
-            throw new IOException();
-        }
-    }
-
-    @Override
-    @Subscribe
-    public void handleSelectedNotesManipulationEvent(NotesSelectedEvent notesSelectedEventEvent) throws IOException {
-        logger.info(LogsCenter.getEventHandlingLogMessage(notesSelectedEventEvent,
-                "selected notes manipulated"));
-
-        final String commandWord = notesSelectedEventEvent.getEvent();
-        //switch-case syntax is used here, to easily allow for future expandability.
-        switch (commandWord) {
-
-        case DeleteSelectNotesCommand.COMMAND_WORD:
-            deleteSelectedNotes(notesSelectedEventEvent.getModuleCodes());
-            return;
-
-        default:
-            throw new IOException();
+            default:
+                throw new IOException();
+            }
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
         }
     }
 

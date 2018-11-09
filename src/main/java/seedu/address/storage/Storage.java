@@ -6,9 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.NotesDownloadEvent;
 import seedu.address.commons.events.model.NotesEvent;
-import seedu.address.commons.events.model.NotesSelectedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -57,21 +55,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, NotesDown
     void unzipNotes(String moduleName) throws IOException;
 
     /**
-     * Depending on the type of the event, this executes operations on notes currently stored in your computer
+     * Depending on the type of the event, this executes operations on notes
      * Raises {@link IOException} if there was an error during saving.
      */
-    void handleAllNotesManipulationEvent(NotesEvent notesEvent) throws IOException;
-
-    /**
-     * Depending on the type of the event, this executes operations on new notes downloaded
-     * Raises {@link IOException} if there was an error during saving.
-     */
-    void handleNotesDownloadedEvent(NotesDownloadEvent notesDownloadEvent) throws IOException;
-
-    /**
-     * Depending on the type of the event, this executes operations on selected notes
-     * Raises {@link IOException} if there was an error during saving.
-     */
-    void handleSelectedNotesManipulationEvent(NotesSelectedEvent notesSelectedEventEvent) throws IOException;
+    void handleNotesManipulationEvent(NotesEvent notesEvent) throws IOException;
 
 }
