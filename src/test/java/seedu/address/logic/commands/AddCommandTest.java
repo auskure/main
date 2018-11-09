@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -158,7 +157,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyNotesDownloaded getNotesList() {
-                throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

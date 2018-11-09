@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -15,9 +14,11 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import javafx.collections.ObservableList;
+import java.util.List;
+
 import org.junit.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -30,8 +31,6 @@ import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-
-import java.util.List;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -59,8 +58,8 @@ public class EditCommandTest {
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
         Index indexLastPerson = Index.fromOneBased(mainList.size());
         Person lastPerson = mainList.get(indexLastPerson.getZeroBased());
 
@@ -84,8 +83,8 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
         EditCommand editCommand = new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()),
                 new EditPersonDescriptor());
 
@@ -103,8 +102,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
 
         Person personInFilteredList = mainList.get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
@@ -123,8 +122,8 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
         Person firstPerson = mainList.get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(Integer.toString(INDEX_SECOND_PERSON.getOneBased()), descriptor);
@@ -240,11 +239,13 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()), DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()),
+                DESC_AMY);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()), copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()),
+                copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -261,7 +262,8 @@ public class EditCommandTest {
                 DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()), DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()),
+                DESC_BOB)));
     }
 
 }

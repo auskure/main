@@ -18,7 +18,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        if(keywords.size() > 0) {
+        if (keywords.size() > 0) {
             int isMerged = 0;
             if (keywords.get(0).equalsIgnoreCase("merged")) {
                 for (Tag tag : person.getTags()) {
@@ -32,8 +32,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
             }
             if (keywords.get(0).equalsIgnoreCase("main")) {
                 for (Tag tag : person.getTags()) {
-                    if (tag.toString().equalsIgnoreCase("[merged]") ||
-                            tag.toString().equalsIgnoreCase("[self]")) {
+                    if (tag.toString().equalsIgnoreCase("[merged]")
+                            || tag.toString().equalsIgnoreCase("[self]")) {
                         return true;
                     }
                 }

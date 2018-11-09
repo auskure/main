@@ -15,7 +15,11 @@ import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.enrolledmodule.EnrolledModule;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedPersonTest {
@@ -48,7 +52,7 @@ public class XmlAdaptedPersonTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedPerson person =
                 new XmlAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
-                        VALID_ENROLLED_MODULES, VALID_TIMESLOTS );
+                        VALID_ENROLLED_MODULES, VALID_TIMESLOTS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }

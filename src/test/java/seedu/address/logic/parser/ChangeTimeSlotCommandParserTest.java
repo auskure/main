@@ -1,17 +1,18 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.commands.ChangeTimeSlotCommand;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.Test;
+
+import seedu.address.logic.commands.ChangeTimeSlotCommand;
 
 public class ChangeTimeSlotCommandParserTest {
     private ChangeTimeSlotCommandParser parser = new ChangeTimeSlotCommandParser();
 
     @Test
-    public void parse_validArgs_returnsChangeCommand(){
+    public void parse_validArgs_returnsChangeCommand() {
         String index = "1";
         String[] actions = {"1", "mon", "10am", "GER1000"};
 
@@ -21,7 +22,7 @@ public class ChangeTimeSlotCommandParserTest {
     }
 
     @Test
-    public void parse_invalidDay_throwsParseException(){
+    public void parse_invalidDay_throwsParseException() {
         assertParseFailure(parser, "1 a 10am GER1000",
                 ChangeTimeSlotCommand.MESSAGE_INVALID_DAY + ChangeTimeSlotCommand.MESSAGE_USAGE);
 
@@ -33,7 +34,7 @@ public class ChangeTimeSlotCommandParserTest {
     }
 
     @Test
-    public void parse_invalidTime_throwsParseException(){
+    public void parse_invalidTime_throwsParseException() {
         assertParseFailure(parser, "1 mon 7am GER1000",
                 ChangeTimeSlotCommand.MESSAGE_INVALID_TIME + ChangeTimeSlotCommand.MESSAGE_USAGE);
 
@@ -42,9 +43,9 @@ public class ChangeTimeSlotCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException(){
+    public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "1 mon 10am", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        ChangeTimeSlotCommand.MESSAGE_USAGE));
+                ChangeTimeSlotCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, "1 mon GER1000", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ChangeTimeSlotCommand.MESSAGE_USAGE));

@@ -22,12 +22,12 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": import the person into the system.\n"
         + "Parameters: STRING (the Base64 string)\n"
         + "Example: " + COMMAND_WORD + " " + "rO0ABXNyACFzZWVkdS5hZGRyZXNzLm1vZGVsLnB...";
-
-    private final String personString;
-
     private static final String MESSAGE_SUCCESS = "Import successful";
     private static final String MESSAGE_SUCCESS_OVERWRITE = "Import successful, user data is overwritten";
     private static final String MESSAGE_FAILED = "Failed to import";
+
+
+    private final String personString;
 
     public ImportCommand(String input) {
         requireNonNull(input);

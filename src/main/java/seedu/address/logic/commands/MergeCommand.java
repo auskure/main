@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MERGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -14,7 +13,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -50,8 +48,8 @@ public class MergeCommand extends Command {
     public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
     public static final String MESSAGE_INVALID_INDEX = "Invalid index. Index selected does not exist.";
     public static final String MESSAGE_UPDATE_GROUP_SUCCESS = "Group has been edited: %1$s";
-    public static final String MESSAGE_INDEX_NEEDS_TO_BE_NUMBER = "Invalid index. Index needs to be a positive " +
-            "integer\n";
+    public static final String MESSAGE_INDEX_NEEDS_TO_BE_NUMBER = "Invalid index. Index needs to be a positive "
+            + "integer\n";
     public static final String MESSAGE_NO_GROUP_NAME = "No group name entered.";
 
     private final List<Integer> indices;
@@ -104,11 +102,12 @@ public class MergeCommand extends Command {
         return new CommandResult(MESSAGE_MERGE_TIMETABLE_SUCCESS);
 
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MergeCommand // instanceof handles nulls
-                && indices.equals(((MergeCommand) other).indices) && name.equals(((MergeCommand) other).name) );
+                && indices.equals(((MergeCommand) other).indices) && name.equals(((MergeCommand) other).name));
     }
 
     /**
@@ -139,7 +138,6 @@ public class MergeCommand extends Command {
     /**
      * Creates a new merged timetable from 2 timetables.
      */
-
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {
         TimeSlots[] mon1 = slots1.get("mon").toArray(new TimeSlots[0]);

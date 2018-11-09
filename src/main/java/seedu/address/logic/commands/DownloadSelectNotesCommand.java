@@ -29,8 +29,9 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
 
     public static final String MESSAGE_USAGE = "To display all available notes:" + NEWLINE_SEPARATOR + COMMAND_WORD
             + " user/(username) pass/(password) mod/(moduleCode)" + NEWLINE_SEPARATOR
-        + "To select the notes(by index):" + NEWLINE_SEPARATOR + COMMAND_WORD
-        + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
+            + "To select the notes(by index):" + NEWLINE_SEPARATOR + COMMAND_WORD
+            + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
+
 
 
     public static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
@@ -85,7 +86,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
                 return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode
-                    + NEWLINE_SEPARATOR + availableDownloadFiles);
+                        + NEWLINE_SEPARATOR + availableDownloadFiles);
             }
             /**
              * Updated to disable download operations.

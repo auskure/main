@@ -1,16 +1,14 @@
 package seedu.address.testutil;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.enrolledmodule.EnrolledModule;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -72,12 +70,18 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptorBuilder withTimeSlots(){
+    /**
+     * Sets the {@code TimeSlots} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withTimeSlots() {
         descriptor.setTimeSlots(TimeSlots.initTimeSlots());
         return this;
     }
 
-    public EditPersonDescriptorBuilder withEnrolledModules(){
+    /**
+     * Sets the {@code EnrolledModules} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withEnrolledModules() {
         descriptor.setEnrolledModules(new TreeMap<>());
         return this;
     }
