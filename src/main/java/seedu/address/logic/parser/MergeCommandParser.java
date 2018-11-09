@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.MergeCommand.MESSAGE_USAGE;
-import static seedu.address.logic.commands.MergeCommand.MESSAGE_NO_GROUP_NAME;
 import static seedu.address.logic.commands.MergeCommand.MESSAGE_INDEX_NEEDS_TO_BE_NUMBER;
+import static seedu.address.logic.commands.MergeCommand.MESSAGE_NO_GROUP_NAME;
+import static seedu.address.logic.commands.MergeCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MERGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 

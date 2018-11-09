@@ -3,7 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -101,8 +105,8 @@ public class ChangeTimeSlotCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ChangeTimeSlotCommand // instanceof handles nulls
-                && reference.equals(((ChangeTimeSlotCommand) other).reference) &&
-                Arrays.equals(actions, (((ChangeTimeSlotCommand) other).actions)));
+                && reference.equals(((ChangeTimeSlotCommand) other).reference)
+                && Arrays.equals(actions, (((ChangeTimeSlotCommand) other).actions)));
     }
 
     /**
