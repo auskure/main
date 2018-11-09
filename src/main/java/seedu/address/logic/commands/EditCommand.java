@@ -9,13 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -118,7 +112,6 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = personToEdit.getTags();
-
         Map<String, EnrolledModule> updatedEnrolledModules = editPersonDescriptor.getEnrolledModules()
                 .orElse(personToEdit.getEnrolledModules());
         Map<String, List<TimeSlots>> updatedTimeSlots = personToEdit.getTimeSlots();
@@ -155,7 +148,6 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<Tag> tags;
         private Map<String, EnrolledModule> enrolledModules;
         private Map<String, List<TimeSlots>> timeslots;
 
@@ -172,7 +164,6 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            setTags(toCopy.tags);
             setEnrolledModules(toCopy.enrolledModules);
             setTimeSlots(toCopy.timeslots);
 
@@ -182,7 +173,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, enrolledModules);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, enrolledModules);
         }
 
         public void setName(Name name) {
@@ -218,31 +209,6 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            if (tags != null) {
-                this.tags = tags;
-            } else {
-                this.tags = new HashSet<>();
-            }
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            if (tags != null) {
-                return Optional.of(Collections.unmodifiableSet(tags));
-            } else {
-                return Optional.empty();
-            }
-        }
-
-        /**
          * Sets {@code enrolledModules} to this object's {@code enrolledModules}.
          * A defensive copy of {@code enrolledModules} is used internally.
          */
@@ -270,7 +236,11 @@ public class EditCommand extends Command {
         }
 
         public void setTimeSlots(Map<String, List<TimeSlots>> timeslots) {
-            this.timeslots = timeslots;
+            if(timeslots != null) {
+                this.timeslots = timeslots;
+            } else {
+                this.timeslots = TimeSlots.initTimeSlots();
+            }
         }
 
         public Map<String, List<TimeSlots>> getTimeSlots() {
@@ -296,9 +266,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags())
-                    && getEnrolledModules().equals(e.getEnrolledModules())
-                    && getTimeSlots().equals(e.getTimeSlots());
+                    && getEnrolledModules().equals(e.getEnrolledModules());
         }
     }
 }

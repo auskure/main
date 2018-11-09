@@ -59,41 +59,41 @@ public class PersonTest {
     }
 
     @Test
-    public void equals() {
+    public void completelyEquals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        assertTrue(ALICE.completelyEquals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(ALICE.completelyEquals(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ALICE.completelyEquals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(ALICE.completelyEquals(5));
 
         // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ALICE.completelyEquals(BOB));
 
         // different name -> returns false
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.completelyEquals(editedAlice));
 
         // different phone -> returns false
         editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.completelyEquals(editedAlice));
 
         // different email -> returns false
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.completelyEquals(editedAlice));
 
         // different address -> returns false
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.completelyEquals(editedAlice));
 
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.completelyEquals(editedAlice));
     }
 }

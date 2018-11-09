@@ -1,15 +1,15 @@
 package seedu.address.testutil;
 
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.enrolledmodule.EnrolledModule;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,7 +36,8 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
-        descriptor.setTags(person.getTags());
+        descriptor.setEnrolledModules(person.getEnrolledModules());
+        descriptor.setTimeSlots(person.getTimeSlots());
     }
 
     /**
@@ -71,15 +72,20 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    public EditPersonDescriptorBuilder withTimeSlots(){
+        descriptor.setTimeSlots(TimeSlots.initTimeSlots());
+        return this;
+    }
+
+    public EditPersonDescriptorBuilder withEnrolledModules(){
+        descriptor.setEnrolledModules(new TreeMap<>());
+        return this;
+    }
+
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
-        return this;
-    }
 
     public EditPersonDescriptor build() {
         return descriptor;

@@ -66,7 +66,9 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
             /**
              * Updated to disable download operations.
              */
+
             if (isDownloadDisabled) {
+
                 driver.close();
                 return new CommandResult(Messages.MESSAGE_DOWNLOAD_DISABLED);
             }

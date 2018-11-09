@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import javafx.collections.ObservableList;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -21,7 +22,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.IsNotSelfOrMergedPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.ui.testutil.EventsCollectorRule;
+
+import java.util.List;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -36,7 +41,10 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+        List<Person> filteredPersonList = model.getFilteredPersonList();
+        List<Person> mainList =
+                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        Index lastPersonIndex = Index.fromOneBased(mainList.size());
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
         assertExecutionSuccess(INDEX_THIRD_PERSON);
