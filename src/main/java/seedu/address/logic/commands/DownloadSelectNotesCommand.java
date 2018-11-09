@@ -84,8 +84,8 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             if (fileSelect == null) {
                 availableDownloadFiles = getFileNames(driver);
                 driver.close();
-                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode +
-                        NEWLINE_SEPARATOR + availableDownloadFiles);
+                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode
+                        + NEWLINE_SEPARATOR + availableDownloadFiles);
             }
             /**
              * Updated to disable download operations.
