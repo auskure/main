@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static junit.framework.TestCase.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.CORRECT_FILE_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.CORRECT_MODULE_CODE;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_FILE_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_MODULE_CODE;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_PASSWORD;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_USERNAME;
-import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_FILE_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 import java.io.File;
@@ -78,8 +78,8 @@ public class DownloadSelectNotesCommandTest {
     public void execute_windowsDriverExtracted() {
         DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
                 INCORRECT_PASSWORD, INCORRECT_MODULE_CODE);
-        String intendedFileLocation = System.getProperty("user.dir") +
-                "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_DIRECTORY;
+        String intendedFileLocation = System.getProperty("user.dir")
+                + "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_DIRECTORY;
         File windowsDriverDir = new File(intendedFileLocation);
         intendedFileLocation += "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_NAME;
         File windowsChromeDriver = new File(intendedFileLocation);

@@ -124,8 +124,8 @@ public class ChangeTimeSlotCommandTest {
     @Test
     public void execute_invalidIndex_failure() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
         String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         String[] actions = {"0", "mon", "10am"};
 

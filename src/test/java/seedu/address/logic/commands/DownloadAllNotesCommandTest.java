@@ -64,8 +64,8 @@ public class DownloadAllNotesCommandTest {
     public void execute_windowsDriverExtracted() {
         DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
                 CORRECT_MODULE_CODE);
-        String intendedFileLocation = System.getProperty("user.dir") +
-                "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_DIRECTORY;
+        String intendedFileLocation = System.getProperty("user.dir")
+                + "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_DIRECTORY;
         File windowsDriverDir = new File(intendedFileLocation);
         intendedFileLocation += "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_NAME;
         File windowsChromeDriver = new File(intendedFileLocation);
