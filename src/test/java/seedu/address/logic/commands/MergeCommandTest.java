@@ -124,5 +124,4 @@ public class MergeCommandTest {
         assertCommandSuccess(mergeCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
-
 }

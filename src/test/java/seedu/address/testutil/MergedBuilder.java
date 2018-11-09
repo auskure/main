@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class MergedBuilder {public static final String DEFAULT_NAME = "Alice Pauline";
+public class MergedBuilder {
     private Person mergedPerson;
 
     /**
@@ -31,6 +31,9 @@ public class MergedBuilder {public static final String DEFAULT_NAME = "Alice Pau
 
     public Person getMergedPerson(){return this.mergedPerson;}
 
+    /**
+     * Merges 2 people into a single person with a merged timetable
+     */
     private Person mergeTimetables(Person person1, Person person2, int index, String groupName) {
         Name mergedName = new Name(groupName);
         Phone phone = new Phone("99999999");
