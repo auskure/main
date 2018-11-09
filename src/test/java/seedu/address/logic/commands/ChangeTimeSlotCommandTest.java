@@ -35,8 +35,8 @@ public class ChangeTimeSlotCommandTest {
     @Test
     public void execute_validContactChange_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         Map<String, List<TimeSlots>> timeSlots;
         Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
@@ -69,8 +69,8 @@ public class ChangeTimeSlotCommandTest {
     @Test
     public void execute_validSelfChange_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> selfList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate());
+        List<Person> selfList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsSelfPredicate());
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         Map<String, List<TimeSlots>> timeSlots;
         Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
@@ -102,8 +102,8 @@ public class ChangeTimeSlotCommandTest {
     @Test
     public void execute_noTimeSlotChanged_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
         Map<String, List<TimeSlots>> timeSlots;
         List<TimeSlots> monday;
 

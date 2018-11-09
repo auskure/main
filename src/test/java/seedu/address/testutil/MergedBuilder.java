@@ -16,6 +16,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
+/**
+ * A utility class to help with building merged Person objects.
+ */
 public class MergedBuilder {
     private Person mergedPerson;
 

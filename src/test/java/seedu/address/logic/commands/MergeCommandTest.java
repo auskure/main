@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.MergedBuilder;
-
 
 public class MergeCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());

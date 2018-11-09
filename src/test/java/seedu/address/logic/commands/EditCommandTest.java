@@ -14,6 +14,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import javafx.collections.ObservableList;
@@ -29,8 +31,6 @@ import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-
-import java.util.List;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -239,13 +239,13 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand
-                (Integer.toString(INDEX_FIRST_PERSON.getOneBased()), DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()),
+                DESC_AMY);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand
-                (Integer.toString(INDEX_FIRST_PERSON.getOneBased()), copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()),
+                copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -262,8 +262,8 @@ public class EditCommandTest {
                 DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand
-                (Integer.toString(INDEX_FIRST_PERSON.getOneBased()), DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(Integer.toString(INDEX_FIRST_PERSON.getOneBased()),
+                DESC_BOB)));
     }
 
 }

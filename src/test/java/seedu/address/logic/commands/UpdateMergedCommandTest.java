@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,8 +34,8 @@ public class UpdateMergedCommandTest {
     @Before
     public void setUp() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
-        List<Person> mainList =
-                ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
         List<Integer> indices = new ArrayList<>();
         List<Person> personsToMerge = new ArrayList<>();
 

@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.MergeCommand;

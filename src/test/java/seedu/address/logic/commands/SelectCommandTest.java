@@ -11,6 +11,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+
+import java.util.List;
+
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -25,8 +28,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.ui.testutil.EventsCollectorRule;
-
-import java.util.List;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.

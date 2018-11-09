@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.CORRECT_FILE_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.CORRECT_MODULE_CODE;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_MODULE_CODE;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_PASSWORD;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_USERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_FILE_INDEX;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 import java.io.File;
 
