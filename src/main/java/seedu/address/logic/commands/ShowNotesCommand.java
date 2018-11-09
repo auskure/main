@@ -3,12 +3,12 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.FileUtil.currentDirectory;
 
+import java.io.File;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import java.io.File;
 
 /**
  * ShowNotesCommand locates the "notes" folder as specified by the DownloadAbstract class, it then recursively
