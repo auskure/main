@@ -33,17 +33,17 @@ public class ChangeTimeSlotCommandTest {
     }
 
     @Test
-    public void execute_validContactChange_success(){
+    public void execute_validContactChange_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mainList =
                 ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
-        String[] days ={"mon", "tue", "wed", "thu", "fri"};
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
         Map<String, List<TimeSlots>> timeSlots;
         Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
         List<TimeSlots> monday;
 
 
-        String[] actions ={"1", "mon", "10am", "GER1000"};
+        String[] actions = {"1", "mon", "10am", "GER1000"};
         String index = "1";
 
         Person personToChange = mainList.get(0);
@@ -51,7 +51,7 @@ public class ChangeTimeSlotCommandTest {
         monday = timeSlots.get("mon");
         monday.set(3, new TimeSlots("GER1000"));
 
-        for(String day : days){
+        for (String day : days) {
             changedTimeSlots.put(day, timeSlots.get(day));
         }
 
@@ -67,17 +67,17 @@ public class ChangeTimeSlotCommandTest {
     }
 
     @Test
-    public void execute_validSelfChange_success(){
+    public void execute_validSelfChange_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> selfList =
                 ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate());
-        String[] days ={"mon", "tue", "wed", "thu", "fri"};
+        String[] days = {"mon", "tue", "wed", "thu", "fri"};
         Map<String, List<TimeSlots>> timeSlots;
         Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
         List<TimeSlots> monday;
 
 
-        String[] actions ={"1", "mon", "10am", "GER1000"};
+        String[] actions = {"1", "mon", "10am", "GER1000"};
         String index = "self";
 
         Person personToChange = selfList.get(0);
@@ -85,7 +85,7 @@ public class ChangeTimeSlotCommandTest {
         monday = timeSlots.get("mon");
         monday.set(3, new TimeSlots("GER1000"));
 
-        for(String day : days){
+        for (String day : days) {
             changedTimeSlots.put(day, timeSlots.get(day));
         }
 
@@ -100,7 +100,7 @@ public class ChangeTimeSlotCommandTest {
     }
 
     @Test
-     public void execute_noTimeSlotChanged_success(){
+    public void execute_noTimeSlotChanged_success() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mainList =
                 ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
@@ -108,7 +108,7 @@ public class ChangeTimeSlotCommandTest {
         List<TimeSlots> monday;
 
 
-        String[] actions ={"1", "mon", "10am", "free"};
+        String[] actions = {"1", "mon", "10am", "free"};
         String index = "1";
 
         Person personToChange = mainList.get(0);
@@ -122,12 +122,12 @@ public class ChangeTimeSlotCommandTest {
     }
 
     @Test
-    public void execute_invalidIndex_failure(){
+    public void execute_invalidIndex_failure() {
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mainList =
                 ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
         String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-        String[] actions ={"0", "mon", "10am"};
+        String[] actions = {"0", "mon", "10am"};
 
         String index = "0";
         assertIndexSelectionFailure(index, actions, expectedMessage);
@@ -159,7 +159,7 @@ public class ChangeTimeSlotCommandTest {
     }
 
 
-    public void assertNothingChangedFailure(String index, String[] actions){
+    public void assertNothingChangedFailure(String index, String[] actions) {
         ChangeTimeSlotCommand changeCommand = new ChangeTimeSlotCommand(index, actions);
         String expectedMessage = ChangeTimeSlotCommand.MESSAGE_NOTHING_CHANGED;
 

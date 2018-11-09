@@ -25,7 +25,7 @@ public class FilterCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validTimeToFilter_success(){
+    public void execute_validTimeToFilter_success() {
         List<String> keywords = new ArrayList<>();
         keywords.add("tue");
         keywords.add("2");
@@ -37,7 +37,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_validActivityToFilter_success(){
+    public void execute_validActivityToFilter_success() {
         List<String> keywords = new ArrayList<>();
         keywords.add("CS2040c");
 
@@ -49,7 +49,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_validActivityAndTimeToFilter_success(){
+    public void execute_validActivityAndTimeToFilter_success() {
         List<String> keywords = new ArrayList<>();
         keywords.add("CS2040c");
         keywords.add("mon");
@@ -63,7 +63,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_validMultipleActivitiesAndTimesToFilter_success(){
+    public void execute_validMultipleActivitiesAndTimesToFilter_success() {
         List<String> keywords = new ArrayList<>();
         keywords.add("CS2040c");
         keywords.add("mon");

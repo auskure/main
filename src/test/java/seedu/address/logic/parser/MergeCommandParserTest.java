@@ -28,19 +28,19 @@ public class MergeCommandParserTest {
     }
 
     @Test
-    public void parse_noGroupName_throwsParseException(){
+    public void parse_noGroupName_throwsParseException() {
         assertParseFailure(parser, " m/1 m/2", MergeCommand.MESSAGE_NO_GROUP_NAME + " " + MergeCommand.MESSAGE_USAGE);
 
     }
 
     @Test
-    public void parse_indexNotANumber_throwsParseException(){
+    public void parse_indexNotANumber_throwsParseException() {
         assertParseFailure(parser, " m/1 m/a n/test", MergeCommand.MESSAGE_INDEX_NEEDS_TO_BE_NUMBER +
-                        MergeCommand.MESSAGE_USAGE);
+                MergeCommand.MESSAGE_USAGE);
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException(){
+    public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "hi", String.format(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 MergeCommand.MESSAGE_USAGE)));
 

@@ -31,7 +31,7 @@ public class MergeCommandTest {
     }
 
     @Test
-    public void  execute_validIndexForMerge_success() {
+    public void execute_validIndexForMerge_success() {
         String groupName = "Merge";
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mainList =
@@ -40,10 +40,10 @@ public class MergeCommandTest {
         List<Person> personsToMerge = new ArrayList<>();
 
         indices.add(INDEX_FIRST_PERSON.getZeroBased());
-        indices.add(mainList.size()-1);
+        indices.add(mainList.size() - 1);
 
         personsToMerge.add(mainList.get(0));
-        personsToMerge.add(mainList.get(mainList.size()-1));
+        personsToMerge.add(mainList.get(mainList.size() - 1));
 
         MergedBuilder mergedBuilder = new MergedBuilder(personsToMerge, groupName);
         Person newGroup = mergedBuilder.getMergedPerson();
@@ -52,10 +52,10 @@ public class MergeCommandTest {
         expectedModel.commitAddressBook();
 
         assertMergeSuccess(indices, groupName);
-        }
+    }
 
     @Test
-    public void execute_invalidIndexForMerge_failure(){
+    public void execute_invalidIndexForMerge_failure() {
         String groupName = "invalidIndex";
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mainList =
@@ -75,7 +75,7 @@ public class MergeCommandTest {
     }
 
     @Test
-    public void execute_editExistingGroup_success(){
+    public void execute_editExistingGroup_success() {
         String groupName = "Edit";
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mainList =
@@ -100,12 +100,11 @@ public class MergeCommandTest {
     }
 
 
-
     /**
      * Executes a {@code MergeCommand} with the given {@code index}, and checks that correct contact is merged
      */
     private void assertMergeSuccess(List<Integer> indices, String groupName) {
-       MergeCommand mergeCommand = new MergeCommand(indices, groupName);
+        MergeCommand mergeCommand = new MergeCommand(indices, groupName);
         String expectedMessage = String.format(MergeCommand.MESSAGE_MERGE_TIMETABLE_SUCCESS);
 
         assertCommandSuccess(mergeCommand, model, commandHistory, expectedMessage, expectedModel);

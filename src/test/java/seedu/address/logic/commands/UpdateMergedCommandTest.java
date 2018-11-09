@@ -52,7 +52,7 @@ public class UpdateMergedCommandTest {
 
         Map<String, List<TimeSlots>> timetableToChange = personToChange.getTimeSlots();
         List<TimeSlots> dayToChange = timetableToChange.get("mon");
-
+        dayToChange.set(1, new TimeSlots("test"));
         
         personToChange = mergedList.get(0);
         timetableToChange = personToChange.getTimeSlots();
