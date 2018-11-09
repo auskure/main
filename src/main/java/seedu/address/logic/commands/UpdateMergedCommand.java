@@ -15,7 +15,6 @@ import java.util.TreeMap;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -194,7 +193,11 @@ public class UpdateMergedCommand extends Command {
         return finalDay;
     }
 
-    String createCorrectOutput( Map<String, ArrayList<String>> removedPersons){
+    /**
+     * Takes a map of the contacts who have been deleted and the groups affected by their deletion and returns the
+     * correct output
+     */
+    String createCorrectOutput(Map<String, ArrayList<String>> removedPersons) {
         String output = "";
         Iterator<Map.Entry<String, ArrayList<String>>> it = removedPersons.entrySet().iterator();
         while (it.hasNext()) {

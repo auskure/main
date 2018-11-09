@@ -130,29 +130,6 @@ public class TimetableCard extends UiPart<Region> {
         }
     }
 
-    /**
-     * Reads tags from a person, changes them to labels and adds colour
-     */
-    private void colourTag(Person person) {
-        person.getTags().forEach(tag -> {
-            Label tagLabel = new Label(tag.tagName);
-            if (tag.tagName.equals("free")) {
-                tagLabel.getStyleClass().add("white");
-                tagLabel.setText(" ");
-
-            } else if (tag.tagName.equals("busy")) {
-                tagLabel.getStyleClass().add("black");
-                tagLabel.setText(" ");
-            } else {
-                tagLabel.getStyleClass().add(getColor(tag.tagName));
-            }
-            tagLabel.setPrefSize(53, 25);
-            monday.getChildren().add(tagLabel);
-
-
-        });
-    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

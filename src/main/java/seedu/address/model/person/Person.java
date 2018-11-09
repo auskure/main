@@ -111,10 +111,13 @@ public class Person implements Serializable {
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
-    public boolean completelyEquals (Object other)
-    { if (other == this) {
-        return true;
-    }
+    /**
+     * Returns true if both persons' identity fields are identical.
+     */
+    public boolean completelyEquals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
         if (!(other instanceof Person)) {
             return false;
@@ -122,11 +125,12 @@ public class Person implements Serializable {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-        && otherPerson.getPhone().equals(getPhone())
-            && otherPerson.getEmail().equals(getEmail())
-            && otherPerson.getAddress().equals(getAddress())
-            && otherPerson.getTags().equals(getTags());
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getTags().equals(getTags());
     }
+
     /**
      * Returns true if both persons have the same name.
      */
@@ -156,13 +160,13 @@ public class Person implements Serializable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-            .append(" Phone: ")
-            .append(getPhone())
-            .append(" Email: ")
-            .append(getEmail())
-            .append(" Address: ")
-            .append(getAddress())
-            .append(" Tags: ");
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Enrolled Modules: ");
         for (String temp : getEnrolledModules().keySet()) {

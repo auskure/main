@@ -23,15 +23,15 @@ public class ChangeTimeSlotCommand extends Command {
     public static final String COMMAND_WORD = "change";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the selected time slot "
-        + "by the index number used in the displayed person list. "
-        + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX "
-        + "DAY(mon, tue, wed, thu, fri) "
-        + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
-        + "Activity "
-        + "Example: " + COMMAND_WORD + " 1 " + "mon "
-        + "8am "
-        + "CS2107";
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX "
+            + "DAY(mon, tue, wed, thu, fri) "
+            + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
+            + "Activity "
+            + "Example: " + COMMAND_WORD + " 1 " + "mon "
+            + "8am "
+            + "CS2107";
 
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Time slot changed: %1$s";
@@ -76,15 +76,14 @@ public class ChangeTimeSlotCommand extends Command {
 
         Map<String, List<TimeSlots>> timeSlots = personToChange.getTimeSlots();
         Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
-        if(createNewTimetable(timeSlots)!=null) {
+        if (createNewTimetable(timeSlots) != null) {
             changedTimeSlots = createNewTimetable(timeSlots);
-        }
-        else{
+        } else {
             throw new CommandException(MESSAGE_NOTHING_CHANGED);
         }
         Person newPerson = new Person(personToChange.getName(), personToChange.getPhone(), personToChange.getEmail(),
-            personToChange.getAddress(), personToChange.getTags(), personToChange.getEnrolledModules(),
-            changedTimeSlots);
+                personToChange.getAddress(), personToChange.getTags(), personToChange.getEnrolledModules(),
+                changedTimeSlots);
 
 
         model.updatePerson(personToChange, newPerson);
@@ -103,8 +102,9 @@ public class ChangeTimeSlotCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ChangeTimeSlotCommand // instanceof handles nulls
                 && reference.equals(((ChangeTimeSlotCommand) other).reference) &&
-                Arrays.equals(actions,(((ChangeTimeSlotCommand) other).actions) ));
+                Arrays.equals(actions, (((ChangeTimeSlotCommand) other).actions)));
     }
+
     /**
      * Copies a person's timetable.
      */
@@ -132,20 +132,20 @@ public class ChangeTimeSlotCommand extends Command {
             if (i % 3 == 0) {
                 activity = actions[i];
 
-                if(!changedTimeSlots.get(day).get(changeTimeToIndex(time)).toString().equalsIgnoreCase(activity)) {
+                if (!changedTimeSlots.get(day).get(changeTimeToIndex(time)).toString().equalsIgnoreCase(activity)) {
                     changedTimeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
                     didTimetableChange = true;
                 }
 
             }
         }
-        if(didTimetableChange){
+        if (didTimetableChange) {
             return changedTimeSlots;
-        }
-        else {
+        } else {
             return null;
         }
     }
+
     /**
      * Copies the timeslots in a day of a timetable.
      */
@@ -156,6 +156,7 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return finalSlots;
     }
+
     /**
      * Converts from a time to its corresponding index.
      */

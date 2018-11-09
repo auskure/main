@@ -14,7 +14,7 @@ public class Tag implements Serializable {
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public String tagName;
+    private String tagName;
 
     /**
      * Constructs a {@code Tag}.
@@ -38,6 +38,10 @@ public class Tag implements Serializable {
     @Override
     public int hashCode() {
         return tagName.hashCode();
+    }
+
+    public String getTagName() {
+        return tagName;
     }
 
     /**

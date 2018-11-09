@@ -236,7 +236,7 @@ public class EditCommand extends Command {
         }
 
         public void setTimeSlots(Map<String, List<TimeSlots>> timeslots) {
-            if(timeslots != null) {
+            if (timeslots != null) {
                 this.timeslots = timeslots;
             } else {
                 this.timeslots = TimeSlots.initTimeSlots();
