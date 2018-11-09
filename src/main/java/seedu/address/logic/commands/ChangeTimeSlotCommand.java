@@ -75,15 +75,17 @@ public class ChangeTimeSlotCommand extends Command {
         }
 
         Map<String, List<TimeSlots>> timeSlots = personToChange.getTimeSlots();
-        Map<String, List<TimeSlots>> changedTimeSlots = createNewTimetable(timeSlots);
-
+        Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
+        if(createNewTimetable(timeSlots)!=null) {
+            changedTimeSlots = createNewTimetable(timeSlots);
+        }
+        else{
+            throw new CommandException(MESSAGE_NOTHING_CHANGED);
+        }
         Person newPerson = new Person(personToChange.getName(), personToChange.getPhone(), personToChange.getEmail(),
             personToChange.getAddress(), personToChange.getTags(), personToChange.getEnrolledModules(),
             changedTimeSlots);
 
-        if (!personToChange.isSamePerson(newPerson) && model.hasPerson(newPerson)) {
-            throw new CommandException(MESSAGE_NOTHING_CHANGED);
-        }
 
         model.updatePerson(personToChange, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -111,6 +113,7 @@ public class ChangeTimeSlotCommand extends Command {
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         String day = null;
         String time = null;
+        Boolean didTimetableChange = false;
         for (String d : days) {
             List<TimeSlots> toAdd;
             toAdd = copyDay(timeSlots.get(d));
@@ -129,11 +132,19 @@ public class ChangeTimeSlotCommand extends Command {
             if (i % 3 == 0) {
                 activity = actions[i];
 
-                changedTimeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
+                if(!changedTimeSlots.get(day).get(changeTimeToIndex(time)).toString().equalsIgnoreCase(activity)) {
+                    changedTimeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
+                    didTimetableChange = true;
+                }
 
             }
         }
-        return changedTimeSlots;
+        if(didTimetableChange){
+            return changedTimeSlots;
+        }
+        else {
+            return null;
+        }
     }
     /**
      * Copies the timeslots in a day of a timetable.

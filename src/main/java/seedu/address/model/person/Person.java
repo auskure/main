@@ -107,14 +107,35 @@ public class Person implements Serializable {
         }
 
         return otherPerson != null
-            && otherPerson.getName().equals(getName());
+                && otherPerson.getName().equals(getName())
+                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
+    public boolean completelyEquals (Object other)
+    { if (other == this) {
+        return true;
+    }
+
+        if (!(other instanceof Person)) {
+            return false;
+        }
+
+        Person otherPerson = (Person) other;
+        return otherPerson.getName().equals(getName())
+        && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getTags().equals(getTags());
+    }
     /**
      * Returns true if both persons have the same name.
      */
     @Override
     public boolean equals(Object other) {
+
+        if (other == this) {
+            return true;
+        }
 
         if (!(other instanceof Person)) {
             return false;
@@ -122,6 +143,7 @@ public class Person implements Serializable {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName());
+
     }
 
     @Override

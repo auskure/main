@@ -100,26 +100,24 @@ public class ChangeTimeSlotCommandTest {
     }
 
     @Test
-    public void execute_noTimeSlotChanged_success(){
+     public void execute_noTimeSlotChanged_success(){
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mainList =
                 ((ObservableList<Person>) filteredPersonList).filtered(new IsNotSelfOrMergedPredicate());
-        String[] days ={"mon", "tue", "wed", "thu", "fri"};
         Map<String, List<TimeSlots>> timeSlots;
-        Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
         List<TimeSlots> monday;
 
 
-        String[] actions ={"1", "mon", "10am"};
+        String[] actions ={"1", "mon", "10am", "free"};
         String index = "1";
 
         Person personToChange = mainList.get(0);
         timeSlots = personToChange.getTimeSlots();
         monday = timeSlots.get("mon");
         TimeSlots mon10amSlot = monday.get(3);
-        actions[2] = mon10amSlot.toString();
+        actions[3] = mon10amSlot.toString();
 
-        assertNothingChangedSuccess(index, actions);
+        assertNothingChangedFailure(index, actions);
 
     }
 
@@ -161,11 +159,11 @@ public class ChangeTimeSlotCommandTest {
     }
 
 
-    public void assertNothingChangedSuccess(String index, String[] actions){
+    public void assertNothingChangedFailure(String index, String[] actions){
         ChangeTimeSlotCommand changeCommand = new ChangeTimeSlotCommand(index, actions);
         String expectedMessage = ChangeTimeSlotCommand.MESSAGE_NOTHING_CHANGED;
 
-        assertCommandSuccess(changeCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandFailure(changeCommand, model, commandHistory, expectedMessage);
     }
 
     private void assertIndexSelectionFailure(String index, String[] actions, String expectedMessage) {
