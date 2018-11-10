@@ -20,11 +20,11 @@ public class FileUtil {
 
     private static final String PARAM_CURRENT_DIRECTORY = "user.dir";
 
+    private static final String SPACE = " ";
+
     private static final Integer STRING_START_INDEX = 0;
 
     private static final Integer STRING_SECOND_INDEX = 1;
-
-    private static final String SPACE = " ";
 
     /**
      * Helps to find the current directory
