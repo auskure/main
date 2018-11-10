@@ -89,6 +89,11 @@ public interface Model {
     // ================ Notes Manipulation ==============================
 
     /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
+    void resetNotesData(ReadOnlyNotesDownloaded newData);
+
+    /**
      * Returns an unmodifiable view of the list of downloaded notes
      */
     ReadOnlyNotesDownloaded getNotesList();
@@ -96,17 +101,17 @@ public interface Model {
     /**
      * clears the list of notes
      */
-    public void resetNotesData(String event);
+    void clearNotesData(String event);
 
     /**
      * add a new entry to the list of downloaded notes
      */
-    public void addNotes(String event, String moduleName);
+    void addNotes(String event, String moduleName);
 
     /**
      * remove existing notes from the list of downloaded notes, and deletes those notes from storage
      */
-    public void deleteSelectedNotes(String event, Set<String> moduleNames);
+    void deleteSelectedNotes(String event, Set<String> moduleNames);
 
 
 }
