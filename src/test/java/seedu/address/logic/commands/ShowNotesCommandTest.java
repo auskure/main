@@ -71,21 +71,6 @@ public class ShowNotesCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     /**
-     * test if properly displays files
-     */
-    /*
-
-    @Test
-    public void execute_showNotes_properlyShownotes() {
-        Model expectedModel = model;
-        ShowNotesCommand command = new ShowNotesCommand();
-        assertCommandSuccess(command, model, commandHistory, CURRENT_NOTES_DIR_RESULT, expectedModel);
-    }
-    */
-
-    @Test
-
-    /**
      * test if properly detects file location
      */
 
