@@ -79,10 +79,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return getName().equals(person.getName().fullName)
                 && getAddress().equals(person.getAddress().value)
                 && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                .map(tag -> tag.getTagName())
-                .collect(Collectors.toList())));
+                && getEmail().equals(person.getEmail().value);
     }
 
 }

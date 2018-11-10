@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
 import seedu.address.storage.ListWrapper;
 import seedu.address.storage.XmlAdaptedEnrolledModule;
@@ -93,6 +94,7 @@ public class XmlUtilTest {
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_MODULES, VALID_TIMESLOTS);
+
         assertEquals(expectedPerson, actualPerson);
     }
 

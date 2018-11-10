@@ -29,6 +29,7 @@ public class ClearCommandTest {
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
+        expectedModel.resetAddressBookData(new AddressBook());
         Person self = new Person(new Name("Self"), new Phone("000"), new Email("self@self"), new Address("self"),
                 getTagSet("self"), new TreeMap<>(), TimeSlots.initTimeSlots());
         expectedModel.addPerson(self);

@@ -32,7 +32,8 @@ public class FilterCommandParserTest {
 
         assertParseSuccess(parser, "mon 10am CS2040c", expectedFilterCommand);
 
-        keywords.remove(0);
+        keywords.set(0, "CS2040c");
+        keywords.remove(1);
         keywords.remove(1);
 
         expectedFilterCommand = new FilterCommand(predicate);

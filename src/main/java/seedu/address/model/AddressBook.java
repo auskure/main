@@ -42,6 +42,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
+        if(toBeCopied.getPersonList().size()==0){
+            setSelf();
+        }
     }
 
     //// list overwrite operations
