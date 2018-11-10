@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -21,8 +22,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.TimetableContainsModulePredicate;
 
 public class FilterCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalNotesDownloaded(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(),
+                                                    getTypicalNotesDownloaded(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

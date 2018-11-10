@@ -1,5 +1,5 @@
 package seedu.address.logic.commands;
-
+//@@author auskure
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -59,6 +59,13 @@ public class DeleteSelectNotesCommand extends Command {
             }
         }
 
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteSelectNotesCommand // instanceof handles nulls
+                && moduleCodes.equals(((DeleteSelectNotesCommand) other).moduleCodes)); // state check
     }
 
 }

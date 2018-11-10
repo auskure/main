@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.commons.util.FileUtil.loadFolders;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -31,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyNotesDownloaded notesData, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -39,12 +38,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        notesDownloaded = new NotesDownloaded();
-        notesDownloaded.setNotes(loadFolders(userPrefs.getNotesFolderPath()));
+        notesDownloaded = new NotesDownloaded(notesData);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new NotesDownloaded(), new UserPrefs());
     }
 
     @Override
@@ -136,25 +134,16 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
-    }
-
     // ================ Notes Manipulation ==============================
+
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
+    @Override
+    public void resetNotesData(ReadOnlyNotesDownloaded newData) {
+        notesDownloaded.clear();
+        notesDownloaded.setNotes(newData.getNotesList());
+    }
 
     /**
      * Returns an unmodifiable view of the list of downloaded notes
@@ -167,7 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * clears the list of notes
      */
-    public void resetNotesData(String event) {
+    public void clearNotesData(String event) {
         notesDownloaded.clear();
         indicateNotesManipulated(event);
     }
@@ -206,6 +195,25 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateNotesManipulated(String event) {
         Set<String> tempSet = new TreeSet<>();
         raise(new NotesEvent(event, tempSet));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return versionedAddressBook.equals(other.versionedAddressBook)
+                && filteredPersons.equals(other.filteredPersons)
+                && notesDownloaded.equals(other.notesDownloaded);
     }
 
 }

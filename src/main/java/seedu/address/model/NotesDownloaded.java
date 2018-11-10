@@ -1,5 +1,5 @@
 package seedu.address.model;
-
+//@@author auskure
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
@@ -29,9 +29,18 @@ public class NotesDownloaded implements ReadOnlyNotesDownloaded {
     public NotesDownloaded() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a notesDownloaded, using the notes the {@code toBeCopied}
      */
     public NotesDownloaded(ReadOnlyNotesDownloaded toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    /**
+     * Creates a notesDownloaded object, which keeps track of the notes downloaded,
+     * using the notes the {@code toBeCopied}
+     */
+    public NotesDownloaded(Set<String> toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -47,12 +56,21 @@ public class NotesDownloaded implements ReadOnlyNotesDownloaded {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code NotesDownloaded} with {@code newData}.
      */
     public void resetData(ReadOnlyNotesDownloaded newData) {
         requireNonNull(newData);
 
         setNotes(newData.getNotesList());
+    }
+
+    /**
+     * Resets the existing data of this {@code NotesDownloaded} with {@code newData}.
+     */
+    public void resetData(Set<String> newData) {
+        requireNonNull(newData);
+
+        setNotes(newData);
     }
 
     /**

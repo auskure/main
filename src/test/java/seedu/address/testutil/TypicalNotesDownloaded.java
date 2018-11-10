@@ -1,0 +1,58 @@
+package seedu.address.testutil;
+
+import seedu.address.model.NotesDownloaded;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class TypicalNotesDownloaded {
+
+    public static final String CS2100_NOTES = "CS2100_NOTES Introduction to Computer Architecture";
+    public static final String CS2101_NOTES = "CS2101_NOTES Effective Communication for Computing Professionals";
+    public static final String CS2102_NOTES = "CS2102_NOTES Introduction to Database Systems";
+    public static final String CS2103_NOTES = "CS2103_NOTES Introduction to Software Engineering";
+    public static final String CS2104_NOTES = "CS2104_NOTES Introduction to Computer Engineering";
+    public static final String CS2105_NOTES = "CS2105_NOTES Introduction to Networks";
+    public static final String CS2106_NOTES = "CS2106_NOTES Introduction to Operating Systems";
+    public static final String CS2107_NOTES = "CS2107_NOTES Introduction to Information Security";
+
+    // Manually added
+    public static final String CS3100_NOTES = "CS3100 Introduction to Artificial Intelligence";
+    public static final String CS3235_NOTES = "CS3235 Advanced Information Security";
+    public static final String CS5240_NOTES = "CS5240 Quantum Computing and SuperComputers";
+
+    private TypicalNotesDownloaded() {} // prevents instantiation
+
+    /**
+     * Returns an {@code NotesDownloaded} with all the typical notes downloaded.
+     */
+    public static NotesDownloaded getTypicalNotesDownloaded() {
+        NotesDownloaded nd = new NotesDownloaded();
+        for (String notes : getTypicalNotes()) {
+            nd.addNotes(notes);
+        }
+        return nd;
+    }
+
+    /**
+     * Returns an {@code NotesDownloaded} with all the notes that are not typically in the
+     * set returned by {@code getTypicalNotesDownloaded}.
+     */
+    public static NotesDownloaded getDifferentNotesDownloaded() {
+        NotesDownloaded nd = new NotesDownloaded();
+        for (String notes : getDifferentNotes()) {
+            nd.addNotes(notes);
+        }
+        return nd;
+    }
+
+    public static List<String> getTypicalNotes() {
+        return new ArrayList<>(Arrays.asList(CS2100_NOTES, CS2101_NOTES, CS2102_NOTES, CS2103_NOTES, CS2104_NOTES,
+                                                CS2105_NOTES, CS2106_NOTES, CS2107_NOTES));
+    }
+
+    public static List<String> getDifferentNotes() {
+        return new ArrayList<>(Arrays.asList(CS3100_NOTES, CS3235_NOTES, CS5240_NOTES));
+    }
+}
