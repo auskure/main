@@ -1,11 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.address.model.NotesDownloaded;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.NotesDownloaded;
+
+/**
+ * A class that help to get typical notes downloaded.
+ */
 public class TypicalNotesDownloaded {
 
     public static final String CS2100_NOTES = "CS2100_NOTES Introduction to Computer Architecture";
