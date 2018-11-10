@@ -10,12 +10,12 @@ import static seedu.address.logic.commands.DeleteSelectNotesCommand.MESSAGE_DELE
 import static seedu.address.logic.commands.DeleteSelectNotesCommand.MESSAGE_UNAVAILABLE_NOTES;
 import static seedu.address.testutil.TypicalModuleCodes.getAllDifferentModuleCodes;
 import static seedu.address.testutil.TypicalModuleCodes.getAllTypicalModuleCodes;
+import static seedu.address.testutil.TypicalModuleCodes.getAdvancedMixedValidityModuleCodes;
 import static seedu.address.testutil.TypicalModuleCodes.getMultipleDifferentModuleCodes;
 import static seedu.address.testutil.TypicalModuleCodes.getMultipleTypicalModuleCodes;
-import static seedu.address.testutil.TypicalModuleCodes.getAdvancedMixedValidityModuleCodes;
 import static seedu.address.testutil.TypicalModuleCodes.getOneDifferentModuleCode;
-import static seedu.address.testutil.TypicalModuleCodes.getOneTypicalModulePrefix;
 import static seedu.address.testutil.TypicalModuleCodes.getOneTypicalModuleCode;
+import static seedu.address.testutil.TypicalModuleCodes.getOneTypicalModulePrefix;
 import static seedu.address.testutil.TypicalModuleCodes.getSimpleMixedValidityModuleCodes;
 import static seedu.address.testutil.TypicalModuleCodes.getZeroModuleCodes;
 import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
