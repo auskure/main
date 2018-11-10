@@ -16,7 +16,15 @@ public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
 
+    private static final String DIRECTORY_INDICATOR = "/";
+
     private static final String PARAM_CURRENT_DIRECTORY = "user.dir";
+
+    private static final String SPACE = " ";
+
+    private static final Integer STRING_START_INDEX = 0;
+
+    private static final Integer STRING_SECOND_INDEX = 1;
 
     /**
      * Helps to find the current directory
@@ -37,7 +45,7 @@ public class FileUtil {
      * Helps to find all valid folders in a chosen directory
      */
     public static Set<String> loadFolders(Path directory) {
-        File targetDirectory = new File(currentDirectory() + "/" + directory.toString());
+        File targetDirectory = new File(currentDirectory() + DIRECTORY_INDICATOR + directory.toString());
         Set<String> folderNames = new TreeSet<>();
         //user currently has no downloaded notes
         if (!isDirectoryExists(directory)) {
@@ -80,7 +88,20 @@ public class FileUtil {
         if (!name.contains("/")) {
             return name;
         }
-        return name.substring(name.lastIndexOf("/") + 1);
+        return name.substring(name.lastIndexOf(DIRECTORY_INDICATOR) + STRING_SECOND_INDEX);
+    }
+
+    /**
+     * Returns a string that only contains the module code.
+     *
+     * @param name A string representing a folder/file name, which could include both the module code and the
+     *             module title.  They are always separated by a " ".
+     */
+    public static String cleanModuleCode(String name) {
+        if (!name.contains(" ")) {
+            return name;
+        }
+        return name.substring(STRING_START_INDEX, name.indexOf(SPACE));
     }
 
     /**
@@ -161,7 +182,8 @@ public class FileUtil {
 
     public static void relocateFiles(Path folder, String designatedFolder) {
         File currentDirectory = new File(folder.toString());
-        String targetFolder = currentDirectory.toString() + "/" + designatedFolder + "/";
+        String targetFolder = currentDirectory.toString() + DIRECTORY_INDICATOR
+                                + designatedFolder + DIRECTORY_INDICATOR;
         String currentName;
         File[] filesList = currentDirectory.listFiles();
         for (File file : filesList) {

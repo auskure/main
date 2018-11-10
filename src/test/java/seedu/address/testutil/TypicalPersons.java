@@ -21,6 +21,10 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
+    public static final Person SELF = new PersonBuilder().withName("Self")
+            .withAddress("self").withEmail("self@self")
+            .withPhone("000")
+            .withTags("self").build();
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")

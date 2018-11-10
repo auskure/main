@@ -161,7 +161,11 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetNotesData(String event) {
+        public void resetNotesData(ReadOnlyNotesDownloaded newData) {
+            throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public void clearNotesData(String event) {
             throw new AssertionError("This method should not be called.");
         }
 

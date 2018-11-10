@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.commons.util.FileUtil.loadFolders;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -23,7 +25,9 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.NotesDownloaded;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyNotesDownloaded;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -88,28 +92,29 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialAddressBookData;
+        ReadOnlyNotesDownloaded initalNotesDownloadedData;
         AddressBook initialDataWithSelf;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialDataWithSelf = new AddressBook();
             initialDataWithSelf.setSelf();
-            initialData = new AddressBook(initialDataWithSelf);
+            initialAddressBookData = new AddressBook(initialDataWithSelf);
 
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialDataWithSelf = new AddressBook();
             initialDataWithSelf.setSelf();
-            initialData = new AddressBook(initialDataWithSelf);
+            initialAddressBookData = new AddressBook(initialDataWithSelf);
         }
-
-        return new ModelManager(initialData, userPrefs);
+        initalNotesDownloadedData = new NotesDownloaded(loadFolders(userPrefs.getNotesFolderPath()));
+        return new ModelManager(initialAddressBookData, initalNotesDownloadedData, userPrefs);
     }
 
     private void initLogging(Config config) {

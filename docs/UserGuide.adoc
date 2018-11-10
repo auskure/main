@@ -57,6 +57,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === General Commands
 
+
+==== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+* Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* For privacy reasons, `downloadAllNotes` and `downloadSelectNotes` commands will not be saved to history.  This is because
+those commands contain the user's IVLE password.
+====
+
+
 ==== Exiting the program : `exit`
 
 Exits the program. +
@@ -107,8 +121,10 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENRO
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags and enrolled modules, the existing tags and enrolled modules of the person will be removed
+i.e adding of tags and enrolled modules is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Likewise, you can remove all the person's enrolled modules by typing `em/` without specifying any enrolled modules after it.
 ****
 
 Examples:
@@ -117,6 +133,8 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 3 n/Esther Daniels em/` +
+Edits the name of the 3rd person to be `Esther Daniels` and clears all existing enrolled modules.
 
 ==== Locating persons by name: `find`
 
@@ -178,16 +196,6 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-==== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
@@ -196,7 +204,11 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+* Undoable commands: Address Book and Timetable commands that modify the address book's content (`add`, `delete`,
+                                                                        `edit`, `clear`, `change`,  `share`, `merge`,
+                                                                        `filter`, `free`, `export`, `import`). +
+* Notes commands are not compatible with `undo`.
+
 ====
 
 Examples:
@@ -447,13 +459,13 @@ Example 2: `import INVALID_ENCODED_STRING` +
 If you have missed out a character, or accidentally modified one of the characters in the string, attempting to import the invalid string will result in an error displayed. Please obtain a valid string from the contact who passed it to you.
 // end::importcommand[]
 
-
+// tag::downloadCommands[]
 === Notes Commands
 ****
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
 
-Users are still able to login and view available files to be downloaded.
+Users are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
 ****
 
 '''
@@ -486,7 +498,7 @@ of the specified module.
 
 * You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
 
-image::chromeOpen.PNG[width="250"]
+image::chromeOpen.PNG[width="250"align="center"]
 
 * NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
@@ -587,6 +599,10 @@ image::downloadSelectFileNotFound.PNG[width="900"]
 
 ****
 
+// end::downloadCommands[]
+
+// tag::showNotesCommand[]
+
 '''
 ==== Show all downloaded notes: `showNotes`
 '''
@@ -607,13 +623,18 @@ image::showNotes3.PNG[width="900"]
 
 ****
 
+// end::showNotesCommand[]
+
 // tag::clearNotes[]
+
 ==== Clearing all downloaded notes : `clearNotes`
 
 Clears all downloaded notes. +
 Format: `clearNotes`
+
 // end::clearNotes[]
 // tag::deleteSelectNotes[]
+
 ==== Deleting notes from one or more selected modules : `deleteSelectNotes`
 
 Deletes the notes that belong to the specified module, from storage +
@@ -638,7 +659,10 @@ Will not delete anything if "PL3232" does not exist as your downloaded notes.
 * `deleteSelectNotes PL3232 CS2106` +
 Will not delete anything if "PL3232" does not exist as your downloaded notes, however notes
 belonging to "CS2106" would be deleted.
+
 // end::deleteSelectNotes[]
+
+
 == Upcoming Features
 
 // tag::dataencryption[]
@@ -647,10 +671,17 @@ belonging to "CS2106" would be deleted.
 Coming to you soon!
 // end::dataencryption[]
 
+=== Display of notes in the User interface upon download `[coming in v2.0]`
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+The downloaded notes can be transferred in the same way.
+
+*Q*: What is IVLE? +
+*A*: According to the National University of Singapore (NUS), Integrated Virtual Learning Environment (IVLE) is a NUS' custom designed and built Learning Management System
+for the NUS community. It is designed to facilitate and supplement teaching at the National University of Singapore (NUS).
 
 == Command Summary
 

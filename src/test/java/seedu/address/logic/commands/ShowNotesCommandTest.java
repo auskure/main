@@ -1,6 +1,7 @@
 /*package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertTrue;
+import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;
@@ -17,7 +18,7 @@ public class ShowNotesCommandTest {
             + System.getProperty("user.dir")
             + "/notes\r\n"
             + "====================================================================\r\n"
-            + "Directory: CS2105 - Introduction to Computer Networks\r\n"
+            + "Directory: CS2105_NOTES - Introduction to Computer Networks\r\n"
             + "====================================================================\r\n"
             + "\tDirectory: introduction to computer networks\r\n"
             + "\t\tDirectory: Assignments\r\n"
@@ -32,7 +33,7 @@ public class ShowNotesCommandTest {
             + "\t\t\tFile: UnreliNET.zip\r\n"
             + "\t\t\tFile: WebServer.py\r\n"
             + "\t\tDirectory: Lecture Slides\r\n"
-            + "\t\t\tFile: Lecture 0 - Welcome to CS2105.pdf\r\n"
+            + "\t\t\tFile: Lecture 0 - Welcome to CS2105_NOTES.pdf\r\n"
             + "\t\t\tFile: Lecture 1 - Introduction.pdf\r\n"
             + "\t\t\tFile: Lecture 10 - Local Area Network.pdf\r\n"
             + "\t\t\tFile: Lecture 2 - Application Layer.pdf\r\n"
@@ -65,7 +66,7 @@ public class ShowNotesCommandTest {
             + "\t\t\tFile: tut08.pdf\r\n"
             + "\t\t\tFile: tut9.pdf\r\n";
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalNotesDownloaded(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     /**
@@ -85,6 +86,8 @@ public class ShowNotesCommandTest {
      * test if properly detects file location
      */
 /*
+    @Test
+
     public void execute_showNotes_properlyFindNotesFolderSuccess() {
         String intendedFileLocation = System.getProperty("user.dir") + ShowNotesCommand.getNotesPathExtension();
         File notesFolder = new File(intendedFileLocation);
