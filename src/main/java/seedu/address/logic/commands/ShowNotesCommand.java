@@ -3,12 +3,12 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.FileUtil.currentDirectory;
 
+import java.io.File;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import java.io.File;
 
 /**
  * ShowNotesCommand locates the "notes" folder as specified by the DownloadAbstract class, it then recursively
@@ -77,15 +77,15 @@ public class ShowNotesCommand extends Command {
         for (int i = 0; i < count; i++) {
             tabPlaceholder += "\t";
         }
-        for (File file : files) {
-            if (file.isDirectory()) {
+        for (File currentFile : files) {
+            if (currentFile.isDirectory()) {
                 if (count == 0) {
                     notesResult += LINE_SEPARATOR + NEWLINE_SEPARATOR;
                 }
-                notesResult += tabPlaceholder + DIRECTORY_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
-                getDirectoryFileValues(file, count + 1);
+                notesResult += tabPlaceholder + DIRECTORY_IDENTIFIER + currentFile.getName() + NEWLINE_SEPARATOR;
+                getDirectoryFileValues(currentFile, count + 1);
             } else {
-                notesResult += tabPlaceholder + FILE_IDENTIFIER + file.getName() + NEWLINE_SEPARATOR;
+                notesResult += tabPlaceholder + FILE_IDENTIFIER + currentFile.getName() + NEWLINE_SEPARATOR;
             }
         }
     }
