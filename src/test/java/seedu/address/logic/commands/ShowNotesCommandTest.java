@@ -73,6 +73,7 @@ public class ShowNotesCommandTest {
     /**
      * test if properly displays files
      */
+    /*
 
     @Test
     public void execute_showNotes_properlyShownotes() {
@@ -80,6 +81,7 @@ public class ShowNotesCommandTest {
         ShowNotesCommand command = new ShowNotesCommand();
         assertCommandSuccess(command, model, commandHistory, CURRENT_NOTES_DIR_RESULT, expectedModel);
     }
+    */
 
     @Test
 
