@@ -447,13 +447,13 @@ Example 2: `import INVALID_ENCODED_STRING` +
 If you have missed out a character, or accidentally modified one of the characters in the string, attempting to import the invalid string will result in an error displayed. Please obtain a valid string from the contact who passed it to you.
 // end::importcommand[]
 
-
+// tag::downloadCommands[]
 === Notes Commands
 ****
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
 
-Users are still able to login and view available files to be downloaded.
+Users are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
 ****
 
 '''
@@ -486,7 +486,7 @@ of the specified module.
 
 * You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
 
-image::chromeOpen.PNG[width="250"]
+image::chromeOpen.PNG[width="250"align="center"]
 
 * NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
@@ -587,6 +587,10 @@ image::downloadSelectFileNotFound.PNG[width="900"]
 
 ****
 
+// end::downloadCommands[]
+
+// tag::showNotesCommand[]
+
 '''
 ==== Show all downloaded notes: `showNotes`
 '''
@@ -607,13 +611,18 @@ image::showNotes3.PNG[width="900"]
 
 ****
 
+// end::showNotesCommand[]
+
 // tag::clearNotes[]
+
 ==== Clearing all downloaded notes : `clearNotes`
 
 Clears all downloaded notes. +
 Format: `clearNotes`
+
 // end::clearNotes[]
 // tag::deleteSelectNotes[]
+
 ==== Deleting notes from one or more selected modules : `deleteSelectNotes`
 
 Deletes the notes that belong to the specified module, from storage +
@@ -638,7 +647,10 @@ Will not delete anything if "PL3232" does not exist as your downloaded notes.
 * `deleteSelectNotes PL3232 CS2106` +
 Will not delete anything if "PL3232" does not exist as your downloaded notes, however notes
 belonging to "CS2106" would be deleted.
+
 // end::deleteSelectNotes[]
+
+
 == Upcoming Features
 
 // tag::dataencryption[]
@@ -646,6 +658,8 @@ belonging to "CS2106" would be deleted.
 
 Coming to you soon!
 // end::dataencryption[]
+
+=== Display of notes in the User interface upon download `[coming in v2.0]`
 
 == FAQ
 
