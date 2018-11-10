@@ -43,7 +43,7 @@ public class DeleteSelectNotesCommandTest {
      * checks DeleteSelectNotes executes correctly, given a single valid moduleCode.
      */
     @Test
-    public void execute_validSingle_delete_success() {
+    public void execute_validSingleDelete_success() {
         Set<String> validNotesToDelete = getOneTypicalModuleCode();
         Set<String> invalidNotesToDelete = getZeroModuleCodes();
         DeleteSelectNotesCommand deleteSelectNotesCommand = new DeleteSelectNotesCommand(validNotesToDelete);
@@ -61,7 +61,7 @@ public class DeleteSelectNotesCommandTest {
      * Tests for the capability of DeleteSelectNotes, to handle requests containing multiple moduleCodes
      */
     @Test
-    public void execute_validMultiple_delete_success() {
+    public void execute_validMultipleDelete_success() {
         Set<String> validNotesToDelete = getMultipleTypicalModuleCodes();
         Set<String> invalidNotesToDelete = getZeroModuleCodes();
         DeleteSelectNotesCommand deleteSelectNotesCommand = new DeleteSelectNotesCommand(validNotesToDelete);
@@ -81,7 +81,7 @@ public class DeleteSelectNotesCommandTest {
      * notesDownloaded, which makes it invalid.
      */
     @Test
-    public void execute_validSimple_partial_delete_success() {
+    public void execute_validSimplePartialDelete_success() {
         Set<String> notesToDelete = getSimpleMixedValidityModuleCodes();
         Set<String> validNotesToDelete = getOneTypicalModuleCode();
         Set<String> invalidNotesToDelete = getOneDifferentModuleCode();
@@ -102,7 +102,7 @@ public class DeleteSelectNotesCommandTest {
      * notesDownloaded, which makes them invalid.
      */
     @Test
-    public void execute_validAdvanced_partial_delete_success() {
+    public void execute_validAdvancedPartialDelete_success() {
         Set<String> notesToDelete = getAdvancedMixedValidityModuleCodes();
         Set<String> validNotesToDelete = getAllTypicalModuleCodes();
         Set<String> invalidNotesToDelete = getAllDifferentModuleCodes();
@@ -122,7 +122,7 @@ public class DeleteSelectNotesCommandTest {
      * We assume that this moduleCode not yet in notesDownloaded, which makes it invalid.
      */
     @Test
-    public void execute_invalidSingle_delete_failure() {
+    public void execute_invalidSingleDelete_failure() {
         Set<String> notesToDelete = getOneDifferentModuleCode();
         DeleteSelectNotesCommand deleteSelectNotesCommand = new DeleteSelectNotesCommand(notesToDelete);
 
@@ -137,7 +137,7 @@ public class DeleteSelectNotesCommandTest {
      * We assume that these moduleCodes are not yet in notesDownloaded, which makes them invalid.
      */
     @Test
-    public void execute_invalidMultiple_delete_failure() {
+    public void execute_invalidMultipleDelete_failure() {
         Set<String> notesToDelete = getMultipleDifferentModuleCodes();
         DeleteSelectNotesCommand deleteSelectNotesCommand = new DeleteSelectNotesCommand(notesToDelete);
 
@@ -151,7 +151,7 @@ public class DeleteSelectNotesCommandTest {
      * Tests for the capability of DeleteSelectNotes, to handle a single request, deleting multiple notes.
      */
     @Test
-    public void execute_validMultiple_delete_by_prefix_success() {
+    public void execute_validMultipleDeleteByPrefix_success() {
         Set<String> notesToDelete = getOneTypicalModulePrefix();
         Set<String> validNotesToDelete = getOneTypicalModulePrefix();
         Set<String> invalidNotesToDelete = getZeroModuleCodes();
@@ -172,7 +172,7 @@ public class DeleteSelectNotesCommandTest {
      * After ClearNotesCommand, there are no moduleCodes in notesDownloaded, so all moduleCodes are invalid.
      */
     @Test
-    public void executeClearNotes_invalidSingle_delete_failure() {
+    public void executeClearNotes_invalidSingleDelete_failure() {
         Set<String> notesToDelete = getOneTypicalModuleCode();
         DeleteSelectNotesCommand deleteSelectNotesCommand = new DeleteSelectNotesCommand(notesToDelete);
 
@@ -191,7 +191,7 @@ public class DeleteSelectNotesCommandTest {
      * After ClearNotesCommand, there are no moduleCodes in notesDownloaded, so all moduleCodes are invalid.
      */
     @Test
-    public void executeClearNotes_invalidMultiple_delete_failure() {
+    public void executeClearNotes_invalidMultipleDelete_failure() {
         Set<String> notesToDelete = getAllTypicalModuleCodes();
         DeleteSelectNotesCommand deleteSelectNotesCommand = new DeleteSelectNotesCommand(notesToDelete);
 
