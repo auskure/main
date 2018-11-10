@@ -48,7 +48,15 @@ public class GuiTestAssert {
 
     /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
-     * in the correct order and accounts for self contact existing.
+     * in the correct order.
+     */
+    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
+        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order and accounts for situations where self contact exists..
      */
     public static void assertListMatchingWithSelf(PersonListPanelHandle personListPanelHandle, Person... persons) {
         for (int i = 0; i < persons.length - 1; i++) {
@@ -59,12 +67,8 @@ public class GuiTestAssert {
 
     /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
-     * in the correct order.
+     * in the correct order for situations where self contact exists.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
-    }
-
     public static void assertListMatchingWithSelf(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
         assertListMatchingWithSelf(personListPanelHandle, persons.toArray(new Person[0]));
     }

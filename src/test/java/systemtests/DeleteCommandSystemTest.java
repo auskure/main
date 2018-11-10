@@ -9,6 +9,8 @@ import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import javafx.collections.ObservableList;
@@ -20,8 +22,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.Person;
-
-import java.util.List;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
