@@ -1,6 +1,5 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatchingWithSelf;
 
 import java.io.IOException;
