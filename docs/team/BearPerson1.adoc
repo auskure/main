@@ -1,5 +1,7 @@
 = Hu Yi Qing - Project Portfolio
 :imagesdir: ../images
+:site-section: AboutUs
+:stylesDir: ../stylesheets
 
 
 == [blue]#PROJECT: NSync#
