@@ -31,7 +31,7 @@ as well as view all the available files and select which files to download with 
 * *Minor Enhancement* :  added the ability to view the notes download using the `showNotes`
 //must have the same treatment as the major enchancement
 
-* *Code contributed* : [https://github.com/BearPerson1/Michaels-ver-of-ab4[Functional Code]]
+* *Code contributed* : [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=bearperson1[Functional Code and Test Code]]
 
 
 * *Other Contributions :*
