@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,20 +27,22 @@ public class ChangeTimeSlotCommand extends Command {
     public static final String COMMAND_WORD = "change";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the selected time slot "
-        + "by the index number used in the displayed person list. "
-        + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX "
-        + "DAY(mon, tue, wed, thu, fri) "
-        + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
-        + "Activity "
-        + "Example: " + COMMAND_WORD + " 1 " + "mon "
-        + "8am "
-        + "CS2107";
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX "
+            + "DAY(mon, tue, wed, thu, fri) "
+            + "TIME(8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm) "
+            + "Activity "
+            + "Example: " + COMMAND_WORD + " 1 " + "mon "
+            + "8am "
+            + "CS2107";
 
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Time slot changed: %1$s";
     public static final String MESSAGE_EDIT_SELF_SUCCESS = "Time slot changed: Self";
     public static final String MESSAGE_NOTHING_CHANGED = "No time slot was changed";
+    public static final String MESSAGE_INVALID_DAY = "Invalid Day. ";
+    public static final String MESSAGE_INVALID_TIME = "Invalid Time. ";
 
     private final String reference;
     private final String[] actions;
@@ -61,7 +64,7 @@ public class ChangeTimeSlotCommand extends Command {
             int index = Integer.parseInt(reference);
             lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
-            if (index - 1 >= lastShownList.size()) {
+            if (index - 1 >= lastShownList.size() || index < 1) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
 
@@ -76,15 +79,16 @@ public class ChangeTimeSlotCommand extends Command {
         }
 
         Map<String, List<TimeSlots>> timeSlots = personToChange.getTimeSlots();
-        Map<String, List<TimeSlots>> changedTimeSlots = createNewTimetable(timeSlots);
-
-        Person newPerson = new Person(personToChange.getName(), personToChange.getPhone(), personToChange.getEmail(),
-            personToChange.getAddress(), personToChange.getTags(), personToChange.getEnrolledModules(),
-            changedTimeSlots);
-
-        if (!personToChange.isSamePerson(newPerson) && model.hasPerson(newPerson)) {
+        Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
+        if (createNewTimetable(timeSlots) != null) {
+            changedTimeSlots = createNewTimetable(timeSlots);
+        } else {
             throw new CommandException(MESSAGE_NOTHING_CHANGED);
         }
+        Person newPerson = new Person(personToChange.getName(), personToChange.getPhone(), personToChange.getEmail(),
+                personToChange.getAddress(), personToChange.getTags(), personToChange.getEnrolledModules(),
+                changedTimeSlots);
+
 
         model.updatePerson(personToChange, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -99,17 +103,12 @@ public class ChangeTimeSlotCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-        return false;
+        return other == this // short circuit if same object
+                || (other instanceof ChangeTimeSlotCommand // instanceof handles nulls
+                && reference.equals(((ChangeTimeSlotCommand) other).reference)
+                && Arrays.equals(actions, (((ChangeTimeSlotCommand) other).actions)));
     }
+
     /**
      * Copies a person's timetable.
      */
@@ -118,6 +117,7 @@ public class ChangeTimeSlotCommand extends Command {
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         String day = null;
         String time = null;
+        Boolean didTimetableChange = false;
         for (String d : days) {
             List<TimeSlots> toAdd;
             toAdd = copyDay(timeSlots.get(d));
@@ -136,12 +136,20 @@ public class ChangeTimeSlotCommand extends Command {
             if (i % 3 == 0) {
                 activity = actions[i];
 
-                changedTimeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
+                if (!changedTimeSlots.get(day).get(changeTimeToIndex(time)).toString().equalsIgnoreCase(activity)) {
+                    changedTimeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
+                    didTimetableChange = true;
+                }
 
             }
         }
-        return changedTimeSlots;
+        if (didTimetableChange) {
+            return changedTimeSlots;
+        } else {
+            return null;
+        }
     }
+
     /**
      * Copies the timeslots in a day of a timetable.
      */
@@ -152,6 +160,7 @@ public class ChangeTimeSlotCommand extends Command {
         }
         return finalSlots;
     }
+
     /**
      * Converts from a time to its corresponding index.
      */

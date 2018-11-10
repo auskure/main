@@ -1,8 +1,4 @@
-package seedu.address.logic.commands;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MERGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,109 +8,42 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import javafx.collections.ObservableList;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.IsNotSelfOrMergedPredicate;
-import seedu.address.model.person.IsSelfPredicate;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
-//@@E0201942
-
 /**
- * Merges the timetables of multiple people
+ * A utility class to help with building merged Person objects.
  */
+public class MergedBuilder {
+    private Person mergedPerson;
 
-public class MergeCommand extends Command {
-
-    public static final String COMMAND_WORD = "merge";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Merges the timetables of selected people "
-            + "by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be positive integer) + GROUP NAME (must not be empty)"
-            + PREFIX_MERGE + "[INDEX] " + PREFIX_NAME + "[GROUP NAME] "
-            + "for all timetables you want to merge.\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_MERGE + "1 " + PREFIX_MERGE + "2 " + PREFIX_NAME
-            + "GES PROJECT";
-
-    public static final String MESSAGE_MERGE_TIMETABLE_SUCCESS = "Timetables Merged";
-    public static final String MESSAGE_INVALID_INDEX = "Invalid index. Index selected does not exist.";
-    public static final String MESSAGE_UPDATE_GROUP_SUCCESS = "Group has been edited: %1$s";
-    public static final String MESSAGE_INDEX_NEEDS_TO_BE_NUMBER = "Invalid index. Index needs to be a positive "
-            + "integer\n";
-    public static final String MESSAGE_NO_GROUP_NAME = "No group name entered.";
-
-    private final List<Integer> indices;
-    private final Name name;
-
-    public MergeCommand(List<Integer> indices, String name) {
-        requireNonNull(indices);
-        requireNonNull(name);
-
-        this.indices = indices;
-        this.name = new Name(name);
+    /**
+     * Takes a list of Person objects and creates a merged Person contact.
+     */
+    public MergedBuilder(List<Person> personsToMerge, String groupName) {
+        for (int j = 0; j < personsToMerge.size() - 1; j++) {
+            personsToMerge.set(j + 1, mergeTimetables(personsToMerge.get(j), personsToMerge.get(j + 1), j, groupName));
+        }
+        this.mergedPerson = personsToMerge.get(personsToMerge.size() - 1);
     }
 
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-        List<Person> mainList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
-        List<Person> selfList = ((ObservableList<Person>) lastShownList).filtered(new IsSelfPredicate());
-        Person[] personsToMerge = new Person[lastShownList.size()];
-
-        for (Integer index : indices) {
-            if (index > lastShownList.size()) {
-                throw new CommandException(MESSAGE_INVALID_INDEX);
-            }
-        }
-
-        int i = 0;
-        for (int it : indices) {
-            if (it > mainList.size() - 1 || it < 0) {
-                throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
-                        MergeCommand.MESSAGE_USAGE));
-            }
-            personsToMerge[i] = mainList.get(it);
-            i++;
-        }
-        personsToMerge[i] = selfList.get(0);
-        i++;
-        for (int j = 0; j < i - 1; j++) {
-            personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
-        }
-        if (model.hasPerson(personsToMerge[i - 1])) {
-            model.deletePerson(personsToMerge[i - 1]);
-            model.addPerson(personsToMerge[i - 1]);
-            model.commitAddressBook();
-            return new CommandResult(String.format(MESSAGE_UPDATE_GROUP_SUCCESS, name));
-        }
-        model.addPerson(personsToMerge[i - 1]);
-        model.commitAddressBook();
-        return new CommandResult(MESSAGE_MERGE_TIMETABLE_SUCCESS);
-
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof MergeCommand // instanceof handles nulls
-                && indices.equals(((MergeCommand) other).indices) && name.equals(((MergeCommand) other).name));
+    /**
+     * Returns the merged Person.
+     */
+    public Person getMergedPerson() {
+        return this.mergedPerson;
     }
 
     /**
      * Merges 2 people into a single person with a merged timetable
      */
-    private Person mergeTimetables(Person person1, Person person2, int index) {
-        Name mergedName = name;
+    private Person mergeTimetables(Person person1, Person person2, int index, String groupName) {
+        Name mergedName = new Name(groupName);
         Phone phone = new Phone("99999999");
         Email email = new Email("notimportant@no");
         Address address;
@@ -126,7 +55,7 @@ public class MergeCommand extends Command {
         Set<Tag> mergedTags = new HashSet<>();
         mergedTags.add(new Tag("merged"));
         Map<String, List<TimeSlots>> mergedSlots = mergeTimeSlots(person1.getTimeSlots(), person2.getTimeSlots());
-        Map<String, EnrolledModule> enrolledClassMap = new TreeMap<>();
+        Map<String, seedu.address.model.enrolledmodule.EnrolledModule> enrolledClassMap = new TreeMap<>();
 
 
         return new Person(mergedName, phone, email, address, mergedTags, enrolledClassMap,
@@ -202,8 +131,4 @@ public class MergeCommand extends Command {
         }
         return finalDay;
     }
-
 }
-
-
-

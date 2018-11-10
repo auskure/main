@@ -20,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyNotesDownloaded;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -155,12 +156,16 @@ public class AddCommandTest {
         }
 
         @Override
-        public Set<String> getNotesList() {
+        public ReadOnlyNotesDownloaded getNotesList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void resetNotesData(String event) {
+        public void resetNotesData(ReadOnlyNotesDownloaded newData) {
+            throw new AssertionError("This method should not be called."); }
+
+        @Override
+        public void clearNotesData(String event) {
             throw new AssertionError("This method should not be called.");
         }
 

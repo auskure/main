@@ -15,7 +15,6 @@ import java.util.TreeMap;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -41,22 +40,26 @@ public class UpdateMergedCommand extends Command {
             + " " + "groups were detected to have been deleted.\nList of deleted contacts and affected groups: \n";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Person> filteredPersonList = model.getFilteredPersonList();
         List<Person> mergedList = ((ObservableList<Person>) filteredPersonList).filtered(new IsMergedPredicate());
         List<Person> mainList = ((ObservableList<Person>) filteredPersonList).filtered
                 (new IsNotSelfOrMergedPredicate());
         Map<String, ArrayList<String>> removedPersons = new HashMap<>();
+
         for (int l = 0; l < mergedList.size(); l++) {
             Person merged = mergedList.get(l);
             Address people = merged.getAddress();
             Name groupName = merged.getName();
+
             String groupNameString = groupName.toString();
             String peopleString = people.toString();
             peopleString = peopleString.trim();
+
             String[] persons = peopleString.split("\\s*(=>|,|\\s)\\s");
             Person[] personsToMerge = new Person[persons.length + 1];
+
             int i = 0;
             for (String name : persons) {
                 String[] splitName = name.split("\\s+");
@@ -88,21 +91,7 @@ public class UpdateMergedCommand extends Command {
         }
         model.commitAddressBook();
         if (!removedPersons.isEmpty()) {
-            String output = "";
-            Iterator<Map.Entry<String, ArrayList<String>>> it = removedPersons.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry<String, ArrayList<String>> removedName = it.next();
-                output = output + removedName.getKey() + ":" + " ";
-                ArrayList<String> removedModules = removedName.getValue();
-                for (String removedModule : removedModules) {
-                    if (removedModule.equalsIgnoreCase(removedModules.get(removedModules.size() - 1))) {
-                        output = output + removedModule + "\n";
-                    } else {
-                        output = output + removedModule + ", ";
-                    }
-                }
-
-            }
+            String output = createCorrectOutput(removedPersons);
             return new CommandResult(MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + output);
         } else {
             return new CommandResult(MESSAGE_UPDATE_SUCCESS);
@@ -111,7 +100,7 @@ public class UpdateMergedCommand extends Command {
     }
 
     /**
-     * Merges the timetables of 2 people
+     * Merges 2 people into a single person with a merged timetable
      */
     private Person mergeTimetables(Person person1, Person person2, int index, Name name) {
         Name mergedName = name;
@@ -202,5 +191,28 @@ public class UpdateMergedCommand extends Command {
             finalDay.add(new TimeSlots(newBusyCount));
         }
         return finalDay;
+    }
+
+    /**
+     * Takes a map of the contacts who have been deleted and the groups affected by their deletion and returns the
+     * correct output
+     */
+    String createCorrectOutput(Map<String, ArrayList<String>> removedPersons) {
+        String output = "";
+        Iterator<Map.Entry<String, ArrayList<String>>> it = removedPersons.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, ArrayList<String>> removedName = it.next();
+            output = output + removedName.getKey() + ":" + " ";
+            ArrayList<String> removedModules = removedName.getValue();
+            for (String affectedGroup : removedModules) {
+                if (affectedGroup.equalsIgnoreCase(removedModules.get(removedModules.size() - 1))) {
+                    output = output + affectedGroup + "\n";
+                } else {
+                    output = output + affectedGroup + ", ";
+                }
+            }
+
+        }
+        return output;
     }
 }

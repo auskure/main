@@ -17,6 +17,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.NotesDownloaded;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -37,12 +38,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static String INCORRECT_USERNAME = "dummy";
-    public static String INCORRECT_PASSWORD = "dummy";
-    public static String INCORRECT_MODULE_CODE = "dummy";
-    public static String CORRECT_MODULE_CODE = "cs2113";
-    public static String CORRECT_FILE_INDEX = "0";
-    public static String INCORRECT_FILE_INDEX = "10000000";
+    public static final String INCORRECT_USERNAME = "dummy";
+    public static final String INCORRECT_PASSWORD = "dummy";
+    public static final String INCORRECT_MODULE_CODE = "dummy";
+    public static final String CORRECT_MODULE_CODE = "cs2113";
+    public static final String CORRECT_FILE_INDEX = "0";
+    public static final String INCORRECT_FILE_INDEX = "10000000";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -69,11 +70,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTimeSlots()
+                .withEnrolledModules().build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTimeSlots()
+                .build();
     }
 
     /**
@@ -108,6 +109,7 @@ public class CommandTestUtil {
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        NotesDownloaded expectedNotesDownloaded = new NotesDownloaded(actualModel.getNotesList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -118,6 +120,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedNotesDownloaded, actualModel.getNotesList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

@@ -1,5 +1,5 @@
 package seedu.address.model.enrolledmodule;
-
+//@@author auskure
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 

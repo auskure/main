@@ -63,9 +63,9 @@ public class TimetableContainsModulePredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.person.TimetableContainsModulePredicate
+                || (other instanceof TimetableContainsModulePredicate
                 // instanceof handles nulls
-                && keywords.equals(((seedu.address.model.person.TimetableContainsModulePredicate) other).keywords));
+                && keywords.equals(((TimetableContainsModulePredicate) other).keywords));
         // state check
     }
 

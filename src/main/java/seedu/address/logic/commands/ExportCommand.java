@@ -117,7 +117,9 @@ public class ExportCommand extends Command {
 
     }
 
-
+    /**
+     * Changes all time slots that have activities to a busy slot.
+     */
     private void changeToBusy(Person source) {
 
         Map<String, List<TimeSlots>> timeSlots = source.getTimeSlots();

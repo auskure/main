@@ -1,5 +1,5 @@
 package seedu.address.logic.commands;
-
+//@@author auskure
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -13,13 +13,13 @@ public class ClearNotesCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD;
 
-    public static final String MESSAGE_DELETE_ALL_NOTES_SUCCESS = "All notes have been cleared!";
+    public static final String MESSAGE_SUCCESS = "All notes have been cleared!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
 
-        model.resetNotesData(COMMAND_WORD);
-        return new CommandResult(MESSAGE_DELETE_ALL_NOTES_SUCCESS);
+        model.clearNotesData(COMMAND_WORD);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
 }
