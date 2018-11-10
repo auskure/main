@@ -58,9 +58,14 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
             .build();
 
+    //Self
+    public static final Person SELF = new PersonBuilder().withName("Self").withPhone("000").withEmail("self@self")
+            .withAddress("self").withTags("self").withTimeslots().build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPersons() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
