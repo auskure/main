@@ -1053,9 +1053,16 @@ oscar is still working on this part
 create notes folder
 delete notes
 
+=== Download Commands
+
 [NOTE]
-====
-* The folders that N*Sync saves your notes into are
+The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
+
+However, if desired, the function can be manually enabled by changing the state of `isDownloadDisabled` in `DownloadAbstract.java`.
+
+=== ShowNotes Command
+
+Since the download function has been disabled, testers can create a `notes` folder in the directory of the jar file and fill it with items. The ShowNotes command will display it accordingly
 
 ====
 

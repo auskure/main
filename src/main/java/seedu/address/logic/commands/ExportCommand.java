@@ -137,4 +137,25 @@ public class ExportCommand extends Command {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ExportCommand)) {
+            return false;
+        }
+
+        // state check
+        ExportCommand e = (ExportCommand) other;
+
+        return this.privacy.equals(e.privacy)
+            && this.index.equals(e.index);
+
+
+    }
 }
