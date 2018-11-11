@@ -17,19 +17,22 @@ This document documents the contributions of Hu YiQing across the duration of th
 * *Major Enhancement* : Added ability to download notes from IVLE automatically.
 
 
-** What it does: Allows the user to download all notes of a certain module using the `downloadAllNotes` command
-as well as view all the available files and select which files to download with the `downloadSelectNotes` command.
+** What it does: Allows user to download all notes of a certain module using the `downloadAllNotes` command
+or view all the available files and select which files to download with the `downloadSelectNotes` command.
 
-** Justification: This feature will streamline notes downloads by simplifying it to 1 to 2 lines of command input.
+** Justification: This feature streamlines notes downloads by simplifying it to 1-2 lines of command input.
 
-** Highlights: We employed the Selenium Web-driver library to implement this feature. The libraries uses features that has several conflicts with the existing code base, which required special care to resolve.
+** Highlights: Selenium Web-driver libraries is used to implement this feature. The libraries has several conflicts with the existing code base; which required special care to resolve.
 
 
 ** Credits: Selenium WebDriver.
 
 
-* *Minor Enhancement* :  added the ability to view the notes download using the `showNotes`
-//must have the same treatment as the major enchancement
+* *Minor Enhancement* :  added the ability to view the notes download using the `showNotes`.
+
+** What it does: Displays notes downloaded.
+
+** Justification: User could view notes without going into directory
 
 * *Code contributed* : [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=bearperson1[Functional Code and Test Code]]
 
@@ -40,23 +43,19 @@ as well as view all the available files and select which files to download with 
 *** Implemented auto creation of additional file paths from .jar.
 
 ** Community:
-*** Reported Bugs and requested request of special libraries (examples: https://github.com/nusCS2113-AY1819S1/forum/issues/71[1],
+*** Reported Bugs and requested request of special libraries (Examples: https://github.com/nusCS2113-AY1819S1/forum/issues/71[1],
 https://github.com/nusCS2113-AY1819S1/forum/issues/11[2])
 
 *** Reviewed multiple pull requests: (Examples: https://github.com/CS2113-AY1819S1-W12-2/main/pull/145[#145],
-https://github.com/CS2113-AY1819S1-W12-2/main/pull/151[#151],
-https://github.com/CS2113-AY1819S1-W12-2/main/pull/150[#151])
+https://github.com/CS2113-AY1819S1-W12-2/main/pull/151[#151])
 
-*** Reported bugs for other teams: (Examples: https://github.com/CS2113-AY1819S1-T12-2/main/issues/178[1],
-https://github.com/CS2113-AY1819S1-T12-2/main/issues/154[2],
-https://github.com/CS2113-AY1819S1-T12-2/main/issues/166[3])
+*** Reported bugs for other teams: (Examples:
+https://github.com/CS2113-AY1819S1-T12-2/main/issues/154[1],
+https://github.com/CS2113-AY1819S1-T12-2/main/issues/166[2])
 
 *** Responded to bug reports: (Examples:
 https://github.com/CS2113-AY1819S1-W12-2/main/issues/129[1],
 https://github.com/CS2113-AY1819S1-W12-2/main/issues/128[2])
-
-** Documentation:
-*** Added entries to the User Guide for `downloadAllNotes`,`downloadSelectNotes` and `showNotes` command.
 
 ** Tools:
 
