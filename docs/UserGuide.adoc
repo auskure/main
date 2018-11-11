@@ -392,7 +392,7 @@ Want to meet up with your friends at the soonest opportunity? Or would you like 
 
 Format: `free f/[SELF/INDEX] ...`
 
-image::SampleTimeTableGYCommands.png[width="800"]
+image::SampleTimeTable.png[width="800"]
 Figure 1: Sample time-table
 
 Example 1: `free f/self` +
@@ -424,13 +424,13 @@ All examples shown below are with reference to the sample time-table shown in Fi
 Example 1: `export public self` +
 The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), as seen in Figure 2 below.
 
-image::ExportPublic.png[width="800"]
+image::ExportPublicView.png[width="800"]
 Figure 2: What the user who imports will see (public view)
 
 Example 2: `export private self` +
 The importing user will see only the free and busy time-slots in your time-table, as seen in Figure 3 below.
 
-image::ExportPrivate.png[width="800"]
+image::ExportPrivateView.png[width="800"]
 Figure 3: What the user who imports will see (private view)
 
 [TIP]
