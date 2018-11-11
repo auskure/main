@@ -11,10 +11,21 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.enrolledmodule.EnrolledModule;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -77,5 +88,19 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+	
+	public static AddressBook getFreeAddressBook() {
+        AddressBook ab = new AddressBook();
+        Set<Tag> tagSet = new HashSet<>();
+        tagSet.add(new Tag("friends"));
+        tagSet.add(new Tag("owesMoney"));
+        Map<String, EnrolledModule> enrolledMap = new TreeMap<>();
+        enrolledMap.put("CS2101", new EnrolledModule("CS2101"));
+        enrolledMap.put("CS2113T", new EnrolledModule("CS2113T"));
+
+        Person p =  new Person(new Name("John Doe"), new Phone("98765432"), new Email("johnd@example.com"), new Address("311, Clementi Ave 2, #02-25"),tagSet, enrolledMap, TimeSlots.initTimeSlots()) ;
+        ab.addPerson(p);
+        return ab;
     }
 }
