@@ -2,13 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
-import java.io.*;
-import java.util.Base64;
 
 /**
  * Import a person from a string
@@ -22,11 +23,11 @@ public class ImportCommand extends Command {
         + "Parameters: STRING (the Base64 string)\n"
         + "Example: " + COMMAND_WORD + " " + "rO0ABXNyACFzZWVkdS5hZGRyZXNzLm1vZGVsLnB...";
 
-    private final String personString;
-
     public static final String MESSAGE_SUCCESS = "Import successful";
     public static final String MESSAGE_SUCCESS_OVERWRITE = "Import successful, user data is overwritten";
     public static final String MESSAGE_FAILED = "Failed to import";
+
+    private final String personString;
 
     public ImportCommand(String input) {
         requireNonNull(input);

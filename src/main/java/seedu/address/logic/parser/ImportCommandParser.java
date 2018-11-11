@@ -17,7 +17,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * and returns an ImportCommand object for execution.
      *
      */
-    public ImportCommand parse(String args) throws ParseException{
+    public ImportCommand parse(String args) throws ParseException {
 
         if (args.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));

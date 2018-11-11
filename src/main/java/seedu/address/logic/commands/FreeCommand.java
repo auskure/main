@@ -246,7 +246,9 @@ public class FreeCommand extends Command {
         return hours + ":00 " + amPm;
     }
 
-
+    /**
+     * Merges 2 people into a single person with a merged timetable.
+     */
     private Person mergeTimetables(Person person1, Person person2, int index) {
         Name mergedName = new Name("a");
         Phone phone = new Phone("99999999");
@@ -269,6 +271,9 @@ public class FreeCommand extends Command {
 
     }
 
+    /**
+     * Creates a new merged timetable from 2 timetables.
+     */
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {
         TimeSlots[] mon1 = slots1.get("mon").toArray(new TimeSlots[0]);
@@ -303,6 +308,9 @@ public class FreeCommand extends Command {
         return finalSlots;
     }
 
+    /**
+     * Compares 2 lists of time slots and returns a merged list.
+     */
     List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2) {
         List<TimeSlots> finalDay = new ArrayList<>();
         for (int i = 0; i < 12; i++) {

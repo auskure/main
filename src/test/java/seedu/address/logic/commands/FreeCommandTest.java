@@ -1,20 +1,21 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
-import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;;
-
-import java.util.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 
 public class FreeCommandTest {
 
@@ -25,7 +26,8 @@ public class FreeCommandTest {
     @Before
     public void setUp() throws CommandException {
         model = new ModelManager(TypicalPersons.getFreeAddressBook(), getTypicalNotesDownloaded(), new UserPrefs());
-        expectedModel = new ModelManager(TypicalPersons.getFreeAddressBook(), getTypicalNotesDownloaded(), new UserPrefs());
+        expectedModel = new ModelManager(TypicalPersons.getFreeAddressBook(), getTypicalNotesDownloaded(),
+            new UserPrefs());
         commandHistory = new CommandHistory();
     }
 
@@ -35,7 +37,7 @@ public class FreeCommandTest {
         ArrayList<String> list = new ArrayList<>();
         list.add("1");
         FreeCommand fc = new FreeCommand(list);
-        //thursday
+        // thursday
         Calendar cal = Calendar.getInstance();
         cal.set(2018, 10, 8);
         cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -44,7 +46,8 @@ public class FreeCommandTest {
 
 
 
-        CommandTestUtil.assertCommandSuccess(fc, model, commandHistory, "The next available timeslot for John Doe is : thu 8:00 AM - 8:00 PM", expectedModel);
+        CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
+            "The next available timeslot for John Doe is : thu 8:00 AM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -63,7 +66,8 @@ public class FreeCommandTest {
 
 
 
-        CommandTestUtil.assertCommandSuccess(fc, model, commandHistory, "The next available timeslot for John Doe is : Thu 12:34 PM - 8:00 PM", expectedModel);
+        CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
+            "The next available timeslot for John Doe is : Thu 12:34 PM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -82,7 +86,8 @@ public class FreeCommandTest {
 
 
 
-        CommandTestUtil.assertCommandSuccess(fc, model, commandHistory, "The next available timeslot for John Doe is : Thu 12:34 PM - 8:00 PM", expectedModel);
+        CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
+            "The next available timeslot for John Doe is : Thu 12:34 PM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -127,7 +132,7 @@ public class FreeCommandTest {
 
         //using changetimeslotcommand to change time slot
         ChangeTimeSlotCommand change = new ChangeTimeSlotCommand("1", action);
-        change.execute(model,commandHistory);
+        change.execute(model, commandHistory);
 
 
 

@@ -27,8 +27,9 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         String[] keywords = trimmedArgs.split("\\s+");
         if (!keywords[0].equalsIgnoreCase("private") && !keywords[0].equalsIgnoreCase("public")) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Please enter either 'public' or 'private' after 'export'."
-                    + "\n" + ExportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "Please enter either 'public' or 'private' after 'export'." + "\n"
+                    + ExportCommand.MESSAGE_USAGE));
         }
 
         if (keywords.length > 2) {
