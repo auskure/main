@@ -47,7 +47,7 @@ public class FreeCommandTest {
 
 
         CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
-            "The next available timeslot for John Doe is : thu 8:00 AM - 8:00 PM", expectedModel);
+            "The next available timeslot for John Doe is: thu 8:00 AM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class FreeCommandTest {
 
 
         CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
-            "The next available timeslot for John Doe is : Thu 12:34 PM - 8:00 PM", expectedModel);
+            "The next available timeslot for John Doe is: Thu 12:34 PM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class FreeCommandTest {
         fc.setCurrentTime(cal);
 
         CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
-            "The next available timeslot for John Doe is: Thu 12:34 PM - 8:00 PM", expectedModel);
+            "The next available timeslot for Self is: Thu 12:34 PM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class FreeCommandTest {
         CommandResult result = fc.execute(model, commandHistory);
         String theString = result.feedbackToUser;
         //12.34 pm is busy, jump to 1pm
-        assertEquals("The next available timeslot for John Doe is : thu 1:00 PM - 8:00 PM", theString);
+        assertEquals("The next available timeslot for John Doe is: thu 1:00 PM - 8:00 PM", theString);
 
     }
 

@@ -12,8 +12,8 @@ import java.io.Serializable;
 public class Name implements Serializable {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Your name input should only contain 50 characters (i.e. alphanumeric characters and spaces) at maximum, " +
-                "and it should not be blank.";
+            "Your name input should only contain 50 characters (i.e. alphanumeric characters and spaces) at maximum, "
+                + "and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,
