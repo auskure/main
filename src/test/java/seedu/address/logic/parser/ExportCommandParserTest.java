@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PRIVACY_PARAMETER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -26,15 +27,14 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_invalidArgs() {
-        //test if it throws parse exception when user enter empty string
+        // test if it throws parse exception when user enter empty string
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidArgs_noModifier() {
-        //test if it throws parse exception when user enter empty string
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+        // test if it throws parse exception when user enter empty string
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_PRIVACY_PARAMETER + ExportCommand.MESSAGE_USAGE));
     }
-
 
 }

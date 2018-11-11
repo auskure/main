@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PRIVACY_PARAMETER;
 
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -28,8 +29,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         if (!keywords[0].equalsIgnoreCase("private") && !keywords[0].equalsIgnoreCase("public")) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "Please enter either 'public' or 'private' after 'export'." + "\n"
-                    + ExportCommand.MESSAGE_USAGE));
+                    MESSAGE_INVALID_PRIVACY_PARAMETER + ExportCommand.MESSAGE_USAGE));
         }
 
         if (keywords.length > 2) {

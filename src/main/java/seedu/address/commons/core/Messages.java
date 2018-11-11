@@ -11,6 +11,7 @@ public class Messages {
         + "you have entered. Please try again.\n";
     public static final String MESSAGE_INVALID_INDEX_PARAMETER = "You have entered an invalid index parameter."
         + "Please try again.\n";
+    public static final String MESSAGE_INVALID_PRIVACY_PARAMETER = "Please enter either 'public' or 'private' after 'export'.\n";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_PERSONS_AND_GROUPS_LISTED_OVERVIEW = "%1$d persons/groups listed!";
     public static final String MESSAGE_MODULE_NOT_FOUND = "MODULE CODE NOT FOUND";
