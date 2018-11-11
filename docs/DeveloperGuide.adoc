@@ -567,7 +567,7 @@ commands use _Selenium Chromedrivers_ to use Google Chrome to initiate downloads
 The following class diagram shows the relationship of `downloadAllNotes`,`downloadSelectNotes` as well as
 `downloadAbstract`.
 
-image::DownloadClassDiagram.png[width="800",align='center"]
+image::DownloadClassDiagram.png[width="500",align='center"]
 ****
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6

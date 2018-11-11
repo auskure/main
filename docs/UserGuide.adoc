@@ -468,9 +468,7 @@ The download function has temporarily been disabled in accordance with NUS Infor
 Users are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
 ****
 
-'''
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
-'''
 
 Downloads the your notes from IVLE, and stores them in the folder "notes" +
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
@@ -520,9 +518,10 @@ _Password or username Incorrect :_
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
 
-'''
+
 ==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
-'''
+
+
 Displays all the available notes of a selected +
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
@@ -563,9 +562,8 @@ _Password or username Incorrect :_
 image::downloadPasswordOrUsernameWrong.PNG[width="900"]
 ****
 
-'''
 ==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
-'''
+
 Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
@@ -603,9 +601,9 @@ image::downloadSelectFileNotFound.PNG[width="900"]
 
 // tag::showNotesCommand[]
 
-'''
+
 ==== Show all downloaded notes: `showNotes`
-'''
+
 
 Displays all the downloaded notes in the UI +
 Format: `showNotes`
