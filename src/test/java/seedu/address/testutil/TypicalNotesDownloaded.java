@@ -11,14 +11,14 @@ import seedu.address.model.NotesDownloaded;
  */
 public class TypicalNotesDownloaded {
 
-    public static final String CS2100_NOTES = "CS2100_NOTES Introduction to Computer Architecture";
-    public static final String CS2101_NOTES = "CS2101_NOTES Effective Communication for Computing Professionals";
-    public static final String CS2102_NOTES = "CS2102_NOTES Introduction to Database Systems";
-    public static final String CS2103_NOTES = "CS2103_NOTES Introduction to Software Engineering";
-    public static final String CS2104_NOTES = "CS2104_NOTES Introduction to Computer Engineering";
-    public static final String CS2105_NOTES = "CS2105_NOTES Introduction to Networks";
-    public static final String CS2106_NOTES = "CS2106_NOTES Introduction to Operating Systems";
-    public static final String CS2107_NOTES = "CS2107_NOTES Introduction to Information Security";
+    public static final String CS2100_NOTES = "CS2100 Introduction to Computer Architecture";
+    public static final String CS2101_NOTES = "CS2101 Effective Communication for Computing Professionals";
+    public static final String CS2102_NOTES = "CS2102 Introduction to Database Systems";
+    public static final String CS2103_NOTES = "CS2103 Introduction to Software Engineering";
+    public static final String CS2104_NOTES = "CS2104 Introduction to Computer Engineering";
+    public static final String CS2105_NOTES = "CS2105 Introduction to Networks";
+    public static final String CS2106_NOTES = "CS2106 Introduction to Operating Systems";
+    public static final String CS2107_NOTES = "CS2107 Introduction to Information Security";
 
     // Manually added
     public static final String CS3100_NOTES = "CS3100 Introduction to Artificial Intelligence";
