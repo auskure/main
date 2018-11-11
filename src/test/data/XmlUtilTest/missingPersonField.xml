@@ -5,14 +5,12 @@
     <email>hans@example</email>
     <address>4th street</address>
     <tagged>friends</tagged>
+    <enrolled>CS2107</enrolled>
     <timeslots>
         <entry>
             <key>thu</key>
             <value>
                 <list>
-                    <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
                     <list>free</list>
                     <list>free</list>
                     <list>free</list>
@@ -44,9 +42,6 @@
                     <list>free</list>
                     <list>free</list>
                     <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
                 </list>
             </value>
         </entry>
@@ -54,9 +49,6 @@
             <key>wed</key>
             <value>
                 <list>
-                    <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
                     <list>free</list>
                     <list>free</list>
                     <list>free</list>
@@ -88,9 +80,6 @@
                     <list>free</list>
                     <list>free</list>
                     <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
                 </list>
             </value>
         </entry>
@@ -99,10 +88,7 @@
             <value>
                 <list>
                     <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
-                    <list>free</list>
+                    <list>test</list>
                     <list>free</list>
                     <list>free</list>
                     <list>free</list>

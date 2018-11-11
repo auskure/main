@@ -1,9 +1,13 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import seedu.address.model.enrolledmodule.EnrolledModule;
 import seedu.address.model.tag.Tag;
 
 
@@ -21,6 +25,12 @@ public class TimetableContainsModulePredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        List<Boolean> keywordsCheck = new ArrayList<>();
+        for (int j = 0; j < keywords.size(); j++) {
+            keywordsCheck.add(false);
+        }
+        Map<String, EnrolledModule> enrolledModules = new HashMap<>(person.getEnrolledModules());
+
         for (Tag tags : person.getTags()) {
             if (tags.toString().equalsIgnoreCase("[merged]")) {
                 return true;
@@ -44,14 +54,28 @@ public class TimetableContainsModulePredicate implements Predicate<Person> {
                 }
             }
         }
-        for (String check : keywords) {
+        for (int i = 0; i < keywords.size(); i++) {
+            String check = keywords.get(i);
             for (String day : days) {
                 List<TimeSlots> daySlots = timetable.get(day);
                 for (TimeSlots module : daySlots) {
-                    if (check.equalsIgnoreCase(module.toString())) {
+                    if (check.equalsIgnoreCase(module.toString()) && !keywordsCheck.get(i).equals(true)) {
                         modCheck++;
-                        break;
+                        keywordsCheck.set(i, true);
+
                     }
+                }
+            }
+        }
+        for (int i = 0; i < keywords.size(); i++) {
+            String check = keywords.get(i);
+            Iterator<Map.Entry<String, EnrolledModule>> it = enrolledModules.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<String, EnrolledModule> pair = it.next();
+                String moduleToCheck = pair.getKey();
+                if (check.equalsIgnoreCase(moduleToCheck) && !keywordsCheck.get(i).equals(true)) {
+                    modCheck++;
+                    keywordsCheck.set(i, true);
                 }
             }
         }

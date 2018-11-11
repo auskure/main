@@ -55,6 +55,24 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order and accounts for situations where self contact exists..
+     */
+    public static void assertListMatchingWithSelf(PersonListPanelHandle personListPanelHandle, Person... persons) {
+        for (int i = 0; i < persons.length - 1; i++) {
+            personListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order for situations where self contact exists.
+     */
+    public static void assertListMatchingWithSelf(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
+        assertListMatchingWithSelf(personListPanelHandle, persons.toArray(new Person[0]));
+    }
+    /**
      * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
      */
     public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {

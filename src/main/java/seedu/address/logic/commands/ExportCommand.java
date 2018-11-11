@@ -33,10 +33,8 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export a person's full details "
-        + "into a string, which is used for import (into another NSync).\n"
-        + "Select 'public' if you would like to export the time-table in its entirety, "
-        + "or select 'private' if you would like to hide the contents of the occupied-time slots.\n"
-        + "Parameters: PRIVACY (public, private), INDEX (positive integer)\n"
+        + "into a string, which is used for import (into another NSync). "
+        + "Parameters: PUBLIC/PRIVATE, SELF/INDEX\n"
         + "Example: " + COMMAND_WORD + " public 1";
 
     private final String index;
@@ -101,7 +99,7 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * Generates the Base64 String for the Person object
+     * Generates the Base64 String for the Person object.
      */
     private String getSerializedString(Serializable o) {
 

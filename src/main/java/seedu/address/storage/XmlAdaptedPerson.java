@@ -115,6 +115,7 @@ public class XmlAdaptedPerson {
         }
         return timeslots;
     }
+
     /**
      * Changes all the enrolled modules in a list into their xml adapted form.
      */

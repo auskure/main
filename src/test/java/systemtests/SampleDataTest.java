@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatchingWithSelf;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,6 +46,10 @@ public class SampleDataTest extends AddressBookSystemTest {
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
         Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertListMatching(getPersonListPanel(), expectedList);
+        Person[] expectedListWithoutSelf = new Person[expectedList.length - 1];
+        for (int i = 0; i < expectedList.length - 2; i++) {
+            expectedListWithoutSelf[i] = expectedList[i];
+        }
+        assertListMatchingWithSelf(getPersonListPanel(), expectedList);
     }
 }
