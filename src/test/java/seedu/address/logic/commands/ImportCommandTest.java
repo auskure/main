@@ -149,13 +149,6 @@ public class ImportCommandTest {
         expectedModel.addPerson(p);
         expectedModel.commitAddressBook();
 
-//        ExportCommand ec = new ExportCommand("public", "1");
-//        try {
-//            System.out.println(ec.execute(model,commandHistory).feedbackToUser);
-//        } catch (CommandException e) {
-//            e.printStackTrace();
-//        }
-
         CommandTestUtil.assertCommandSuccess(ic, model, commandHistory,
             ImportCommand.MESSAGE_SUCCESS_OVERWRITE, expectedModel);
 
