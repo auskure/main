@@ -12,13 +12,16 @@ import java.io.Serializable;
 public class Name implements Serializable {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Your name input should only contain 50 characters (i.e. alphanumeric characters and spaces) at maximum, " +
+                "and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    public static final int NAME_MAXIMUM_LENGTH = 50;
 
     public final String fullName;
 
@@ -37,7 +40,7 @@ public class Name implements Serializable {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+        return test.matches(NAME_VALIDATION_REGEX) && test.length() <= NAME_MAXIMUM_LENGTH;
     }
 
 
