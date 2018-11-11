@@ -72,10 +72,6 @@ public class ShowNotesCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     /**
-     * test if properly displays files
-     */
-
-    /**
      * test if properly detects file location
      */
 
