@@ -9,8 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 import java.io.File;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
