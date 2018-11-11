@@ -22,10 +22,10 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": import the person into the system.\n"
         + "Parameters: STRING (the Base64 string)\n"
         + "Example: " + COMMAND_WORD + " " + "rO0ABXNyACFzZWVkdS5hZGRyZXNzLm1vZGVsLnB...";
-    private static final String MESSAGE_SUCCESS = "Import successful";
-    private static final String MESSAGE_SUCCESS_OVERWRITE = "Import successful, user data is overwritten";
-    private static final String MESSAGE_FAILED = "Failed to import";
 
+    public static final String MESSAGE_SUCCESS = "Import successful";
+    public static final String MESSAGE_SUCCESS_OVERWRITE = "Import successful, user data is overwritten";
+    public static final String MESSAGE_FAILED = "Failed to import";
 
     private final String personString;
 
@@ -63,6 +63,7 @@ public class ImportCommand extends Command {
      * @throws CommandException if the given Base64 string is bad and is unable to serialize an object
      */
     private Person getSerializedPerson(String s) throws CommandException {
+
         try {
             byte[] data = Base64.getDecoder().decode(s);
             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
@@ -72,11 +73,11 @@ public class ImportCommand extends Command {
             throw new CommandException(MESSAGE_FAILED);
         }
 
-
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.personString.equalsIgnoreCase(((ImportCommand) obj).personString);
+    }
 
 }
-
-
-
