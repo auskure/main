@@ -84,10 +84,8 @@ public class FreeCommandTest {
 
         fc.setCurrentTime(cal);
 
-
-
         CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
-            "The next available timeslot for John Doe is : Thu 12:34 PM - 8:00 PM", expectedModel);
+            "The next available timeslot for John Doe is: Thu 12:34 PM - 8:00 PM", expectedModel);
     }
 
     @Test
