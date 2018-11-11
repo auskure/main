@@ -561,13 +561,13 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 === Download Commands
 Both `downloadSelectNotes` and `downloadAllNotes` extends on the  `downloadAbstract` class which itself extends from the
-`command` class. The implemetation is similar up till the downloading segment. The download
-commands use _Selenium Chromedrivers_ to use Google Chrome to initiate downloads.
+`command` class. The implementation is similar up till the downloading segment. The download
+commands use _Selenium Chromedrivers_ to initiate downloads.
 
 The following class diagram shows the relationship of `downloadAllNotes`,`downloadSelectNotes` as well as
 `downloadAbstract`.
 
-image::DownloadClassDiagram.png[width="500",align='center"]
+image::DownloadClassDiagram.png[width="500",align="center"]
 ****
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
@@ -579,33 +579,28 @@ However, if desired, the function can be manually enabled by changing the state 
 
 The following Sequence diagram shows how `downloadAllNotes` is handled.
 
-image::downloadAllNotesSequence.png[width="800",align="center"]
+image::downloadAllNotesSequence.png[width="600",align="center"]
 
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 ===== Current Implementation
 Step 1: Extract files from Jar. Since _Selenium ChromeDriver_ requires it to be present
-in the directory as an executable inorder to be ran, it would need to be extracted from
-the NSync.jar file before it could be used. Additionally, a _Notes_ folder would be created
+in the directory as an executable inorder to be ran, it would need to be extracted from  NSync.jar before carrying on. Additionally, a _Notes_ folder would be created
 to store the notes downloaded.
 
-Step 2: Set the `webdriver.chrome.driver` to the location of the ChromeDriver executable. This step is necessary
-inorder for _ChromeDriver_ to execute
+Step 2: Set the `webdriver.chrome.driver` system variable to the location of the ChromeDriver executable. This step is necessary.
 
 Step 3: Set the download path and other settings for _ChromeDriver_.
 [NOTE]
-Since Headless mode for _ChromeDriver_ has been disabled due to security reasons, an alternative is to shift _ChromeDriver_ to an unviewable location on the screen to prevent disruptions to the users interactions.
+Headless mode for _ChromeDriver_ has been disabled due to security reasons, an alternative is to start _ChromeDriver_ in an unviewable location on the screen to prevent disrupting the users interactions.
 
-Step 4: Initiate login into _IVLE_ , and check if logged in, If user is not logged in, a `CommandExeption` will be thrown
+Step 4: Login into _IVLE_ , and check if successful. If not, a `CommandExeption` will be thrown
 to alert the user that either `IVLE USERNAME` or `IVLE PASSWORD` is incorrect.
 
-Step 5: if user is logged in, the program would then check if the module exists. If it does not exist, a `CommandException` will
+Step 5: If user is logged in, check if the `ENROLLED MODULE` exists. If not, a `CommandException` will
 be thrown to alert the user that the `ENROLLED MODULE` specified does not exist.
 
-[NOTE]
-if user enters an incomplete module code, the closest relative would be selected. Example: if user takes `CS2101` and `CS2113` and `CS21` has been entered as `ENROLLED MODULE`, `CS2101`would be selected.
-
-Step 6: Navigate to the _IVLE download page_ and select all files and download as .zip file.
+Step 6: Navigate to the _IVLE download page_, select all files and download as .zip file.
 
 [NOTE]
 While Downloading, the program would introduce "busy waiting" to prevent the _ChromeDriver_ from terminating before the download is complete.
@@ -617,9 +612,9 @@ Step 7: Unzip the files and store it in a folder created based on the name of `E
 
 The following Sequence diagram shows how `downloadAllNotes` is handled.
 
-image::downloadSelectNotesSequence.png[width="800",align="center"]
+image::downloadSelectNotesSequence.png[width="600",align="center"]
 
-Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
+Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/FILE INDEXES: 1,2,3...n]`
 
 [NOTE]
 The existance of the `file/` prefix is optional, and the existance of this prefix will affect the execution
@@ -628,33 +623,30 @@ The existance of the `file/` prefix is optional, and the existance of this prefi
 
 Step 1-5: is exactly the same as `DownloadAllNotes` command.
 
-Step 6a: If user has **NOT** entered a `file/` prefix, the program will fetch all the available file names and store it in a formatted string. Before returning the `CommandResult` to the user, a _static_ index will be appended to the front of the file name so that it could be used for `downloadSelectNotes` with the `file/` prefix.
+Step 6a: If user has **NOT** entered a `file/` prefix, the program will fetch all available file names and store it in a formatted string; A _static_ `FILE INDEX` will be appended to the front of the file name. The formatted string is returned as a `CommandResult`.
 
-Step 6b: If user has entered a `file/` prefix. The program will download the files according to the file Indexes supplied after the `file/` prefix. It is then stored in the _Notes_ folder created at `Step 1`.
-
-[NOTE]
-If multiple notes of the same module was saved at different times, it will be stored under the same
+Step 6b: If user has entered a `file/` prefix. The program will download files according to the `FILE INDEXES` supplied. It is stored in the _Notes_ folder created at `Step 1`.
 
 [NOTE]
-If an incorrect file index has been supplied, download will stop after encountering the invalid index. Example: `file/0,1,2,900000,3` if 0,1,2,3 are valid file indexes, only file 0,1,2 will be downloaded.
+If an incorrect file index has been supplied, download will stop after encountering an invalid index. Example: `file/1,2,9000,3` if 1,2,3 are valid file indexes, only file 1,2 will be downloaded.
 
 ===== Design Considerations
 ====== Aspect 1: Which Driver is used
 **Implementation 1 (Current Implementation)**
 
-Currently `downloadNotes` uses _ChromeDriver_ to initiate its downloads. WebDriver is an open source tool for automated testing of webapps across many browsers. It provides capabilities for navigating to web pages, user input, JavaScript execution, and more. ChromeDriver is a standalone server which implements WebDriver's wire protocol for Chromium.
+Currently `downloadNotes` uses _ChromeDriver_ to initiate its downloads. It provides capabilities for navigating to web pages, user input, JavaScript execution, and more.
 
-The user would require to have _Google Chrome_ installed inorder to use this function
+The user would be required to have _Google Chrome_ installed inorder to use this function
 
 Pros: Google Chrome is one of the most widely used browsers in the world. Thus statistically speaking, most NUS users would already have _Google Chrome_ installed.
 
-Cons: _Google Chrome_ is extremely ram intensive, and the function would fail to cater to users who dont use Google Chrome.
+Cons: _Google Chrome_ is extremely ram intensive, and the function would fail to cater to users who do not use Google Chrome.
 
 **Implementation 2(HTML unitdriver)**
 
-HTML UnitDriver is the most light weight and fastest implementation headless browser for of WebDriver.
+HTML UnitDriver is the most light weight, natively headless and the fastest implementation of WebDriver.
 
-Pros: Its extremely fast, does not require prior installation of any other applications to function and its natively Headless.
+Pros: Its extremely fast, does not require prior installation of any other applications to function.
 
 Cons: It uses a javaScript engine called _Rhino_. This engine is incompatible with _IVLE_'s usage of javaScript. Making it unable to navigate past `Step 5`.
 
@@ -663,7 +655,7 @@ Cons: It uses a javaScript engine called _Rhino_. This engine is incompatible wi
 
 As mentioned previously, currently `downloadNotes` uses _ChromeDriver_ to initiate its downloads.
 
-Pros: The current implementation navigates through the _IVLE_ Web page to download the files "Pseudo" manually. This means this implementation could be easily morphed to suit other platforms and websites, it is also easy to update.
+Pros: The current implementation navigates through the _IVLE_ Web page to download the files "Pseudo" manually. Thus we could be easily morph this implementation to suit other platforms and websites. Its also easy to update.
 
     example: NTU web portal
 
@@ -675,17 +667,18 @@ An alternative implementation is to use the existing IVLE API to instantiate the
 
 Pros: Its supported by _NUS_, and thus should be more reliable than the _IVLE_ platform.
 
-Cons: The existing IVLE API is outdated, and many parts are not functional as of 10-11-2018. Furthermore, IVLE is migrating to luminous as of 2019, thus if implemented with IVLE API, would require a ground up rebuild to keep the function operational.
+Cons: The existing IVLE API is outdated, many parts are not functional as of 10-11-2018. Furthermore, IVLE is migrating to luminous as of 2019, thus if implemented with IVLE API, it would require a ground up rebuild to keep the function operational.
 // end::downloadCommands[]
 
 // tag::showNotesCommand[]
+
 === ShowNotes Command
 ShowNotes recursively searches the `Notes` folder created by `DownloadNotes` Command.
 
 ==== Current Implementation
 A static String is used to store all the information `notesResult`.
 
-The files are differentiated by 2 catagories: Directories and Others. If `currentFile` is a directory, a recursive call will be made and the directory name and _N_ tabs would be added to `notesResult` , else just the file name and _N_ tabs would be apprended to the file name and added to ` notesResult`.
+The files are differentiated by 2 catagories: Directories and Others. If `currentFile` is a directory, a recursive call will be made and the directory name appended with _N_ tabs would be added to `notesResult` , else, just the file name and _N_ tabs would be apprended and added to ` notesResult`.
 
 [NOTE]
 _N_ refers to the number of recursive calls made up till the point of arriving at `currentFile`.
