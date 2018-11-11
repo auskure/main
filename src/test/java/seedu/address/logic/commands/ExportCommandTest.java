@@ -40,10 +40,9 @@ public class ExportCommandTest {
         CommandResult cr = ec.execute(model, commandHistory);
         String exportString = cr.feedbackToUser;
         //remove string that informs user that the string is copied
-        exportString = exportString.replaceAll("The string has been copied onto the clipboard.", "");
+        exportString = exportString.replaceAll("The generated string has been copied onto your clip-board.", "");
         exportString = exportString.trim();
         theString = exportString;
-        System.out.println(theString);
     }
 
     @Test
@@ -62,18 +61,5 @@ public class ExportCommandTest {
 
     }
 
-    @Test
-    public void execute_exportedStringIsBase64() throws CommandException {
-
-        // corrupting the string
-        theString += "a";
-        try {
-            byte[] data = Base64.getDecoder().decode(theString);
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-        fail("did not throw exception");
-
-    }
 
 }
