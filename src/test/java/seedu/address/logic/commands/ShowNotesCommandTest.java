@@ -1,4 +1,6 @@
-/*package seedu.address.logic.commands;
+package seedu.address.logic.commands;
+
+//@@author BearPerson1
 
 import static junit.framework.TestCase.assertTrue;
 import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
@@ -73,19 +75,10 @@ public class ShowNotesCommandTest {
      * test if properly displays files
      */
 
-    /*@Test
-    public void execute_showNotes_properlyShownotes() {
-        Model expectedModel = model;
-        ShowNotesCommand command = new ShowNotesCommand();
-        assertCommandSuccess(command, model, commandHistory, CURRENT_NOTES_DIR_RESULT, expectedModel);
-    }*/
-
-/*    @Test
-
     /**
      * test if properly detects file location
      */
-/*
+
     @Test
 
     public void execute_showNotes_properlyFindNotesFolderSuccess() {
@@ -94,4 +87,4 @@ public class ShowNotesCommandTest {
         assertTrue(notesFolder.exists());
     }
 
-}*/
+}
