@@ -11,7 +11,7 @@
 
 NSync is a student lifestyle management and utility application built apon AddressBook - Level 4. The application uses a Command-Line interface to interact with the user. It aims to increase the efficiency of time consuming tasks that predominantly exist in a students life.
 
-This document documents the contributions of Hu YiQing across the duration of the project.
+This document documents the contributions of Hu Yi Qing across the duration of the project.
 
 == [blue]#Summary of contributions#
 * *Major Enhancement* : Added ability to download notes from IVLE automatically.
