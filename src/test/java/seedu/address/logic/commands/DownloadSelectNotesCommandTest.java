@@ -20,7 +20,6 @@ import seedu.address.model.ModelManager;
 
 public class DownloadSelectNotesCommandTest {
 
-
     private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
