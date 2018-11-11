@@ -461,12 +461,13 @@ If you have missed out a character, or accidentally modified one of the characte
 
 // tag::downloadCommands[]
 === Notes Commands
-****
+
+
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
 
 You are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
-****
+
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
@@ -481,18 +482,16 @@ You would need to have Google Chrome installed in the default location in order 
 You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
 
 
-****
-image::downloadExample.PNG[width="700"]
-Example: `DownloadAllNotes` command usage.
-****
+
+image::downloadExample.PNG[width="600"]
+Example `DownloadAllNotes` command usage.
+
 
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
 [TIP]
-You do not have to Enter the full module code or worry about the capitalization.
-
-    Example: if you are enrolled in `CS2113` and `cs2101` entering `mod/cs21` will select `cs2101`
+You do not have to Enter the full module code or worry about the capitalization. Example: if you are enrolled in `CS2113` and `CS2101` entering `mod/cs21` will select `cs2101`
 
 * You may notice a new window of Google Chrome opening up. Do not interact with it or you might interfere with the download.
 
@@ -503,21 +502,19 @@ image::chromeOpen.PNG[width="100"align="center"]
 * If your download is successful, the result window of NSync will display the exact path to your newly downloaded notes.
 
 
-
 Examples and what you might expect :
 
 _Download Successful :_
 
-image::downloadAllSuccessful.PNG[width="700"]
+image::downloadAllSuccessful.PNG[width="600"]
 
 _Module not found :_
 
-image::downloadModNotFound.PNG[width="700"]
+image::downloadModNotFound.PNG[width="600"]
 
 _Password or username Incorrect :_
 
-image::downloadPasswordOrUsernameWrong.PNG[width="700"]
-
+image::downloadPasswordOrUsernameWrong.PNG[width="600"]
 
 
 ==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
@@ -530,45 +527,45 @@ Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENRO
 Currently the files are not sorted in any order. In a future version we will make its sorted by file type
 
 
-****
-image::downloadSelectFileExample.PNG[width="700"]
-Example: `DownloadSelectFile` *without* `file/` prefix usage
-****
+
+image::downloadSelectFileExample.PNG[width="600"]
+Example `DownloadSelectFile` *without* `file/` prefix usage
+
 
 * All available notes from the selected module would be sourced and displayed
 
 * if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
 
 
+Examples and what you might expect :
+
 
 _File Fetch Successful :_
 
-image::downloadSelectFileSuccess1.PNG[width="700"]
-image::downloadSelectFileSuccess2.PNG[width="700"]
+image::downloadSelectFileSuccess1.PNG[width="600"]
+image::downloadSelectFileSuccess2.PNG[width="600"]
 
 [NOTE]
-the number on the left of the file represents the file ID, it is static.
-Example: "0:LP41_More_UML_Inheritence.pptx"
-    ,0 is the file index.
-
+the number on the left of the file represents the file ID, it is static.  Example: _"0:LP41_More_UML_Inheritence.pptx"_
+    0 is the file index.
 
 
 
 
 ==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
 
-Download a selected number of notes from IVLE, and stores them in the folder "notes".
+Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
-Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/FILE INDEXES: 1,2,3...n]`
+Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
 
 [TIP]
-Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
+Use `downloadSelectFile` without the `file\` prefix to obtain the file indexes.
 
-****
 
-image::downloadSelectExample.PNG[width="700"]
-Example: `DownloadSelectFile` *with* `file/` prefix usage
-****
+
+image::downloadSelectExample.PNG[width="600"]
+Example `DownloadSelectFile` *with* `file/` prefix usage
+
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
@@ -582,11 +579,12 @@ Examples and what you might expect :
 
 _Download Successful :_
 
-image::downloadSelectSuccess.PNG[width="700"]
+image::downloadSelectSuccess.PNG[width="600"]
 
 *_File* not found :_
 
-image::downloadSelectFileNotFound.PNG[width="700"]
+image::downloadSelectFileNotFound.PNG[width="600"]
+
 
 
 // end::downloadCommands[]
@@ -605,12 +603,12 @@ the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
 
-
 Examples of usage:
 
-image::showNotes1.PNG[width="700"]
-image::showNotes2.PNG[width="700"]
-image::showNotes3.PNG[width="700"]
+image::showNotes1.PNG[width="600"]
+image::showNotes2.PNG[width="600"]
+image::showNotes3.PNG[width="600"]
+
 
 
 // end::showNotesCommand[]

@@ -43,8 +43,7 @@ or view all the available files and select which files to download with the `dow
 *** Implemented auto creation of additional file paths from .jar.
 
 ** Community:
-*** Reported Bugs and requested request of special libraries (Examples: https://github.com/nusCS2113-AY1819S1/forum/issues/71[1],
-https://github.com/nusCS2113-AY1819S1/forum/issues/11[2])
+
 
 *** Reviewed multiple pull requests: (Examples: https://github.com/CS2113-AY1819S1-W12-2/main/pull/145[#145],
 https://github.com/CS2113-AY1819S1-W12-2/main/pull/151[#151])

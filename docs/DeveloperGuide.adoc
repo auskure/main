@@ -567,7 +567,7 @@ commands use _Selenium Chromedrivers_ to initiate downloads.
 The following class diagram shows the relationship of `downloadAllNotes`,`downloadSelectNotes` as well as
 `downloadAbstract`.
 
-image::DownloadClassDiagram.png[width="500",align="center"]
+image::DownloadClassDiagram.png[width="550",align="center"]
 ****
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
@@ -579,7 +579,7 @@ However, if desired, the function can be manually enabled by changing the state 
 
 The following Sequence diagram shows how `downloadAllNotes` is handled.
 
-image::downloadAllNotesSequence.png[width="600",align="center"]
+image::downloadAllNotesSequence.png[width="450",align="center"]
 
 Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
@@ -612,7 +612,7 @@ Step 7: Unzip the files and store it in a folder created based on the name of `E
 
 The following Sequence diagram shows how `downloadAllNotes` is handled.
 
-image::downloadSelectNotesSequence.png[width="600",align="center"]
+image::downloadSelectNotesSequence.png[width="550",align="center"]
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/FILE INDEXES: 1,2,3...n]`
 
