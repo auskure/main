@@ -34,7 +34,8 @@ public class ExportCommandParserTest {
     @Test
     public void parse_invalidArgs_noModifier() {
         // test if it throws parse exception when user enter empty string
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_PRIVACY_PARAMETER + ExportCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            MESSAGE_INVALID_PRIVACY_PARAMETER + ExportCommand.MESSAGE_USAGE));
     }
 
 }
