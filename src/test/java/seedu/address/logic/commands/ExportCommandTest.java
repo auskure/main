@@ -1,8 +1,18 @@
 package seedu.address.logic.commands;
 
+import static org.assertj.core.api.Fail.fail;
+import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -10,15 +20,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.ui.testutil.EventsCollectorRule;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.Base64;
-
-import static org.junit.Assert.*;
-import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ExportCommand}.
@@ -36,7 +37,7 @@ public class ExportCommandTest {
     public void setUp() throws CommandException {
         ExportCommand ec = new ExportCommand("public", "1");
 
-        CommandResult cr = ec.execute(model,commandHistory);
+        CommandResult cr = ec.execute(model, commandHistory);
         String exportString = cr.feedbackToUser;
         //remove string that informs user that the string is copied
         exportString = exportString.replaceAll("The string has been copied onto the clipboard.", "");
@@ -64,8 +65,8 @@ public class ExportCommandTest {
     @Test
     public void execute_exportedStringIsBase64() throws CommandException {
 
-        //corrupting the string
-        theString+= "a";
+        // corrupting the string
+        theString += "a";
         try {
             byte[] data = Base64.getDecoder().decode(theString);
         } catch (IllegalArgumentException e) {
@@ -73,8 +74,6 @@ public class ExportCommandTest {
         }
         fail("did not throw exception");
 
-
     }
-
 
 }

@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
@@ -8,9 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
+
+import org.junit.Test;
 
 import seedu.address.logic.commands.FreeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,7 +26,7 @@ public class FreeCommandParserTest {
     public void parse_validArgs() {
         ArrayList<String> listIndex = new ArrayList<>();
         listIndex.add("1");
-        assertParseSuccess(parser," " + PREFIX_FREE + "1", new FreeCommand(listIndex));
+        assertParseSuccess(parser, " " + PREFIX_FREE + "1", new FreeCommand(listIndex));
     }
 
     @Test
@@ -46,12 +45,13 @@ public class FreeCommandParserTest {
 
     @Test
     public void parse_invalidArgs() {
-        assertParseFailure(parser," 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidArgs_wrongPrefix() {
-        assertParseFailure(parser," " + PREFIX_TAG + "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TAG + "1",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
     }
 
 

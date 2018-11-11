@@ -89,8 +89,8 @@ public class TypicalPersons {
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
-	
-	public static AddressBook getFreeAddressBook() {
+
+    public static AddressBook getFreeAddressBook() {
         AddressBook ab = new AddressBook();
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("friends"));
@@ -99,7 +99,9 @@ public class TypicalPersons {
         enrolledMap.put("CS2101", new EnrolledModule("CS2101"));
         enrolledMap.put("CS2113T", new EnrolledModule("CS2113T"));
 
-        Person p =  new Person(new Name("John Doe"), new Phone("98765432"), new Email("johnd@example.com"), new Address("311, Clementi Ave 2, #02-25"),tagSet, enrolledMap, TimeSlots.initTimeSlots()) ;
+        Person p = new Person(new Name("John Doe"), new Phone("98765432"), new Email("johnd@example.com"),
+            new Address("311, Clementi Ave 2, #02-25"), tagSet, enrolledMap, TimeSlots.initTimeSlots());
+
         ab.addPerson(p);
         return ab;
     }
