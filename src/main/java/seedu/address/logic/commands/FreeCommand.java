@@ -5,8 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -33,7 +31,7 @@ import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
 
 /**
- * Checks for common free time slot for 1 or multiple people
+ * Checks for common free time slot for 1 or multiple people.
  */
 
 public class FreeCommand extends Command {
@@ -41,14 +39,14 @@ public class FreeCommand extends Command {
     public static final String COMMAND_WORD = "free";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available time slot for persons "
-        + "listed by their index number.\n"
-        + "Parameter: " + PREFIX_FREE + "[INDEX]"
-        + " for all contacts you would like to compare.\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_FREE + "1 " + PREFIX_FREE + "2 ";
+        + "listed by their index number. "
+        + "Parameter: " + PREFIX_FREE + "[SELF/INDEX]...\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_FREE + "self " + PREFIX_FREE + "1 " + PREFIX_FREE + "2";
 
     private static final String MESSAGE_NOT_FREED = "There are no common free time slots found.";
     private final List<String> indices;
     private final String[] days = {"mon", "tue", "wed", "thu", "fri"};
+    private Calendar myCal = null;
 
     public FreeCommand(List<String> indices) {
         requireNonNull(indices);
@@ -74,10 +72,10 @@ public class FreeCommand extends Command {
             try {
                 currentIndex = Integer.parseInt(index);
             } catch (NumberFormatException e) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_INDEX_PARAMETER + MESSAGE_USAGE);
             }
-            if (currentIndex > lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            if (currentIndex <= 0 || currentIndex > lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + MESSAGE_USAGE);
             }
         }
 
@@ -116,31 +114,30 @@ public class FreeCommand extends Command {
         outputToUser = outputToUser.substring(0, outputToUser.length() - 1);
         outputToUser = outputToUser + " is: ";
 
+        Calendar rightNow = getCurrentTime();
 
+        int day = rightNow.get(Calendar.DAY_OF_WEEK);
         // if today is saturday or sunday, loop back to monday
         int dayToCheck;
         boolean isToday = true;
-        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY || LocalDate.now().getDayOfWeek()
-            == DayOfWeek.SUNDAY) {
+        if (day == Calendar.SATURDAY || day == Calendar.SUNDAY) {
             dayToCheck = 0;
             isToday = false;
-        } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.MONDAY) {
+        } else if (day == Calendar.MONDAY) {
             dayToCheck = 0;
-        } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.TUESDAY) {
+        } else if (day == Calendar.TUESDAY) {
             dayToCheck = 1;
-        } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.WEDNESDAY) {
+        } else if (day == Calendar.WEDNESDAY) {
             dayToCheck = 2;
-        } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.THURSDAY) {
+        } else if (day == Calendar.THURSDAY) {
             dayToCheck = 3;
         } else {
             dayToCheck = 4;
         }
 
-
-        Calendar rightNow = Calendar.getInstance();
         int hourNow = rightNow.get(Calendar.HOUR_OF_DAY);
         if (hourNow >= 20) {
-            // after 8pm, loop to next day
+            //after 8pm, loop to next day
             dayToCheck++;
             dayToCheck %= 5;
             hourNow = 8;
@@ -184,7 +181,6 @@ public class FreeCommand extends Command {
                 timeSlotIndex++;
             }
 
-
             String timeFrom;
             String timeTo;
             DateFormat sdf = new SimpleDateFormat("EEE hh:mm aa");
@@ -222,7 +218,18 @@ public class FreeCommand extends Command {
 
     }
 
-    /**
+    public Calendar getCurrentTime() {
+        if (myCal == null) {
+            myCal = Calendar.getInstance();
+        }
+        return myCal;
+    }
+
+    public void setCurrentTime(Calendar tCal) {
+        myCal = tCal;
+    }
+
+    /*
      * Formats the time into readable String
      *
      * @param Hour
@@ -239,9 +246,7 @@ public class FreeCommand extends Command {
         return hours + ":00 " + amPm;
     }
 
-    /**
-     * Merges 2 people into a single person with a merged timetable
-     */
+
     private Person mergeTimetables(Person person1, Person person2, int index) {
         Name mergedName = new Name("a");
         Phone phone = new Phone("99999999");
@@ -264,9 +269,6 @@ public class FreeCommand extends Command {
 
     }
 
-    /**
-     * Creates a new merged timetable from 2 timetables.
-     */
     private Map<String, List<TimeSlots>> mergeTimeSlots(Map<String, List<TimeSlots>> slots1,
                                                         Map<String, List<TimeSlots>> slots2) {
         TimeSlots[] mon1 = slots1.get("mon").toArray(new TimeSlots[0]);
@@ -301,9 +303,6 @@ public class FreeCommand extends Command {
         return finalSlots;
     }
 
-    /**
-     * Compares 2 lists of time slots and returns a merged list.
-     */
     List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2) {
         List<TimeSlots> finalDay = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
@@ -332,5 +331,23 @@ public class FreeCommand extends Command {
         return finalDay;
     }
 
-}
+    // for JUnit testing, both commands are equal if the List<String> indices are equal
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof FreeCommand) {
+            int index = 0;
+            for (String x : indices) {
+                if (!x.equalsIgnoreCase(((FreeCommand) other).indices.get(index))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
 
+
+    }
+
+}
