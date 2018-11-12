@@ -1,18 +1,19 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 /**
  * DownloadSelectCommand has 2 functions depending on the existance of PREFIX_SELECT_FILE. If PREFIX_SELECT_FILE
@@ -30,6 +31,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             + " user/(username) pass/(password) mod/(moduleCode)" + NEWLINE_SEPARATOR
             + "To select the notes(by index):" + NEWLINE_SEPARATOR + COMMAND_WORD
             + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
+
 
 
     public static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";

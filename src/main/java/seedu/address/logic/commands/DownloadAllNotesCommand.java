@@ -1,18 +1,18 @@
 package seedu.address.logic.commands;
 
 //@@author BearPerson1
+import java.io.IOException;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * DownloadAllNotesCommand Will download all the notes from a selected module and store it in the "notes" folder.
@@ -70,7 +70,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
          * Updated to disable download operations, if isDownloadDisabled==true.
          * Function will not proceed after this if statement.
          */
-        if(isDownloadDisabled) {
+        if (isDownloadDisabled) {
             driver.close();
             return new CommandResult(Messages.MESSAGE_DOWNLOAD_DISABLED);
         }
