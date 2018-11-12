@@ -40,7 +40,7 @@ public class FreeCommand extends Command {
 
     public static final String COMMAND_WORD = "free";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available time slot for persons "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available time slot for person(s) "
         + "listed by their index number. "
         + "Parameter: " + PREFIX_FREE + "[SELF/INDEX]...\n"
         + "Example: " + COMMAND_WORD + " " + PREFIX_FREE + "self " + PREFIX_FREE + "1 " + PREFIX_FREE + "2";

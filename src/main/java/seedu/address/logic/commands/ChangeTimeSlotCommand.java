@@ -79,9 +79,9 @@ public class ChangeTimeSlotCommand extends Command {
         }
 
         Map<String, List<TimeSlots>> timeSlots = personToChange.getTimeSlots();
-        Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
-        if (createNewTimetable(timeSlots) != null) {
-            changedTimeSlots = createNewTimetable(timeSlots);
+        Map<String, List<TimeSlots>> changedTimeSlots;
+        if (createNewUpdatedTimetable(timeSlots) != null) {
+            changedTimeSlots = createNewUpdatedTimetable(timeSlots);
         } else {
             throw new CommandException(MESSAGE_NOTHING_CHANGED);
         }
@@ -110,9 +110,9 @@ public class ChangeTimeSlotCommand extends Command {
     }
 
     /**
-     * Copies a person's timetable.
+     * Creates a changed timetable based on the user input and the timetable of the person to change.
      */
-    private Map<String, List<TimeSlots>> createNewTimetable(Map<String, List<TimeSlots>> timeSlots) {
+    private Map<String, List<TimeSlots>> createNewUpdatedTimetable(Map<String, List<TimeSlots>> timeSlots) {
         Map<String, List<TimeSlots>> changedTimeSlots = new HashMap<>();
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         String day = null;
