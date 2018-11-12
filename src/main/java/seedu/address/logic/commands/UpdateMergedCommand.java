@@ -86,8 +86,7 @@ public class UpdateMergedCommand extends Command {
             for (int j = 0; j < i - 1; j++) {
                 personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j, groupName);
             }
-            model.deletePerson(personsToMerge[i - 1]);
-            model.addPerson(personsToMerge[i - 1]);
+            model.updatePerson(personsToMerge[i - 1], personsToMerge[i - 1]);
         }
         model.commitAddressBook();
         if (!removedPersons.isEmpty()) {
