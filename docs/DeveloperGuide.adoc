@@ -1438,8 +1438,6 @@ However, if desired, the function can be manually enabled by changing the state 
 
 Since the download function has been disabled, testers can create a `notes` folder in the directory of the jar file and fill it with items. The ShowNotes command will display it accordingly
 
-====
-
 === Saving data
 
 . Dealing with missing/corrupted data files
