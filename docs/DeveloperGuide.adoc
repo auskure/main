@@ -103,7 +103,7 @@ When you are ready to start coding,
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+Architecture Diagram
 image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
@@ -135,7 +135,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
@@ -143,7 +143,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
+Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -151,7 +151,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -162,7 +162,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+Structure of the UI Component
 image::UiDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -183,7 +183,7 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
@@ -196,13 +196,13 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+Structure of the Model Component
 image::modelDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -226,7 +226,7 @@ image:ModelClassEvenBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
@@ -814,7 +814,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
+Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
