@@ -163,7 +163,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiDeveloperGuide.png[width="800"]
+image::UiDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -203,7 +203,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::modelDeveloperGuide.png[width="800"]
+image::modelDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
