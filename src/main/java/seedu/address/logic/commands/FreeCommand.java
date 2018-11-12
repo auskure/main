@@ -91,7 +91,7 @@ public class FreeCommand extends Command {
         indices.remove(0);
 
         // start generation of output string to user
-        String outputToUser = "The next available timeslot for";
+        String outputToUser = "The next available time-slot for";
         outputToUser += " " + personFirst.getName() + ",";
 
         // if trying to find free slots for more than 1 person, use the merge algorithm to create a merged timetable to
