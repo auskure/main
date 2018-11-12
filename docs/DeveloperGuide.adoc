@@ -339,7 +339,7 @@ Step 1. The user inputs the index, day, time and activity. `The ChangeTimeSlotCo
 incorrectly formatted input will result in a `ParseException` being thrown. It then calls the `ChangeTimeSlotCommand`
  with the first element of `activities` as the `index` and `activities` as arguments.
 
-image::ChangeTimeslot1.PNG[width="800"]
+image::ChangeTimeslot1.PNG[width="400",align="center"gra]
 
 Step 2. The `ChangeTimeSlotCommand` uses the index to get the `Person`, `personToChange` whose timetable is supposed to
 be changed. It then calls `createNewUpdatedTimetable` with the timetable of `personToChange` copy of their timetable is
@@ -349,20 +349,21 @@ It then checks to see if the activity at the selected time slot is the same as t
 ignored. If it is not, the time slot in the copied timetable is changed and a Boolean variable `didTimetableChange` is
 set to true.
 
-image::ChangeTimeslot2.PNG[width="800"]
+image::ChangeTimeslot2.PNG[width="500",align="center"]
 
 Step 3. Once `activities` has been fully iterated through, a new `Person` `newPerson` is created with all the same
 identity fields of `personToChange`, except for the timetable which is the changed timetable.
 
-image::ChangeTimeslot3.PNG[width="800"]
+image::ChangeTimeslot3.PNG[width="500",align="center"]
 
 Step 4. `newPerson` replaces `personToChange` in the `AddressBook`.
 
-image::ChangeTimeslot4.PNG[width="800"]
+image::ChangeTimeslot4.PNG[width="400",align="center"]
 
 The following sequence diagram shows how the `change` function works.
 
-image::ChangeTimeSlot5.PNG[width="800"]
+image::ChangeTimeslot5.PNG[width="500",align="center"]
+
 
 ==== Design Considerations
 
@@ -391,36 +392,32 @@ Given below is an example usage scenario and how the merge mechanism behaves at 
 
 Step 1. The user selects the indexes of the contacts he wants to merge and inputs a group name. `MergeCommandParser`
 takes the indexes and puts it in a list. It then calls MergeCommand with the list and the group name as
-arguments.
-
-image::MergeCommand1.PNG[width="200"]
-
-Step 2. The Merge Command uses the list of indexes and the `filteredPersonsList` to create and fill the array
+arguments. The Merge Command uses the list of indexes and the `filteredPersonsList` to create and fill the array
 `personsToMerge`. Your own contact, `Person` with "self" `Tag` is always added to the array.
 
-image::MergeCommand2.PNG[width="400"]
+image::MergeCommand1.PNG[width="350",align="center"]
 
-Step 3. The `mergeTimetable` function is called on each `Person` in `personsToMerge` and the element after it. The merge
+Step 2. The `mergeTimetable` function is called on each `Person` in `personsToMerge` and the element after it. The merge
 Timetable function iterates through all the time slots in both timetables and creates a new time table based on them.
 
-image::MergeCommand4.PNG[width="800"]
+image::MergeCommand4.PNG[width="500",align="center"]
 
-The `Name`s of each `Person` are appended together and gets saved in the `Address` of the merged
+Step 3. The `Name`s of each `Person` are appended together and gets saved in the `Address` of the merged
 `Person`. The merged timetable and a "merged" `Tag` are added to the merged `Person`. The merged `Person` is also
 given a placeholder `Email` and `Phone`. "merged" `Tag` causes these `Persons`(s) to be displayed in a separate list
 in the UI.
 
-image::MergeCommand3.PNG[width="800"]
+image::MergeCommand3.PNG[width="450",align="center"]
 
-Step 5. When `personsToMerge` is fully iterated through, the last
+Step 4. When `personsToMerge` is fully iterated through, the last
         `Person` inside is added to the address book. If there already exists a `Person` with the same `Name`, that
         `Person` is updated and a `CommandResult` reflecting this is shown.
 
-image::MergeCommand5.PNG[width="800"]
+image::MergeCommand5.PNG[width="350",align="center"]
 
 The following sequence diagram shows how the `merge` function works.
 
-image::MergeCommand6.PNG[width="800"]
+image::MergeCommand6.PNG[width="500",align="center"]
 
 ==== Design Considerations
 
@@ -448,7 +445,7 @@ Given below is an example usage scenario and how the merge mechanism behaves at 
 Step 1. The user inputs update. A list of `Person`(s) with "merged" `Tag` is retrieved. The list is then iterated
 through, updating each `Person` inside.
 
-image::UpdateCommand1.PNG[width="800"]
+image::UpdateCommand1.PNG[width="400",align="center"]
 
 Step 2. `Name` of the `Person` is saved as `groupName`. `Address` of the `Person` is tokenized and the names inside
 are used find the `Person` with that name using the same mechanism as the `find` command. If a `Person` cannot be
@@ -456,16 +453,16 @@ found, the
 `groupName` is stored in a map of `List` s,
 `removedPersons` with name as they key. If it is found, it gets added to an array `personsToMerge`.
 
-image::UpdateCommand2.PNG[width="800"]
+image::UpdateCommand2.PNG[width="500",align="center"]
 
 Step 3. It then follows the same mechanism as the `merge` function to update the merged `Person`. If removedPersons
 is not empty, it returns a `CommandResult` showing the `Person`(s) removed and the affected merged `Person`(s)
 
-image::UpdateCommand3.PNG[width="800"]
+image::UpdateCommand3.PNG[width="500",align="center"]
 
 The following sequence diagram shows how the `update` function works.
 
-image::UpdateCommand4.PNG[width="800"]
+image::UpdateCommand4.PNG[width="500",align="center"]
 
 ==== Design Considerations
 

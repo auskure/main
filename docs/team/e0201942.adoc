@@ -16,19 +16,14 @@ automating the search for common free time slots between contacts. NSync is a de
 == Summary of contributions
 
 * *Major enhancement*: Schedule synchronizer.
-** What it does: It allows a user to store timetables in the address book. Users can then
-create a group timetable with a contact/multiple contacts in the address book
-that displays all common free time slots and how many people are busy at each time slot if it is not free. This
-group contact is stored in a separate list from the individual contact for easier identification.
- It also allows the user to automatically update their group timetables based on any changes to their contacts by
- inputting
+** What it does: It allows a user to store timetables in the address book. Group contacts with a merged timetable can
+ be created from multiple contacts. Group contacts can be automatically updated when any timetable changes or
+ deletions are made.
 update.
 ** Justification: This will allow users to easily find a time slot to arrange for meet ups for social or work related
  reasons because finding a common time slot can be an annoying experience when it involves too many people. It also
- ensures that keeping it updated is not a hassle and a person will not have to manually update his groups every time
- a change is made to one of their contacts's timetable or a contact is deleted.
+ ensures that keeping it updated is not a hassle.
 ** Highlights: To be decided.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*:
 ** Contacts can be filtered based on their free time slots or activities present in their
@@ -42,21 +37,13 @@ code]]
 ** Project management:
 *** Bug reports of NSync reviewed and commented on and fixed those relevant to me: All issues from #99 to #135
 ** Enhancements to existing features:
-*** Adjusted the UI to display timetables for each contact.
-*** Adjusted the UI to have separate lists for group contacts, individual contacts and self contact.
+*** Adjusted the UI to display timetables for each contact and have separate lists for group contacts, individual
+contacts and self contact.
 *** Edited delete and find functions to be able to be able to select which list, merged or main, to delete or find from.
-***
-** Documentation:
- https://github.com[#14]
 ** Community:
 *** Reported bugs and suggestions for team T16-3 in the class: #111, #118, #120, #124, #126
-** Tools:
-
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -80,8 +67,8 @@ include::../DeveloperGuide.adoc[tag=changetimeslot]
 
 include::../DeveloperGuide.adoc[tag=mergetimetable]
 
-include::../DeveloperGuide.adoc[tag=updategrouptimetables]
 
 *UI Class Diagram*
 
-image::UiDeveloperGuide.PNG[width="800"]
+image::UiDeveloperGuide.png[width="500"]
+

@@ -287,11 +287,11 @@ Changes the mon 8am time slot of the first contact in the main contact list to G
 
 Before:
 
-image::ChangeCommand1.PNG[width="400"]
+image::ChangeCommand1.PNG[width="400" align="center"]
 
 After:
 
-image::ChangeCommand2.PNG[width="400"]
+image::ChangeCommand2.PNG[width="400" align="center"]
 // end::changecommand[]
 
 // tag::mergecommand[]
@@ -308,28 +308,17 @@ Format: `merge m/INDEX m/INDEX...`
 * The index *must be a positive integer* 1, 2, 3, ...
 * More than 2 people can be merged at once
 * Your own timetable wil always be included in the merge
+* You may select one contat multiple times if they are deemed more important to the group
 ****
 
 `merge m/2 m/3 m/4 n/CS2101 Project` +
 Merges your own timetable with the 2nd, 3rd and 4th people in the address book.
 
-image::MergeCommandSelf.PNG[width="400"]
-image::MergeCommandUser1.PNG[width="400"]
-
-
-image::MergeCommandUser2.PNG[width="400"]
-
-
-
-image::MergeCommandUser3.PNG[width="400"]
-
-merges into
-
-image::MergeCommandGroup.PNG[width="400"]
+image::MergeCommandUserGuide.PNG[width="450",align="center"]
 
 The merged timetable will be added to the list of groups
 
-image::MergeCommandList.PNG[width="800"]
+image::MergeCommandList.PNG[width="500",align="center"]
 // end::mergecommand[]
 
 // tag::updatecommand[]
@@ -344,7 +333,7 @@ Format: `update`
 affeccted in addition to updating the group timetables.
 ****
 
-// tag::updatecommand[]
+// end::updatecommand[]
 
 // tag::filtercommand[]
 ==== Filters contacts based on free time slots and activities: `filter`
