@@ -92,8 +92,7 @@ public class MergeCommand extends Command {
             personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
         }
         if (model.hasPerson(personsToMerge[i - 1])) {
-            model.deletePerson(personsToMerge[i - 1]);
-            model.addPerson(personsToMerge[i - 1]);
+            model.updatePerson(personsToMerge[i - 1], personsToMerge[i - 1]);
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_UPDATE_GROUP_SUCCESS, name));
         }
