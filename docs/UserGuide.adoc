@@ -661,7 +661,7 @@ This allows you to have an immediate idea of exactly what you downloaded.
 
 Example:
 
-image::automaticallyDisplayedNotes.PNG[width="600"]
+image::automaticallyDisplayedNotes.png[width="600"]
 
 == FAQ
 
