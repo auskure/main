@@ -66,10 +66,8 @@ public class FreeCommandTest {
 
         fc.setCurrentTime(cal);
 
-
-
         CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
-            "The next available timeslot for John Doe is: Thu 12:34 PM - 8:00 PM", expectedModel);
+            "The next available time-slot for John Doe is: Thu 12:34 PM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -87,7 +85,7 @@ public class FreeCommandTest {
         fc.setCurrentTime(cal);
 
         CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
-            "The next available timeslot for Self is: Thu 12:34 PM - 8:00 PM", expectedModel);
+            "The next available time-slot for Self is: Thu 12:34 PM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -97,7 +95,7 @@ public class FreeCommandTest {
         list.add("1");
         FreeCommand fc = new FreeCommand(list);
         Calendar cal = Calendar.getInstance();
-        //saturday
+        // saturday
         cal.set(2018, 10, 10);
         fc.setCurrentTime(cal);
 
@@ -116,7 +114,7 @@ public class FreeCommandTest {
         list.add("1");
         FreeCommand fc = new FreeCommand(list);
 
-        //thursday
+        // thursday
         Calendar cal = Calendar.getInstance();
         cal.set(2018, 10, 8);
         cal.set(Calendar.HOUR_OF_DAY, 12);
@@ -130,16 +128,14 @@ public class FreeCommandTest {
         action[2] = "12pm";
         action[3] = "CS1234";
 
-        //using changetimeslotcommand to change time slot
+        // using changetimeslotcommand to change time slot
         ChangeTimeSlotCommand change = new ChangeTimeSlotCommand("1", action);
         change.execute(model, commandHistory);
 
-
-
         CommandResult result = fc.execute(model, commandHistory);
         String theString = result.feedbackToUser;
-        //12.34 pm is busy, jump to 1pm
-        assertEquals("The next available timeslot for John Doe is: thu 1:00 PM - 8:00 PM", theString);
+        // 12.34 pm is busy, jump to 1pm
+        assertEquals("The next available time-slot for John Doe is: thu 1:00 PM - 8:00 PM", theString);
 
     }
 
