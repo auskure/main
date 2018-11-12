@@ -447,7 +447,6 @@ Step 1: +
 After the user inputs `update`, a list of `mergedPerson` is retrieved. This list (a.k.a. mergedPersonsList) is iterated through, updating each `mergedPerson` within mergedPersonsList.
 
 image::UpdateCommand1.PNG[width="400",align="center"]
-Figure : 
 
 Step 2: +
 The `Name` of each `mergedPerson` is saved as `groupName`. +
