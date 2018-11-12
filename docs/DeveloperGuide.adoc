@@ -211,7 +211,9 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
+* exposes an unmodifiable `ReadOnlyNotesDownloaded<Set>` that can be 'observed' e.g. the Logic can be bound to this
+list so that the Logic can detect what notes have been downloaded by the user.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -224,6 +226,7 @@ Similarly, we can store a `EnrolledModules` list in `Address Book`, which `Perso
 image:ModelClassEvenBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+// tag::storageComponent[]
 === Storage component
 
 .Structure of the Storage Component
@@ -231,10 +234,13 @@ image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component has the following capabilities.
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
+* can unzip, organize and delete, a
+ll notes downloaded by the user using NSync.
+// end::storageComponent[]
 
 [[Design-Commons]]
 === Common classes
