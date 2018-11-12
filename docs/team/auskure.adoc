@@ -70,5 +70,6 @@ This showcases my ability to write technical documentation and the technical
    depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=sortingofpersons]
+include::../DeveloperGuide.adoc[tag=storageComponent]
 
+include::../DeveloperGuide.adoc[tag=sortingofpersons]
