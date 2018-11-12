@@ -84,4 +84,4 @@ include::../DeveloperGuide.adoc[tag=updategrouptimetables]
 
 *UI Class Diagram*
 
-image::UiDeveloperGuide.png[width="800"]
+image::UiDeveloperGuide.PNG[width="800"]
