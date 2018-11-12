@@ -49,7 +49,7 @@ public class FreeCommandTest {
 
 
         CommandTestUtil.assertCommandSuccess(fc, model, commandHistory,
-            "The next available timeslot for John Doe is: thu 8:00 AM - 8:00 PM", expectedModel);
+            "The next available time-slot for John Doe is: thu 8:00 AM - 8:00 PM", expectedModel);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class FreeCommandTest {
         ArrayList<String> list = new ArrayList<>();
         list.add("self");
         FreeCommand fc = new FreeCommand(list);
-        //thursday
+        // thursday
         Calendar cal = Calendar.getInstance();
         cal.set(2018, 10, 8);
         cal.set(Calendar.HOUR_OF_DAY, 12);
@@ -128,7 +128,7 @@ public class FreeCommandTest {
         action[2] = "12pm";
         action[3] = "CS1234";
 
-        // using changetimeslotcommand to change time slot
+        // using ChangeTimeSlotCommand to change time slot
         ChangeTimeSlotCommand change = new ChangeTimeSlotCommand("1", action);
         change.execute(model, commandHistory);
 
