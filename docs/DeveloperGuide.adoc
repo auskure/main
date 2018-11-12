@@ -362,7 +362,7 @@ image::ChangeTimeslot4.PNG[width="800"]
 
 The following sequence diagram shows how the `change` function works.
 
-image::ChangeTimeslot5.PNG[width="800"]
+image::ChangeTimeslot5.png[width="800"]
 
 ==== Design Considerations
 
