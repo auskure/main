@@ -17,8 +17,9 @@ import static seedu.address.testutil.TypicalModuleCodes.getOneDifferentModuleCod
 import static seedu.address.testutil.TypicalModuleCodes.getOneTypicalModuleCode;
 import static seedu.address.testutil.TypicalModuleCodes.getOneTypicalModulePrefix;
 import static seedu.address.testutil.TypicalModuleCodes.getSimpleMixedValidityModuleCodes;
+import static seedu.address.testutil.TypicalModuleCodes.getTypicalModuleCodesWithLevel2000ComputerScienceModulePrefix;
+import static seedu.address.testutil.TypicalModuleCodes.getTypicalNotesDownloaded;
 import static seedu.address.testutil.TypicalModuleCodes.getZeroModuleCodes;
-import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Set;
@@ -153,7 +154,7 @@ public class DeleteSelectNotesCommandTest {
     @Test
     public void execute_validMultipleDeleteByPrefix_success() {
         Set<String> notesToDelete = getOneTypicalModulePrefix();
-        Set<String> validNotesToDelete = getOneTypicalModulePrefix();
+        Set<String> validNotesToDelete = getTypicalModuleCodesWithLevel2000ComputerScienceModulePrefix();
         Set<String> invalidNotesToDelete = getZeroModuleCodes();
         DeleteSelectNotesCommand deleteSelectNotesCommand = new DeleteSelectNotesCommand(notesToDelete);
 

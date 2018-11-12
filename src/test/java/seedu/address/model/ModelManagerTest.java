@@ -3,9 +3,9 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalNotesDownloaded.CS2100_NOTES;
-import static seedu.address.testutil.TypicalNotesDownloaded.CS2101_NOTES;
-import static seedu.address.testutil.TypicalNotesDownloaded.getDifferentNotesDownloaded;
+import static seedu.address.testutil.TypicalModuleCodes.CS2100_MODULE_CODE;
+import static seedu.address.testutil.TypicalModuleCodes.CS2101_MODULE_CODE;
+import static seedu.address.testutil.TypicalModuleCodes.getDifferentNotesDownloaded;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -54,8 +54,8 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         NotesDownloaded notesDownloaded = new NotesDownloadedBuilder()
-                                                    .withNotes(CS2100_NOTES)
-                                                    .withNotes(CS2101_NOTES).build();
+                                                    .withNotes(CS2100_MODULE_CODE)
+                                                    .withNotes(CS2101_MODULE_CODE).build();
         NotesDownloaded differentNotesDownloaded = new NotesDownloaded();
         UserPrefs userPrefs = new UserPrefs();
 
