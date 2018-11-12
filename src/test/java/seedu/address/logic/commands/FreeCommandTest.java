@@ -41,7 +41,7 @@ public class FreeCommandTest {
         FreeCommand fc = new FreeCommand(list);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2018, 11, 8); // thursday
+        cal.set(2018, 10, 8); // thursday
         cal.set(Calendar.HOUR_OF_DAY, 0);
 
         fc.setCurrentTime(cal);
@@ -58,7 +58,7 @@ public class FreeCommandTest {
         FreeCommand fc = new FreeCommand(list);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2018, 11, 8); // thursday
+        cal.set(2018, 10, 8); // thursday
         cal.set(Calendar.HOUR_OF_DAY, 12);
         cal.set(Calendar.MINUTE, 34);
 
@@ -76,7 +76,7 @@ public class FreeCommandTest {
         FreeCommand fc = new FreeCommand(list);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2018, 11, 8); // thursday
+        cal.set(2018, 10, 8); // thursday
         cal.set(Calendar.HOUR_OF_DAY, 12);
         cal.set(Calendar.MINUTE, 34);
 
@@ -94,7 +94,7 @@ public class FreeCommandTest {
         FreeCommand fc = new FreeCommand(list);
         Calendar cal = Calendar.getInstance();
 
-        cal.set(2018, 11, 10); // saturday
+        cal.set(2018, 10, 10); // saturday
         fc.setCurrentTime(cal);
 
         CommandResult result = fc.execute(model, commandHistory);
@@ -113,7 +113,7 @@ public class FreeCommandTest {
         FreeCommand fc = new FreeCommand(list);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2018, 11, 8); // thursday
+        cal.set(2018, 10, 8); // thursday
         cal.set(Calendar.HOUR_OF_DAY, 12);
         cal.set(Calendar.MINUTE, 34);
 
