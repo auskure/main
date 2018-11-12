@@ -492,12 +492,6 @@ The sorting mechanism is implemented with `UniquePersonListHelper`, which is fac
 `UniquePersonListHelper` sorts the contacts in `UniquePersonList` in an lexicographical order, according
 to the person's name. It implements the following operations:
 
-Because `UniquePersonListHelper` stores persons in a treemap, with person name as the key, and person
-as the value in the key-value pair of the treemap, it is able to automatically sort persons according
-to their names.   Therefore, it is possible to iterate through `UniquePersonListHelper`,
-in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
-copied into `UniquePersonList`.
-
 * `UniquePersonList#add()` -- Adds a new person to `UniquePersonList`, and hence the contact list
 * `UniquePersonList#remove()` -- Removes a new person to `UniquePersonList`, and hence the contact list
 * `UniquePersonList#setPerson()` -- Sets a new person, in place of an existing person, to `UniquePersonList`, and hence the contact list
@@ -515,6 +509,12 @@ Within `ModelManager`, the above listed operations are directly exposed as
 Within `AddressBook`, the above listed operations are directly exposed as
 `AddressBook#addPerson()`, `AddressBook#removePerson()`, `AddressBook#updatePerson()`,
 `AddressBook#setPersons()`, and `AddressBook#hasPerson()` respectively.
+
+Because `UniquePersonListHelper` stores persons in a treemap, with person name as the key, and person
+as the value in the key-value pair of the treemap, it is able to automatically sort persons according
+to their names.   Therefore, it is possible to iterate through `UniquePersonListHelper`,
+in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
+copied into `UniquePersonList`.
 
 Given below is an example usage scenario and how the sorting mechanism behaves at each step.
 
@@ -622,7 +622,7 @@ Clears the UniquePersonList every time a change is made, and iterates through th
 ** Pros: Easy to implement.  Allows for minimal and compartmentalised changes throughout the code base.  Fast overall
 time complexity of O(N).
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** implement a comparator in the current UniquePersonList.
+* **Alternative 2:** Implement a comparator in the current UniquePersonList.
 ** Pros: Will use less memory, because there is no need for a helping class or data structure.
 ** Cons: It has a time complexity of O(N log N), which is slower than our chosen implementation.
 
