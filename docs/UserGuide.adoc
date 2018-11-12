@@ -468,6 +468,8 @@ The download function has temporarily been disabled in accordance with NUS Infor
 
 You are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
 
+You will need Google Chrome and run a Windows operating system for this function to work.You will also need to be connected to the internet.
+
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
