@@ -65,7 +65,7 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
         }
         if (!isModuleExisting(driver)) {
             driver.close();
-            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND + NEWLINE_SEPARATOR + MESSAGE_USAGE);
         }
         /**
          * Updated to disable download operations, if isDownloadDisabled==true.

@@ -90,7 +90,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
         }
         if (!isModuleExisting(driver)) {
             driver.close();
-            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND + NEWLINE_SEPARATOR + MESSAGE_USAGE);
         }
         if (fileSelect == null) {
             availableDownloadFiles = getFileNames(driver);
@@ -112,7 +112,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             downloadFiles(driver);
         } catch (IndexOutOfBoundsException iobe) {
             driver.close();
-            throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST_ERROR);
+            throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST_ERROR + NEWLINE_SEPARATOR + MESSAGE_USAGE);
         }
         try {
             dynamicWaiting();
