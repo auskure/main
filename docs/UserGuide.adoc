@@ -28,6 +28,8 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the addressbook.xml file at this link https://github.com/CS2113-AY1819S1-W12-2/main/releases/tag/V1.4 and
+ replace your own data file with it to get 20 normal contacts and 7 merged contacts.
 +
 image::Ui.png[width="790"]
 +
@@ -95,7 +97,8 @@ Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...[em/ENROLLED MODULE]...`
 
 [TIP]
 If you somehow lose your self contact, you can create a new one by adding t/self to your add command. Adding any
-other tag will not have any effect on the contact created.
+other tag will not have any effect on the contact created. If your self contact exists, it will not allow you to add
+a self tag.
 
 Examples:
 

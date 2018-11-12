@@ -1103,6 +1103,58 @@ Use case ends.
 ** 3b1. Addressbook shows a message saying that group is updated instead of created
 +
 Use case resumes at step 2.
+
+=== Use case: Change timetable
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to create to change the selected time slot of a selected person to a different activity
+4.  Time slot is changed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. One or more given index is invalid.
+* 3b. Day is invalid
+* 3c. Time is invalid
+* 3d. Activity inputted is the same as activity already at the time slot.
++
+[none]
+** 3a1. AddressBook shows an error message saying the index inputted is invalid
+** 3b1. Addressbook shows an error message saying that day inputted is invalid
+** 3c1. Addressbook shows an error message saying that time inputted is invalid
+** 3d1. Addressbook shows an error message saying that no time slot has been changed
++
+Use case resumes at step 2.
+
+=== Use case: Filter timetable
+
+*MSS*
+
+1.  User requests to filter persons based on activities or free time slots they have
+2.  AddressBook shows a filtered list of persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+
+* 1a. Input after a valid day is not a valid time
++
+[none]
+** 1a1. AddressBook shows an error message saying the time inputted is invalid
++
+Use case resumes at step 1.
+
 [appendix]
 == Non Functional Requirements
 

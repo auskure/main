@@ -29,7 +29,7 @@ update.
 ** Contacts can be filtered based on their free time slots or activities present in their
 timetable or enrolled modules that they have.
 
-* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=E0201942[Functional and test
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=e0201942[Functional and test
 code]]
 
 * *Other contributions*:
