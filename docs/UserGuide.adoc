@@ -444,7 +444,13 @@ The download function has temporarily been disabled in accordance with NUS Infor
 
 You are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
 
-You will need Google Chrome and run a Windows operating system for this function to work.You will also need to be connected to the internet.
+
+[NOTE]
+You would need to have Google Chrome installed in the default location, run Windows 8 or above and be connected to the internet to use the download commands.
+
+[NOTE]
+You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
+
 
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
@@ -454,10 +460,6 @@ Format: `downloadAllNotes downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSW
 
 
 
-[NOTE]
-You would need to have Google Chrome installed in the default location in order to execute this command.
-[NOTE]
-You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
 
 
 
