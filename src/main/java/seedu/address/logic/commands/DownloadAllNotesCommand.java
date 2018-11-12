@@ -25,7 +25,8 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
     public static final String COMMAND_WORD = "downloadAllNotes";
 
     public static final String MESSAGE_USAGE = "To download all your notes from IVLE:" + NEWLINE_SEPARATOR
-            + COMMAND_WORD + "user/(IVLE username) pass/(IVLE password) mod/(moduleCode)";
+            + COMMAND_WORD + "user/(IVLE username) pass/(IVLE password) mod/(moduleCode)" + NEWLINE_SEPARATOR
+            + "Example: user/e0123456 pass/******** mod/CS2113";
 
     private static final String CHECKBOX_XPATH_VALUE = "//input[@type='checkbox']";
 

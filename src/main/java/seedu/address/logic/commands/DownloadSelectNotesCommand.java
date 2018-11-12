@@ -29,8 +29,10 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
 
     public static final String MESSAGE_USAGE = "To display all available notes:" + NEWLINE_SEPARATOR + COMMAND_WORD
             + " user/(IVLE username) pass/(IVLE password) mod/(moduleCode)" + NEWLINE_SEPARATOR
+            + "Example: user/e0123456 pass/******** mod/CS2113" + NEWLINE_SEPARATOR
             + "To select and download the notes(by file index):" + NEWLINE_SEPARATOR + COMMAND_WORD
-            + " user/(IVLE username) pass/(IVLE password) mod/(moduleCode) file/0,1,2...n(file index)";
+            + " user/(IVLE username) pass/(IVLE password) mod/(moduleCode) file/0,1,2...n(file index)"
+            + "Example: user/e0123456 pass/******** mod/CS2113 file/0,1,2" + NEWLINE_SEPARATOR;
 
 
 
