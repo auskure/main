@@ -1069,6 +1069,63 @@ Use case ends.
 ** 3a1. NSync shows an error message.
 +
 Use case resumes at step 2.
+=== Use case: Delete Selected notes
+
+*MSS*
+
+1.  User requests to show all notes
+2.  NSync shows a list of notes
+3.  User requests to delete a specific module's notes
+4.  NSync deletes the notes
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given request is invalid.
++
+[none]
+** 3a1. NSync shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete Multiple Selected notes
+
+*MSS*
+
+1.  User requests to show all notes
+2.  NSync shows a list of notes
+3.  User requests to delete a multiples module's notes
+4.  NSync deletes the notes
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given request is invalid.
++
+[none]
+** 3a1. NSync shows an error message.
++
+Use case resumes at step 1.
+
+* 3b. The given request is partially valid.
++
+[none]
+** 3b1. NSync processes only the valid requests.
++
+Use case resumes at step 4.
 
 [discrete]
 === Use case: Download select notes
