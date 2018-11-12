@@ -645,10 +645,29 @@ belonging to "CS2106" would be deleted.
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-Coming to you soon!
+NSync will automatically encrypt your data upon exiting the program. +
+Before exiting, NSync will prompt you for a password, which it uses to encrypt your data. +
+Upon start up, NSync will prompt you for the same password, which it uses to decrypt your data.
+
+****
+* Searches ST's friends for the same module code
+* Parses the information and displays it as a list
+****
+
+[NOTE]
+NSync will only encrypt you data if you enter a password when prompted upon exit.  If no password is entered, NSync
+will not encrypt your data
+
 // end::dataencryption[]
 
-=== Display of notes in the User interface upon download `[coming in v2.0]`
+=== Display of notes in the Graphical User interface upon download `[coming in v2.0]`
+
+NSync will automatically display your notes, after the download has completed. +
+This allows you to have an immediate idea of exactly what you downloaded.
+
+Example:
+
+image::automaticallyDisplayedNotes.PNG[width="600"]
 
 == FAQ
 
