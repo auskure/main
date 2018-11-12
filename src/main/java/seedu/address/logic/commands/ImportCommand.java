@@ -21,13 +21,14 @@ public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": import the person into the system.\n"
-        + "Parameters: STRING (the Base64 string)\n"
-        + "Example: " + COMMAND_WORD + " " + "rO0ABXNyACFzZWVkdS5hZGRyZXNzLm1vZGVsLnB...";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": import a contact into NSync. "
+        + "Parameters: YOUR_ENCODED_STRING\n"
+        + "Example: " + COMMAND_WORD + " " + "[PASTE_YOUR_ENCODED_STRING_HERE]";
 
-    public static final String MESSAGE_SUCCESS = "Import successful";
-    public static final String MESSAGE_SUCCESS_OVERWRITE = "Import successful, user data is overwritten";
-    public static final String MESSAGE_FAILED = "Failed to import";
+    public static final String MESSAGE_SUCCESS = "Import Successful!";
+    public static final String MESSAGE_SUCCESS_OVERWRITE = "Import Successful! "
+        + "An existing contact has been found in NSync and has been overwritten.";
+    public static final String MESSAGE_FAILED = "Import Failed!";
 
     private final String personString;
 
@@ -37,7 +38,7 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Reads the input Base64 String and serialize a person object and add it into the addressbook
+     * Reads the input Base64 String and serialize a person object and add it into NSync
      * overwrites user data if person already exists
      */
     @Override

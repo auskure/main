@@ -395,9 +395,6 @@ Running this command will show the next available time slot (from current time) 
 
 [NOTE]
 Running this command outside the day window of Monday to Friday or beyond the time of 8pm will return a time slot from the next weekday.
-
-[NOTE]
-You can find a common free time-slot for up to 20 contacts <to be confirmed>.
 // end::freecommand[]
 
 // tag::exportcommand[]
@@ -442,6 +439,9 @@ If you see only black and white colored slots in the time-table of the imported 
 
 Display Message 2: Import Successful! An existing contact has been found in NSync and has been overwritten. +
 If you have imported a valid contact who is currently already in your NSync (i.e. contact with the same name), all of the details found in the imported string will overwrite the existing ones found in your NSync, for that particular contact.
+
+[TIP]
+If you have unintentionally over-written the details of an existing contact, use `undo` to get back the original details of the contact!
 
 Display Message 3: Import Failed! +
 If you have missed out a character, or accidentally modified one of the characters in the string, attempting to import the invalid string will result in an error displayed. Please obtain a valid string from the contact who passed it to you.
