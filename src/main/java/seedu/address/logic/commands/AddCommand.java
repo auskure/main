@@ -41,6 +41,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_CANNOT_ADD_MERGED_TAG = "Person cannot be created with a merged tag.";
+    public static final String MESSAGE_CANNOT_ADD_SELF_TAG = "Self contact already exists, this person cannot be "
+            + "created with a self tag.";
 
     private final Person toAdd;
 
@@ -55,10 +57,10 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
+
 
         model.addPerson(toAdd);
         model.commitAddressBook();
