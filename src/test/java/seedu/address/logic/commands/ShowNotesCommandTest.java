@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 //@@author BearPerson1
 
 import static junit.framework.TestCase.assertTrue;
-import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
+import static seedu.address.testutil.TypicalModuleCodes.getTypicalNotesDownloaded;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;

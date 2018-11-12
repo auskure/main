@@ -8,13 +8,13 @@ import static seedu.address.testutil.FileAndFolderCreation.SAMPLE_DIRECTORY;
 import static seedu.address.testutil.FileAndFolderCreation.endTestState;
 import static seedu.address.testutil.FileAndFolderCreation.initialiseTestState;
 import static seedu.address.testutil.TypicalModuleCodes.CS2100_MODULE_CODE;
+import static seedu.address.testutil.TypicalModuleCodes.CS2100_MODULE_CODE_UNLCLEANED;
 import static seedu.address.testutil.TypicalModuleCodes.CS2101_MODULE_CODE;
 import static seedu.address.testutil.TypicalModuleCodes.CS2102_MODULE_CODE;
 import static seedu.address.testutil.TypicalModuleCodes.CS3100_MODULE_CODE;
 import static seedu.address.testutil.TypicalModuleCodes.CS3235_MODULE_CODE;
 import static seedu.address.testutil.TypicalModuleCodes.getMultipleTypicalModuleCodes;
 import static seedu.address.testutil.TypicalModuleCodes.getZeroModuleCodes;
-import static seedu.address.testutil.TypicalNotesDownloaded.CS2100_NOTES;
 
 import java.io.File;
 import java.io.IOException;
@@ -166,7 +166,7 @@ public class FileUtilTest {
         assertTrue(FileUtil.cleanModuleCode(testModuleCode).equals(CS2100_MODULE_CODE));
 
         // {@code testModuleCode} does not contain a " " ->  the part after the " "(inclusive) is removed
-        testModuleCode = CS2100_NOTES;
+        testModuleCode = CS2100_MODULE_CODE_UNLCLEANED;
         assertTrue(FileUtil.cleanModuleCode(testModuleCode).equals(CS2100_MODULE_CODE));
 
         endTestState();

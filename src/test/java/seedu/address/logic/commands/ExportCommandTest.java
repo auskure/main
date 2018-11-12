@@ -3,7 +3,7 @@
 package seedu.address.logic.commands;
 
 import static org.assertj.core.api.Fail.fail;
-import static seedu.address.testutil.TypicalNotesDownloaded.getTypicalNotesDownloaded;
+import static seedu.address.testutil.TypicalModuleCodes.getTypicalNotesDownloaded;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.ByteArrayInputStream;
