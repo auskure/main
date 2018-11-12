@@ -1,3 +1,5 @@
+//@@author leegengyu
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -38,7 +40,7 @@ public class FreeCommand extends Command {
 
     public static final String COMMAND_WORD = "free";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available time slot for persons "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the next available time slot for person(s) "
         + "listed by their index number. "
         + "Parameter: " + PREFIX_FREE + "[SELF/INDEX]...\n"
         + "Example: " + COMMAND_WORD + " " + PREFIX_FREE + "self " + PREFIX_FREE + "1 " + PREFIX_FREE + "2";
@@ -89,7 +91,7 @@ public class FreeCommand extends Command {
         indices.remove(0);
 
         // start generation of output string to user
-        String outputToUser = "The next available timeslot for";
+        String outputToUser = "The next available time-slot for";
         outputToUser += " " + personFirst.getName() + ",";
 
         // if trying to find free slots for more than 1 person, use the merge algorithm to create a merged timetable to
@@ -271,6 +273,8 @@ public class FreeCommand extends Command {
 
     }
 
+    //@@author leegengyu-reused
+    //Reused from MergeCommand.java
     /**
      * Creates a new merged timetable from 2 timetables.
      */
@@ -308,6 +312,8 @@ public class FreeCommand extends Command {
         return finalSlots;
     }
 
+    //@@author leegengyu-reused
+    //Reused from UpdateMergeCommand.java
     /**
      * Compares 2 lists of time slots and returns a merged list.
      */
