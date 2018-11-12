@@ -562,7 +562,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 === Download Commands
 Both `downloadSelectNotes` and `downloadAllNotes` extends on the  `downloadAbstract` class which itself extends from the
 `command` class. The implementation is similar up till the downloading segment. The download
-commands use _Selenium Chromedrivers_ to initiate downloads.
+commands uses _Selenium Chromedrivers_ to initiate downloads from the internet.
 
 The following class diagram shows the relationship of `downloadAllNotes`,`downloadSelectNotes` as well as
 `downloadAbstract`.
