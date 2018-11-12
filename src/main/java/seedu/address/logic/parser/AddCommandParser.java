@@ -54,8 +54,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Map<String, EnrolledModule> enrolledModuleList = ParserUtil.parseEnrolledModules(
                                                         argMultimap.getAllValues(PREFIX_ENROLLED_MODULE));
 
-        for (Tag tagCheck : tagList){
-            if (tagCheck.toString().equalsIgnoreCase("[merged]")){
+        for (Tag tagCheck : tagList) {
+            if (tagCheck.toString().equalsIgnoreCase("[merged]")) {
                 throw new ParseException(MESSAGE_CANNOT_ADD_MERGED_TAG);
             }
         }
