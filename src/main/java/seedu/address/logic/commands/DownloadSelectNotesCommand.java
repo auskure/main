@@ -1,19 +1,18 @@
 package seedu.address.logic.commands;
 //@@author BearPerson1
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * DownloadSelectCommand has 2 functions depending on the existance of PREFIX_SELECT_FILE. If PREFIX_SELECT_FILE
@@ -31,7 +30,6 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             + " user/(username) pass/(password) mod/(moduleCode)" + NEWLINE_SEPARATOR
             + "To select the notes(by index):" + NEWLINE_SEPARATOR + COMMAND_WORD
             + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
-
 
 
     public static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
@@ -81,40 +79,41 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
             driver.close();
             throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
         }
-        if (isModuleExisting(driver)) {
-            if (fileSelect == null) {
-                availableDownloadFiles = getFileNames(driver);
-                driver.close();
-                return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode
-                        + NEWLINE_SEPARATOR + availableDownloadFiles);
-            }
-            /**
-             * Updated to disable download operations.
-             */
-            if (isDownloadDisabled) {
-                driver.close();
-                return new CommandResult(Messages.MESSAGE_DOWNLOAD_DISABLED);
-            }
-
-            initializeDownloadFolder();
-            try {
-                downloadFiles(driver);
-            } catch (IndexOutOfBoundsException iobe) {
-                driver.close();
-                throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST_ERROR);
-            }
-            try {
-                dynamicWaiting();
-            } catch (InterruptedException ie) {
-                throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
-            }
+        if (!isModuleExisting(driver)) {
             driver.close();
-            model.addNotes(COMMAND_WORD, moduleCode);
-            return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
-                    + downloadPath);
+            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
+        }
+        if (fileSelect == null) {
+            availableDownloadFiles = getFileNames(driver);
+            driver.close();
+            return new CommandResult(Messages.MESSAGE_DOWNLOAD_SELECT_SUCCESS + moduleCode
+                    + NEWLINE_SEPARATOR + availableDownloadFiles);
+        }
+        /**
+         * Updated to disable download operations, if isDownloadDisabled==true.
+         * Function will not proceed after this if statement.
+         */
+        if (isDownloadDisabled) {
+            driver.close();
+            return new CommandResult(Messages.MESSAGE_DOWNLOAD_DISABLED);
+        }
+
+        initializeDownloadFolder();
+        try {
+            downloadFiles(driver);
+        } catch (IndexOutOfBoundsException iobe) {
+            driver.close();
+            throw new CommandException(Messages.MESSAGE_FILE_DOES_NOT_EXIST_ERROR);
+        }
+        try {
+            dynamicWaiting();
+        } catch (InterruptedException ie) {
+            throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
         }
         driver.close();
-        throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
+        model.addNotes(COMMAND_WORD, moduleCode);
+        return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
+                + downloadPath);
     }
 
     /**
