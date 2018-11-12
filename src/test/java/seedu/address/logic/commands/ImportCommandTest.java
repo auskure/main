@@ -1,3 +1,5 @@
+//@@author leegengyu
+
 package seedu.address.logic.commands;
 
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -39,7 +41,7 @@ public class ImportCommandTest {
     private Model expectedModel;
     private CommandHistory commandHistory;
 
-    //valid person string
+    // valid person string
     private String theString = "";
 
     private String nonDuplicate = "rO0ABXNyACFzZWVkdS5hZGRyZXNzLm1vZGVsLnBlcnNvbi5QZXJzb27Kp3XsSBScIQIAB"

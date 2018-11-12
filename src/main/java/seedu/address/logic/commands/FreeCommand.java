@@ -1,3 +1,5 @@
+//@@author leegengyu
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -271,6 +273,8 @@ public class FreeCommand extends Command {
 
     }
 
+    //@@author leegengyu-reused
+    //Reused from MergeCommand.java
     /**
      * Creates a new merged timetable from 2 timetables.
      */
@@ -308,6 +312,8 @@ public class FreeCommand extends Command {
         return finalSlots;
     }
 
+    //@@author leegengyu-reused
+    //Reused from UpdateMergeCommand.java
     /**
      * Compares 2 lists of time slots and returns a merged list.
      */

@@ -1,3 +1,5 @@
+//@@author leegengyu
+
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -25,7 +27,7 @@ public class ImportCommandParserTest {
 
     @Test
     public void parse_invalidArgs() {
-        //test if it throws parse exception when user enter empty string
+        // test if it throws parse exception when user enter empty string
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
     }
 
