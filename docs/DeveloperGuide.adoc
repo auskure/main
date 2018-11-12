@@ -950,9 +950,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  NSync shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  NSync deletes the person
 +
 Use case ends.
 
@@ -966,9 +966,41 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. NSync shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Download select notes
+
+*MSS*
+
+1. User request all the available files to download
+2. NSync displays all available files to download with index appended at the front of the file name.
+3. User request download based on file index
+4. NSync downloads files and stores it in the `notes` folder.
+
+*Extensions*
+
+[none]
+* 2a. No files to display
++
+[none]
+** 2a1. NSync displays empty list.
+** 2a2. Use case ends
+
+[none]
+* 3a. User requests an invalid file index
++
+[none]
+** 3a1. NSync does not download invalid file
+** 3a2. Use case ends.
+
+
+
+
+
+
 
 _{More to be added}_
 
