@@ -996,6 +996,22 @@ Use case resumes at step 2.
 ** 3a1. NSync does not download invalid file
 ** 3a2. Use case ends.
 
+[discrete]
+=== Use case: Download all notes
+
+*MSS*
+
+1. User request download all notes
+2. NSync downloads all notes in a zip file in the `notes` folder
+
+*Extensions*
+
+[none]
+* 1a. User enters wrong username, password or module code.
++
+[none]
+** 1a1. NSync informs user of the error
+** 1a2. Use case ends.
 
 
 
