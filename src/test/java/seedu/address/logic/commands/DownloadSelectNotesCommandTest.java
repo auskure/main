@@ -4,7 +4,14 @@ package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.CORRECT_FILE_INDEX;
+import static seedu.address.logic.commands.CommandTestUtil.CORRECT_MODULE_CODE;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_FILE_INDEX;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_MODULE_CODE;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_PASSWORD;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_USERNAME;
+import static seedu.address.logic.commands.CommandTestUtil.VERY_INCORRECT_FILE_INDEX;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
 import java.io.File;
 
@@ -48,7 +55,7 @@ public class DownloadSelectNotesCommandTest {
         DownloadSelectNotesCommand command = new DownloadSelectNotesCommand(INCORRECT_USERNAME,
                 INCORRECT_PASSWORD, CORRECT_MODULE_CODE, VERY_INCORRECT_FILE_INDEX);
         assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_FILE_INDEX_ERROR
-        + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
+                + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
     }
 
     /**
