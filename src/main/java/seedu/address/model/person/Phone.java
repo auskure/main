@@ -13,8 +13,9 @@ public class Phone implements Serializable {
 
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
+        "Your phone input should only contain numerical digits, "
+            + "and of length 3 at minimum, and 50 at maximum.";
+    public static final String PHONE_VALIDATION_REGEX = "\\d{3,50}";
     public final String value;
 
     /**
@@ -43,8 +44,8 @@ public class Phone implements Serializable {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
-                && value.equals(((Phone) other).value)); // state check
+            || (other instanceof Phone // instanceof handles nulls
+            && value.equals(((Phone) other).value)); // state check
     }
 
     @Override

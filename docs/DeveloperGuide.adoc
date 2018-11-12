@@ -163,7 +163,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiDeveloperGuide.png[width="800"]
+image::UiDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -203,7 +203,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::modelDeveloperGuide.png[width="800"]
+image::modelDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -363,6 +363,7 @@ image::ChangeTimeslot4.PNG[width="400",align="center"]
 The following sequence diagram shows how the `change` function works.
 
 image::ChangeTimeslot5.PNG[width="500",align="center"]
+
 
 ==== Design Considerations
 
@@ -659,13 +660,13 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 === Download Commands
 Both `downloadSelectNotes` and `downloadAllNotes` extends on the  `downloadAbstract` class which itself extends from the
-`command` class. The implemetation is similar up till the downloading segment. The download
-commands use _Selenium Chromedrivers_ to use Google Chrome to initiate downloads.
+`command` class. The implementation is similar up till the downloading segment. The download
+commands uses _Selenium Chromedrivers_ to initiate downloads from the internet.
 
 The following class diagram shows the relationship of `downloadAllNotes`,`downloadSelectNotes` as well as
 `downloadAbstract`.
 
-image::DownloadClassDiagram.png[width="800",align='center"]
+image::DownloadClassDiagram.png[width="550",align="center"]
 ****
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
@@ -677,33 +678,28 @@ However, if desired, the function can be manually enabled by changing the state 
 
 The following Sequence diagram shows how `downloadAllNotes` is handled.
 
-image::downloadAllNotesSequence.png[width="800",align="center"]
+image::downloadAllNotesSequence.png[width="450",align="center"]
 
-Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
+Format: `downloadAllNotes downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 ===== Current Implementation
 Step 1: Extract files from Jar. Since _Selenium ChromeDriver_ requires it to be present
-in the directory as an executable inorder to be ran, it would need to be extracted from
-the NSync.jar file before it could be used. Additionally, a _Notes_ folder would be created
+in the directory as an executable inorder to be ran, it would need to be extracted from  NSync.jar before carrying on. Additionally, a _Notes_ folder would be created
 to store the notes downloaded.
 
-Step 2: Set the `webdriver.chrome.driver` to the location of the ChromeDriver executable. This step is necessary
-inorder for _ChromeDriver_ to execute
+Step 2: Set the `webdriver.chrome.driver` system variable to the location of the ChromeDriver executable. This step is necessary.
 
 Step 3: Set the download path and other settings for _ChromeDriver_.
 [NOTE]
-Since Headless mode for _ChromeDriver_ has been disabled due to security reasons, an alternative is to shift _ChromeDriver_ to an unviewable location on the screen to prevent disruptions to the users interactions.
+Headless mode for _ChromeDriver_ has been disabled due to security reasons, an alternative is to start _ChromeDriver_ in an unviewable location on the screen to prevent disrupting the users interactions.
 
-Step 4: Initiate login into _IVLE_ , and check if logged in, If user is not logged in, a `CommandExeption` will be thrown
+Step 4: Login into _IVLE_ , and check if successful. If not, a `CommandExeption` will be thrown
 to alert the user that either `IVLE USERNAME` or `IVLE PASSWORD` is incorrect.
 
-Step 5: if user is logged in, the program would then check if the module exists. If it does not exist, a `CommandException` will
+Step 5: If user is logged in, check if the `ENROLLED MODULE` exists. If not, a `CommandException` will
 be thrown to alert the user that the `ENROLLED MODULE` specified does not exist.
 
-[NOTE]
-if user enters an incomplete module code, the closest relative would be selected. Example: if user takes `CS2101` and `CS2113` and `CS21` has been entered as `ENROLLED MODULE`, `CS2101`would be selected.
-
-Step 6: Navigate to the _IVLE download page_ and select all files and download as .zip file.
+Step 6: Navigate to the _IVLE download page_, select all files and download as .zip file.
 
 [NOTE]
 While Downloading, the program would introduce "busy waiting" to prevent the _ChromeDriver_ from terminating before the download is complete.
@@ -715,9 +711,9 @@ Step 7: Unzip the files and store it in a folder created based on the name of `E
 
 The following Sequence diagram shows how `downloadAllNotes` is handled.
 
-image::downloadSelectNotesSequence.png[width="800",align="center"]
+image::downloadSelectNotesSequence.png[width="550",align="center"]
 
-Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
+Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/FILE INDEXES: 1,2,3...n]`
 
 [NOTE]
 The existance of the `file/` prefix is optional, and the existance of this prefix will affect the execution
@@ -726,33 +722,30 @@ The existance of the `file/` prefix is optional, and the existance of this prefi
 
 Step 1-5: is exactly the same as `DownloadAllNotes` command.
 
-Step 6a: If user has **NOT** entered a `file/` prefix, the program will fetch all the available file names and store it in a formatted string. Before returning the `CommandResult` to the user, a _static_ index will be appended to the front of the file name so that it could be used for `downloadSelectNotes` with the `file/` prefix.
+Step 6a: If user has **NOT** entered a `file/` prefix, the program will fetch all available file names and store it in a formatted string; A _static_ `FILE INDEX` will be appended to the front of the file name. The formatted string is returned as a `CommandResult`.
 
-Step 6b: If user has entered a `file/` prefix. The program will download the files according to the file Indexes supplied after the `file/` prefix. It is then stored in the _Notes_ folder created at `Step 1`.
-
-[NOTE]
-If multiple notes of the same module was saved at different times, it will be stored under the same
+Step 6b: If user has entered a `file/` prefix. The program will download files according to the `FILE INDEXES` supplied. It is stored in the _Notes_ folder created at `Step 1`.
 
 [NOTE]
-If an incorrect file index has been supplied, download will stop after encountering the invalid index. Example: `file/0,1,2,900000,3` if 0,1,2,3 are valid file indexes, only file 0,1,2 will be downloaded.
+If an incorrect file index has been supplied, download will stop after encountering an invalid index. Example: `file/1,2,9000,3` if 1,2,3 are valid file indexes, only file 1,2 will be downloaded.
 
 ===== Design Considerations
 ====== Aspect 1: Which Driver is used
 **Implementation 1 (Current Implementation)**
 
-Currently `downloadNotes` uses _ChromeDriver_ to initiate its downloads. WebDriver is an open source tool for automated testing of webapps across many browsers. It provides capabilities for navigating to web pages, user input, JavaScript execution, and more. ChromeDriver is a standalone server which implements WebDriver's wire protocol for Chromium.
+Currently `downloadNotes` uses _ChromeDriver_ to initiate its downloads. It provides capabilities for navigating to web pages, user input, JavaScript execution, and more.
 
-The user would require to have _Google Chrome_ installed inorder to use this function
+The user would be required to have _Google Chrome_ installed inorder to use this function
 
 Pros: Google Chrome is one of the most widely used browsers in the world. Thus statistically speaking, most NUS users would already have _Google Chrome_ installed.
 
-Cons: _Google Chrome_ is extremely ram intensive, and the function would fail to cater to users who dont use Google Chrome.
+Cons: _Google Chrome_ is extremely ram intensive, and the function would fail to cater to users who do not use Google Chrome.
 
 **Implementation 2(HTML unitdriver)**
 
-HTML UnitDriver is the most light weight and fastest implementation headless browser for of WebDriver.
+HTML UnitDriver is the most light weight, natively headless and the fastest implementation of WebDriver.
 
-Pros: Its extremely fast, does not require prior installation of any other applications to function and its natively Headless.
+Pros: Its extremely fast, does not require prior installation of any other applications to function.
 
 Cons: It uses a javaScript engine called _Rhino_. This engine is incompatible with _IVLE_'s usage of javaScript. Making it unable to navigate past `Step 5`.
 
@@ -761,7 +754,7 @@ Cons: It uses a javaScript engine called _Rhino_. This engine is incompatible wi
 
 As mentioned previously, currently `downloadNotes` uses _ChromeDriver_ to initiate its downloads.
 
-Pros: The current implementation navigates through the _IVLE_ Web page to download the files "Pseudo" manually. This means this implementation could be easily morphed to suit other platforms and websites, it is also easy to update.
+Pros: The current implementation navigates through the _IVLE_ Web page to download the files "Pseudo" manually. Thus we could be easily morph this implementation to suit other platforms and websites. Its also easy to update.
 
     example: NTU web portal
 
@@ -773,17 +766,18 @@ An alternative implementation is to use the existing IVLE API to instantiate the
 
 Pros: Its supported by _NUS_, and thus should be more reliable than the _IVLE_ platform.
 
-Cons: The existing IVLE API is outdated, and many parts are not functional as of 10-11-2018. Furthermore, IVLE is migrating to luminous as of 2019, thus if implemented with IVLE API, would require a ground up rebuild to keep the function operational.
+Cons: The existing IVLE API is outdated, many parts are not functional as of 10-11-2018. Furthermore, IVLE is migrating to luminous as of 2019, thus if implemented with IVLE API, it would require a ground up rebuild to keep the function operational.
 // end::downloadCommands[]
 
 // tag::showNotesCommand[]
+
 === ShowNotes Command
 ShowNotes recursively searches the `Notes` folder created by `DownloadNotes` Command.
 
 ==== Current Implementation
 A static String is used to store all the information `notesResult`.
 
-The files are differentiated by 2 catagories: Directories and Others. If `currentFile` is a directory, a recursive call will be made and the directory name and _N_ tabs would be added to `notesResult` , else just the file name and _N_ tabs would be apprended to the file name and added to ` notesResult`.
+The files are differentiated by 2 catagories: Directories and Others. If `currentFile` is a directory, a recursive call will be made and the directory name appended with _N_ tabs would be added to `notesResult` , else, just the file name and _N_ tabs would be apprended and added to ` notesResult`.
 
 [NOTE]
 _N_ refers to the number of recursive calls made up till the point of arriving at `currentFile`.
@@ -1042,12 +1036,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `NSync` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -1055,9 +1047,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  NSync shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  NSync deletes the person
 +
 Use case ends.
 
@@ -1071,12 +1063,115 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. NSync shows an error message.
 +
 Use case resumes at step 2.
+[discrete]
+=== Use case: Delete Selected notes
 
-_{More to be added}_
+*MSS*
 
+1.  User requests to show all notes
+2.  NSync shows a list of notes
+3.  User requests to delete a specific module's notes
+4.  NSync deletes the notes
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given request is invalid.
++
+[none]
+** 3a1. NSync shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete Multiple Selected notes
+
+*MSS*
+
+1.  User requests to show all notes
+2.  NSync shows a list of notes
+3.  User requests to delete a multiples module's notes
+4.  NSync deletes the notes
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given request is invalid.
++
+[none]
+** 3a1. NSync shows an error message.
++
+Use case resumes at step 1.
+
+* 3b. The given request is partially valid.
++
+[none]
+** 3b1. NSync processes only the valid requests.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Delete all notes
+
+*MSS*
+
+1.  User requests delete all downloaded notes
+2.  NSync deletes all notes
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no downloaded notes is empty.
++
+[none]
+** 2a1. NSync still runs to ensure that all notes are deleted.
++
+Use case ends.
+
+[discrete]
+=== Use case: Download select notes
+
+*MSS*
+
+1. User request all the available files to download
+2. NSync displays all available files to download with index appended at the front of the file name.
+3. User request download based on file index
+4. NSync downloads files and stores it in the `notes` folder.
+
+*Extensions*
+
+[none]
+* 2a. No files to display
++
+[none]
+** 2a1. NSync displays empty list.
+** 2a2. Use case ends
+
+[none]
+* 3a. User requests an invalid file index
++
+[none]
+** 3a1. NSync does not download invalid file
+** 3a2. Use case ends.
+
+[discrete]
 === Use case: Merge people
 
 *MSS*
@@ -1106,21 +1201,21 @@ Use case resumes at step 2.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should work on any Windows OS as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
+.  To fully make use of downloading notes commands, the user has to have the Google Chrome web browser installed on his computer, and also be an <<IVLE, IVLE>> user in <<NUS, NUS>>.
 _{More to be added}_
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
 [[IVLE]] IVLE::
 According to the National University of Singapore, Integrated Virtual Learning Environment (IVLE) is a NUS' custom designed and built Learning Management System
 for the NUS community. It is designed to facilitate and supplement teaching at the National University of Singapore (NUS).
+
+[[NUS]] NUS::
+The National University of Singapore (NUS) is an autonomous research university in Singapore.
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
@@ -1128,20 +1223,32 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*: N*Sync
-
-Author: W12-2
+*Product Name*: Google Contacts
 
 Pros:
 
-* Students are currently able to type in their module code, and the relevant timeslots pertaining to all the different
- types of lessons (e.g. lectures, tutorials, lab sessions, etc) will be displayed.
-* Students do not have to go to IVLE to retrieve the timing of the various classes for a module.
+* The user is able to have all his contacts automatically synced across multiple devices.
+* The user's contacts will automatically be transferred over to a new device, if he logs in to his google account on it.
+
 
 Cons:
 
-* Students have to manually select their relevant lecture/tutorial/lab sessions by clicking via several steps.
-* Students' timetable on NUSMods is not as easily transferrable across different devices.
+* The user is unable to have a consolidated list of timetables for all his contacts.
+* The user is also unable to access <<IVLE, IVLE>> and download his notes using Google Contacts.
+
+*Product Name*: NUSMods
+
+Pros:
+
+* The user is able to all his enrolled modules, and create a visually appealing timetable quickly.
+* The timeslots are retrieved from directly from <<NUS, NUS>>, which allows the user to rest assured that his timetable
+is accurate.
+
+
+Cons:
+
+* The user is unable to have a consolidated list of timetables for all his contacts.
+* The user is also unable to access <<IVLE, IVLE>> and download his notes using Google Contacts.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1180,14 +1287,88 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting downloaded notes
 
-. Because downloading notes have been disallowed by NUS, testers have to manually create notes and delete them.
-oscar is still working on this part
-create notes folder
-delete notes
+Because features which involve downloading notes have been disallowed by NUS, in order to test deleting notes,
+testers have to manually create notes and delete them.  However, because this is not how NSync was designed to work,
+testers have to restart NSync every time they manually create and delete notes within NSync, in order for NSync to
+behave correctly.
+
+. Deleting selected notes
+
+.. Prerequisites: Before starting NSync, go to the directory the .jar file is in.  Create a directory titled "notes".
+    Within the newly created
+    "notes" directory, create 5 separate directories titled "CS2101", "CS2113", "GEQ1000", "GER1000", "ST2334".
+     It is up to the tester if he wants to create documents or subdirectories within any of the newly created 5
+     directories, in order to simulate actual notes being stored within the directories.
+.. Test case: `deleteSelectNotes ST2334` +
+   Expected: The directory "ST2334" and its contents are deleted from the "notes" directory.
+    "ST2334" will be shown in the first line of the status message, which shows the notes that have been deleted.
+    In the second line of the status message, which shows the entries that are invalid, it will not contain any elements,
+    as "ST2334" is a valid entry. +
+    Timestamp in the status bar is not updated, as this command does
+    not modify the addressBook.
+.. Test case: `deleteSelectNotes ger1000 geq1000` +
+   Expected: No notes are deleted.
+    Expected: No notes are deleted.  Error details suggesting for the user to run `showNotes` is displayed. Timestamp
+   in the status bar is not updated.  This is because only invalid entries are entered, and the entries are case-sensitive.
+    Timestamp in the status bar is not updated, as this command does
+    not modify the addressBook portion of NSync.
+.. Test case: `deleteSelectNotes GER1000 GEQ1000` +
+   Expected: The directories "GER1000" and "GEQ1000" and their contents are deleted from the "notes" directory.
+    "GEQ1000" and "GER1000" will be shown in the first line of the status message, which shows the notes that
+    have been deleted.
+    In the second line of the status message, which shows the entries that are invalid, it will not contain any elements,
+    as "GEQ1000" and "GER1000" are valid entries. +
+    Timestamp in the status bar is not updated, as this command does
+    not modify the addressBook portion of NSync.
+.. Test case: `deleteSelectNotes CS ST2334` +
+   Expected: The directories "CS2101" and "CS2113" and their contents are deleted from the "notes" directory.
+    "CS2101" and "CS2113" will be shown in the first line of the status message, which shows the notes that
+    have been deleted.
+    In the second line of the status message, which shows the entries that are invalid, "ST2334" will be shown.
+    This is because "ST2334" has been previously deleted and should no longer exist in the NSync.+
+    Timestamp in the status bar is not updated, as this command does
+    not modify the addressBook portion of NSync.
+.. Test case: `deleteSelectNotes CS ST2334` +
+   Expected: No notes are deleted.  Error details suggesting for the user to run `showNotes` is displayed. Timestamp
+   in the status bar is not updated.  This is because only invalid entries are entered.
+.. Test case: `deleteSelectNotes` +
+   Expected: No notes are deleted.  Error details are shown in the status message.  Timestamp remains unchanged.
+
+. Clearing notes
+
+.. Prerequisites: Before starting NSync, go to the directory the .jar file is in.  Create a directory titled "notes".
+    Within the newly created
+    "notes" directory, create 5 separate directories titled "CS2101", "CS2113", "GEQ1000", "GER1000", "ST2334".
+     It is up to the tester if he wants to create documents or subdirectories within any of the newly created 5
+     directories, in order to simulate actual notes being stored within the directories.
+.. Test case: `clearNotes` +
+   Expected: All files and directories in the "notes" folder will be cleared.  This only excludes hidden bookkeeping files
+     created by the user's operating system.  The resultant "notes" folder will be
+   empty.  The status message indicating that your notes have been cleared will be shown.  Timestamp in the status bar
+   is not updated, as this command does not modify the addressBook portion of NSync.
+.. Test case: `clearNotes` +
+   Expected: Even though the "notes" folder is empty, clearNotes will still run to ensure that it is indeed empty.
+   Timestamp in the status bar is not updated, as this command does not modify the addressBook portion of NSync.
 
 [NOTE]
-====
-* The folders that N*Sync saves your notes into are
+Both `deleteAllNotes` and `clearNotes` commands are designed to work with `downloadAllNotes` and `downloadSelectNotes`
+commands.  Using the download commands, notes will be downloaded into the "notes" directory, and automatically, neatly
+stored in a subdirectory within the "notes" directory.  The name of the subdirectory is the typical module codes of
+modules in NUS. This is made possible by the API used for the download notes commands, as well as the module code parser
+built into NSync.  The result is that all names of subdirectories will be the module code only e.g. "CS2100" and not
+"CS2100 Introduction to Computer Organisation".
+
+
+=== Download Commands
+
+[NOTE]
+The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
+
+However, if desired, the function can be manually enabled by changing the state of `isDownloadDisabled` in `DownloadAbstract.java`.
+
+=== ShowNotes Command
+
+Since the download function has been disabled, testers can create a `notes` folder in the directory of the jar file and fill it with items. The ShowNotes command will display it accordingly
 
 ====
 

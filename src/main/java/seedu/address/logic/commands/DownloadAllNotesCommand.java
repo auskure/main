@@ -62,30 +62,29 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
             driver.close();
             throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
         }
-        if (isModuleExisting(driver)) {
-            /**
-             * Updated to disable download operations.
-             */
-
-            if (isDownloadDisabled) {
-
-                driver.close();
-                return new CommandResult(Messages.MESSAGE_DOWNLOAD_DISABLED);
-            }
-            initializeDownloadFolder();
-            downloadFiles(driver);
-            try {
-                dynamicWaiting();
-            } catch (InterruptedException ie) {
-                throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
-            }
+        if (!isModuleExisting(driver)) {
             driver.close();
-            model.addNotes(COMMAND_WORD, moduleCode);
-            return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
-                    + downloadPath);
+            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
+        }
+        /**
+         * Updated to disable download operations, if isDownloadDisabled==true.
+         * Function will not proceed after this if statement.
+         */
+        if (isDownloadDisabled) {
+            driver.close();
+            return new CommandResult(Messages.MESSAGE_DOWNLOAD_DISABLED);
+        }
+        initializeDownloadFolder();
+        downloadFiles(driver);
+        try {
+            dynamicWaiting();
+        } catch (InterruptedException ie) {
+            throw new CommandException(Messages.MESSAGE_DYNAMIC_WAITING_INTERRUPTED);
         }
         driver.close();
-        throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
+        model.addNotes(COMMAND_WORD, moduleCode);
+        return new CommandResult(moduleCode + Messages.MESSAGE_DOWNLOAD_SUCCESS
+                + downloadPath);
     }
 
     /**
