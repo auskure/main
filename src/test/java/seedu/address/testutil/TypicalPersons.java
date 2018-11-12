@@ -11,10 +11,21 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.enrolledmodule.EnrolledModule;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.TimeSlots;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -22,41 +33,41 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person SELF = new PersonBuilder().withName("Self")
-            .withAddress("self").withEmail("self@self")
-            .withPhone("000")
-            .withTags("self").build();
+        .withAddress("self").withEmail("self@self")
+        .withPhone("000")
+        .withTags("self").build();
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
-            .withTimeslots().build();
+        .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+        .withPhone("94351253")
+        .withTimeslots().build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
-            .withEnrolledModules("CS2101", "CS2113T")
-            .withTimeslots().build();
+        .withAddress("311, Clementi Ave 2, #02-25")
+        .withEmail("johnd@example.com").withPhone("98765432")
+        .withEnrolledModules("CS2101", "CS2113T")
+        .withTimeslots().build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").withTimeslots().build();
+        .withEmail("heinz@example.com").withAddress("wall street").withTimeslots().build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTimeslots().build();
+        .withEmail("cornelia@example.com").withAddress("10th street").withTimeslots().build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").withTimeslots().build();
+        .withEmail("werner@example.com").withAddress("michegan ave").withTimeslots().build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withTimeslots().build();
+        .withEmail("lydia@example.com").withAddress("little tokyo").withTimeslots().build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").withTimeslots().build();
+        .withEmail("anna@example.com").withAddress("4th street").withTimeslots().build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").withTimeslots().build();
+        .withEmail("stefan@example.com").withAddress("little india").withTimeslots().build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").withTimeslots().build();
+        .withEmail("hans@example.com").withAddress("chicago ave").withTimeslots().build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).build();
+        .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-            .build();
+        .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -77,5 +88,22 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static AddressBook getFreeAddressBook() {
+        AddressBook ab = new AddressBook();
+        Set<Tag> tagSet = new HashSet<>();
+        tagSet.add(new Tag("friends"));
+        tagSet.add(new Tag("owesMoney"));
+        Map<String, EnrolledModule> enrolledMap = new TreeMap<>();
+        enrolledMap.put("CS2101", new EnrolledModule("CS2101"));
+        enrolledMap.put("CS2113T", new EnrolledModule("CS2113T"));
+
+        Person p = new Person(new Name("John Doe"), new Phone("98765432"), new Email("johnd@example.com"),
+            new Address("311, Clementi Ave 2, #02-25"), tagSet, enrolledMap, TimeSlots.initTimeSlots());
+
+        ab.addPerson(p);
+        ab.setSelf();
+        return ab;
     }
 }

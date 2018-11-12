@@ -80,12 +80,12 @@ public class FileUtil {
     }
 
     /**
-     * Returns a string that does not include "/"
+     * Returns a string that does not include a DIRECTORY_INDICATOR
      *
      * @param name A string representing a folder/file name, and hence, should not have "/" within the name
      */
     public static String cleanName(String name) {
-        if (!name.contains("/")) {
+        if (!name.contains(DIRECTORY_INDICATOR)) {
             return name;
         }
         return name.substring(name.lastIndexOf(DIRECTORY_INDICATOR) + STRING_SECOND_INDEX);
@@ -98,7 +98,7 @@ public class FileUtil {
      *             module title.  They are always separated by a " ".
      */
     public static String cleanModuleCode(String name) {
-        if (!name.contains(" ")) {
+        if (!name.contains(SPACE)) {
             return name;
         }
         return name.substring(STRING_START_INDEX, name.indexOf(SPACE));
@@ -121,9 +121,13 @@ public class FileUtil {
      * @throws IOException if the directory cannot be created.
      */
     public static void createDirectoryIfMissing(Path directory) throws IOException {
-        if (!isDirectoryExists(directory)) {
-            createDirectory(directory);
+        if (isDirectoryExists(directory)) {
+            return;
         }
+        if (Files.exists(directory)) {
+            return;
+        }
+        Files.createDirectory(directory);
     }
 
     /**
@@ -137,17 +141,6 @@ public class FileUtil {
         createParentDirsOfFile(file);
 
         Files.createFile(file);
-    }
-
-    /**
-     * Creates a directory if it does not exist.
-     */
-    public static void createDirectory(Path directory) throws IOException {
-        if (Files.exists(directory)) {
-            return;
-        }
-
-        Files.createDirectory(directory);
     }
 
     /**

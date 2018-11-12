@@ -375,7 +375,7 @@ Want to meet up with your friends at the soonest opportunity? Or would you like 
 
 Format: `free f/[SELF/INDEX] ...`
 
-image::SampleTimeTableGYCommands.png[width="800"]
+image::SampleTimeTable.png[width="800"]
 Figure 1: Sample time-table
 
 Example 1: `free f/self` +
@@ -386,10 +386,7 @@ Example 2: `free f/1 f/7 f/9` +
 Running this command will show the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
 
 [NOTE]
-Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
-
-[NOTE]
-You can find a common free time-slot for up to 20 contacts <to be confirmed>.
+Running this command outside the day window of Monday to Friday or beyond the time of 8pm will return a time slot from the next weekday.
 // end::freecommand[]
 
 // tag::exportcommand[]
@@ -399,67 +396,66 @@ Format: `export PUBLIC/PRIVATE SELF/INDEX`
 
 ****
 * Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.
-* Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).
+* Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (i.e. specific contents of your time-table are hidden!).
 ****
 
 All examples shown below are with reference to the sample time-table shown in Figure 1 above.
 
 Example 1: `export public self` +
-The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), as seen in Figure 2 below.
-
-image::ExportPublic.png[width="800"]
-Figure 2: What the user who imports will see (public view)
+The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), exactly as shown in Figure 1 above.
 
 Example 2: `export private self` +
-The importing user will see only the free and busy time-slots in your time-table, as seen in Figure 3 below.
+The importing user will see only the busy and free time-slots in your time-table, marked as black and white colored slots respectively, as seen in Figure 2 below.
 
-image::ExportPrivate.png[width="800"]
-Figure 3: What the user who imports will see (private view)
+image::ExportPrivateView.png[width="800"]
+Figure 2: What the user who imports will see (private view)
 
 [TIP]
-The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow NSync user who will import it.
 
 [NOTE]
-Exporting more than 1 user's details at a time is currently not available (but will be implemented in future releases!)
+Exporting more than 1 user's details at a time or exporting a merged time-table is currently not available (but will be implemented in future releases!).
 // end::exportcommand[]
 
 // tag::importcommand[]
 ==== Import user data: `import`
 
-Did you receive an encoded string from a NSync contact? Use `import` to transfer all of the data within the string into your copy of NSync! +
-Format: `import ENCODED_STRING`
+Did you receive an encoded string from a fellow NSync user? Use `import` to transfer all of the data within the string into your copy of NSync! +
+Format: `import [PASTE_YOUR_ENCODED_STRING_HERE]`
 
-Example 1: `import VALID_ENCODED_STRING` +
-If you have imported a valid string, all of the imported user's details will now be found in your NSync.
+Display Message 1: Import Successful! +
+If you have imported a valid contact who is currently not in your NSync (i.e. no contact with the same name), all of the imported user's details will now be found in your NSync.
 
 [NOTE]
-If the time-table that is imported shows only black and white colored entries, it means that the exporting user has chosen the `private` option during the `export` process. See `export` for more details.
+If you see only black and white colored slots in the time-table of the imported contact, it means that the exporting user has chosen the `private` option during the `export` process. See `export` for more details.
+
+Display Message 2: Import Successful! An existing contact has been found in NSync and has been overwritten. +
+If you have imported a valid contact who is currently already in your NSync (i.e. contact with the same name), all of the details found in the imported string will overwrite the existing ones found in your NSync, for that particular contact.
 
 [TIP]
-Importing a contact with the same name as another contact in your NSync will result in the imported data over-writing all of the existing details of the contact!
+If you have unintentionally over-written the details of an existing contact, use `undo` to get back the original details of the contact!
 
-Example 2: `import INVALID_ENCODED_STRING` +
+Display Message 3: Import Failed! +
 If you have missed out a character, or accidentally modified one of the characters in the string, attempting to import the invalid string will result in an error displayed. Please obtain a valid string from the contact who passed it to you.
 // end::importcommand[]
 
 // tag::downloadCommands[]
 === Notes Commands
-****
+
 [NOTE]
 The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
 
-Users are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
-****
+You are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
 
-'''
+You will need Google Chrome and run a Windows operating system for this function to work.You will also need to be connected to the internet.
+
+
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
-'''
 
-Downloads the your notes from IVLE, and stores them in the folder "notes" +
-Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
+Downloads the your notes from IVLE, and stores them in the folder "Notes" +
+Format: `downloadAllNotes downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
-[TIP]
-You do not have to Enter the full module code or worry about the capitalization.
+
 
 [NOTE]
 You would need to have Google Chrome installed in the default location in order to execute this command.
@@ -467,45 +463,44 @@ You would need to have Google Chrome installed in the default location in order 
 You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
 
 
-****
-image::downloadExample.PNG[width="900"]
+
+image::downloadExample.PNG[width="600"]
 Example `DownloadAllNotes` command usage.
-****
+
 
 * Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
 of the specified module.
 
-* if an incomplete module code is entered, it will select the a module that matches it the most
+[TIP]
+You do not have to Enter the full module code or worry about the capitalization. Example: if you are enrolled in `CS2113` and `CS2101` entering `mod/cs21` will select `cs2101`
 
-    Example: if you are enrolled in `CS2113` and `cs2101` entering `mod/cs21` will select `cs2101`
+* You may notice a new window of Google Chrome opening up. Do not interact with it or you might interfere with the download.
 
-* You may notice a new window of Google Chrome opening up.  Please refrain from interferring with the automated process.
-
-image::chromeOpen.PNG[width="250"align="center"]
+image::chromeOpen.PNG[width="100"align="center"]
 
 * NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.
 
-* If the process is successful, the result window of NSync will display the exact path to your newly downloaded notes.
-****
+* If your download is successful, the result window of NSync will display the exact path to your newly downloaded notes.
+
 
 Examples and what you might expect :
 
 _Download Successful :_
 
-image::downloadAllSuccessful.PNG[width="900"]
+image::downloadAllSuccessful.PNG[width="600"]
 
 _Module not found :_
 
-image::downloadModNotFound.PNG[width="900"]
+image::downloadModNotFound.PNG[width="600"]
 
 _Password or username Incorrect :_
 
-image::downloadPasswordOrUsernameWrong.PNG[width="900"]
-****
+image::downloadPasswordOrUsernameWrong.PNG[width="600"]
 
-'''
+
 ==== Display all notes from a selected module from IVLE : `downloadSelectNotes` without prefix `"file/"`
-'''
+
+
 Displays all the available notes of a selected +
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
@@ -513,54 +508,45 @@ Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENRO
 Currently the files are not sorted in any order. In a future version we will make its sorted by file type
 
 
-****
-image::downloadSelectFileExample.PNG[width="900"]
+
+image::downloadSelectFileExample.PNG[width="600"]
 Example `DownloadSelectFile` *without* `file/` prefix usage
-****
+
 
 * All available notes from the selected module would be sourced and displayed
 
 * if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information
-****
+
+
 Examples and what you might expect :
 
 
 _File Fetch Successful :_
 
-image::downloadSelectFileSuccess1.PNG[width="900"]
-image::downloadSelectFileSuccess2.PNG[width="900"]
+image::downloadSelectFileSuccess1.PNG[width="600"]
+image::downloadSelectFileSuccess2.PNG[width="600"]
 
 [NOTE]
-the number on the left of the file represents the file ID, it is static.
-
-    Example: "0:LP41_More_UML_Inheritence.pptx"
+the number on the left of the file represents the file ID, it is static.  Example: _"0:LP41_More_UML_Inheritence.pptx"_
     0 is the file index.
 
 
-_Module not found :_
 
-image::downloadModNotFound.PNG[width="900"]
 
-_Password or username Incorrect :_
-
-image::downloadPasswordOrUsernameWrong.PNG[width="900"]
-****
-
-'''
 ==== Downloading selective notes from a selected module from IVLE : `downloadSelectNotes` with prefix `"file/"`
-'''
+
 Download a selective number of notes from IVLE, and stores them in the folder "notes".
 
 Format: `downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2...n]`
 
 [TIP]
-Use `downloadSelectFile` without the `file\` prefix to obtain the file IDs
+Use `downloadSelectFile` without the `file\` prefix to obtain the file indexes.
 
-****
 
-image::downloadSelectExample.PNG[width="900"]
+
+image::downloadSelectExample.PNG[width="600"]
 Example `DownloadSelectFile` *with* `file/` prefix usage
-****
+
 
 * The files would be downloaded one by one from IVLE to your "notes" folder.
 
@@ -569,26 +555,26 @@ Example `DownloadSelectFile` *with* `file/` prefix usage
     Example: file/0,1,2,90000000,3
     if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.
 
-****
+
 Examples and what you might expect :
 
 _Download Successful :_
 
-image::downloadSelectSuccess.PNG[width="900"]
+image::downloadSelectSuccess.PNG[width="600"]
 
 *_File* not found :_
 
-image::downloadSelectFileNotFound.PNG[width="900"]
+image::downloadSelectFileNotFound.PNG[width="600"]
 
-****
+
 
 // end::downloadCommands[]
 
 // tag::showNotesCommand[]
 
-'''
+
 ==== Show all downloaded notes: `showNotes`
-'''
+
 
 Displays all the downloaded notes in the UI +
 Format: `showNotes`
@@ -597,14 +583,14 @@ Format: `showNotes`
 the files are displayed in the order that it is in your directory
 
 * It recursively searches your `notes` folder and displays all the files available
-****
+
 Examples of usage:
 
-image::showNotes1.PNG[width="900"]
-image::showNotes2.PNG[width="900"]
-image::showNotes3.PNG[width="900"]
+image::showNotes1.PNG[width="600"]
+image::showNotes2.PNG[width="600"]
+image::showNotes3.PNG[width="600"]
 
-****
+
 
 // end::showNotesCommand[]
 
@@ -651,10 +637,29 @@ belonging to "CS2106" would be deleted.
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-Coming to you soon!
+NSync will automatically encrypt your data upon exiting the program. +
+Before exiting, NSync will prompt you for a password, which it uses to encrypt your data. +
+Upon start up, NSync will prompt you for the same password, which it uses to decrypt your data.
+
+****
+* Searches ST's friends for the same module code
+* Parses the information and displays it as a list
+****
+
+[NOTE]
+NSync will only encrypt you data if you enter a password when prompted upon exit.  If no password is entered, NSync
+will not encrypt your data
+
 // end::dataencryption[]
 
-=== Display of notes in the User interface upon download `[coming in v2.0]`
+=== Display of notes in the Graphical User interface upon download `[coming in v2.0]`
+
+NSync will automatically display your notes, after the download has completed. +
+This allows you to have an immediate idea of exactly what you downloaded.
+
+Example:
+
+image::automaticallyDisplayedNotes.PNG[width="600"]
 
 == FAQ
 

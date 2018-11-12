@@ -1,3 +1,5 @@
+//@@author leegengyu
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -19,13 +21,14 @@ public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": import the person into the system.\n"
-        + "Parameters: STRING (the Base64 string)\n"
-        + "Example: " + COMMAND_WORD + " " + "rO0ABXNyACFzZWVkdS5hZGRyZXNzLm1vZGVsLnB...";
-    private static final String MESSAGE_SUCCESS = "Import successful";
-    private static final String MESSAGE_SUCCESS_OVERWRITE = "Import successful, user data is overwritten";
-    private static final String MESSAGE_FAILED = "Failed to import";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": import a contact into NSync. "
+        + "Parameters: YOUR_ENCODED_STRING\n"
+        + "Example: " + COMMAND_WORD + " " + "[PASTE_YOUR_ENCODED_STRING_HERE]";
 
+    public static final String MESSAGE_SUCCESS = "Import Successful!";
+    public static final String MESSAGE_SUCCESS_OVERWRITE = "Import Successful! "
+        + "An existing contact has been found in NSync and has been overwritten.";
+    public static final String MESSAGE_FAILED = "Import Failed!";
 
     private final String personString;
 
@@ -35,7 +38,7 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Reads the input Base64 String and serialize a person object and add it into the addressbook
+     * Reads the input Base64 String and serialize a person object and add it into NSync
      * overwrites user data if person already exists
      */
     @Override
@@ -63,6 +66,7 @@ public class ImportCommand extends Command {
      * @throws CommandException if the given Base64 string is bad and is unable to serialize an object
      */
     private Person getSerializedPerson(String s) throws CommandException {
+
         try {
             byte[] data = Base64.getDecoder().decode(s);
             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
@@ -72,11 +76,11 @@ public class ImportCommand extends Command {
             throw new CommandException(MESSAGE_FAILED);
         }
 
-
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.personString.equalsIgnoreCase(((ImportCommand) obj).personString);
+    }
 
 }
-
-
-

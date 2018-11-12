@@ -71,3 +71,4 @@ include::../DeveloperGuide.adoc[tag=mergetimetable]
 *UI Class Diagram*
 
 image::UiDeveloperGuide.png[width="500"]
+

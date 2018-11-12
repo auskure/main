@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import seedu.address.model.NotesDownloaded;
+
 /**
  * A utility class containing a list of {@code moduleCodes} objects to be used in tests.
  */
@@ -24,8 +26,11 @@ public class TypicalModuleCodes {
     public static final String CS3235_MODULE_CODE = "CS3235";
     public static final String CS5240_MODULE_CODE = "CS5240";
 
-    // Module Prefixes
+    // Module Prefix
     public static final String CS_LEVEL_2000_MODULE_CODE = "CS2";
+
+    // Uncleaned Module Code
+    public static final String CS2100_MODULE_CODE_UNLCLEANED = "CS2100 Introduction to Computer Architecture";
 
     private TypicalModuleCodes() {} // prevents instantiation
 
@@ -100,6 +105,22 @@ public class TypicalModuleCodes {
     }
 
     /**
+     * Returns a {@code Set<String>} with three typical moduleCodes.
+     */
+    public static Set<String> getTypicalModuleCodesWithLevel2000ComputerScienceModulePrefix() {
+        Set<String> mc = new TreeSet<>();
+        mc.add(CS2100_MODULE_CODE);
+        mc.add(CS2101_MODULE_CODE);
+        mc.add(CS2102_MODULE_CODE);
+        mc.add(CS2103_MODULE_CODE);
+        mc.add(CS2104_MODULE_CODE);
+        mc.add(CS2105_MODULE_CODE);
+        mc.add(CS2106_MODULE_CODE);
+        mc.add(CS2107_MODULE_CODE);
+        return mc;
+    }
+
+    /**
      * Returns a {@code Set<String>} with three moduleCodes not typically in the set
      * returned by {@code getAllTypicalCodes}.
      */
@@ -135,6 +156,29 @@ public class TypicalModuleCodes {
             mc.add(notes);
         }
         return mc;
+    }
+
+    /**
+     * Returns an {@code NotesDownloaded} with all the typical notes downloaded.
+     */
+    public static NotesDownloaded getTypicalNotesDownloaded() {
+        NotesDownloaded nd = new NotesDownloaded();
+        for (String notes : getAllTypicalCodes()) {
+            nd.addNotes(notes);
+        }
+        return nd;
+    }
+
+    /**
+     * Returns an {@code NotesDownloaded} with all the notes that are not typically in the
+     * set returned by {@code getTypicalNotesDownloaded}.
+     */
+    public static NotesDownloaded getDifferentNotesDownloaded() {
+        NotesDownloaded nd = new NotesDownloaded();
+        for (String notes : getAllDifferentCodes()) {
+            nd.addNotes(notes);
+        }
+        return nd;
     }
 
     public static List<String> getAllTypicalCodes() {
