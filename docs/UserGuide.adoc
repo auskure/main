@@ -94,18 +94,21 @@ Adds a person to the address book +
 Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...[em/ENROLLED MODULE]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+If you somehow lose your self contact, you can create a new one by adding t/self to your add command. Adding any
+other tag will not have any effect on the contact created.
 
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal em/CS2113T`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 em/CS2113T`
+* `add n/Self t/self e/bart@example.com a/Jurong East Street 52 p/92131921`
 
 [NOTE]
 Contacts in this addressbook are automatically sorted in alphabetical order
 
 [NOTE]
-Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently work
+Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently
+work
 
 ==== Listing all persons : `list`
 
@@ -115,24 +118,23 @@ Format: `list`
 ==== Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [em/ENROLLED MODULE]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [em/ENROLLED MODULE]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags and enrolled modules, the existing tags and enrolled modules of the person will be removed
-i.e adding of tags and enrolled modules is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 * Likewise, you can remove all the person's enrolled modules by typing `em/` without specifying any enrolled modules after it.
+i.e adding of enrolled modules is not cumulative.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 2 n/Betsy Crower` +
+Edits the name of the 2nd person to be `Betsy Crower`.
 * `edit 3 n/Esther Daniels em/` +
 Edits the name of the 3rd person to be `Esther Daniels` and clears all existing enrolled modules.
 
@@ -147,14 +149,17 @@ Format: `find MAIN/MERGED KEYWORD [MORE_KEYWORDS]`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Choosing MAIN will let you search in the individuals contact list while choosing Merged will let you searchi in the
+ groups contact list.
+ * Choosing of MAIN/MERGED is not case sensitive.
 ****
 
 Examples:
 
 * `find main John` +
 Returns `john` and `John Doe` from the main contact list
-* `find merged Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John` from the merged contact list
+* `find merged CS2113 CS2101` +
+Returns any groups having names `CS2113` and `CS2101` from the group contact list
 
 ==== Deleting a person : `delete`
 
@@ -165,6 +170,9 @@ Format: `delete MAIN/MERGED INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Choosing MAIN will let you delete from the individuals contact list while choosing MERGED will let you delete from
+the groups contact list.
+* Choosing of MAIN/MERGED is not case sensitive.
 ****
 
 Examples:
@@ -172,9 +180,9 @@ Examples:
 * `list` +
 `delete main 2` +
 Deletes the 2nd person in the address book.
-* `find merged Betsy` +
+* `find merged CS2101` +
 `delete merged 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st group in the results of the `find` command.
 
 ==== Selecting a person : `select`
 
@@ -183,7 +191,7 @@ Format: `select INDEX`
 
 ****
 * Selects the person and <to be confirmed> at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the individuals contact list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -252,11 +260,12 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the address book and resets your self contact. +
 Format: `clear`
 
 === Timetable Commands
 
+// tag::changecommand[]
 ==== Changing Time Slots: `change`
 
 You can change your own, or a contact's timetable to reflect whether there is an activity at a specified time slot,
@@ -278,52 +287,14 @@ Changes the mon 8am time slot of the first contact in the main contact list to G
 
 Before:
 
-image::ChangeCommand1.PNG[width="800"]
+image::ChangeCommand1.PNG[width="400"]
 
 After:
 
-image::ChangeCommand2.PNG[width="800"]
+image::ChangeCommand2.PNG[width="400"]
+// end::changecommand[]
 
-==== Sharing timetables `share`
-
-You can select a person whose timetable you would like to share. This outputs the text that you would input into the
-change command to get that timetable and copies it to your clipboard automatically. You can either choose to share a
-public or private version of the timetable.
-
-Public:
-
-image::ShareCommand1.PNG[width="800"]
-
-Private:
-
-image::ShareCommand2.PNG[width="800"]
-
-Format: `share INDEX PRIVACY`
-****
-* Shares the timetable of the person at the selected INDEX.
-* PRIVACY can be either public or private.
-* To import a timetable shared with you, use `change INDEX [TEXT COPIED TO CLIPBOARD]`. Timetable will be imported to
- the person at the selected INDEX.
-****
-
-`share private 1`
-
-Outputs the private version of your first contact's timetable in the form of text. Copies this text to your keyboard.
-
-image::ShareCommand1.PNG[width="800"]
-
-Gives an output of:
-
-image::ShareCommandOutput.PNG[width="800"]
-
-Entering
-`change 1 [TEXT COPIED TO CLIPBOARD]`
-
-Changes the timetable of your first contact to the timetable that was shared. This results in:
-
-image::ShareCommand2.PNG[width="800"]
-
-
+// tag::mergecommand[]
 ==== Merging timetables: `merge`
 
 You can select multiple contacts whose timetables you would like to merge and give it a group name. This displays a
@@ -342,49 +313,69 @@ Format: `merge m/INDEX m/INDEX...`
 `merge m/2 m/3 m/4 n/CS2101 Project` +
 Merges your own timetable with the 2nd, 3rd and 4th people in the address book.
 
-image::MergeCommandSelf.PNG[width="800"]
+image::MergeCommandSelf.PNG[width="400"]
+image::MergeCommandUser1.PNG[width="400"]
 
-+
 
-image::MergeCommandUser1.PNG[width="800"]
-+
+image::MergeCommandUser2.PNG[width="400"]
 
-image::MergeCommandUser2.PNG[width="800"]
 
-+
 
-image::MergeCommandUser3.PNG[width="800"]
+image::MergeCommandUser3.PNG[width="400"]
 
 merges into
 
-image::MergeCommandGroup.PNG[width="800"]
+image::MergeCommandGroup.PNG[width="400"]
 
 The merged timetable will be added to the list of groups
 
 image::MergeCommandList.PNG[width="800"]
+// end::mergecommand[]
 
-==== Filters contacts based on free time slots and modules taken: `filter`
+// tag::updatecommand[]
+==== Updating group timetables: `update`
 
-You can select a time slot or module you would like to filter your contacts by. Time slot filtering filters out
-people who are busy at the selected time slot. Module filtering filters out people who do not take the module.
+You can automatically update your group timetables based on whatever changes have been made to your contacts'
+timetables.
 
-Format: `filter MODULE CODE/DAY TIME...`
+Format: `update`
+****
+* If a contact who belongs in one of your groups is deleted, update will show who was deleted and which groups were
+affeccted in addition to updating the group timetables.
+****
+
+// tag::updatecommand[]
+
+// tag::filtercommand[]
+==== Filters contacts based on free time slots and activities: `filter`
+
+You can select a time slot or activity you would like to filter your contacts by. Time slot filtering filters out
+people who are busy at the selected time slot. Activity filtering filters out people who do not have the activity in
+their timetable or does not have the module in their enrolled modules if the activity is a module taken.
+
+Format: `filter ACTIVITY /DAY TIME...`
 ****
 * Entering a module code removes contacts without the module from the list.
 * Entering a day and time removes contacts without that time slot free.
 * Day must be mon, tue, wed, thu or fri.
+* Only inputs after a valid day will be treated as a time. Every other input gets treated as an activity.
 * Time must be 8am, 9am, 10am, 11am, 12am, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm or 7pm.
-* Contacts can be filtered by more than one module/day and time.
+* Contacts can be filtered by more than one activity/day and time.
+* Filter feature is not case sensitive.
 ****
 
 `filter GER1000` +
 Shows only contacts who have GER1000 in the timetable.
+
+`filter run` +
+Shows only contacts who have run in their timetable.
 
 `filter mon 10am` +
 Shows only contacts who are free at mon 10am.
 
 `filter GER1000 mon 10 am` +
 Shows only contacts who have GER1000 in their timetable and are free at mon 10am.
+// end::filtercommand[]
 
 // tag::freecommand[]
 ==== Filters for next free time slot: `free`

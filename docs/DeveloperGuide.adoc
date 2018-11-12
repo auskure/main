@@ -163,11 +163,13 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiDeveloperGuide.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+`StatusBarFooter`, `MergedTimetablePanel` etc. All these, including the `MainWindow`, inherit from the abstract
+`UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -201,7 +203,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::modelDeveloperGuide.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -323,60 +325,160 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::changetimeslot[]
+=== Change Time Slot Feature
+==== Current Implementation
+The change time slot feature allows users to edit the timetables of the contacts in their address book. The user
+inputs the index of the contact whose timetable they would like to edit, the day and time of the time slot they want
+to edit, and the activity they would like to put in that time slot.
+
+Given below is an example a usage scenario and how the change mechanism behaves at each step.
+
+Step 1. The user inputs the index, day, time and activity. `The ChangeTimeSlotCommandParser` puts them into an array
+`activities` and checks to ensure that all the inputs are present and the inputs are in the correct format. Any
+incorrectly formatted input will result in a `ParseException` being thrown. It then calls the `ChangeTimeSlotCommand`
+ with the first element of `activities` as the `index` and `activities` as arguments.
+
+image::ChangeTimeslot1.PNG[width="800"]
+
+Step 2. The `ChangeTimeSlotCommand` uses the index to get the `Person`, `personToChange` whose timetable is supposed to
+be changed. It then calls `createNewUpdatedTimetable` with the timetable of `personToChange` copy of their timetable is
+made. This method iterates through `activities` and gets the day time and
+activity by checking their position in the array. The time slot to be changed is retrieved based on the selected `Person`, day and time.
+It then checks to see if the activity at the selected time slot is the same as the one it is supposed to be changed to. If it is, it is
+ignored. If it is not, the time slot in the copied timetable is changed and a Boolean variable `didTimetableChange` is
+set to true.
+
+image::ChangeTimeslot2.PNG[width="800"]
+
+Step 3. Once `activities` has been fully iterated through, a new `Person` `newPerson` is created with all the same
+identity fields of `personToChange`, except for the timetable which is the changed timetable.
+
+image::ChangeTimeslot3.PNG[width="800"]
+
+Step 4. `newPerson` replaces `personToChange` in the `AddressBook`.
+
+image::ChangeTimeslot4.PNG[width="800"]
+
+The following sequence diagram shows how the `change` function works.
+
+image::ChangeTimeslot5.PNG[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How change executes
+* **Alternative 1 (current choice):** Create a copy of the timetable to change and then create a new `Person` with
+the same identity fields as the `person` to change with the changed timetable and replacing the `person` to change with
+this new `Person`.
+** Pros: Prevents a bugs caused by user inputting the same change to a time slot twice in the same input which
+results in the application stating that no time slot was changed even though a time slot is changed.
+** Cons: Takes more processes making it a little slower.
+* **Alternative 2 :** Directly change the timetable of the `person` to change.
+** Pros: Takes less processes making it a little faster.
+** Cons: Might result in aforementioned bug.
+// end::changetimeslot[]
+
 
 // tag::mergetimetable[]
 === Merge Timetable Feature
 ==== Current Implementation
 The merge feature allows for users to select multiple contacts and outputs a merged timetable with all
-their common free slots. When the user inputs the indexes of the contacts he wants to merge, the `Persons` are stored
+their common free slots. When the user inputs the indexes of the contacts he wants to merge, the `Person`(s) are stored
 in an array , `personsToMerge`. The array is then iterated through, merging the all objects inside and
 outputting a final `Person` to be added to the address book.
 
 Given below is an example usage scenario and how the merge mechanism behaves at each step.
 
-Step 1. The user selects the indexes of the contacts he wants to merge. `MergeCommandParser` takes the input and puts
-it in a list, it then calls MergeCommand with the list as an argument.
+Step 1. The user selects the indexes of the contacts he wants to merge and inputs a group name. `MergeCommandParser`
+takes the indexes and puts it in a list. It then calls MergeCommand with the list and the group name as
+arguments.
 
-image::MergeCommand1.PNG[width="800"]
+image::MergeCommand1.PNG[width="200"]
 
 Step 2. The Merge Command uses the list of indexes and the `filteredPersonsList` to create and fill the array
-`personsToMerge`.
+`personsToMerge`. Your own contact, `Person` with "self" `Tag` is always added to the array.
 
-image::MergeCommand2.PNG[width="800"]
+image::MergeCommand2.PNG[width="400"]
 
-Step 3. The `mergeTimetable` function is called on each element in `personsToMerge` and the element after it. The merge
-Timetable function iterates through all the time slots in both timetables and compares them.
-
-image::MergeCommand3.PNG[width="800"]
-
-Step 4. Based on whether both original time slots were free or busy, it outputs a merged free or busy time slot and
-adds it to the merged timetable
+Step 3. The `mergeTimetable` function is called on each `Person` in `personsToMerge` and the element after it. The merge
+Timetable function iterates through all the time slots in both timetables and creates a new time table based on them.
 
 image::MergeCommand4.PNG[width="800"]
 
-Step 5. The last element in the `personsToMerge` array is returned after all the iterations. This new person is added
-to the address book.
+The `Name`s of each `Person` are appended together and gets saved in the `Address` of the merged
+`Person`. The merged timetable and a "merged" `Tag` are added to the merged `Person`. The merged `Person` is also
+given a placeholder `Email` and `Phone`. "merged" `Tag` causes these `Persons`(s) to be displayed in a separate list
+in the UI.
+
+image::MergeCommand3.PNG[width="800"]
+
+Step 5. When `personsToMerge` is fully iterated through, the last
+        `Person` inside is added to the address book. If there already exists a `Person` with the same `Name`, that
+        `Person` is updated and a `CommandResult` reflecting this is shown.
 
 image::MergeCommand5.PNG[width="800"]
 
 The following sequence diagram shows how the `merge` function works.
 
+image::MergeCommand6.PNG[width="800"]
 
 ==== Design Considerations
 
 ===== Aspect: How merge executes
-* **Alternative 1 (current choice):** Create a new person with the merged timetable to add to the address book.
-** Pros: Easier to implement for testing the logic of the merge command.
-** Cons: Very clunky UI wise to have to find the added person.
-Have to manually delete the person after every merge to
-to prevent having many merged people in the contacts list.
-* **Alternative 2 (To be implemented):** Have a specific Class that has timetable and name that is updated with the
-merged timetable and names of people being merged whenever merge command is called and have a specific part of the UI
- for displaying this Class.
-** Pros: Better user experience by letting user easily see the merged timetable. Does not need manual deletion of
-contacts. Better follows Separation of Concerns Principle.
+* **Alternative 1 (current choice):** Uses a "merged" `Tag` to differentiate between merged and normal contacts. The
+merged contacts are displayed in a separate part of the UI with the placeholder `Email` and `Phone` undisplayed.
+`Address` is used to display the names of all the `Person`s merged together to create the merged `Person`.
+** Pros: Easier to implement since it does not require creating a new Class.
+** Cons: Violates SOC principles because now `Address` is used both to store addresses and names. This could lead to
+potential bugs if `Address` is changed to have different requirements to be considered valid.
+* **Alternative 2 (To be implemented in V2):** Have a specific Class that has timetable and name that is updated with
+ the merged timetable and names of people being merged.
+** Pros: Better follows Separation of Concerns Principle.
 ** Cons: Requires more time to implement.
 // end::mergetimetable[]
+
+// tag::updategrouptimetables[]
+=== Update Groups Feature
+==== Current Implementation
+The update feature allows users to update all the timetables of the merged `Person` (s) that they have. It will
+automatically update based on any changes to timetables or deletions of `Persons` (s) involved in the merge.
+
+Given below is an example usage scenario and how the merge mechanism behaves at each step.
+
+Step 1. The user inputs update. A list of `Person`(s) with "merged" `Tag` is retrieved. The list is then iterated
+through, updating each `Person` inside.
+
+image::UpdateCommand1.PNG[width="800"]
+
+Step 2. `Name` of the `Person` is saved as `groupName`. `Address` of the `Person` is tokenized and the names inside
+are used find the `Person` with that name using the same mechanism as the `find` command. If a `Person` cannot be
+found, the
+`groupName` is stored in a map of `List` s,
+`removedPersons` with name as they key. If it is found, it gets added to an array `personsToMerge`.
+
+image::UpdateCommand2.PNG[width="800"]
+
+Step 3. It then follows the same mechanism as the `merge` function to update the merged `Person`. If removedPersons
+is not empty, it returns a `CommandResult` showing the `Person`(s) removed and the affected merged `Person`(s)
+
+image::UpdateCommand3.PNG[width="800"]
+
+The following sequence diagram shows how the `update` function works.
+
+image::UpdateCommand4.PNG[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How update executes
+* **Alternative 1 (current choice):** Updates when called by the user and gets the people who are part of a merged
+contact through their names at the time of merging.
+** Pros: Faster as it only needs to process when feature is used.
+** Cons: Could lead to contacts who still exist being left out during their update if their name has been edited.
+* **Alternative 2 (To be implemented in V2):** Update every time there is a relevant change ie (editing a contact's
+name, changing a contact's timetable or deleting a contact).
+** Pros: More convenience for users. Prevents bug caused by editing a contact's name and then updating.
+** Cons: A lot more processes involved which will slow down the application.
+// end::updategrouptimetables[]
 
 // tag::sortingofpersons[]
 === Sorting of contacts feature
@@ -979,6 +1081,32 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+=== Use case: Merge people
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to create a merged person from specific people in the list and enters a group name
+4.  A merged person is created and added to AddressBook
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. One or more given index is invalid.
+* 3b. Group name is already in use for another group
++
+[none]
+** 3a1. AddressBook shows an error message.
+** 3b1. Addressbook shows a message saying that group is updated instead of created
++
+Use case resumes at step 2.
 [appendix]
 == Non Functional Requirements
 
@@ -1046,9 +1174,10 @@ These instructions only provide a starting point for testers to work on; testers
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete main 1` +
+   Expected: First contact is deleted from the main contact list. Details of the deleted contact shown in the status
+   message. Timestamp in the status bar is updated.
+.. Test case: `delete main 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.

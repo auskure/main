@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_CANNOT_ADD_MERGED_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENROLLED_MODULE;
@@ -52,6 +53,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Map<String, EnrolledModule> enrolledModuleList = ParserUtil.parseEnrolledModules(
                                                         argMultimap.getAllValues(PREFIX_ENROLLED_MODULE));
+
+        for(Tag tagCheck : tagList){
+            if(tagCheck.toString().equalsIgnoreCase("[merged]")){
+                throw new ParseException(MESSAGE_CANNOT_ADD_MERGED_TAG);
+            }
+        }
 
         Person person = new Person(name, phone, email, address, tagList, enrolledModuleList, TimeSlots.initTimeSlots());
 
