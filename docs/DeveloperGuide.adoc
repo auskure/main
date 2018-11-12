@@ -435,28 +435,31 @@ potential bugs if `Address` is changed to have different requirements to be cons
 // end::mergetimetable[]
 
 // tag::updategrouptimetables[]
-=== Update Groups Feature
+=== Update Current Merged Feature
 ==== Current Implementation
-The update feature allows users to update all the timetables of the merged `Person` (s) that they have. It will
-automatically update based on any changes to timetables or deletions of `Persons` (s) involved in the merge.
+Given the scenario where a user has created a merged time-table (i.e. a `mergedPerson` / `Person` with `Tag`-merged) of several contacts (i.e. a `Person` / `Person` with no `Tag`), and one or more contacts had updated their time-tables after the merged time-table had been created, the creator of the merged time-table would previously have to delete the existing merged time-table and manually create another merged time-table to accommodate the changes in the time-table(s).
 
-Given below is an example usage scenario and how the merge mechanism behaves at each step.
+With the `update` feature, users are able to update an existing `mergedPerson`, if there are any changes to the composition of the `mergedPerson`. Such changes include the update of one or more `Person` time-tables or deletions of `Persons`(s).
 
-Step 1. The user inputs update. A list of `Person`(s) with "merged" `Tag` is retrieved. The list is then iterated
-through, updating each `Person` inside.
+Given below is an example of a scenario where `update` is used and how the `merge` mechanism behaves at each step.
+
+Step 1: +
+After the user inputs `update`, a list of `mergedPerson` is retrieved. This list (a.k.a. mergedPersonsList) is iterated through, updating each `mergedPerson` within mergedPersonsList.
 
 image::UpdateCommand1.PNG[width="400",align="center"]
+Figure : 
 
-Step 2. `Name` of the `Person` is saved as `groupName`. `Address` of the `Person` is tokenized and the names inside
-are used find the `Person` with that name using the same mechanism as the `find` command. If a `Person` cannot be
-found, the
-`groupName` is stored in a map of `List` s,
-`removedPersons` with name as they key. If it is found, it gets added to an array `personsToMerge`.
+Step 2: +
+The `Name` of each `mergedPerson` is saved as `groupName`. +
+
+To find a desired `Person` for updating within `mergedPerson`, the `Address` of each `mergedPerson` is tokenized (i.e. split up), and the desired `Person` is searched against the names within `Address`. This is the same underlying mechanism as the `find` command. +
+
+If the desired `Person` for updating is found, the `Person` is added to an array called `personsToMerge`. Else, if the desired `Person` cannot be found, both `groupName` and `mergedPerson` are stored in `removedPersons`, which is a map of arrays. To find the corresponding `mergedPerson` in `removedPersons`, use `groupName` as the key (i.e. identifier).
 
 image::UpdateCommand2.PNG[width="500",align="center"]
 
-Step 3. It then follows the same mechanism as the `merge` function to update the merged `Person`. If removedPersons
-is not empty, it returns a `CommandResult` showing the `Person`(s) removed and the affected merged `Person`(s)
+Step 3: +
+The merged `Person` is now updated, using the same underlying mechanism as the `merge` feature. If `removedPersons` is not empty, it returns a `CommandResult` showing the `Person`(s) removed and the affected merged `Person`(s).
 
 image::UpdateCommand3.PNG[width="500",align="center"]
 
@@ -467,14 +470,12 @@ image::UpdateCommand4.PNG[width="500",align="center"]
 ==== Design Considerations
 
 ===== Aspect: How update executes
-* **Alternative 1 (current choice):** Updates when called by the user and gets the people who are part of a merged
-contact through their names at the time of merging.
-** Pros: Faster as it only needs to process when feature is used.
-** Cons: Could lead to contacts who still exist being left out during their update if their name has been edited.
-* **Alternative 2 (To be implemented in V2):** Update every time there is a relevant change ie (editing a contact's
-name, changing a contact's timetable or deleting a contact).
-** Pros: More convenience for users. Prevents bug caused by editing a contact's name and then updating.
-** Cons: A lot more processes involved which will slow down the application.
+* **Alternative 1 (current choice):** Updates `mergedPerson` only when `update` is specifically executed by the user as a command. The `Person` s who are part of a `mergedPerson` are then retrieved using their names at the time of merging.
+** Pros: Faster execution time as NSync only needs to run the updating when `update` is specifically executed as a command by the user.
+** Cons: Could lead to a mis-match in information between individual `Person` s themselves, and the `mergedPerson` whom `Person` is part of. This mis-match may also persist if the `Person` 's name has been modified.
+* **Alternative 2 (To be implemented in v2.0):** Execute `update` in an under-lying call immediately whenever there is a relevant change (i.e. if a `Person` who is part of `mergedPerson` has edited their name or changed their time-table, or if a `Person` is no longer part of the `mergedPerson`).
+** Pros: Brings about more convenience for users, and it is more intuitive to them, since they have to only enter 1 command instead of 2. Prevents the bug caused by editing a `Person` 's name and then executing `update`, as mentioned under cons of current choice.
+** Cons: Overall execution time is slower if there are many `mergedPerson` s, and many `edit` s are done. This is because mergedPersonsList is iterated through each time `edit` is done, to examine each `mergedPerson` s.
 // end::updategrouptimetables[]
 
 // tag::sortingofpersons[]
