@@ -683,7 +683,7 @@ The following Sequence diagram shows how `downloadAllNotes` is handled.
 
 image::downloadAllNotesSequence.png[width="450",align="center"]
 
-Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
+Format: `downloadAllNotes downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 ===== Current Implementation
 Step 1: Extract files from Jar. Since _Selenium ChromeDriver_ requires it to be present

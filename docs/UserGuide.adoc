@@ -465,7 +465,7 @@ You will need Google Chrome and run a Windows operating system for this function
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
 
 Downloads the your notes from IVLE, and stores them in the folder "Notes" +
-Format: `downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
+Format: `downloadAllNotes downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]`
 
 
 
