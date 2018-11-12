@@ -92,6 +92,7 @@ public class ChangeTimeSlotCommand extends Command {
 
         model.updatePerson(personToChange, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         model.commitAddressBook();
 
         if (!reference.equalsIgnoreCase("self")) {
