@@ -29,28 +29,27 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
 
     public static final String MESSAGE_USAGE = "To display all available notes:" + NEWLINE_SEPARATOR + COMMAND_WORD
             + " user/(username) pass/(password) mod/(moduleCode)" + NEWLINE_SEPARATOR
-            + "To select the notes(by index):" + NEWLINE_SEPARATOR + COMMAND_WORD
+            + "To select and download the notes(by index):" + NEWLINE_SEPARATOR + COMMAND_WORD
             + " user/(username) pass/(password) mod/(moduleCode) file/0,1,2...n";
 
 
 
-    public static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
-    public static final String TREEVIEW_CLASS_ID = "TreeView";
-    public static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID = "href";
+    private static final String WORKBIN_CSS_SELECTOR_ID = "a[href^=\"/workbin\"]";
+    private static final String TREEVIEW_CLASS_ID = "TreeView";
+    private static final String FILE_DOWNLOAD_LINK_ATTRIBUTE_ID = "href";
+    private static final String FILE_INDEX_SEPARATOR = ",";
 
-    private ArrayList<Integer> fileSelect;
+    private String fileIndexInput;
+    private ArrayList<Integer> fileSelect = new ArrayList<>();
     private String availableDownloadFiles;
 
     /**
      * secondary constructor to handle execution if user enters values with the PREFIX_SELECT_FILE prefix.
      */
 
-    public DownloadSelectNotesCommand(String username, String password, String moduleCode, String fileSelectInput) {
+    public DownloadSelectNotesCommand(String username, String password, String moduleCode, String fileIndexInput) {
         super(username, password, moduleCode);
-        fileSelect = new ArrayList<>();
-        for (String id : fileSelectInput.split(",")) {
-            fileSelect.add(Integer.parseInt(id));
-        }
+        this.fileIndexInput = fileIndexInput;
     }
 
     public DownloadSelectNotesCommand(String username, String password, String moduleCode) {
@@ -59,6 +58,14 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        fileSelect = new ArrayList<>();
+        try {
+            for (String id : fileIndexInput.split(FILE_INDEX_SEPARATOR)) {
+                fileSelect.add(Integer.parseInt(id));
+            }
+        } catch (NumberFormatException nfe) {
+            throw new CommandException(Messages.MESSAGE_FILE_INDEX_ERROR + NEWLINE_SEPARATOR + MESSAGE_USAGE);
+        }
         try {
             extractFilesFromJar();
         } catch (IOException io) {
@@ -79,7 +86,7 @@ public class DownloadSelectNotesCommand extends DownloadAbstract {
         }
         if (!isLoggedIn(driver)) {
             driver.close();
-            throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+            throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR + NEWLINE_SEPARATOR + MESSAGE_USAGE);
         }
         if (!isModuleExisting(driver)) {
             driver.close();
